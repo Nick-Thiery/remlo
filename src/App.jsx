@@ -152,7 +152,7 @@ function MoreDrawer({ open, onClose }) {
 
       {/* Sheet */}
       <div
-        className={`fixed left-1/2 -translate-x-1/2 w-full max-w-[430px] top-0 bottom-[65px] bg-white z-30 overflow-y-auto transition-transform duration-300 ease-in-out ${
+        className={`fixed left-1/2 -translate-x-1/2 w-full max-w-[430px] top-0 bottom-[65px] bg-white z-[55] overflow-y-auto transition-transform duration-300 ease-in-out ${
           open ? 'translate-y-0' : 'translate-y-full'
         }`}
       >
