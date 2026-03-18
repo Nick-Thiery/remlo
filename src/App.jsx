@@ -253,24 +253,28 @@ function AppShell() {
   }, [location.pathname])
 
   return (
-    <div className="relative min-h-screen">
-      {/* Scrollable content — padded above safe-area at bottom */}
-      <div className="pb-[65px]">
-        <Routes>
-          <Route path="/"          element={<Home />}      />
-          <Route path="/savings"   element={<Savings />}   />
-          <Route path="/budget"    element={<Budget />}    />
-          <Route path="/remittance" element={<Remittance />} />
-          <Route path="/salary"    element={<Salary />}    />
-          <Route path="/loans"     element={<Loans />}     />
-          <Route path="/scams"     element={<Scams />}     />
-          <Route path="/loanshark" element={<LoanShark />} />
-          <Route path="/emergency" element={<Emergency />} />
-          <Route path="/chat"      element={<Chat />}      />
-          <Route path="/login"     element={<Login />}     />
-        </Routes>
+    <div className="bg-zinc-300 min-h-screen flex justify-center">
+      {/* Page content — overflow-x-hidden clips horizontal overflow in pages */}
+      <div className="w-full max-w-[430px] min-h-screen bg-gray-50 relative shadow-[0_0_60px_rgba(0,0,0,0.25)] overflow-x-hidden">
+        <div className="pb-[65px]">
+          <Routes>
+            <Route path="/"           element={<Home />}       />
+            <Route path="/savings"    element={<Savings />}    />
+            <Route path="/budget"     element={<Budget />}     />
+            <Route path="/remittance" element={<Remittance />} />
+            <Route path="/salary"     element={<Salary />}     />
+            <Route path="/loans"      element={<Loans />}      />
+            <Route path="/scams"      element={<Scams />}      />
+            <Route path="/loanshark"  element={<LoanShark />}  />
+            <Route path="/emergency"  element={<Emergency />}  />
+            <Route path="/chat"       element={<Chat />}       />
+            <Route path="/login"      element={<Login />}      />
+          </Routes>
+        </div>
       </div>
 
+      {/* Fixed UI — siblings of the overflow-x-hidden div so position:fixed
+          is always relative to the viewport, not the content container */}
       <MoreDrawer open={moreOpen} onClose={() => setMoreOpen(false)} />
       <BottomTabBar moreOpen={moreOpen} setMoreOpen={setMoreOpen} />
     </div>
@@ -289,17 +293,19 @@ export default function App() {
     document.documentElement.dir = RTL_LANGS.has(i18n.language) ? 'rtl' : 'ltr'
   }, [i18n.language])
 
-  return (
-    <div className="bg-zinc-300 min-h-screen flex justify-center">
-      <div className="w-full max-w-[430px] min-h-screen bg-gray-50 relative shadow-[0_0_60px_rgba(0,0,0,0.25)] overflow-x-hidden">
-        {!onboarded ? (
+  if (!onboarded) {
+    return (
+      <div className="bg-zinc-300 min-h-screen flex justify-center">
+        <div className="w-full max-w-[430px] min-h-screen bg-gray-50 relative shadow-[0_0_60px_rgba(0,0,0,0.25)] overflow-x-hidden">
           <Onboarding onComplete={() => setOnboarded(true)} />
-        ) : (
-          <BrowserRouter>
-            <AppShell />
-          </BrowserRouter>
-        )}
+        </div>
       </div>
-    </div>
+    )
+  }
+
+  return (
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
   )
 }
