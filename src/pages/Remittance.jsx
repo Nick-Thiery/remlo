@@ -1,30 +1,17 @@
 import { useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const COUNTRIES = {
-  IN: {
-    name: 'India',
-    currency: 'INR',
-    flag: '🇮🇳',
-    symbol: '₹',
-  },
-  BD: {
-    name: 'Bangladesh',
-    currency: 'BDT',
-    flag: '🇧🇩',
-    symbol: '৳',
-  },
-  LK: {
-    name: 'Sri Lanka',
-    currency: 'LKR',
-    flag: '🇱🇰',
-    symbol: 'Rs',
-  },
-  MM: {
-    name: 'Myanmar',
-    currency: 'MMK',
-    flag: '🇲🇲',
-    symbol: 'K',
-  },
+  IN: { currency: 'INR', flag: '🇮🇳', symbol: '₹',   nameKey: 'countryIndia'       },
+  BD: { currency: 'BDT', flag: '🇧🇩', symbol: '৳',   nameKey: 'countryBangladesh'  },
+  PH: { currency: 'PHP', flag: '🇵🇭', symbol: '₱',   nameKey: 'countryPhilippines' },
+  MM: { currency: 'MMK', flag: '🇲🇲', symbol: 'K',   nameKey: 'countryMyanmar'     },
+  ID: { currency: 'IDR', flag: '🇮🇩', symbol: 'Rp',  nameKey: 'countryIndonesia'   },
+  LK: { currency: 'LKR', flag: '🇱🇰', symbol: 'Rs',  nameKey: 'countrySriLanka'    },
+  CN: { currency: 'CNY', flag: '🇨🇳', symbol: '¥',   nameKey: 'countryChina'       },
+  TH: { currency: 'THB', flag: '🇹🇭', symbol: '฿',   nameKey: 'countryThailand'    },
+  PK: { currency: 'PKR', flag: '🇵🇰', symbol: '₨',   nameKey: 'countryPakistan'    },
+  NP: { currency: 'NPR', flag: '🇳🇵', symbol: 'Rs',  nameKey: 'countryNepal'       },
 }
 
 // Mock data: base exchange rates and fees per provider per country
@@ -36,41 +23,41 @@ const PROVIDERS = [
     id: 'wise',
     name: 'Wise',
     color: 'bg-emerald-500',
-    rates: { IN: 61.82, BD: 86.54, LK: 238.90, MM: 568.40 },
-    fees:  { IN: 1.40,  BD: 1.65,  LK: 1.55,   MM: 2.10  },
-    speed: { IN: 'Instant – 2 hrs', BD: '1 – 2 days', LK: '1 – 2 days', MM: '2 – 5 days' },
+    rates: { IN: 61.82, BD: 86.54, PH: 43.20, MM: 568.40, ID: 11750, LK: 238.90, CN: 5.28, TH: 26.85, PK: 216.40, NP: 99.20 },
+    fees:  { IN: 1.40,  BD: 1.65,  PH: 1.50,  MM: 2.10,   ID: 1.80,  LK: 1.55,   CN: 1.20, TH: 1.40,  PK: 1.80,   NP: 1.60  },
+    speed: { IN: 'Instant – 2 hrs', BD: '1 – 2 days', PH: 'Instant', MM: '2 – 5 days', ID: 'Instant', LK: '1 – 2 days', CN: '1 – 2 days', TH: 'Instant', PK: '1 – 2 days', NP: '1 – 2 days' },
   },
   {
     id: 'remitly',
     name: 'Remitly',
     color: 'bg-blue-500',
-    rates: { IN: 61.50, BD: 86.10, LK: 237.60, MM: 564.80 },
-    fees:  { IN: 0.00,  BD: 0.00,  LK: 0.00,   MM: 0.00  },
-    speed: { IN: 'Instant', BD: '3 – 5 days', LK: '3 – 5 days', MM: '3 – 7 days' },
+    rates: { IN: 61.50, BD: 86.10, PH: 42.90, MM: 564.80, ID: 11680, LK: 237.60, CN: 5.24, TH: 26.60, PK: 214.80, NP: 98.60 },
+    fees:  { IN: 0.00,  BD: 0.00,  PH: 0.00,  MM: 0.00,   ID: 0.00,  LK: 0.00,   CN: 0.00, TH: 0.00,  PK: 0.00,   NP: 0.00  },
+    speed: { IN: 'Instant', BD: '3 – 5 days', PH: 'Instant', MM: '3 – 7 days', ID: 'Instant', LK: '3 – 5 days', CN: '2 – 4 days', TH: 'Instant', PK: '3 – 5 days', NP: '3 – 5 days' },
   },
   {
     id: 'wu',
     name: 'Western Union',
     color: 'bg-yellow-500',
-    rates: { IN: 60.40, BD: 84.90, LK: 235.20, MM: 558.30 },
-    fees:  { IN: 3.90,  BD: 4.50,  LK: 4.20,   MM: 5.00  },
-    speed: { IN: 'Minutes', BD: 'Minutes', LK: 'Minutes', MM: 'Minutes' },
+    rates: { IN: 60.40, BD: 84.90, PH: 42.10, MM: 558.30, ID: 11520, LK: 235.20, CN: 5.16, TH: 26.10, PK: 211.60, NP: 97.00 },
+    fees:  { IN: 3.90,  BD: 4.50,  PH: 3.50,  MM: 5.00,   ID: 4.00,  LK: 4.20,   CN: 3.80, TH: 3.50,  PK: 4.50,   NP: 4.00  },
+    speed: { IN: 'Minutes', BD: 'Minutes', PH: 'Minutes', MM: 'Minutes', ID: 'Minutes', LK: 'Minutes', CN: 'Minutes', TH: 'Minutes', PK: 'Minutes', NP: 'Minutes' },
   },
   {
     id: 'bank',
     name: 'Bank Transfer',
     color: 'bg-gray-400',
-    rates: { IN: 59.80, BD: 84.20, LK: 233.80, MM: 552.00 },
-    fees:  { IN: 15.00, BD: 15.00, LK: 15.00,  MM: 15.00 },
-    speed: { IN: '1 – 3 days', BD: '2 – 5 days', LK: '2 – 5 days', MM: '3 – 7 days' },
+    rates: { IN: 59.80, BD: 84.20, PH: 41.60, MM: 552.00, ID: 11380, LK: 233.80, CN: 5.10, TH: 25.80, PK: 209.40, NP: 96.20 },
+    fees:  { IN: 15.00, BD: 15.00, PH: 15.00, MM: 15.00,  ID: 15.00, LK: 15.00,  CN: 15.00, TH: 15.00, PK: 15.00,  NP: 15.00 },
+    speed: { IN: '1 – 3 days', BD: '2 – 5 days', PH: '1 – 3 days', MM: '3 – 7 days', ID: '2 – 4 days', LK: '2 – 5 days', CN: '2 – 4 days', TH: '1 – 3 days', PK: '2 – 5 days', NP: '2 – 5 days' },
   },
 ]
 
 function formatForeignAmount(amount, symbol) {
-  const formatted = new Intl.NumberFormat('en', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(Math.round(amount))
+  const rounded = Math.round(amount)
+  const formatted = rounded >= 10000
+    ? new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(rounded)
+    : new Intl.NumberFormat('en', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(rounded)
   return `${symbol}${formatted}`
 }
 
@@ -95,8 +82,13 @@ function RateIcon() {
 }
 
 export default function Remittance() {
+  const { t } = useTranslation()
   const [sendAmount, setSendAmount] = useState('500')
-  const [country, setCountry] = useState('IN')
+  const defaultCountry = (() => {
+    const saved = localStorage.getItem('remlo_country') || 'IN'
+    return Object.keys(COUNTRIES).includes(saved) ? saved : 'IN'
+  })()
+  const [country, setCountry] = useState(defaultCountry)
 
   const amount = parseFloat(sendAmount) || 0
   const dest = COUNTRIES[country]
@@ -119,8 +111,8 @@ export default function Remittance() {
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Send Money</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Compare live rates across providers</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('remittance.pageTitle')}</h1>
+          <p className="text-sm text-gray-500 mt-0.5">{t('remittance.pageSubtitle')}</p>
         </div>
 
         {/* Input card */}
@@ -128,7 +120,7 @@ export default function Remittance() {
           <div className="space-y-4">
             {/* SGD amount */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">You Send (SGD)</label>
+              <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('remittance.sendLabel')}</label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">
                   S$
@@ -147,7 +139,7 @@ export default function Remittance() {
 
             {/* Country selector */}
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">Destination Country</label>
+              <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('remittance.countryLabel')}</label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-base pointer-events-none">
                   {dest.flag}
@@ -159,7 +151,7 @@ export default function Remittance() {
                 >
                   {Object.entries(COUNTRIES).map(([code, c]) => (
                     <option key={code} value={code}>
-                      {c.name} ({c.currency})
+                      {t(`remittance.${c.nameKey}`)} ({c.currency})
                     </option>
                   ))}
                 </select>
@@ -181,7 +173,11 @@ export default function Remittance() {
         {/* Results label */}
         {amount > 0 && (
           <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">
-            {results.length} providers · sending {formatSGD(amount)} to {dest.name}
+            {t('remittance.providersLabel', {
+              count: results.length,
+              amount: formatSGD(amount),
+              country: t(`remittance.${dest.nameKey}`),
+            })}
           </p>
         )}
 
@@ -190,13 +186,12 @@ export default function Remittance() {
           {amount <= 0 ? (
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 text-center">
               <p className="text-3xl mb-3">💸</p>
-              <p className="font-semibold text-gray-900 mb-1">Enter an amount to compare</p>
-              <p className="text-sm text-gray-500">We'll show you the best rates across providers.</p>
+              <p className="font-semibold text-gray-900 mb-1">{t('remittance.emptyTitle')}</p>
+              <p className="text-sm text-gray-500">{t('remittance.emptyDesc')}</p>
             </div>
           ) : (
             results.map((p, i) => {
               const isBest = p.id === bestId
-              const isFirst = i === 0
 
               return (
                 <div
@@ -228,10 +223,10 @@ export default function Remittance() {
                     <div className="text-right">
                       {isBest && (
                         <span className="inline-block bg-blue-600 text-white text-xs font-medium px-2.5 py-0.5 rounded-full mb-1">
-                          Best Value
+                          {t('remittance.bestValue')}
                         </span>
                       )}
-                      {!isBest && isFirst === false && (
+                      {!isBest && i > 0 && (
                         <span className="inline-block text-xs font-medium text-gray-400 px-2.5 py-0.5 rounded-full mb-1 bg-gray-50">
                           #{i + 1}
                         </span>
@@ -239,7 +234,7 @@ export default function Remittance() {
                       <p className="text-xl font-bold text-gray-900">
                         {formatForeignAmount(p.received, dest.symbol)}
                       </p>
-                      <p className="text-xs text-gray-400">{dest.currency} received</p>
+                      <p className="text-xs text-gray-400">{t('remittance.receivedLabel', { currency: dest.currency })}</p>
                     </div>
                   </div>
 
@@ -253,16 +248,16 @@ export default function Remittance() {
                         <RateIcon />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-400 mb-0.5">Exchange Rate</p>
+                        <p className="text-xs text-gray-400 mb-0.5">{t('remittance.rateLabel')}</p>
                         <p className="text-sm font-medium text-gray-900">
-                          1 SGD = {p.rate.toFixed(2)} {dest.currency}
+                          {t('remittance.rateValue', { rate: p.rate.toFixed(2), currency: dest.currency })}
                         </p>
                       </div>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400 mb-0.5">Transfer Fee</p>
+                      <p className="text-xs text-gray-400 mb-0.5">{t('remittance.feeLabel')}</p>
                       <p className={`text-sm font-medium ${p.fee === 0 ? 'text-emerald-600' : 'text-gray-900'}`}>
-                        {p.fee === 0 ? 'No fee' : formatSGD(p.fee)}
+                        {p.fee === 0 ? t('common.noFee') : formatSGD(p.fee)}
                       </p>
                     </div>
                   </div>
@@ -275,7 +270,7 @@ export default function Remittance() {
         {/* Disclaimer */}
         {amount > 0 && (
           <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
-            Rates are indicative and updated periodically. Actual rates may vary at time of transfer.
+            {t('remittance.disclaimer')}
           </p>
         )}
       </div>

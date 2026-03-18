@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -17,13 +18,16 @@ const GOAL_COLORS = [
   { bar: 'bg-orange-500', badge: 'bg-orange-50 text-orange-600' },
 ]
 
-const INITIAL_GOALS = [
-  { id: 1, name: 'Emergency Fund', target: 10000, saved: 3500 },
-  { id: 2, name: 'Japan Trip', target: 5000, saved: 1200 },
-]
-
 export default function Savings() {
-  const [goals, setGoals] = useState(INITIAL_GOALS)
+  const { t } = useTranslation()
+
+  const [goals, setGoals] = useState([])
+  // Trigger progress bar animation after mount
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setMounted(true))
+    return () => cancelAnimationFrame(id)
+  }, [])
   const [showNewGoal, setShowNewGoal] = useState(false)
   const [depositGoalId, setDepositGoalId] = useState(null)
 
@@ -52,8 +56,8 @@ export default function Savings() {
 
   function handleAddGoal() {
     const target = parseFloat(newGoalTarget)
-    if (!newGoalName.trim()) return setNewGoalError('Goal name is required.')
-    if (!target || target <= 0) return setNewGoalError('Enter a valid target amount.')
+    if (!newGoalName.trim()) return setNewGoalError(t('savings.errorGoalName'))
+    if (!target || target <= 0) return setNewGoalError(t('savings.errorTarget'))
     setGoals(prev => [...prev, { id: Date.now(), name: newGoalName.trim(), target, saved: 0 }])
     closeNewGoal()
   }
@@ -71,7 +75,7 @@ export default function Savings() {
 
   function handleAddDeposit() {
     const amount = parseFloat(depositAmount)
-    if (!amount || amount <= 0) return setDepositError('Enter a valid deposit amount.')
+    if (!amount || amount <= 0) return setDepositError(t('savings.errorDeposit'))
     setGoals(prev =>
       prev.map(g =>
         g.id === depositGoalId
@@ -95,34 +99,34 @@ export default function Savings() {
         {/* Page header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Savings Goals</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{t('savings.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">
-              {goals.length} active {goals.length === 1 ? 'goal' : 'goals'}
+              {t('savings.pageSubtitle', { count: goals.length })}
             </p>
           </div>
           <button
             onClick={openNewGoal}
-            className="bg-blue-600 text-white rounded-xl px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors flex items-center gap-1.5"
+            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5"
           >
-            <span className="text-base leading-none">+</span> New Goal
+            {t('savings.newGoalBtn')}
           </button>
         </div>
 
         {/* Overall summary */}
         {goals.length > 0 && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">Overall Progress</p>
+            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">{t('savings.overallProgress')}</p>
             <div className="flex items-end justify-between mb-3">
               <div>
                 <p className="text-2xl font-bold text-gray-900">{formatSGD(totalSaved)}</p>
-                <p className="text-sm text-gray-500">saved of {formatSGD(totalTarget)}</p>
+                <p className="text-sm text-gray-500">{t('savings.savedOf', { amount: formatSGD(totalTarget) })}</p>
               </div>
               <p className="text-lg font-semibold text-blue-600">{Math.round(overallPct)}%</p>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-1.5">
               <div
-                className="bg-blue-600 h-1.5 rounded-full transition-all duration-500"
-                style={{ width: `${overallPct}%` }}
+                className="bg-blue-600 h-1.5 rounded-full"
+                style={{ width: mounted ? `${overallPct}%` : '0%', transition: 'width 0.9s ease-out' }}
               />
             </div>
           </div>
@@ -133,13 +137,13 @@ export default function Savings() {
           {goals.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
               <p className="text-4xl mb-3">🎯</p>
-              <p className="font-semibold text-gray-900 mb-1">No goals yet</p>
-              <p className="text-sm text-gray-500 mb-5">Create your first savings goal to get started.</p>
+              <p className="font-semibold text-gray-900 mb-1">{t('savings.emptyTitle')}</p>
+              <p className="text-sm text-gray-500 mb-5">{t('savings.emptyDesc')}</p>
               <button
                 onClick={openNewGoal}
                 className="bg-blue-600 text-white rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
               >
-                Create a Goal
+                {t('savings.emptyBtn')}
               </button>
             </div>
           ) : (
@@ -155,12 +159,12 @@ export default function Savings() {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h3 className="font-semibold text-gray-900">{goal.name}</h3>
-                      <p className="text-xs text-gray-400 mt-0.5">Target {formatSGD(goal.target)}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{t('savings.targetLabel', { amount: formatSGD(goal.target) })}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       {isComplete ? (
                         <span className="text-xs font-medium bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-full">
-                          Complete ✓
+                          {t('savings.completeBadge')}
                         </span>
                       ) : (
                         <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${color.badge}`}>
@@ -170,7 +174,7 @@ export default function Savings() {
                       <button
                         onClick={() => deleteGoal(goal.id)}
                         aria-label="Delete goal"
-                        className="text-gray-300 hover:text-red-400 transition-colors text-xl leading-none"
+                        className="w-8 h-8 flex items-center justify-center rounded-full text-gray-300 hover:text-red-400 hover:bg-red-50 transition-all text-lg"
                       >
                         ×
                       </button>
@@ -180,21 +184,21 @@ export default function Savings() {
                   {/* Progress bar */}
                   <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                     <div
-                      className={`h-2 rounded-full transition-all duration-500 ${isComplete ? 'bg-emerald-500' : color.bar}`}
-                      style={{ width: `${pct}%` }}
+                      className={`h-2 rounded-full ${isComplete ? 'bg-emerald-500' : color.bar}`}
+                      style={{ width: mounted ? `${pct}%` : '0%', transition: 'width 0.9s ease-out' }}
                     />
                   </div>
 
                   {/* Amounts row */}
                   <div className="flex justify-between mb-4">
                     <div>
-                      <p className="text-xs text-gray-400 mb-0.5">Saved</p>
+                      <p className="text-xs text-gray-400 mb-0.5">{t('savings.savedLabel')}</p>
                       <p className="text-sm font-semibold text-gray-900">{formatSGD(goal.saved)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-400 mb-0.5">Remaining</p>
+                      <p className="text-xs text-gray-400 mb-0.5">{t('savings.remainingLabel')}</p>
                       <p className={`text-sm font-semibold ${isComplete ? 'text-emerald-600' : 'text-gray-900'}`}>
-                        {isComplete ? 'Goal reached!' : formatSGD(remaining)}
+                        {isComplete ? t('savings.goalReached') : formatSGD(remaining)}
                       </p>
                     </div>
                   </div>
@@ -204,7 +208,7 @@ export default function Savings() {
                       onClick={() => openDeposit(goal.id)}
                       className="w-full border border-gray-200 text-gray-700 rounded-lg py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors"
                     >
-                      Add Funds
+                      {t('savings.addFundsBtn')}
                     </button>
                   )}
                 </div>
@@ -214,6 +218,17 @@ export default function Savings() {
         </div>
       </div>
 
+      {/* Floating Action Button — shown when goals exist */}
+      {goals.length > 0 && (
+        <button
+          onClick={openNewGoal}
+          aria-label="Add new goal"
+          className="fixed bottom-[81px] right-4 w-14 h-14 bg-blue-600 text-white rounded-full shadow-xl flex items-center justify-center text-3xl font-light hover:bg-blue-700 active:scale-90 transition-all z-30"
+        >
+          +
+        </button>
+      )}
+
       {/* New Goal Modal */}
       {showNewGoal && (
         <div
@@ -221,8 +236,8 @@ export default function Savings() {
           onClick={(e) => e.target === e.currentTarget && closeNewGoal()}
         >
           <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-xl">
-            <h2 className="text-lg font-bold text-gray-900 mb-1">New Savings Goal</h2>
-            <p className="text-sm text-gray-500 mb-5">Give your goal a name and set a target.</p>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">{t('savings.modalNewTitle')}</h2>
+            <p className="text-sm text-gray-500 mb-5">{t('savings.modalNewDesc')}</p>
 
             {newGoalError && (
               <div className="bg-red-50 text-red-600 text-sm rounded-lg p-3 mb-4">{newGoalError}</div>
@@ -230,11 +245,11 @@ export default function Savings() {
 
             <div className="space-y-3 mb-5">
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">Goal Name</label>
+                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('savings.goalNameLabel')}</label>
                 <input
                   autoFocus
                   type="text"
-                  placeholder="e.g. Emergency Fund, Japan Trip"
+                  placeholder={t('savings.goalNamePlaceholder')}
                   value={newGoalName}
                   onChange={(e) => setNewGoalName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
@@ -242,7 +257,7 @@ export default function Savings() {
                 />
               </div>
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">Target Amount (SGD)</label>
+                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('savings.targetAmountLabel')}</label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">
                     S$
@@ -266,13 +281,13 @@ export default function Savings() {
                 onClick={closeNewGoal}
                 className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button
                 onClick={handleAddGoal}
                 className="flex-1 bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors"
               >
-                Create Goal
+                {t('savings.createGoalBtn')}
               </button>
             </div>
           </div>
@@ -286,9 +301,12 @@ export default function Savings() {
           onClick={(e) => e.target === e.currentTarget && closeDeposit()}
         >
           <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-xl">
-            <h2 className="text-lg font-bold text-gray-900 mb-1">Add Funds</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">{t('savings.addFundsTitle')}</h2>
             <p className="text-sm text-gray-500 mb-5">
-              {depositGoal.name} · {formatSGD(depositGoal.target - depositGoal.saved)} remaining
+              {t('savings.addFundsDesc', {
+                name: depositGoal.name,
+                amount: formatSGD(depositGoal.target - depositGoal.saved),
+              })}
             </p>
 
             {depositError && (
@@ -296,7 +314,7 @@ export default function Savings() {
             )}
 
             <div className="mb-5">
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">Deposit Amount (SGD)</label>
+              <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('savings.depositLabel')}</label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">
                   S$
@@ -320,13 +338,13 @@ export default function Savings() {
                 onClick={closeDeposit}
                 className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
               <button
                 onClick={handleAddDeposit}
                 className="flex-1 bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors"
               >
-                Confirm
+                {t('common.confirm')}
               </button>
             </div>
           </div>

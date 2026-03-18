@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''/Users/nick/forwardwallet/src/locales/$f.json'',''utf8''\\)\\); console.log\\(''✓ valid''\\)\")",
+      "Bash(done)",
+      "Bash(node:*)",
+      "Bash(python3 -c \"import sys,json; lines=[l for l in sys.stdin if l.strip\\(\\)]; last=json.loads\\(lines[-1]\\) if lines else {}; print\\(last.get\\(''''message'''',{}\\).get\\(''''role'''',''''?''''\\), ''''|'''', str\\(last\\)[:200]\\)\")",
+      "Bash(sed -i '' 's/pt-8 pb-24/py-8/g' Savings.jsx Remittance.jsx Budget.jsx)",
+      "Bash(sed -i '' 's/pt-6 pb-24/py-6/g' Scams.jsx Emergency.jsx)"
+    ]
+  }
+}
