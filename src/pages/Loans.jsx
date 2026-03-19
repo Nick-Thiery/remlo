@@ -79,7 +79,7 @@ const today = new Date().toISOString().slice(0, 10)
 export default function Loans() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { user, authLoading } = useRequireAuth()
+  const { user, authLoading, isGuest } = useRequireAuth()
 
   const [loans, setLoans] = useState([])
   const [showForm, setShowForm] = useState(false)
@@ -96,6 +96,12 @@ export default function Loans() {
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
+    if (isGuest) {
+      const stored = JSON.parse(localStorage.getItem('remlo_guest_loans') || '[]')
+      setLoans(stored)
+      setLoading(false)
+      return
+    }
     if (!user) return
     setLoading(true)
     supabase
@@ -120,7 +126,7 @@ export default function Loans() {
         }
         setLoading(false)
       })
-  }, [user])
+  }, [user, isGuest])
 
   const computed = useMemo(() => loans.map(computeLoan), [loans])
 
@@ -154,6 +160,15 @@ export default function Loans() {
     if (!fStart) errs.start = t('loans.errorRequired')
     if (Object.keys(errs).length) return setErrors(errs)
 
+    if (isGuest) {
+      const newLoan = { id: Date.now(), lender: fLender.trim(), principal, rate, monthlyPayment: payment, startDate: fStart }
+      const updated = [...loans, newLoan]
+      setLoans(updated)
+      localStorage.setItem('remlo_guest_loans', JSON.stringify(updated))
+      closeForm()
+      return
+    }
+
     const { data, error: err } = await supabase
       .from('loans')
       .insert({
@@ -180,6 +195,13 @@ export default function Loans() {
   }
 
   async function deleteLoan(id) {
+    if (isGuest) {
+      const updated = loans.filter((l) => l.id !== id)
+      setLoans(updated)
+      localStorage.setItem('remlo_guest_loans', JSON.stringify(updated))
+      if (expandedId === id) setExpandedId(null)
+      return
+    }
     const { error: err } = await supabase.from('loans').delete().eq('id', id)
     if (err) { setError(err.message); return }
     setLoans((prev) => prev.filter((l) => l.id !== id))

@@ -52,7 +52,8 @@
     "language": "ภาษา",
     "emergencySection": "ผู้ติดต่อฉุกเฉิน",
     "drawerFooter": "Remlo · สร้างสำหรับแรงงานข้ามชาติในสิงคโปร์",
-    "signOut": "ออกจากระบบ"
+    "signOut": "ออกจากระบบ",
+    "endGuestSession": "สิ้นสุดการใช้งานแบบแขก"
   },
   "moreItems": {
     "salary": {

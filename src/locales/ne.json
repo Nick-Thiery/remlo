@@ -52,7 +52,8 @@
     "language": "भाषा",
     "emergencySection": "आपतकालीन सम्पर्कहरू",
     "drawerFooter": "Remlo · सिंगापुरका प्रवासी कामदारहरूका लागि बनाइएको",
-    "signOut": "साइन आउट"
+    "signOut": "साइन आउट",
+    "endGuestSession": "अतिथि सत्र समाप्त गर्नुहोस्"
   },
   "moreItems": {
     "salary": {

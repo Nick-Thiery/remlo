@@ -80,7 +80,7 @@ function DonutChart({ slices, size = 160 }) {
 
 export default function Budget() {
   const { t } = useTranslation()
-  const { user, authLoading } = useRequireAuth()
+  const { user, authLoading, isGuest } = useRequireAuth()
 
   const PRESET_EXPENSES = useMemo(() => [
     { name: t('budget.presetRent'),        amount: 400 },
@@ -99,6 +99,15 @@ export default function Budget() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (isGuest) {
+      const stored = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
+      if (stored) {
+        setIncome(stored.monthly_income > 0 ? String(stored.monthly_income) : '')
+        setExpenses(Array.isArray(stored.expenses) && stored.expenses.length > 0 ? stored.expenses : PRESET_EXPENSES)
+      }
+      setLoading(false)
+      return
+    }
     if (!user) return
     setLoading(true)
     supabase
@@ -115,9 +124,16 @@ export default function Budget() {
         }
         setLoading(false)
       })
-  }, [user, PRESET_EXPENSES])
+  }, [user, isGuest, PRESET_EXPENSES])
 
   async function saveBudget(incomeVal, expensesVal) {
+    if (isGuest) {
+      localStorage.setItem('remlo_guest_budget', JSON.stringify({
+        monthly_income: parseFloat(incomeVal) || 0,
+        expenses: expensesVal,
+      }))
+      return
+    }
     if (!user) return
     const { error: err } = await supabase.from('budgets').upsert(
       { user_id: user.id, monthly_income: parseFloat(incomeVal) || 0, expenses: expensesVal },

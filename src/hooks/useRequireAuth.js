@@ -6,8 +6,14 @@ export function useRequireAuth() {
   const navigate = useNavigate()
   const [user, setUser]           = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
+  const isGuest = localStorage.getItem('remlo_guest') === 'true'
 
   useEffect(() => {
+    if (isGuest) {
+      setAuthLoading(false)
+      return
+    }
+
     // Resolve the current session once on mount
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (!session) {
@@ -29,7 +35,7 @@ export function useRequireAuth() {
     })
 
     return () => subscription.unsubscribe()
-  }, [navigate])
+  }, [navigate, isGuest])
 
-  return { user, authLoading }
+  return { user, authLoading, isGuest }
 }

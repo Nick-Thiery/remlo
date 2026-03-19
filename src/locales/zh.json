@@ -52,7 +52,8 @@
     "language": "语言",
     "emergencySection": "紧急联系方式",
     "drawerFooter": "Remlo · 为新加坡外来务工人员而建",
-    "signOut": "退出登录"
+    "signOut": "退出登录",
+    "endGuestSession": "结束访客模式"
   },
   "moreItems": {
     "salary": {

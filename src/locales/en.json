@@ -43,7 +43,8 @@
     "language": "Language",
     "emergencySection": "Emergency Contacts",
     "drawerFooter": "Remlo · Made for migrant workers in Singapore",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "endGuestSession": "End Guest Session"
   },
 
   "moreItems": {

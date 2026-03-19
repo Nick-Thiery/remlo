@@ -52,7 +52,8 @@
     "language": "ভাষা",
     "emergencySection": "জরুরি যোগাযোগ",
     "drawerFooter": "Remlo · সিঙ্গাপুরে প্রবাসী শ্রমিকদের জন্য তৈরি",
-    "signOut": "সাইন আউট"
+    "signOut": "সাইন আউট",
+    "endGuestSession": "গেস্ট সেশন শেষ করুন"
   },
   "moreItems": {
     "salary": {

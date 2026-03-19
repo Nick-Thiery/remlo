@@ -22,7 +22,7 @@ const GOAL_COLORS = [
 
 export default function Savings() {
   const { t } = useTranslation()
-  const { user, authLoading } = useRequireAuth()
+  const { user, authLoading, isGuest } = useRequireAuth()
 
   const [goals,   setGoals]   = useState([])
   const [loading, setLoading] = useState(true)
@@ -45,6 +45,12 @@ export default function Savings() {
 
   // ── Fetch on mount ──────────────────────────────────────────────────────────
   useEffect(() => {
+    if (isGuest) {
+      const stored = JSON.parse(localStorage.getItem('remlo_guest_savings') || '[]')
+      setGoals(stored)
+      setLoading(false)
+      return
+    }
     if (!user) return
     setLoading(true)
     setError(null)
@@ -67,7 +73,7 @@ export default function Savings() {
         }
         setLoading(false)
       })
-  }, [user])
+  }, [user, isGuest])
 
   // ── Derived ─────────────────────────────────────────────────────────────────
   const totalSaved  = goals.reduce((sum, g) => sum + g.saved,  0)
@@ -82,6 +88,15 @@ export default function Savings() {
     const target = parseFloat(newGoalTarget)
     if (!newGoalName.trim())      return setNewGoalError(t('savings.errorGoalName'))
     if (!target || target <= 0)   return setNewGoalError(t('savings.errorTarget'))
+
+    if (isGuest) {
+      const newGoal = { id: Date.now(), name: newGoalName.trim(), target, saved: 0 }
+      const updated = [...goals, newGoal]
+      setGoals(updated)
+      localStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      closeNewGoal()
+      return
+    }
 
     const { data, error: err } = await supabase
       .from('savings_goals')
@@ -106,6 +121,14 @@ export default function Savings() {
     const goal     = goals.find(g => g.id === depositGoalId)
     const newSaved = Math.min(goal.saved + amount, goal.target)
 
+    if (isGuest) {
+      const updated = goals.map(g => g.id === depositGoalId ? { ...g, saved: newSaved } : g)
+      setGoals(updated)
+      localStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      closeDeposit()
+      return
+    }
+
     const { error: err } = await supabase
       .from('savings_goals')
       .update({ current_amount: newSaved })
@@ -119,6 +142,12 @@ export default function Savings() {
 
   // ── Delete ───────────────────────────────────────────────────────────────────
   async function deleteGoal(id) {
+    if (isGuest) {
+      const updated = goals.filter(g => g.id !== id)
+      setGoals(updated)
+      localStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      return
+    }
     const { error: err } = await supabase.from('savings_goals').delete().eq('id', id)
     if (err) return setError(err.message)
     setGoals(prev => prev.filter(g => g.id !== id))

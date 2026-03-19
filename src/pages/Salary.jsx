@@ -52,7 +52,7 @@ const today = toYYYYMMDD(new Date())
 
 export default function Salary() {
   const { t } = useTranslation()
-  const { user, authLoading } = useRequireAuth()
+  const { user, authLoading, isGuest } = useRequireAuth()
 
   const [payments, setPayments] = useState([])
   const [payday, setPayday] = useState(() => {
@@ -72,6 +72,12 @@ export default function Salary() {
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
+    if (isGuest) {
+      const stored = JSON.parse(localStorage.getItem('remlo_guest_salary') || '[]')
+      setPayments(stored)
+      setLoading(false)
+      return
+    }
     if (!user) return
     setLoading(true)
     supabase
@@ -95,7 +101,7 @@ export default function Salary() {
         }
         setLoading(false)
       })
-  }, [user])
+  }, [user, isGuest])
 
   const sorted = useMemo(
     () => [...payments].sort((a, b) => new Date(b.date) - new Date(a.date)),
@@ -157,6 +163,15 @@ export default function Salary() {
     if (!fEmployer.trim()) errs.employer = t('salary.errorEmployer')
     if (Object.keys(errs).length) return setErrors(errs)
 
+    if (isGuest) {
+      const newPayment = { id: Date.now(), date: fDate, amount: amt, employer: fEmployer.trim(), note: fNote.trim() }
+      const updated = [newPayment, ...payments]
+      setPayments(updated)
+      localStorage.setItem('remlo_guest_salary', JSON.stringify(updated))
+      closeForm()
+      return
+    }
+
     const { data, error: err } = await supabase
       .from('salary_logs')
       .insert({
@@ -182,6 +197,13 @@ export default function Salary() {
   }
 
   async function deletePayment(id) {
+    if (isGuest) {
+      const updated = payments.filter((p) => p.id !== id)
+      setPayments(updated)
+      localStorage.setItem('remlo_guest_salary', JSON.stringify(updated))
+      if (expandedId === id) setExpandedId(null)
+      return
+    }
     const { error: err } = await supabase.from('salary_logs').delete().eq('id', id)
     if (err) { setError(err.message); return }
     setPayments((prev) => prev.filter((p) => p.id !== id))

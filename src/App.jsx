@@ -126,6 +126,7 @@ function MorePage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const [langOpen, setLangOpen] = useState(false)
+  const isGuest = localStorage.getItem('remlo_guest') === 'true'
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
@@ -133,6 +134,15 @@ function MorePage() {
     i18n.changeLanguage(code)
     localStorage.setItem('remlo_lang', code)
     setLangOpen(false)
+  }
+
+  async function handleSignOut() {
+    if (isGuest) {
+      localStorage.removeItem('remlo_guest')
+      navigate('/login', { replace: true })
+    } else {
+      await supabase.auth.signOut()
+    }
   }
 
   return (
@@ -199,12 +209,12 @@ function MorePage() {
 
         {/* Sign out */}
         <button
-          onClick={async () => {
-            await supabase.auth.signOut()
-          }}
+          onClick={handleSignOut}
           className="w-full mb-6 px-4 py-3.5 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center justify-between hover:bg-gray-50 active:scale-[0.98] transition-all"
         >
-          <span className="text-sm font-semibold text-red-500">{t('nav.signOut')}</span>
+          <span className="text-sm font-semibold text-red-500">
+            {isGuest ? t('nav.endGuestSession') : t('nav.signOut')}
+          </span>
           <span className="text-gray-300 text-sm">→</span>
         </button>
 
@@ -234,6 +244,30 @@ function MorePage() {
   )
 }
 
+// ─── Guest Banner ─────────────────────────────────────────────────────────────
+
+function GuestBanner() {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const isGuest = localStorage.getItem('remlo_guest') === 'true'
+
+  if (!isGuest || location.pathname === '/login') return null
+
+  return (
+    <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center justify-between gap-3">
+      <p className="text-xs text-amber-700 leading-snug">
+        Create an account to sync your data across devices
+      </p>
+      <button
+        onClick={() => navigate('/login')}
+        className="text-xs font-semibold text-amber-700 bg-amber-100 px-3 py-1.5 rounded-lg hover:bg-amber-200 transition-colors flex-shrink-0"
+      >
+        Sign Up
+      </button>
+    </div>
+  )
+}
+
 // ─── Auth Guard ───────────────────────────────────────────────────────────────
 
 function AuthGuard({ children }) {
@@ -242,15 +276,17 @@ function AuthGuard({ children }) {
   const location = useLocation()
 
   useEffect(() => {
+    const isGuest = localStorage.getItem('remlo_guest') === 'true'
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session && location.pathname !== '/login') {
+      if (!session && !isGuest && location.pathname !== '/login') {
         navigate('/login', { replace: true })
       }
       setReady(true)
     })
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) navigate('/login', { replace: true })
+      const stillGuest = localStorage.getItem('remlo_guest') === 'true'
+      if (!session && !stillGuest) navigate('/login', { replace: true })
     })
 
     return () => subscription.unsubscribe()
@@ -279,6 +315,7 @@ function AppShell() {
 
         {/* Scrollable content area — bottom padding clears the fixed tab bar */}
         <div className="overflow-x-hidden pb-[65px]">
+          <GuestBanner />
           <AuthGuard>
           <Routes>
             <Route path="/"           element={<Home />}       />

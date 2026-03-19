@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
+import { migrateGuestData } from '../lib/migrateGuestData.js'
 
 function Login() {
   const navigate = useNavigate()
@@ -9,16 +10,19 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const wasGuest = localStorage.getItem('remlo_guest') === 'true'
+
   async function handleLogin(e) {
     e.preventDefault()
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) {
-      setError(error.message)
+    const { data, error: err } = await supabase.auth.signInWithPassword({ email, password })
+    if (err) {
+      setError(err.message)
       setLoading(false)
     } else {
+      if (wasGuest && data.user) await migrateGuestData(data.user.id)
       navigate('/', { replace: true })
     }
   }
@@ -28,10 +32,23 @@ function Login() {
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.signUp({ email, password })
-    if (error) setError(error.message)
-    else alert('Check your email to confirm your account!')
-    setLoading(false)
+    const { data, error: err } = await supabase.auth.signUp({ email, password })
+    if (err) {
+      setError(err.message)
+      setLoading(false)
+    } else if (data.session) {
+      // Auto-confirmed (email verification disabled)
+      if (wasGuest && data.user) await migrateGuestData(data.user.id)
+      navigate('/', { replace: true })
+    } else {
+      alert('Check your email to confirm your account. Your guest data will be migrated when you sign in.')
+      setLoading(false)
+    }
+  }
+
+  function handleGuest() {
+    localStorage.setItem('remlo_guest', 'true')
+    navigate('/', { replace: true })
   }
 
   return (
@@ -46,7 +63,7 @@ function Login() {
           </div>
         )}
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           <input
             type="email"
             placeholder="Email"
@@ -64,18 +81,37 @@ function Login() {
           <button
             onClick={handleLogin}
             disabled={loading}
-            className="w-full bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors"
+            className="w-full bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-60"
           >
             {loading ? 'Loading...' : 'Sign In'}
           </button>
           <button
             onClick={handleSignup}
             disabled={loading}
-            className="w-full border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+            className="w-full border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors disabled:opacity-60"
           >
             Create Account
           </button>
+
+          <div className="relative flex items-center gap-3 py-1">
+            <div className="flex-1 h-px bg-gray-100" />
+            <span className="text-xs text-gray-400">or</span>
+            <div className="flex-1 h-px bg-gray-100" />
+          </div>
+
+          <button
+            onClick={handleGuest}
+            disabled={loading}
+            className="w-full border border-dashed border-gray-200 text-gray-500 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 hover:text-gray-700 transition-colors disabled:opacity-60"
+          >
+            Continue as Guest
+          </button>
         </div>
+
+        <p className="text-xs text-gray-400 text-center mt-5 leading-relaxed">
+          Guest data is saved on this device only.
+          <br />Create an account to sync across devices.
+        </p>
       </div>
     </div>
   )
