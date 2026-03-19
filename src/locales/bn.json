@@ -849,5 +849,9 @@
         "label": "TWC2 (Transient Workers Count Too)"
       }
     ]
+  },
+  "guestBanner": {
+    "message": "ডিভাইস জুড়ে আপনার ডেটা সিঙ্ক করতে একটি অ্যাকাউন্ট তৈরি করুন",
+    "signUp": "সাইন আপ"
   }
 }

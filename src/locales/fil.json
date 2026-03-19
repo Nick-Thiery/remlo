@@ -849,5 +849,9 @@
         "label": "TWC2 (Transient Workers Count Too)"
       }
     ]
+  },
+  "guestBanner": {
+    "message": "Gumawa ng account para i-sync ang iyong data sa lahat ng device",
+    "signUp": "Mag-sign Up"
   }
 }

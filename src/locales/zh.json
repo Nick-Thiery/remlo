@@ -849,5 +849,9 @@
         "label": "TWC2 (Transient Workers Count Too)"
       }
     ]
+  },
+  "guestBanner": {
+    "message": "创建账户以在设备间同步您的数据",
+    "signUp": "注册"
   }
 }

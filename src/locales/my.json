@@ -849,5 +849,9 @@
         "label": "TWC2 (Transient Workers Count Too)"
       }
     ]
+  },
+  "guestBanner": {
+    "message": "စက်ပစ္စည်းများတွင် ဒေတာချိတ်ဆက်ရန် အကောင့်ဖွင့်ပါ",
+    "signUp": "စာရင်းသွင်းမည်"
   }
 }

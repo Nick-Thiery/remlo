@@ -6,6 +6,11 @@
   "appName": "Remlo",
   "footer": "Remlo v1.0 · Secured by Supabase · Made for workers in Singapore",
 
+  "guestBanner": {
+    "message": "Create an account to sync your data across devices",
+    "signUp": "Sign Up"
+  },
+
   "hero": {
     "eyebrow": "Built for you",
     "headline": "Your money,\nyour future.",

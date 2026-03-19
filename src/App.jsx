@@ -247,22 +247,38 @@ function MorePage() {
 // ─── Guest Banner ─────────────────────────────────────────────────────────────
 
 function GuestBanner() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const isGuest = localStorage.getItem('remlo_guest') === 'true'
+  const [dismissed, setDismissed] = useState(
+    () => sessionStorage.getItem('remlo_guest_banner_dismissed') === 'true'
+  )
 
-  if (!isGuest || location.pathname === '/login') return null
+  if (!isGuest || location.pathname === '/login' || dismissed) return null
+
+  function dismiss() {
+    sessionStorage.setItem('remlo_guest_banner_dismissed', 'true')
+    setDismissed(true)
+  }
 
   return (
-    <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center justify-between gap-3">
-      <p className="text-xs text-amber-700 leading-snug">
-        Create an account to sync your data across devices
+    <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center gap-3">
+      <p className="text-xs text-amber-700 leading-snug flex-1">
+        {t('guestBanner.message')}
       </p>
       <button
         onClick={() => navigate('/login')}
         className="text-xs font-semibold text-amber-700 bg-amber-100 px-3 py-1.5 rounded-lg hover:bg-amber-200 transition-colors flex-shrink-0"
       >
-        Sign Up
+        {t('guestBanner.signUp')}
+      </button>
+      <button
+        onClick={dismiss}
+        aria-label="Dismiss"
+        className="text-amber-400 hover:text-amber-600 transition-colors flex-shrink-0 text-base leading-none"
+      >
+        ×
       </button>
     </div>
   )

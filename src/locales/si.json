@@ -849,5 +849,9 @@
         "label": "TWC2 (Transient Workers Count Too)"
       }
     ]
+  },
+  "guestBanner": {
+    "message": "උපකරණ හරහා ඔබේ දත්ත සමමුහුර්ත කිරීමට ගිනුමක් සාදන්න",
+    "signUp": "ලියාපදිංචි වන්න"
   }
 }

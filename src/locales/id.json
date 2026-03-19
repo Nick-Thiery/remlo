@@ -849,5 +849,9 @@
         "label": "TWC2 (Transient Workers Count Too)"
       }
     ]
+  },
+  "guestBanner": {
+    "message": "Buat akun untuk menyinkronkan data Anda di semua perangkat",
+    "signUp": "Daftar"
   }
 }
