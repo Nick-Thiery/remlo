@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 
 function Login() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -13,8 +15,12 @@ function Login() {
     setError(null)
 
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) setError(error.message)
-    setLoading(false)
+    if (error) {
+      setError(error.message)
+      setLoading(false)
+    } else {
+      navigate('/', { replace: true })
+    }
   }
 
   async function handleSignup(e) {

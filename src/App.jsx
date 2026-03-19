@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Onboarding from './pages/Onboarding.jsx'
 import { useTranslation } from 'react-i18next'
+import { supabase } from './lib/supabase.js'
 import {
   Home as HomeIcon,
   Coins,
@@ -196,6 +197,17 @@ function MorePage() {
           </div>
         </div>
 
+        {/* Sign out */}
+        <button
+          onClick={async () => {
+            await supabase.auth.signOut()
+          }}
+          className="w-full mb-6 px-4 py-3.5 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center justify-between hover:bg-gray-50 active:scale-[0.98] transition-all"
+        >
+          <span className="text-sm font-semibold text-red-500">{t('nav.signOut')}</span>
+          <span className="text-gray-300 text-sm">→</span>
+        </button>
+
         {/* Emergency contacts */}
         <div className="bg-red-50 border border-red-100 rounded-2xl overflow-hidden">
           <div className="flex items-center gap-2 px-4 py-3.5 border-b border-red-100">
@@ -222,6 +234,39 @@ function MorePage() {
   )
 }
 
+// ─── Auth Guard ───────────────────────────────────────────────────────────────
+
+function AuthGuard({ children }) {
+  const [ready, setReady] = useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session && location.pathname !== '/login') {
+        navigate('/login', { replace: true })
+      }
+      setReady(true)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) navigate('/login', { replace: true })
+    })
+
+    return () => subscription.unsubscribe()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (!ready) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+
+  return children
+}
+
 // ─── App Shell ────────────────────────────────────────────────────────────────
 
 function AppShell() {
@@ -234,6 +279,7 @@ function AppShell() {
 
         {/* Scrollable content area — bottom padding clears the fixed tab bar */}
         <div className="overflow-x-hidden pb-[65px]">
+          <AuthGuard>
           <Routes>
             <Route path="/"           element={<Home />}       />
             <Route path="/savings"    element={<Savings />}    />
@@ -251,6 +297,7 @@ function AppShell() {
             <Route path="/banking-guide"  element={<BankingGuide />}  />
             <Route path="/login"      element={<Login />}      />
           </Routes>
+          </AuthGuard>
         </div>
 
         {/* Tab bar: fixed to viewport, always on top of content */}
