@@ -1,18 +1,16 @@
 {
-  "greetingMorning":   "Selamat pagi 👋",
+  "greetingMorning": "Selamat pagi 👋",
   "greetingAfternoon": "Selamat siang 👋",
-  "greetingEvening":   "Selamat malam 👋",
+  "greetingEvening": "Selamat malam 👋",
   "greeting": "Selamat pagi 👋",
   "appName": "Remlo",
   "footer": "Remlo v1.0 · Diamankan oleh Supabase · Dibuat untuk pekerja di Singapura",
-
   "hero": {
     "eyebrow": "Dibuat untuk Anda",
     "headline": "Uang Anda,\nmasa depan Anda.",
     "tagline": "Rencanakan, tabung, dan kirim uang ke rumah — lebih cerdas, lebih hemat.",
     "cta": "Mulai"
   },
-
   "stats": {
     "heading": "Statistik Cepat",
     "totalSaved": "Total Tabungan",
@@ -22,15 +20,26 @@
     "lastSent": "Terakhir Dikirim",
     "lastSentSub": "pengiriman ke kampung halaman"
   },
-
   "features": {
     "heading": "Fitur",
-    "savings": { "title": "Tujuan Tabungan", "description": "Pantau target Anda — dana darurat, perjalanan, keluarga." },
-    "budget": { "title": "Perencana Anggaran", "description": "Rencanakan pengeluaran bulanan dan lihat berapa yang bisa Anda hemat." },
-    "remittance": { "title": "Kirim Uang", "description": "Bandingkan Wise, Remitly, dan lainnya untuk mendapatkan nilai tukar terbaik." },
-    "ai": { "title": "Asisten AI", "description": "Dapatkan tips keuangan yang dipersonalisasi berdasarkan profil Anda.", "badge": "Segera Hadir" }
+    "savings": {
+      "title": "Tujuan Tabungan",
+      "description": "Pantau target Anda — dana darurat, perjalanan, keluarga."
+    },
+    "budget": {
+      "title": "Perencana Anggaran",
+      "description": "Rencanakan pengeluaran bulanan dan lihat berapa yang bisa Anda hemat."
+    },
+    "remittance": {
+      "title": "Kirim Uang",
+      "description": "Bandingkan Wise, Remitly, dan lainnya untuk mendapatkan nilai tukar terbaik."
+    },
+    "ai": {
+      "title": "Asisten AI",
+      "description": "Dapatkan tips keuangan yang dipersonalisasi berdasarkan profil Anda.",
+      "badge": "Segera Hadir"
+    }
   },
-
   "nav": {
     "home": "Beranda",
     "savings": "Tabungan",
@@ -44,15 +53,40 @@
     "emergencySection": "Kontak Darurat",
     "drawerFooter": "Remlo · Dibuat untuk pekerja migran di Singapura"
   },
-
   "moreItems": {
-    "salary": { "label": "Pelacak Gaji", "desc": "Catat pembayaran dan tandai hari gajian yang terlambat" },
-    "loans": { "label": "Pelacak Pinjaman", "desc": "Pantau cicilan dan tanggal pelunasan" },
-    "scams": { "label": "Peringatan Penipuan", "desc": "Penipuan terbaru yang menargetkan pekerja di Singapura" },
-    "loanshark": { "label": "Panduan Rentenir", "desc": "Kenali peminjam ilegal dan dapatkan bantuan" },
-    "emergency": { "label": "Kontak Darurat", "desc": "Hotline untuk pekerja di Singapura" }
+    "salary": {
+      "label": "Pelacak Gaji",
+      "desc": "Catat pembayaran dan tandai hari gajian yang terlambat"
+    },
+    "loans": {
+      "label": "Pelacak Pinjaman",
+      "desc": "Pantau cicilan dan tanggal pelunasan"
+    },
+    "scams": {
+      "label": "Peringatan Penipuan",
+      "desc": "Penipuan terbaru yang menargetkan pekerja di Singapura"
+    },
+    "loanshark": {
+      "label": "Panduan Rentenir",
+      "desc": "Kenali peminjam ilegal dan dapatkan bantuan"
+    },
+    "emergency": {
+      "label": "Kontak Darurat",
+      "desc": "Hotline untuk pekerja di Singapura"
+    },
+    "scamQuiz": {
+      "label": "Kuis Penipuan",
+      "desc": "Uji kesadaran penipuanmu dalam 8 pertanyaan"
+    },
+    "emergencyFund": {
+      "label": "Dana Darurat",
+      "desc": "Hitung berapa banyak tabungan cadangan yang kamu butuhkan"
+    },
+    "bankingGuide": {
+      "label": "Panduan Perbankan",
+      "desc": "Cara membuka rekening bank di Singapura"
+    }
   },
-
   "common": {
     "cancel": "Batal",
     "save": "Simpan",
@@ -69,7 +103,6 @@
     "emergency": "Darurat",
     "nonEmergency": "Tidak darurat"
   },
-
   "savings": {
     "pageTitle": "Tujuan Tabungan",
     "pageSubtitle_one": "{{count}} tujuan aktif",
@@ -99,7 +132,6 @@
     "errorTarget": "Masukkan jumlah target yang valid.",
     "errorDeposit": "Masukkan jumlah setoran yang valid."
   },
-
   "budget": {
     "pageTitle": "Perencana Anggaran",
     "pageSubtitle": "Rencanakan pendapatan dan pengeluaran bulanan Anda",
@@ -138,7 +170,6 @@
     "presetTransport": "Transportasi",
     "presetPhone": "Paket Telepon"
   },
-
   "remittance": {
     "pageTitle": "Kirim Uang",
     "pageSubtitle": "Bandingkan tarif langsung dari berbagai penyedia",
@@ -164,7 +195,6 @@
     "countryPakistan": "Pakistan",
     "countryNepal": "Nepal"
   },
-
   "salary": {
     "pageTitle": "Pelacak Gaji",
     "pageSubtitle": "{{count}} pembayaran tercatat",
@@ -205,7 +235,6 @@
     "errorAmount": "Masukkan jumlah yang valid",
     "errorEmployer": "Wajib"
   },
-
   "loans": {
     "pageTitle": "Pelacak Pinjaman",
     "pageSubtitle_one": "{{count}} pinjaman aktif",
@@ -254,7 +283,6 @@
     "errorRate": "Masukkan suku bunga yang valid (0 atau lebih)",
     "errorPayment": "Masukkan jumlah cicilan yang valid"
   },
-
   "scams": {
     "emergencyBanner": "🚨 Jika Anda dalam bahaya hubungi 999  ·  Helpline MOM: 1800-333-1313",
     "pageTitle": "Peringatan Penipuan",
@@ -354,7 +382,6 @@
       }
     ]
   },
-
   "loanshark": {
     "pageTitle": "Pengidentifikasi Rentenir",
     "pageSubtitle": "Periksa pernyataan mana yang berlaku untuk mengidentifikasi pemberi pinjaman ilegal",
@@ -372,21 +399,70 @@
     "callPolice": "Hubungi Polisi: 999",
     "disclaimer": "Informasi berdasarkan Undang-Undang Pemberi Pinjaman Uang (Cap. 188) dan pedoman MOM. Bukan nasihat hukum.",
     "flags": [
-      { "id": "unsolicited_contact", "label": "Mereka menghubungi Anda terlebih dahulu — melalui WhatsApp, SMS, atau media sosial", "detail": "Pemberi pinjaman uang berlisensi di Singapura dilarang oleh hukum untuk beriklan melalui SMS, WhatsApp, panggilan telepon, atau media sosial. Jika mereka menghubungi Anda, mereka tidak berlisensi." },
-      { "id": "no_license", "label": "Mereka tidak dapat memberikan nomor lisensi atau menolak untuk menunjukkannya", "detail": "Setiap pemberi pinjaman uang berlisensi harus terdaftar di Daftar Pemberi Pinjaman Uang. Anda dapat memverifikasi nomor lisensi apapun di moneylenders.justice.gov.sg. Penolakan untuk memberikannya adalah tanda bahaya serius." },
-      { "id": "high_interest", "label": "Suku bunga di atas 4% per bulan", "detail": "Hukum Singapura membatasi bunga maksimum 4% per bulan untuk semua pemberi pinjaman uang berlisensi, terlepas dari pendapatan atau ukuran pinjaman Anda. Tarif apapun di atas ini adalah ilegal." },
-      { "id": "singpass_demand", "label": "Mereka meminta login SingPass atau kata sandi Anda", "detail": "Tidak ada pemberi pinjaman, bank, atau lembaga pemerintah yang sah yang akan meminta kredensial SingPass Anda. Ini adalah pencurian identitas. Jangan berikan dalam keadaan apapun." },
-      { "id": "bank_login_demand", "label": "Mereka meminta login perbankan internet, PIN ATM, atau kartu bank Anda", "detail": "Pemberi pinjaman berlisensi mencairkan pinjaman langsung ke rekening bank Anda — mereka tidak punya alasan untuk mengakses rekening Anda sendiri. Menyerahkan akses perbankan membuka semua tabungan Anda." },
-      { "id": "no_contract", "label": "Tidak ada kontrak pinjaman tertulis yang diberikan, atau kosong / tidak lengkap", "detail": "Undang-Undang Pemberi Pinjaman Uang mewajibkan kontrak pinjaman yang ditandatangani sebelum uang berpindah tangan. Pemberi pinjaman yang sah akan memberi Anda waktu untuk membacanya. Jangan pernah menandatangani formulir yang kosong atau terisi sebagian." },
-      { "id": "upfront_fee", "label": "Mereka meminta biaya dimuka atau deposit sebelum mencairkan pinjaman", "detail": "Pemberi pinjaman berlisensi hanya boleh memotong biaya administrasi (maks. 10% dari pokok) dari jumlah pinjaman itu sendiri — tidak pernah sebagai pembayaran tunai dimuka sebelum Anda menerima apapun." },
-      { "id": "no_office", "label": "Mereka tidak memiliki kantor fisik, atau kantor terasa tidak resmi / seperti hunian", "detail": "Semua pemberi pinjaman uang berlisensi harus beroperasi dari alamat kantor komersial yang terdaftar. Jika tidak ada kantor, atau mereka hanya bertemu dengan Anda di kedai kopi atau melalui telepon, mereka tidak berlisensi." },
-      { "id": "threats", "label": "Mereka mengancam Anda, keluarga Anda, atau pemberi kerja Anda", "detail": "Ancaman, pelecehan, kerusakan properti (percikan cat, penguncian pintu), dan menghubungi pemberi kerja Anda adalah tindak pidana di Singapura. Anda adalah korban — segera hubungi 999." },
-      { "id": "retain_id", "label": "Mereka menyimpan paspor, Izin Kerja, atau kartu identitas Anda sebagai jaminan", "detail": "Adalah ilegal bagi siapapun untuk menahan dokumen perjalanan atau identitas Anda. Pemberi pinjaman uang berlisensi secara tegas dilarang melakukan ini. Laporkan segera ke MOM atau Polisi." }
+      {
+        "id": "unsolicited_contact",
+        "label": "Mereka menghubungi Anda terlebih dahulu — melalui WhatsApp, SMS, atau media sosial",
+        "detail": "Pemberi pinjaman uang berlisensi di Singapura dilarang oleh hukum untuk beriklan melalui SMS, WhatsApp, panggilan telepon, atau media sosial. Jika mereka menghubungi Anda, mereka tidak berlisensi."
+      },
+      {
+        "id": "no_license",
+        "label": "Mereka tidak dapat memberikan nomor lisensi atau menolak untuk menunjukkannya",
+        "detail": "Setiap pemberi pinjaman uang berlisensi harus terdaftar di Daftar Pemberi Pinjaman Uang. Anda dapat memverifikasi nomor lisensi apapun di moneylenders.justice.gov.sg. Penolakan untuk memberikannya adalah tanda bahaya serius."
+      },
+      {
+        "id": "high_interest",
+        "label": "Suku bunga di atas 4% per bulan",
+        "detail": "Hukum Singapura membatasi bunga maksimum 4% per bulan untuk semua pemberi pinjaman uang berlisensi, terlepas dari pendapatan atau ukuran pinjaman Anda. Tarif apapun di atas ini adalah ilegal."
+      },
+      {
+        "id": "singpass_demand",
+        "label": "Mereka meminta login SingPass atau kata sandi Anda",
+        "detail": "Tidak ada pemberi pinjaman, bank, atau lembaga pemerintah yang sah yang akan meminta kredensial SingPass Anda. Ini adalah pencurian identitas. Jangan berikan dalam keadaan apapun."
+      },
+      {
+        "id": "bank_login_demand",
+        "label": "Mereka meminta login perbankan internet, PIN ATM, atau kartu bank Anda",
+        "detail": "Pemberi pinjaman berlisensi mencairkan pinjaman langsung ke rekening bank Anda — mereka tidak punya alasan untuk mengakses rekening Anda sendiri. Menyerahkan akses perbankan membuka semua tabungan Anda."
+      },
+      {
+        "id": "no_contract",
+        "label": "Tidak ada kontrak pinjaman tertulis yang diberikan, atau kosong / tidak lengkap",
+        "detail": "Undang-Undang Pemberi Pinjaman Uang mewajibkan kontrak pinjaman yang ditandatangani sebelum uang berpindah tangan. Pemberi pinjaman yang sah akan memberi Anda waktu untuk membacanya. Jangan pernah menandatangani formulir yang kosong atau terisi sebagian."
+      },
+      {
+        "id": "upfront_fee",
+        "label": "Mereka meminta biaya dimuka atau deposit sebelum mencairkan pinjaman",
+        "detail": "Pemberi pinjaman berlisensi hanya boleh memotong biaya administrasi (maks. 10% dari pokok) dari jumlah pinjaman itu sendiri — tidak pernah sebagai pembayaran tunai dimuka sebelum Anda menerima apapun."
+      },
+      {
+        "id": "no_office",
+        "label": "Mereka tidak memiliki kantor fisik, atau kantor terasa tidak resmi / seperti hunian",
+        "detail": "Semua pemberi pinjaman uang berlisensi harus beroperasi dari alamat kantor komersial yang terdaftar. Jika tidak ada kantor, atau mereka hanya bertemu dengan Anda di kedai kopi atau melalui telepon, mereka tidak berlisensi."
+      },
+      {
+        "id": "threats",
+        "label": "Mereka mengancam Anda, keluarga Anda, atau pemberi kerja Anda",
+        "detail": "Ancaman, pelecehan, kerusakan properti (percikan cat, penguncian pintu), dan menghubungi pemberi kerja Anda adalah tindak pidana di Singapura. Anda adalah korban — segera hubungi 999."
+      },
+      {
+        "id": "retain_id",
+        "label": "Mereka menyimpan paspor, Izin Kerja, atau kartu identitas Anda sebagai jaminan",
+        "detail": "Adalah ilegal bagi siapapun untuk menahan dokumen perjalanan atau identitas Anda. Pemberi pinjaman uang berlisensi secara tegas dilarang melakukan ini. Laporkan segera ke MOM atau Polisi."
+      }
     ],
     "risks": {
-      "green": { "label": "Kemungkinan Sah", "summary": "Tidak ada tanda bahaya yang dipilih. Ini mungkin pemberi pinjaman uang berlisensi. Selalu verifikasi nomor lisensi mereka di moneylenders.justice.gov.sg sebelum menandatangani apapun." },
-      "yellow": { "label": "Berhati-hatilah", "summary": "Ada beberapa tanda peringatan. Jangan melanjutkan sampai Anda memverifikasi nomor lisensi pemberi pinjaman dan menerima kontrak tertulis lengkap. Pertimbangkan untuk menghubungi Credit Counselling Singapore untuk mendapat saran." },
-      "red": { "label": "Kemungkinan Ilegal — Jangan Lanjutkan", "summary": "Banyak tanda bahaya serius menunjukkan bahwa ini sangat mungkin merupakan pemberi pinjaman tidak berizin (rentenir). Jangan meminjam, jangan membayar biaya apapun, dan jangan menyerahkan dokumen atau kata sandi apapun. Anda dilindungi oleh hukum." }
+      "green": {
+        "label": "Kemungkinan Sah",
+        "summary": "Tidak ada tanda bahaya yang dipilih. Ini mungkin pemberi pinjaman uang berlisensi. Selalu verifikasi nomor lisensi mereka di moneylenders.justice.gov.sg sebelum menandatangani apapun."
+      },
+      "yellow": {
+        "label": "Berhati-hatilah",
+        "summary": "Ada beberapa tanda peringatan. Jangan melanjutkan sampai Anda memverifikasi nomor lisensi pemberi pinjaman dan menerima kontrak tertulis lengkap. Pertimbangkan untuk menghubungi Credit Counselling Singapore untuk mendapat saran."
+      },
+      "red": {
+        "label": "Kemungkinan Ilegal — Jangan Lanjutkan",
+        "summary": "Banyak tanda bahaya serius menunjukkan bahwa ini sangat mungkin merupakan pemberi pinjaman tidak berizin (rentenir). Jangan meminjam, jangan membayar biaya apapun, dan jangan menyerahkan dokumen atau kata sandi apapun. Anda dilindungi oleh hukum."
+      }
     },
     "legalFacts": [
       "Memiliki kantor komersial terdaftar yang dapat Anda kunjungi secara langsung",
@@ -398,14 +474,38 @@
       "Memotong biaya admin dari pinjaman — tidak pernah meminta uang tunai dimuka sebelum pencairan"
     ],
     "helpContacts": [
-      { "org": "X-Ah Long Hotline (Loan Shark Reporting)", "number": "1800-924-5664", "hours": "24 / 7", "note": "Pelaporan anonim. Anda tidak akan mendapat masalah karena menelepon." },
-      { "org": "Singapore Police Force", "number": "999", "hours": "Emergency — 24 / 7", "note": "Hubungi segera jika Anda diancam, dilecehkan, atau dalam bahaya." },
-      { "org": "Registry of Moneylenders", "number": "1800-2255-529", "hours": "Mon–Fri 8:30 am – 5:30 pm", "note": "Verifikasi lisensi pemberi pinjaman atau laporkan pemberi pinjaman ilegal." },
-      { "org": "MOM Migrant Worker Helpline", "number": "1800-333-1313", "hours": "Mon–Fri 8:00 am – 5:00 pm", "note": "Untuk masalah izin kerja, sengketa ketenagakerjaan, dan bantuan umum." },
-      { "org": "Credit Counselling Singapore", "number": "6225-5227", "hours": "Mon–Fri 9:00 am – 6:00 pm", "note": "Konseling utang gratis. Mereka membantu Anda menemukan cara legal untuk mengelola utang." }
+      {
+        "org": "X-Ah Long Hotline (Loan Shark Reporting)",
+        "number": "1800-924-5664",
+        "hours": "24 / 7",
+        "note": "Pelaporan anonim. Anda tidak akan mendapat masalah karena menelepon."
+      },
+      {
+        "org": "Singapore Police Force",
+        "number": "999",
+        "hours": "Emergency — 24 / 7",
+        "note": "Hubungi segera jika Anda diancam, dilecehkan, atau dalam bahaya."
+      },
+      {
+        "org": "Registry of Moneylenders",
+        "number": "1800-2255-529",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
+        "note": "Verifikasi lisensi pemberi pinjaman atau laporkan pemberi pinjaman ilegal."
+      },
+      {
+        "org": "MOM Migrant Worker Helpline",
+        "number": "1800-333-1313",
+        "hours": "Mon–Fri 8:00 am – 5:00 pm",
+        "note": "Untuk masalah izin kerja, sengketa ketenagakerjaan, dan bantuan umum."
+      },
+      {
+        "org": "Credit Counselling Singapore",
+        "number": "6225-5227",
+        "hours": "Mon–Fri 9:00 am – 6:00 pm",
+        "note": "Konseling utang gratis. Mereka membantu Anda menemukan cara legal untuk mengelola utang."
+      }
     ]
   },
-
   "chat": {
     "pageTitle": "Asisten AI",
     "pageSubtitle": "Panduan keuangan untuk pekerja",
@@ -422,7 +522,6 @@
     "disclaimer": "Hanya untuk panduan. Hubungi 999 dalam keadaan darurat.",
     "noApiKey": "Kunci API belum dikonfigurasi. Tambahkan VITE_ANTHROPIC_API_KEY ke file .env Anda."
   },
-
   "emergency": {
     "dangerText": "Dalam bahaya langsung?",
     "callPolice": "Hubungi 999 — Darurat Polisi",
@@ -454,7 +553,6 @@
       "momtaskforce": "Laporkan tawaran kerja palsu, biaya penempatan ilegal, penipuan izin kerja"
     }
   },
-
   "scamQuiz": {
     "pageTitle": "Kuis Kesadaran Penipuan",
     "scenarioLabel": "Skenario",
@@ -468,54 +566,94 @@
     "retryBtn": "Coba lagi",
     "scamAlertsBtn": "Lihat peringatan penipuan",
     "ratings": [
-      { "label": "Anda perlu berhati-hati", "desc": "Penipu secara khusus menargetkan pekerja migran. Pelajari tanda-tanda peringatan di bawah ini dan tetap aman." },
-      { "label": "Kesadaran yang baik", "desc": "Anda mengetahui beberapa taktik penipuan — tapi satu kesalahan bisa merugikan Anda ribuan dolar. Tinjau tips di bawah ini." },
-      { "label": "Ahli penipuan!", "desc": "Luar biasa! Bagikan pengetahuan Anda kepada teman-teman dan bantu jaga keamanan komunitas Anda." }
+      {
+        "label": "Anda perlu berhati-hati",
+        "desc": "Penipu secara khusus menargetkan pekerja migran. Pelajari tanda-tanda peringatan di bawah ini dan tetap aman."
+      },
+      {
+        "label": "Kesadaran yang baik",
+        "desc": "Anda mengetahui beberapa taktik penipuan — tapi satu kesalahan bisa merugikan Anda ribuan dolar. Tinjau tips di bawah ini."
+      },
+      {
+        "label": "Ahli penipuan!",
+        "desc": "Luar biasa! Bagikan pengetahuan Anda kepada teman-teman dan bantu jaga keamanan komunitas Anda."
+      }
     ],
     "questions": [
       {
         "scenario": "Orang asing mengirim pesan di WhatsApp: \"Hai, saya dari MOM. Izin kerja Anda bermasalah. Kirimkan login dan kata sandi SingPass Anda sekarang atau izin Anda akan dibatalkan hari ini.\"",
-        "options": ["Kirim detail SingPass saya dengan cepat agar tidak kehilangan pekerjaan", "Ini penipuan — MOM tidak pernah meminta kata sandi SingPass", "Minta ID staf orang tersebut terlebih dahulu, baru putuskan"],
+        "options": [
+          "Kirim detail SingPass saya dengan cepat agar tidak kehilangan pekerjaan",
+          "Ini penipuan — MOM tidak pernah meminta kata sandi SingPass",
+          "Minta ID staf orang tersebut terlebih dahulu, baru putuskan"
+        ],
         "explanation": "MOM, polisi, bank, dan instansi pemerintah TIDAK AKAN PERNAH meminta kata sandi SingPass atau OTP Anda. Tutup telepon atau abaikan pesan dan hubungi MOM langsung di 6438-5122 untuk memverifikasi."
       },
       {
         "scenario": "Iklan Facebook menawarkan pekerjaan di Singapura dengan gaji S$4.000/bulan untuk pekerjaan ringan. Tidak perlu pengalaman. Anda hanya perlu membayar \"biaya pendaftaran\" S$300 untuk mendapatkan tempat Anda.",
-        "options": ["Bayar biayanya — pekerjaan bagus cepat habis", "Ini penipuan kerja — pemberi kerja yang sah tidak pernah memungut biaya dari pekerja di muka", "Negosiasikan biayanya turun menjadi S$100 sebelum membayar"],
+        "options": [
+          "Bayar biayanya — pekerjaan bagus cepat habis",
+          "Ini penipuan kerja — pemberi kerja yang sah tidak pernah memungut biaya dari pekerja di muka",
+          "Negosiasikan biayanya turun menjadi S$100 sebelum membayar"
+        ],
         "explanation": "Berdasarkan Undang-Undang Ketenagakerjaan Tenaga Kerja Asing, pemberi kerja tidak boleh memungut biaya rekrutmen dari pekerja. Setiap pekerjaan yang mengharuskan Anda membayar terlebih dahulu adalah penipuan. Laporkan ke MOM di 1800-333-1313."
       },
       {
         "scenario": "Seseorang menyelipkan kartu di bawah pintu asrama Anda: \"Butuh uang cepat? Tanpa cek kredit! Pinjam hingga S$5.000 hari ini. WhatsApp kami.\" Kartu tersebut tidak ada nama perusahaan atau nomor lisensi.",
-        "options": ["WhatsApp mereka — mudah dan saya butuh uang mendesak", "Abaikan — ini adalah rentenir ilegal (Ah Long)", "Pinjam jumlah kecil dulu untuk menguji apakah mereka bisa dipercaya"],
+        "options": [
+          "WhatsApp mereka — mudah dan saya butuh uang mendesak",
+          "Abaikan — ini adalah rentenir ilegal (Ah Long)",
+          "Pinjam jumlah kecil dulu untuk menguji apakah mereka bisa dipercaya"
+        ],
         "explanation": "Pemberi pinjaman berlisensi di Singapura hanya beriklan melalui situs web mereka sendiri, direktori bisnis, atau kantor fisik — tidak pernah melalui selebaran atau SMS. Meminjam dari rentenir berujung pada pelecehan dan kekerasan. Hubungi hotline X-Ah Long: 1800-924-5664."
       },
       {
         "scenario": "Pemberi kerja Anda tidak membayar gaji Anda selama 2 bulan. Dia berkata: \"Jangan lapor ke MOM atau saya akan membatalkan izin kerja Anda dan mengirim Anda pulang.\" Apa yang harus Anda lakukan?",
-        "options": ["Tunggu diam-diam — saya tidak bisa mengambil risiko kehilangan izin kerja", "Laporkan ke MOM — mereka melindungi pekerja dan tidak bisa membatalkan izin Anda karena melapor", "Pinjam uang dari teman dan diam saja"],
+        "options": [
+          "Tunggu diam-diam — saya tidak bisa mengambil risiko kehilangan izin kerja",
+          "Laporkan ke MOM — mereka melindungi pekerja dan tidak bisa membatalkan izin Anda karena melapor",
+          "Pinjam uang dari teman dan diam saja"
+        ],
         "explanation": "MOM melindungi pekerja yang mengajukan klaim gaji. Pemberi kerja Anda TIDAK BISA membatalkan izin kerja Anda hanya karena melaporkan upah yang tidak dibayar — itu akan menjadi pelanggaran tambahan. Ajukan klaim gaji di mom.gov.sg atau hubungi 1800-333-1313."
       },
       {
         "scenario": "Teman baru meminta apakah Anda bisa menerima S$8.000 ke rekening bank Anda dan mentransfernya ke rekening lain untuk \"komisi kecil.\" Dia bilang itu untuk bisnisnya.",
-        "options": ["Setuju — mudah saja dan saya hanya memindahkan dana", "Tolak — menggunakan rekening Anda dengan cara ini adalah penipuan money mule, yang merupakan tindak pidana", "Minta komisi lebih besar sebelum setuju"],
+        "options": [
+          "Setuju — mudah saja dan saya hanya memindahkan dana",
+          "Tolak — menggunakan rekening Anda dengan cara ini adalah penipuan money mule, yang merupakan tindak pidana",
+          "Minta komisi lebih besar sebelum setuju"
+        ],
         "explanation": "Mengizinkan orang lain menggunakan rekening bank Anda untuk memindahkan uang adalah tindak pidana di Singapura berdasarkan Undang-Undang Korupsi, Perdagangan Narkoba, dan Kejahatan Serius Lainnya. Anda bisa dipenjara hingga 3 tahun dan didenda hingga S$50.000, meskipun Anda tidak tahu uang itu berasal dari kejahatan."
       },
       {
         "scenario": "Anda menerima SMS: \"DBS Bank: Login tidak biasa terdeteksi di akun Anda. Klik tautan ini untuk verifikasi: dbs-secure-login.com.\" Tautannya terlihat berbeda dari situs web DBS resmi.",
-        "options": ["Klik tautannya dan login segera untuk melindungi akun saya", "Hapus SMS-nya — ini penipuan phishing. Hubungi DBS langsung di 1800-111-1111", "Teruskan tautannya ke teman untuk memeriksa apakah itu asli"],
+        "options": [
+          "Klik tautannya dan login segera untuk melindungi akun saya",
+          "Hapus SMS-nya — ini penipuan phishing. Hubungi DBS langsung di 1800-111-1111",
+          "Teruskan tautannya ke teman untuk memeriksa apakah itu asli"
+        ],
         "explanation": "Bank tidak pernah mengirim tautan yang meminta Anda untuk login. Situs DBS yang asli adalah dbs.com.sg — yang lainnya palsu. Selalu ketik URL bank sendiri atau hubungi nomor di belakang kartu Anda. Anda juga dapat menghubungi helpline ScamShield: 1799."
       },
       {
         "scenario": "\"Guru investasi\" online dalam grup Telegram mengatakan Anda bisa menggandakan uang dalam 30 hari dengan berinvestasi di dana kripto khusus. Banyak orang dalam grup memposting tangkapan layar keuntungan besar mereka.",
-        "options": ["Investasikan S$500 — testimoninya terlihat meyakinkan", "Laporkan grupnya — ini adalah penipuan investasi klasik dengan testimoni palsu", "Tunggu untuk melihat apakah orang lain dibayar sebelum berinvestasi"],
+        "options": [
+          "Investasikan S$500 — testimoninya terlihat meyakinkan",
+          "Laporkan grupnya — ini adalah penipuan investasi klasik dengan testimoni palsu",
+          "Tunggu untuk melihat apakah orang lain dibayar sebelum berinvestasi"
+        ],
         "explanation": "Keuntungan tinggi yang dijamin dalam waktu singkat adalah tanda penipuan nomor 1. Tangkapan layar keuntungan itu palsu, dan \"anggota grup\" yang memuji skema tersebut adalah penipu bayaran. Laporkan penipuan investasi ke polisi di police.gov.sg/iwitness atau hubungi 999."
       },
       {
         "scenario": "Seorang pemilik rumah di Carousell meminta uang sewa 3 bulan (S$2.400) sebagai deposit melalui PayNow sebelum Anda bisa melihat kamarnya. Dia mengatakan banyak orang menginginkan kamar itu dan akan habis malam ini.",
-        "options": ["Transfer uangnya cepat sebelum orang lain mengambil kamarnya", "Tolak — jangan pernah bayar sebelum melihat. Ini kemungkinan penipuan sewa", "Bayar setengahnya sekarang dan setengahnya setelah melihat"],
+        "options": [
+          "Transfer uangnya cepat sebelum orang lain mengambil kamarnya",
+          "Tolak — jangan pernah bayar sebelum melihat. Ini kemungkinan penipuan sewa",
+          "Bayar setengahnya sekarang dan setengahnya setelah melihat"
+        ],
         "explanation": "Desakan dan tekanan untuk membayar sebelum melihat adalah taktik penipuan sewa yang klasik. Selalu lihat propertinya secara langsung, verifikasi identitas dan kepemilikan pemilik rumah, dan jangan pernah transfer uang sebelum menandatangani kontrak. Periksa scamalert.sg untuk daftar penipuan yang dilaporkan."
       }
     ]
   },
-
   "emergencyFund": {
     "pageTitle": "Kalkulator Dana Darurat",
     "pageSubtitle": "Ketahui dengan tepat berapa yang Anda butuhkan — dan berapa lama untuk mencapainya.",
@@ -537,10 +675,22 @@
     "tipsHeading": "Di mana menyimpan dana darurat Anda",
     "disclaimer": "Asuransi deposito di Singapura melindungi hingga S$75.000 per bank per nasabah melalui SDIC.",
     "tips": [
-      { "title": "POSB / DBS eMySavings", "body": "Tidak ada saldo minimum, tidak ada biaya. Buka secara online dengan SingPass. Uang Anda dilindungi oleh SDIC hingga S$75.000." },
-      { "title": "GXS Bank atau MariBank", "body": "Bank digital yang terbuka untuk pemegang izin kerja. Bunga tabungan lebih tinggi (hingga ~3%), tanpa biaya, tanpa saldo minimum." },
-      { "title": "Pisahkan rekeningnya", "body": "Simpan dana darurat Anda di rekening berbeda dari rekening pengeluaran Anda agar Anda tidak tergoda untuk menggunakannya." },
-      { "title": "Hindari kelompok tabungan informal (arisan)", "body": "\"Chit fund\" atau klub tabungan bergilir tidak memiliki perlindungan hukum. Jika penyelenggaranya menghilang, uang Anda hilang." }
+      {
+        "title": "POSB / DBS eMySavings",
+        "body": "Tidak ada saldo minimum, tidak ada biaya. Buka secara online dengan SingPass. Uang Anda dilindungi oleh SDIC hingga S$75.000."
+      },
+      {
+        "title": "GXS Bank atau MariBank",
+        "body": "Bank digital yang terbuka untuk pemegang izin kerja. Bunga tabungan lebih tinggi (hingga ~3%), tanpa biaya, tanpa saldo minimum."
+      },
+      {
+        "title": "Pisahkan rekeningnya",
+        "body": "Simpan dana darurat Anda di rekening berbeda dari rekening pengeluaran Anda agar Anda tidak tergoda untuk menggunakannya."
+      },
+      {
+        "title": "Hindari kelompok tabungan informal (arisan)",
+        "body": "\"Chit fund\" atau klub tabungan bergilir tidak memiliki perlindungan hukum. Jika penyelenggaranya menghilang, uang Anda hilang."
+      }
     ],
     "time": {
       "oneMonth": "1 bulan",
@@ -550,7 +700,6 @@
       "yearsMonths": "{{years}} thn {{months}} bln"
     }
   },
-
   "bankingGuide": {
     "pageTitle": "Perbankan di Singapura",
     "pageSubtitle": "Cara membuka rekening, apa yang Anda butuhkan, dan apa yang harus dilakukan jika ada yang salah.",
@@ -570,51 +719,133 @@
     "noFeeLabel": "Tidak ada biaya",
     "disclaimer": "Informasi benar per awal 2025. Selalu verifikasi langsung dengan bank sebelum berkunjung.",
     "docs": [
-      { "label": "Kartu Izin Kerja", "sub": "Kartu biru dari MOM — selalu bawa" },
-      { "label": "Paspor", "sub": "Asli + fotokopi halaman foto" },
-      { "label": "Surat pemberi kerja", "sub": "Di kop surat perusahaan, dengan stempel perusahaan, yang mengonfirmasi pekerjaan dan gaji Anda" },
-      { "label": "Bukti alamat", "sub": "Perjanjian sewa atau surat pemberi kerja yang menunjukkan alamat Singapura Anda" }
+      {
+        "label": "Kartu Izin Kerja",
+        "sub": "Kartu biru dari MOM — selalu bawa"
+      },
+      {
+        "label": "Paspor",
+        "sub": "Asli + fotokopi halaman foto"
+      },
+      {
+        "label": "Surat pemberi kerja",
+        "sub": "Di kop surat perusahaan, dengan stempel perusahaan, yang mengonfirmasi pekerjaan dan gaji Anda"
+      },
+      {
+        "label": "Bukti alamat",
+        "sub": "Perjanjian sewa atau surat pemberi kerja yang menunjukkan alamat Singapura Anda"
+      }
     ],
     "banks": [
       {
-        "name": "POSB Everyday Savings", "fee": "Tidak ada biaya", "minBalance": "Tidak ada",
+        "name": "POSB Everyday Savings",
+        "fee": "Tidak ada biaya",
+        "minBalance": "Tidak ada",
         "notes": "Terbaik untuk sebagian besar pekerja. Jaringan ATM terluas di Singapura (lebih dari 1.400 mesin). Menerima pemegang izin kerja.",
-        "docs": ["Izin Kerja (kartu biru)", "Paspor", "Bukti alamat Singapura (surat pemberi kerja atau perjanjian sewa)"]
+        "docs": [
+          "Izin Kerja (kartu biru)",
+          "Paspor",
+          "Bukti alamat Singapura (surat pemberi kerja atau perjanjian sewa)"
+        ]
       },
       {
-        "name": "DBS Multiplier Account", "fee": "S$2/bulan jika saldo < S$3.000", "minBalance": "S$3.000 untuk menghindari biaya",
+        "name": "DBS Multiplier Account",
+        "fee": "S$2/bulan jika saldo < S$3.000",
+        "minBalance": "S$3.000 untuk menghindari biaya",
         "notes": "Bunga lebih tinggi jika Anda menerima gaji dan bertransaksi secara rutin. Bagus setelah Anda memiliki tabungan.",
-        "docs": ["Izin Kerja atau S Pass atau Employment Pass", "Paspor", "SingPass (jika tersedia)"]
+        "docs": [
+          "Izin Kerja atau S Pass atau Employment Pass",
+          "Paspor",
+          "SingPass (jika tersedia)"
+        ]
       },
       {
-        "name": "OCBC 360 Account", "fee": "S$2/bulan jika saldo < S$1.000", "minBalance": "S$1.000 untuk menghindari biaya",
+        "name": "OCBC 360 Account",
+        "fee": "S$2/bulan jika saldo < S$1.000",
+        "minBalance": "S$1.000 untuk menghindari biaya",
         "notes": "Bunga bonus saat Anda mengkreditkan gaji. Pemegang izin kerja diterima. Kunjungan cabang diperlukan untuk membuka.",
-        "docs": ["Izin Kerja", "Paspor", "Surat pemberi kerja"]
+        "docs": [
+          "Izin Kerja",
+          "Paspor",
+          "Surat pemberi kerja"
+        ]
       },
       {
-        "name": "UOB One Account", "fee": "S$2/bulan jika saldo < S$1.000", "minBalance": "S$1.000 untuk menghindari biaya",
+        "name": "UOB One Account",
+        "fee": "S$2/bulan jika saldo < S$1.000",
+        "minBalance": "S$1.000 untuk menghindari biaya",
         "notes": "Bunga bagus untuk pengkreditan gaji. Beberapa cabang melayani pekerja asing — hubungi terlebih dahulu untuk konfirmasi.",
-        "docs": ["Izin Kerja atau S Pass", "Paspor", "Surat pemberi kerja dengan stempel perusahaan"]
+        "docs": [
+          "Izin Kerja atau S Pass",
+          "Paspor",
+          "Surat pemberi kerja dengan stempel perusahaan"
+        ]
       }
     ],
     "digital": [
-      { "name": "GXS Bank", "badge": "Bunga terbaik", "requirement": "Izin kerja + nomor telepon Singapura", "desc": "Bank digital penuh yang terbuka untuk pemegang izin kerja. Tidak ada saldo minimum, tidak ada biaya. Menawarkan bunga hingga 3,48% untuk tabungan. Buka sepenuhnya melalui aplikasi — tidak perlu kunjungan cabang." },
-      { "name": "MariBank", "badge": "Tanpa biaya", "requirement": "Izin kerja + nomor telepon Singapura", "desc": "Bank digital Sea Group. Tidak ada saldo minimum, tidak ada biaya, suku bunga tabungan kompetitif. Buka melalui aplikasi dengan detail izin kerja Anda." },
-      { "name": "YouTrip", "badge": "Terbaik untuk remitansi", "requirement": "Izin kerja atau nomor FIN", "desc": "Dompet elektronik multi-mata uang. Bagus untuk mengirim uang ke rumah dengan biaya rendah dan membayar dalam mata uang asal saat belanja online. Bukan bank penuh — tidak ada bunga atas saldo." },
-      { "name": "GrabPay", "badge": "Diterima luas", "requirement": "Nomor telepon Singapura", "desc": "Dompet elektronik yang terhubung ke aplikasi Grab Anda. Diterima di ribuan pedagang, pusat jajanan, dan untuk GrabFood. Isi ulang melalui PayNow atau ATM. Tidak memerlukan rekening bank untuk memulai." },
-      { "name": "Singtel Dash", "badge": "Isi ulang mudah", "requirement": "Nomor telepon apapun (tidak perlu rekening bank)", "desc": "Dompet elektronik dari Singtel. Isi ulang dengan tunai di toko 7-Eleven atau Cheers — berguna jika Anda belum memiliki rekening bank lokal. Bisa kirim uang ke lebih dari 30 negara." }
+      {
+        "name": "GXS Bank",
+        "badge": "Bunga terbaik",
+        "requirement": "Izin kerja + nomor telepon Singapura",
+        "desc": "Bank digital penuh yang terbuka untuk pemegang izin kerja. Tidak ada saldo minimum, tidak ada biaya. Menawarkan bunga hingga 3,48% untuk tabungan. Buka sepenuhnya melalui aplikasi — tidak perlu kunjungan cabang."
+      },
+      {
+        "name": "MariBank",
+        "badge": "Tanpa biaya",
+        "requirement": "Izin kerja + nomor telepon Singapura",
+        "desc": "Bank digital Sea Group. Tidak ada saldo minimum, tidak ada biaya, suku bunga tabungan kompetitif. Buka melalui aplikasi dengan detail izin kerja Anda."
+      },
+      {
+        "name": "YouTrip",
+        "badge": "Terbaik untuk remitansi",
+        "requirement": "Izin kerja atau nomor FIN",
+        "desc": "Dompet elektronik multi-mata uang. Bagus untuk mengirim uang ke rumah dengan biaya rendah dan membayar dalam mata uang asal saat belanja online. Bukan bank penuh — tidak ada bunga atas saldo."
+      },
+      {
+        "name": "GrabPay",
+        "badge": "Diterima luas",
+        "requirement": "Nomor telepon Singapura",
+        "desc": "Dompet elektronik yang terhubung ke aplikasi Grab Anda. Diterima di ribuan pedagang, pusat jajanan, dan untuk GrabFood. Isi ulang melalui PayNow atau ATM. Tidak memerlukan rekening bank untuk memulai."
+      },
+      {
+        "name": "Singtel Dash",
+        "badge": "Isi ulang mudah",
+        "requirement": "Nomor telepon apapun (tidak perlu rekening bank)",
+        "desc": "Dompet elektronik dari Singtel. Isi ulang dengan tunai di toko 7-Eleven atau Cheers — berguna jika Anda belum memiliki rekening bank lokal. Bisa kirim uang ke lebih dari 30 negara."
+      }
     ],
     "steps": [
-      { "title": "Ketahui hak Anda", "body": "Adalah ilegal di Singapura bagi pemberi kerja Anda untuk memegang kartu bank, kartu ATM, atau buku tabungan Anda. Ini diatur dalam Undang-Undang Ketenagakerjaan dan peraturan MOM." },
-      { "title": "Minta dengan sopan terlebih dahulu", "body": "Katakan kepada pemberi kerja Anda: \"Saya perlu kartu bank saya untuk menarik gaji saya sendiri.\" Sebagian besar pemberi kerja akan mengembalikannya ketika diminta secara langsung." },
-      { "title": "Hubungi MOM", "body": "Jika pemberi kerja Anda menolak, hubungi MOM di 1800-333-1313 (panggilan gratis, Senin–Jumat 08.30–17.30). Mereka dapat turun tangan atas nama Anda." },
-      { "title": "Hubungi polisi jika diancam", "body": "Jika pemberi kerja Anda mengancam Anda karena meminta kartu kembali, hubungi 999. Menahan kartu Anda dengan paksa adalah masalah pidana." },
-      { "title": "Ganti kartu jika diperlukan", "body": "Pergi ke cabang bank Anda dengan izin kerja dan paspor. Beritahu mereka kartu Anda diambil. Bank akan membatalkan kartu lama dan menerbitkan yang baru — biasanya gratis." }
+      {
+        "title": "Ketahui hak Anda",
+        "body": "Adalah ilegal di Singapura bagi pemberi kerja Anda untuk memegang kartu bank, kartu ATM, atau buku tabungan Anda. Ini diatur dalam Undang-Undang Ketenagakerjaan dan peraturan MOM."
+      },
+      {
+        "title": "Minta dengan sopan terlebih dahulu",
+        "body": "Katakan kepada pemberi kerja Anda: \"Saya perlu kartu bank saya untuk menarik gaji saya sendiri.\" Sebagian besar pemberi kerja akan mengembalikannya ketika diminta secara langsung."
+      },
+      {
+        "title": "Hubungi MOM",
+        "body": "Jika pemberi kerja Anda menolak, hubungi MOM di 1800-333-1313 (panggilan gratis, Senin–Jumat 08.30–17.30). Mereka dapat turun tangan atas nama Anda."
+      },
+      {
+        "title": "Hubungi polisi jika diancam",
+        "body": "Jika pemberi kerja Anda mengancam Anda karena meminta kartu kembali, hubungi 999. Menahan kartu Anda dengan paksa adalah masalah pidana."
+      },
+      {
+        "title": "Ganti kartu jika diperlukan",
+        "body": "Pergi ke cabang bank Anda dengan izin kerja dan paspor. Beritahu mereka kartu Anda diambil. Bank akan membatalkan kartu lama dan menerbitkan yang baru — biasanya gratis."
+      }
     ],
     "helplines": [
-      { "label": "Helpline MOM (sengketa gaji & kartu)" },
-      { "label": "Polisi (darurat / ancaman)" },
-      { "label": "TWC2 (Transient Workers Count Too)" }
+      {
+        "label": "Helpline MOM (sengketa gaji & kartu)"
+      },
+      {
+        "label": "Polisi (darurat / ancaman)"
+      },
+      {
+        "label": "TWC2 (Transient Workers Count Too)"
+      }
     ]
   }
 }

@@ -7,6 +7,7 @@ import {
   Sparkles,
   ChevronDown,
   TrendingUp,
+  Coins,
   Wallet,
   ArrowUpRight,
 } from 'lucide-react'
@@ -65,7 +66,7 @@ export default function Home() {
   const FEATURES = [
     {
       to: '/savings',
-      icon: Wallet,
+      icon: Coins,
       title: t('features.savings.title'),
       description: t('features.savings.description'),
       bg: 'bg-amber-50',
@@ -114,7 +115,7 @@ export default function Home() {
       label: t('stats.totalSaved'),
       value: 'S$0',
       sub: t('stats.totalSavedSub'),
-      icon: Wallet,
+      icon: Coins,
       color: 'text-amber-600',
       bg: 'bg-amber-50',
     },

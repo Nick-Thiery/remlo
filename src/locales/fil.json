@@ -1,18 +1,16 @@
 {
-  "greetingMorning":   "Magandang umaga 👋",
+  "greetingMorning": "Magandang umaga 👋",
   "greetingAfternoon": "Magandang hapon 👋",
-  "greetingEvening":   "Magandang gabi 👋",
+  "greetingEvening": "Magandang gabi 👋",
   "greeting": "Magandang umaga 👋",
   "appName": "Remlo",
   "footer": "Remlo v1.0 · Sinigurado ng Supabase · Para sa mga manggagawa sa Singapore",
-
   "hero": {
     "eyebrow": "Para sa iyo",
     "headline": "Ang iyong pera,\nang iyong kinabukasan.",
     "tagline": "Mag-plano, mag-ipon, at magpadala ng pera sa bahay — mas matalino, mas mura.",
     "cta": "Magsimula"
   },
-
   "stats": {
     "heading": "Mabilis na Istatistika",
     "totalSaved": "Kabuuang Naipong Pera",
@@ -22,15 +20,26 @@
     "lastSent": "Huling Padala",
     "lastSentSub": "remitansa sa bahay"
   },
-
   "features": {
     "heading": "Mga Tampok",
-    "savings": { "title": "Mga Layunin sa Ipon", "description": "Subaybayan ang iyong mga target — emergency fund, paglalakbay, pamilya." },
-    "budget": { "title": "Tagaplano ng Badyet", "description": "Planuhin ang iyong buwanang gastusin at tingnan kung magkano ang matitipid mo." },
-    "remittance": { "title": "Magpadala ng Pera", "description": "Ikumpara ang Wise, Remitly, at iba pa para makuha ang pinakamahusay na rate." },
-    "ai": { "title": "AI Assistant", "description": "Makakuha ng mga personalisadong payo sa pera batay sa iyong profile.", "badge": "Malapit na" }
+    "savings": {
+      "title": "Mga Layunin sa Ipon",
+      "description": "Subaybayan ang iyong mga target — emergency fund, paglalakbay, pamilya."
+    },
+    "budget": {
+      "title": "Tagaplano ng Badyet",
+      "description": "Planuhin ang iyong buwanang gastusin at tingnan kung magkano ang matitipid mo."
+    },
+    "remittance": {
+      "title": "Magpadala ng Pera",
+      "description": "Ikumpara ang Wise, Remitly, at iba pa para makuha ang pinakamahusay na rate."
+    },
+    "ai": {
+      "title": "AI Assistant",
+      "description": "Makakuha ng mga personalisadong payo sa pera batay sa iyong profile.",
+      "badge": "Malapit na"
+    }
   },
-
   "nav": {
     "home": "Home",
     "savings": "Ipon",
@@ -44,15 +53,40 @@
     "emergencySection": "Emergency Contacts",
     "drawerFooter": "Remlo · Para sa mga migranteng manggagawa sa Singapore"
   },
-
   "moreItems": {
-    "salary": { "label": "Tracker ng Sahod", "desc": "I-log ang mga bayad at markahan ang mga nahuling araw ng sweldo" },
-    "loans": { "label": "Tracker ng Utang", "desc": "Subaybayan ang mga bayad at petsa ng pagkabayad" },
-    "scams": { "label": "Mga Babala sa Scam", "desc": "Pinakabagong mga scam na nagta-target sa mga manggagawa sa Singapore" },
-    "loanshark": { "label": "Gabay sa Loan Shark", "desc": "Tukuyin ang mga ilegal na nagpapahiram at humingi ng tulong" },
-    "emergency": { "label": "Emergency Contacts", "desc": "Mga helpline para sa mga manggagawa sa Singapore" }
+    "salary": {
+      "label": "Tracker ng Sahod",
+      "desc": "I-log ang mga bayad at markahan ang mga nahuling araw ng sweldo"
+    },
+    "loans": {
+      "label": "Tracker ng Utang",
+      "desc": "Subaybayan ang mga bayad at petsa ng pagkabayad"
+    },
+    "scams": {
+      "label": "Mga Babala sa Scam",
+      "desc": "Pinakabagong mga scam na nagta-target sa mga manggagawa sa Singapore"
+    },
+    "loanshark": {
+      "label": "Gabay sa Loan Shark",
+      "desc": "Tukuyin ang mga ilegal na nagpapahiram at humingi ng tulong"
+    },
+    "emergency": {
+      "label": "Emergency Contacts",
+      "desc": "Mga helpline para sa mga manggagawa sa Singapore"
+    },
+    "scamQuiz": {
+      "label": "Pagsubok sa Scam",
+      "desc": "Subukan ang iyong kamalayan sa scam sa 8 na tanong"
+    },
+    "emergencyFund": {
+      "label": "Emergency Fund",
+      "desc": "Kalkulahin kung magkano ang backup savings na kailangan mo"
+    },
+    "bankingGuide": {
+      "label": "Gabay sa Bangko",
+      "desc": "Paano magbukas ng bank account sa Singapore"
+    }
   },
-
   "common": {
     "cancel": "Kanselahin",
     "save": "I-save",
@@ -69,7 +103,6 @@
     "emergency": "Emergency",
     "nonEmergency": "Hindi emergency"
   },
-
   "savings": {
     "pageTitle": "Mga Layunin sa Ipon",
     "pageSubtitle_one": "{{count}} aktibong layunin",
@@ -99,7 +132,6 @@
     "errorTarget": "Maglagay ng wastong target na halaga.",
     "errorDeposit": "Maglagay ng wastong halagang ideposito."
   },
-
   "budget": {
     "pageTitle": "Tagaplano ng Badyet",
     "pageSubtitle": "Planuhin ang iyong buwanang kita at gastusin",
@@ -138,7 +170,6 @@
     "presetTransport": "Transportasyon",
     "presetPhone": "Plano sa Telepono"
   },
-
   "remittance": {
     "pageTitle": "Magpadala ng Pera",
     "pageSubtitle": "Ikumpara ang mga live na rate sa iba't ibang provider",
@@ -164,7 +195,6 @@
     "countryPakistan": "Pakistan",
     "countryNepal": "Nepal"
   },
-
   "salary": {
     "pageTitle": "Tracker ng Sahod",
     "pageSubtitle": "{{count}} na bayad ang naka-log",
@@ -205,7 +235,6 @@
     "errorAmount": "Maglagay ng wastong halaga",
     "errorEmployer": "Kinakailangan"
   },
-
   "loans": {
     "pageTitle": "Tracker ng Utang",
     "pageSubtitle_one": "{{count}} aktibong utang",
@@ -254,7 +283,6 @@
     "errorRate": "Maglagay ng wastong rate (0 o higit pa)",
     "errorPayment": "Maglagay ng wastong halagang babayaran"
   },
-
   "scams": {
     "emergencyBanner": "🚨 Kung ikaw ay nasa panganib tumawag sa 999  ·  MOM Helpline: 1800-333-1313",
     "pageTitle": "Mga Babala sa Scam",
@@ -354,7 +382,6 @@
       }
     ]
   },
-
   "loanshark": {
     "pageTitle": "Identifier ng Loan Shark",
     "pageSubtitle": "Suriin kung aling mga pahayag ang naaangkop para matukoy ang isang ilegal na nagpapahiram",
@@ -372,21 +399,70 @@
     "callPolice": "Tumawag sa Pulisya: 999",
     "disclaimer": "Impormasyon batay sa Moneylenders Act (Cap. 188) at mga alituntunin ng MOM. Hindi legal na payo.",
     "flags": [
-      { "id": "unsolicited_contact", "label": "Sila mismo ang nakipag-ugnayan sa iyo — sa WhatsApp, SMS, o social media", "detail": "Ang mga lisensyadong nagpapahiram sa Singapore ay ipinagbabawal ng batas na mag-advertise sa pamamagitan ng SMS, WhatsApp, tawag sa telepono, o social media. Kung sila ang lumapit sa iyo, hindi sila lisensyado." },
-      { "id": "no_license", "label": "Hindi nila maibigay ang numero ng lisensya o tumatangging ipakita ito", "detail": "Bawat lisensyadong nagpapahiram ay dapat na rehistrado sa Registry of Moneylenders. Maaari mong i-verify ang anumang numero ng lisensya sa moneylenders.justice.gov.sg. Ang pagtanggi na magbigay ng isa ay isang seryosong red flag." },
-      { "id": "high_interest", "label": "Ang rate ng interes ay higit sa 4% bawat buwan", "detail": "Ang batas ng Singapore ay nagtatakda ng limitasyon ng interes sa 4% bawat buwan para sa lahat ng lisensyadong nagpapahiram, anuman ang iyong kita o laki ng utang. Anumang rate na higit dito ay ilegal." },
-      { "id": "singpass_demand", "label": "Hiningi nila ang iyong SingPass login o password", "detail": "Walang lehitimong nagpapahiram, bangko, o ahensya ng gobyerno ang hihinging ng iyong mga kredensyal sa SingPass. Ito ay pagnanakaw ng pagkakakilanlan. Huwag ibigay ang mga ito sa anumang pagkakataon." },
-      { "id": "bank_login_demand", "label": "Hiningi nila ang iyong internet banking login, ATM PIN, o bank card", "detail": "Ang mga lisensyadong nagpapahiram ay nagpapadala ng mga utang nang direkta sa iyong bank account — wala silang dahilan para i-access ang iyong account mismo. Ang pagbibigay ng access sa bangko ay nagbubukas sa lahat ng iyong ipon." },
-      { "id": "no_contract", "label": "Walang nakasulat na kontrata ng utang ang ibinigay, o ito ay blangko / hindi kumpleto", "detail": "Ang Moneylenders Act ay nangangailangan ng isang nilagdaang kontrata ng utang bago magpalit ng anumang pera. Ang isang lehitimong nagpapahiram ay magbibigay sa iyo ng oras para basahin ito. Huwag kailanman pumirma ng blangko o bahagyang napunan na form." },
-      { "id": "upfront_fee", "label": "Humingi sila ng advance na bayad o deposito bago ilabas ang utang", "detail": "Ang mga lisensyadong nagpapahiram ay maaari lamang mag-deduct ng administrative fee (max 10% ng principal) mula sa halaga ng utang mismo — hindi kailanman bilang advance na cash na bayad bago ka makatanggap ng anuman." },
-      { "id": "no_office", "label": "Wala silang pisikal na opisina, o ang opisina ay mukhang hindi opisyal / tirahan", "detail": "Lahat ng lisensyadong nagpapahiram ay dapat mag-operate mula sa isang rehistradong komersyal na address ng opisina. Kung walang opisina, o nagtatagpo lamang sila sa iyo sa mga kainan o sa telepono, hindi sila lisensyado." },
-      { "id": "threats", "label": "Binalaan nila ikaw, ang iyong pamilya, o ang iyong employer", "detail": "Ang mga banta, panliligalig, pinsala sa ari-arian (pagwiwisik ng pintura, pag-lock ng mga pinto), at pakikipag-ugnayan sa iyong employer ay mga krimen sa Singapore. Ikaw ay biktima — tumawag agad sa 999." },
-      { "id": "retain_id", "label": "Kinuha nila ang iyong pasaporte, Work Permit, o mga ID bilang kolateral", "detail": "Ilegal para sa sinuman na hawakan ang iyong mga dokumento sa pagbiyahe o pagkakakilanlan. Ang mga lisensyadong nagpapahiram ay malinaw na ipinagbabawal na gawin ito. Mag-report agad sa MOM o sa Pulisya." }
+      {
+        "id": "unsolicited_contact",
+        "label": "Sila mismo ang nakipag-ugnayan sa iyo — sa WhatsApp, SMS, o social media",
+        "detail": "Ang mga lisensyadong nagpapahiram sa Singapore ay ipinagbabawal ng batas na mag-advertise sa pamamagitan ng SMS, WhatsApp, tawag sa telepono, o social media. Kung sila ang lumapit sa iyo, hindi sila lisensyado."
+      },
+      {
+        "id": "no_license",
+        "label": "Hindi nila maibigay ang numero ng lisensya o tumatangging ipakita ito",
+        "detail": "Bawat lisensyadong nagpapahiram ay dapat na rehistrado sa Registry of Moneylenders. Maaari mong i-verify ang anumang numero ng lisensya sa moneylenders.justice.gov.sg. Ang pagtanggi na magbigay ng isa ay isang seryosong red flag."
+      },
+      {
+        "id": "high_interest",
+        "label": "Ang rate ng interes ay higit sa 4% bawat buwan",
+        "detail": "Ang batas ng Singapore ay nagtatakda ng limitasyon ng interes sa 4% bawat buwan para sa lahat ng lisensyadong nagpapahiram, anuman ang iyong kita o laki ng utang. Anumang rate na higit dito ay ilegal."
+      },
+      {
+        "id": "singpass_demand",
+        "label": "Hiningi nila ang iyong SingPass login o password",
+        "detail": "Walang lehitimong nagpapahiram, bangko, o ahensya ng gobyerno ang hihinging ng iyong mga kredensyal sa SingPass. Ito ay pagnanakaw ng pagkakakilanlan. Huwag ibigay ang mga ito sa anumang pagkakataon."
+      },
+      {
+        "id": "bank_login_demand",
+        "label": "Hiningi nila ang iyong internet banking login, ATM PIN, o bank card",
+        "detail": "Ang mga lisensyadong nagpapahiram ay nagpapadala ng mga utang nang direkta sa iyong bank account — wala silang dahilan para i-access ang iyong account mismo. Ang pagbibigay ng access sa bangko ay nagbubukas sa lahat ng iyong ipon."
+      },
+      {
+        "id": "no_contract",
+        "label": "Walang nakasulat na kontrata ng utang ang ibinigay, o ito ay blangko / hindi kumpleto",
+        "detail": "Ang Moneylenders Act ay nangangailangan ng isang nilagdaang kontrata ng utang bago magpalit ng anumang pera. Ang isang lehitimong nagpapahiram ay magbibigay sa iyo ng oras para basahin ito. Huwag kailanman pumirma ng blangko o bahagyang napunan na form."
+      },
+      {
+        "id": "upfront_fee",
+        "label": "Humingi sila ng advance na bayad o deposito bago ilabas ang utang",
+        "detail": "Ang mga lisensyadong nagpapahiram ay maaari lamang mag-deduct ng administrative fee (max 10% ng principal) mula sa halaga ng utang mismo — hindi kailanman bilang advance na cash na bayad bago ka makatanggap ng anuman."
+      },
+      {
+        "id": "no_office",
+        "label": "Wala silang pisikal na opisina, o ang opisina ay mukhang hindi opisyal / tirahan",
+        "detail": "Lahat ng lisensyadong nagpapahiram ay dapat mag-operate mula sa isang rehistradong komersyal na address ng opisina. Kung walang opisina, o nagtatagpo lamang sila sa iyo sa mga kainan o sa telepono, hindi sila lisensyado."
+      },
+      {
+        "id": "threats",
+        "label": "Binalaan nila ikaw, ang iyong pamilya, o ang iyong employer",
+        "detail": "Ang mga banta, panliligalig, pinsala sa ari-arian (pagwiwisik ng pintura, pag-lock ng mga pinto), at pakikipag-ugnayan sa iyong employer ay mga krimen sa Singapore. Ikaw ay biktima — tumawag agad sa 999."
+      },
+      {
+        "id": "retain_id",
+        "label": "Kinuha nila ang iyong pasaporte, Work Permit, o mga ID bilang kolateral",
+        "detail": "Ilegal para sa sinuman na hawakan ang iyong mga dokumento sa pagbiyahe o pagkakakilanlan. Ang mga lisensyadong nagpapahiram ay malinaw na ipinagbabawal na gawin ito. Mag-report agad sa MOM o sa Pulisya."
+      }
     ],
     "risks": {
-      "green": { "label": "Malamang na Lehitimo", "summary": "Walang mga red flag na napili. Maaaring lisensyadong nagpapahiram ito. Palaging i-verify ang kanilang numero ng lisensya sa moneylenders.justice.gov.sg bago pumirma ng anuman." },
-      "yellow": { "label": "Maging Maingat", "summary": "May ilang mga senyales ng babala. Huwag magpatuloy hanggang hindi mo na-verify ang numero ng lisensya ng nagpapahiram at natanggap ang isang buong nakasulat na kontrata. Isaalang-alang ang pagtawag sa Credit Counselling Singapore para sa payo." },
-      "red": { "label": "Malamang na Ilegal — Huwag Ituloy", "summary": "Maraming seryosong red flag ang nagpapahiwatig na ito ay malamang na isang hindi lisensyadong nagpapahiram (loan shark). Huwag humiram, huwag magbayad ng anumang bayad, at huwag ibigay ang anumang dokumento o password. Ikaw ay protektado ng batas." }
+      "green": {
+        "label": "Malamang na Lehitimo",
+        "summary": "Walang mga red flag na napili. Maaaring lisensyadong nagpapahiram ito. Palaging i-verify ang kanilang numero ng lisensya sa moneylenders.justice.gov.sg bago pumirma ng anuman."
+      },
+      "yellow": {
+        "label": "Maging Maingat",
+        "summary": "May ilang mga senyales ng babala. Huwag magpatuloy hanggang hindi mo na-verify ang numero ng lisensya ng nagpapahiram at natanggap ang isang buong nakasulat na kontrata. Isaalang-alang ang pagtawag sa Credit Counselling Singapore para sa payo."
+      },
+      "red": {
+        "label": "Malamang na Ilegal — Huwag Ituloy",
+        "summary": "Maraming seryosong red flag ang nagpapahiwatig na ito ay malamang na isang hindi lisensyadong nagpapahiram (loan shark). Huwag humiram, huwag magbayad ng anumang bayad, at huwag ibigay ang anumang dokumento o password. Ikaw ay protektado ng batas."
+      }
     },
     "legalFacts": [
       "Mayroon itong rehistradong komersyal na opisina na maaari mong personal na bisitahin",
@@ -398,14 +474,38 @@
       "Nagde-deduct ng anumang admin fee mula sa utang — hindi kailanman humihingi ng advance na cash bago mag-disbursement"
     ],
     "helpContacts": [
-      { "org": "X-Ah Long Hotline (Loan Shark Reporting)", "number": "1800-924-5664", "hours": "24 / 7", "note": "Anonymous na pag-uulat. Hindi ka mapapahirapan sa pagtawag." },
-      { "org": "Singapore Police Force", "number": "999", "hours": "Emergency — 24 / 7", "note": "Tumawag agad kung ikaw ay binalaan, pinanligalig, o nasa panganib." },
-      { "org": "Registry of Moneylenders", "number": "1800-2255-529", "hours": "Mon–Fri 8:30 am – 5:30 pm", "note": "I-verify ang lisensya ng nagpapahiram o mag-report ng ilegal na nagpapahiram." },
-      { "org": "MOM Migrant Worker Helpline", "number": "1800-333-1313", "hours": "Mon–Fri 8:00 am – 5:00 pm", "note": "Para sa mga isyu sa work permit, mga alitan sa trabaho, at pangkalahatang tulong." },
-      { "org": "Credit Counselling Singapore", "number": "6225-5227", "hours": "Mon–Fri 9:00 am – 6:00 pm", "note": "Libreng pagpapayo sa utang. Tinutulungan ka nilang mahanap ang mga legal na paraan para pamahalaan ang utang." }
+      {
+        "org": "X-Ah Long Hotline (Loan Shark Reporting)",
+        "number": "1800-924-5664",
+        "hours": "24 / 7",
+        "note": "Anonymous na pag-uulat. Hindi ka mapapahirapan sa pagtawag."
+      },
+      {
+        "org": "Singapore Police Force",
+        "number": "999",
+        "hours": "Emergency — 24 / 7",
+        "note": "Tumawag agad kung ikaw ay binalaan, pinanligalig, o nasa panganib."
+      },
+      {
+        "org": "Registry of Moneylenders",
+        "number": "1800-2255-529",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
+        "note": "I-verify ang lisensya ng nagpapahiram o mag-report ng ilegal na nagpapahiram."
+      },
+      {
+        "org": "MOM Migrant Worker Helpline",
+        "number": "1800-333-1313",
+        "hours": "Mon–Fri 8:00 am – 5:00 pm",
+        "note": "Para sa mga isyu sa work permit, mga alitan sa trabaho, at pangkalahatang tulong."
+      },
+      {
+        "org": "Credit Counselling Singapore",
+        "number": "6225-5227",
+        "hours": "Mon–Fri 9:00 am – 6:00 pm",
+        "note": "Libreng pagpapayo sa utang. Tinutulungan ka nilang mahanap ang mga legal na paraan para pamahalaan ang utang."
+      }
     ]
   },
-
   "chat": {
     "pageTitle": "AI Assistant",
     "pageSubtitle": "Gabay sa pananalapi para sa mga manggagawa",
@@ -422,7 +522,6 @@
     "disclaimer": "Para sa gabay lamang. Tumawag sa 999 sa mga emergency.",
     "noApiKey": "Hindi naka-configure ang API key. Idagdag ang VITE_ANTHROPIC_API_KEY sa iyong .env file."
   },
-
   "emergency": {
     "dangerText": "Nasa agarang panganib?",
     "callPolice": "Tumawag sa 999 — Emergency ng Pulisya",
@@ -454,7 +553,6 @@
       "momtaskforce": "Mag-report ng mga pekeng alok sa trabaho, ilegal na placement fee, pandaraya sa work permit"
     }
   },
-
   "scamQuiz": {
     "pageTitle": "Quiz sa Kamalayan sa Scam",
     "scenarioLabel": "Sitwasyon",
@@ -468,54 +566,94 @@
     "retryBtn": "Subukan ulit",
     "scamAlertsBtn": "Tingnan ang mga babala sa scam",
     "ratings": [
-      { "label": "Kailangan kang mag-ingat", "desc": "Ang mga scammer ay espesyal na nagta-target sa mga migranteng manggagawa. Alamin ang mga babala sa ibaba at manatiling ligtas." },
-      { "label": "Magandang kamalayan", "desc": "Alam mo ang ilang taktika ng scam — ngunit ang isang pagkakamali ay maaaring magastos ng libo-libo. Suriin ang mga tip sa ibaba." },
-      { "label": "Eksperto sa scam!", "desc": "Napakahusay! Ibahagi ang iyong nalalaman sa iyong mga kaibigan at tulungan na panatilihing ligtas ang iyong komunidad." }
+      {
+        "label": "Kailangan kang mag-ingat",
+        "desc": "Ang mga scammer ay espesyal na nagta-target sa mga migranteng manggagawa. Alamin ang mga babala sa ibaba at manatiling ligtas."
+      },
+      {
+        "label": "Magandang kamalayan",
+        "desc": "Alam mo ang ilang taktika ng scam — ngunit ang isang pagkakamali ay maaaring magastos ng libo-libo. Suriin ang mga tip sa ibaba."
+      },
+      {
+        "label": "Eksperto sa scam!",
+        "desc": "Napakahusay! Ibahagi ang iyong nalalaman sa iyong mga kaibigan at tulungan na panatilihing ligtas ang iyong komunidad."
+      }
     ],
     "questions": [
       {
         "scenario": "Isang estranyo ang nagmemensahe sa iyo sa WhatsApp: \"Hi, ako ay mula sa MOM. May problema ang iyong work pass. Ipadala mo na ngayon ang iyong SingPass login at password o kakanselin ang iyong pass ngayon.\"",
-        "options": ["Ipadala ang aking mga detalye sa SingPass agad para hindi mawala ang trabaho ko", "Ito ay scam — hindi kailanman humihingi ng SingPass password ang MOM", "Humingi muna ng staff ID ng tao, tapos magdesisyon"],
+        "options": [
+          "Ipadala ang aking mga detalye sa SingPass agad para hindi mawala ang trabaho ko",
+          "Ito ay scam — hindi kailanman humihingi ng SingPass password ang MOM",
+          "Humingi muna ng staff ID ng tao, tapos magdesisyon"
+        ],
         "explanation": "Ang MOM, pulisya, mga bangko, at ahensya ng gobyerno ay HINDI KAILANMAN hihinging ng iyong SingPass password o OTP. Ibaba ang telepono o huwag pansinin ang mensahe at tumawag nang direkta sa MOM sa 6438-5122 para i-verify."
       },
       {
         "scenario": "Isang ad sa Facebook ang nag-aalok ng trabaho sa Singapore na nagbabayad ng S$4,000/buwan para sa magaang na trabaho. Hindi kailangan ng karanasan. Kailangan mo lang magbayad ng S$300 na \"registration fee\" para masiguro ang iyong slot.",
-        "options": ["Magbayad ng bayad — mabilis na mapupunta ang magagandang trabaho", "Ito ay scam sa trabaho — ang mga lehitimong employer ay hindi kailanman naniningil ng upfront na bayad sa mga manggagawa", "Makipagtawaran na ibaba ang bayad sa S$100 bago magbayad"],
+        "options": [
+          "Magbayad ng bayad — mabilis na mapupunta ang magagandang trabaho",
+          "Ito ay scam sa trabaho — ang mga lehitimong employer ay hindi kailanman naniningil ng upfront na bayad sa mga manggagawa",
+          "Makipagtawaran na ibaba ang bayad sa S$100 bago magbayad"
+        ],
         "explanation": "Sa ilalim ng Employment of Foreign Manpower Act, hindi maaaring singilin ng mga employer ang mga manggagawa ng recruitment fee. Ang anumang trabaho na nangangailangan kang magbayad muna ay scam. Mag-report sa MOM sa 1800-333-1313."
       },
       {
         "scenario": "May nagsiksik ng card sa ilalim ng pinto ng iyong dormitoryo: \"Kailangan ng mabilis na cash? Walang credit check! Umutang ng hanggang S$5,000 ngayon. WhatsApp kami.\" Walang pangalan ng kumpanya o numero ng lisensya sa card.",
-        "options": ["Mag-WhatsApp sa kanila — maginhawa at kailangan ko ng pera nang mabilis", "Huwag pansinin — ito ay isang hindi lisensyadong loan shark (Ah Long)", "Umutang muna ng maliit na halaga para subukan kung mapagkakatiwalaan sila"],
+        "options": [
+          "Mag-WhatsApp sa kanila — maginhawa at kailangan ko ng pera nang mabilis",
+          "Huwag pansinin — ito ay isang hindi lisensyadong loan shark (Ah Long)",
+          "Umutang muna ng maliit na halaga para subukan kung mapagkakatiwalaan sila"
+        ],
         "explanation": "Ang mga lisensyadong nagpapahiram sa Singapore ay nag-a-advertise lamang sa pamamagitan ng kanilang sariling mga website, direktoryo ng negosyo, o pisikal na lugar — hindi sa pamamagitan ng flyer o SMS. Ang panghihiram mula sa mga loan shark ay humahantong sa harassment at karahasan. Tumawag sa X-Ah Long hotline: 1800-924-5664."
       },
       {
         "scenario": "Hindi nagbayad ng sahod ang iyong employer sa loob ng 2 buwan. Sinasabi niya: \"Huwag mag-report sa MOM o kakanselin ko ang iyong work pass at pauuwiin kita.\" Ano ang dapat mong gawin?",
-        "options": ["Tahimik na maghintay — hindi ko maaaring ipanganib ang aking work pass", "Mag-report sa MOM — pinoprotektahan nila ang mga manggagawa at hindi nila maaaring kanselahin ang iyong pass dahil sa pag-uulat", "Humiram ng pera sa mga kaibigan at huwag magsalita"],
+        "options": [
+          "Tahimik na maghintay — hindi ko maaaring ipanganib ang aking work pass",
+          "Mag-report sa MOM — pinoprotektahan nila ang mga manggagawa at hindi nila maaaring kanselahin ang iyong pass dahil sa pag-uulat",
+          "Humiram ng pera sa mga kaibigan at huwag magsalita"
+        ],
         "explanation": "Pinoprotektahan ng MOM ang mga manggagawang naghahabol ng sahod. Hindi MAAARING kanselahin ng iyong employer ang iyong work pass dahil lang sa pag-uulat ng hindi pagbabayad ng sahod — iyon ay magiging karagdagang paglabag. Mag-file ng reklamo sa sahod sa mom.gov.sg o tumawag sa 1800-333-1313."
       },
       {
         "scenario": "Isang bagong kaibigan ang nagtatanong kung maaari kang tumanggap ng S$8,000 sa iyong bank account at ilipat ito sa ibang account para sa \"maliit na komisyon.\" Sinasabi niya na para ito sa kanyang negosyo.",
-        "options": ["Sumang-ayon — madaling pera at naglilipat lang naman ako ng pondo", "Tumanggi — ang paggamit ng iyong account sa ganitong paraan ay money mule fraud, na isang krimen", "Humingi ng mas malaking komisyon bago sumang-ayon"],
+        "options": [
+          "Sumang-ayon — madaling pera at naglilipat lang naman ako ng pondo",
+          "Tumanggi — ang paggamit ng iyong account sa ganitong paraan ay money mule fraud, na isang krimen",
+          "Humingi ng mas malaking komisyon bago sumang-ayon"
+        ],
         "explanation": "Ang pagpapahintulot sa iba na gumamit ng iyong bank account para ilipat ang pera ay isang krimen sa Singapore sa ilalim ng Corruption, Drug Trafficking and Other Serious Crimes Act. Maaari kang makulong ng hanggang 3 taon at multahin ng hanggang S$50,000, kahit hindi mo alam na mula sa krimen ang pera."
       },
       {
         "scenario": "Nakatanggap ka ng SMS: \"DBS Bank: Nakita ang hindi karaniwang login sa iyong account. I-click ang link na ito para ma-verify: dbs-secure-login.com.\" Ang link ay mukhang naiiba sa opisyal na website ng DBS.",
-        "options": ["I-click ang link at mag-login nang mabilis para protektahan ang aking account", "Burahin ang SMS — ito ay phishing scam. Tumawag nang direkta sa DBS sa 1800-111-1111", "I-forward ang link sa isang kaibigan para tingnan kung totoo ito"],
+        "options": [
+          "I-click ang link at mag-login nang mabilis para protektahan ang aking account",
+          "Burahin ang SMS — ito ay phishing scam. Tumawag nang direkta sa DBS sa 1800-111-1111",
+          "I-forward ang link sa isang kaibigan para tingnan kung totoo ito"
+        ],
         "explanation": "Hindi kailanman nagpapadala ang mga bangko ng mga link na hihinging sa iyo na mag-login. Ang tunay na site ng DBS ay dbs.com.sg — ang iba pa ay peke. Palaging i-type mismo ang URL ng bangko o tumawag sa numero sa likod ng iyong card. Maaari ka ring tumawag sa ScamShield helpline: 1799."
       },
       {
         "scenario": "Isang online na \"investment guru\" sa isang grupo sa Telegram ang nagsasabing maaari mong doblehin ang iyong pera sa loob ng 30 araw sa pamamagitan ng pag-invest sa isang espesyal na cryptocurrency fund. Maraming tao sa grupo ang nagpo-post ng mga screenshot ng kanilang malaking kita.",
-        "options": ["Mag-invest ng S$500 — mukhang kaakit-akit ang mga testimonya", "I-report ang grupo — ito ay klasikong investment scam na may mga pekeng testimonya", "Maghintay muna kung mabayaran ang iba bago mag-invest"],
+        "options": [
+          "Mag-invest ng S$500 — mukhang kaakit-akit ang mga testimonya",
+          "I-report ang grupo — ito ay klasikong investment scam na may mga pekeng testimonya",
+          "Maghintay muna kung mabayaran ang iba bago mag-invest"
+        ],
         "explanation": "Ang garantisadong mataas na kita sa maikling panahon ay ang #1 na tanda ng scam. Ang mga screenshot ng kita ay peke, at ang mga \"miyembro ng grupo\" na pumupuri sa iskema ay mga bayad na scammer. Mag-report ng mga investment scam sa pulisya sa police.gov.sg/iwitness o tumawag sa 999."
       },
       {
         "scenario": "Isang nagpapaupa sa Carousell ang humihingi ng 3 buwang upa (S$2,400) bilang deposito sa pamamagitan ng PayNow bago mo makita ang silid. Sinasabi niya na maraming tao ang gustong kumuha ng silid at mawawala na ito ngayong gabi.",
-        "options": ["Ilipat nang mabilis ang pera bago pa kumuha ang iba", "Tumanggi — huwag kailanman magbayad bago tumingin. Ito ay malamang na rental scam", "Magbayad ng kalahati ngayon at kalahati pagkatapos tumingin"],
+        "options": [
+          "Ilipat nang mabilis ang pera bago pa kumuha ang iba",
+          "Tumanggi — huwag kailanman magbayad bago tumingin. Ito ay malamang na rental scam",
+          "Magbayad ng kalahati ngayon at kalahati pagkatapos tumingin"
+        ],
         "explanation": "Ang pagmamadali at presyon na magbayad bago tumingin ay mga klasikong taktika ng rental scam. Palaging tingnan ang ari-arian nang personal, i-verify ang pagkakakilanlan at pagmamay-ari ng nagpapaupa, at huwag kailanman maglipat ng pera bago pumirma ng kontrata. Tingnan ang scamalert.sg para sa mga naiulat na listahan ng scam."
       }
     ]
   },
-
   "emergencyFund": {
     "pageTitle": "Kalkulador ng Emergency Fund",
     "pageSubtitle": "Alamin kung magkano ang kailangan mo — at kung gaano katagal para makarating doon.",
@@ -537,10 +675,22 @@
     "tipsHeading": "Saan itatago ang iyong emergency fund",
     "disclaimer": "Ang deposito insurance sa Singapore ay nagpoprotekta ng hanggang S$75,000 bawat bangko bawat nagdeposito sa pamamagitan ng SDIC.",
     "tips": [
-      { "title": "POSB / DBS eMySavings", "body": "Walang minimum na balanse, walang fall-below fee. Buksan online gamit ang SingPass. Ang iyong pera ay protektado ng SDIC hanggang S$75,000." },
-      { "title": "GXS Bank o MariBank", "body": "Mga digital na bangko na bukas para sa mga may work pass. Mas mataas na interes sa ipon (hanggang ~3%), walang bayad, walang minimum na balanse." },
-      { "title": "Panatilihing hiwalay", "body": "Ilagay ang iyong emergency fund sa ibang account kaysa sa iyong spending account para hindi matukso na gamitin ito." },
-      { "title": "Iwasan ang mga impormal na savings group (ROSCA)", "body": "Ang mga \"chit fund\" o rotating savings club ay walang legal na proteksyon. Kung mawawala ang organizer, mawawala rin ang iyong pera." }
+      {
+        "title": "POSB / DBS eMySavings",
+        "body": "Walang minimum na balanse, walang fall-below fee. Buksan online gamit ang SingPass. Ang iyong pera ay protektado ng SDIC hanggang S$75,000."
+      },
+      {
+        "title": "GXS Bank o MariBank",
+        "body": "Mga digital na bangko na bukas para sa mga may work pass. Mas mataas na interes sa ipon (hanggang ~3%), walang bayad, walang minimum na balanse."
+      },
+      {
+        "title": "Panatilihing hiwalay",
+        "body": "Ilagay ang iyong emergency fund sa ibang account kaysa sa iyong spending account para hindi matukso na gamitin ito."
+      },
+      {
+        "title": "Iwasan ang mga impormal na savings group (ROSCA)",
+        "body": "Ang mga \"chit fund\" o rotating savings club ay walang legal na proteksyon. Kung mawawala ang organizer, mawawala rin ang iyong pera."
+      }
     ],
     "time": {
       "oneMonth": "1 buwan",
@@ -550,7 +700,6 @@
       "yearsMonths": "{{years}} ta {{months}} bu"
     }
   },
-
   "bankingGuide": {
     "pageTitle": "Pagbabangko sa Singapore",
     "pageSubtitle": "Paano magbukas ng account, ano ang kailangan, at ano ang gagawin kung may masamang mangyari.",
@@ -570,51 +719,133 @@
     "noFeeLabel": "Walang fall-below fee",
     "disclaimer": "Impormasyon tama simula ng unang bahagi ng 2025. Palaging i-verify nang direkta sa bangko bago bumisita.",
     "docs": [
-      { "label": "Work Permit card", "sub": "Ang asul na card mula sa MOM — palaging dalhin ito" },
-      { "label": "Pasaporte", "sub": "Orihinal + photocopy ng pahina ng larawan" },
-      { "label": "Liham ng employer", "sub": "Sa company letterhead, na may company stamp, na nagpapatunay ng iyong trabaho at sahod" },
-      { "label": "Patunay ng address", "sub": "Kasunduan sa pagpapaupa o liham ng employer na nagpapakita ng iyong address sa Singapore" }
+      {
+        "label": "Work Permit card",
+        "sub": "Ang asul na card mula sa MOM — palaging dalhin ito"
+      },
+      {
+        "label": "Pasaporte",
+        "sub": "Orihinal + photocopy ng pahina ng larawan"
+      },
+      {
+        "label": "Liham ng employer",
+        "sub": "Sa company letterhead, na may company stamp, na nagpapatunay ng iyong trabaho at sahod"
+      },
+      {
+        "label": "Patunay ng address",
+        "sub": "Kasunduan sa pagpapaupa o liham ng employer na nagpapakita ng iyong address sa Singapore"
+      }
     ],
     "banks": [
       {
-        "name": "POSB Everyday Savings", "fee": "Walang fall-below fee", "minBalance": "Wala",
+        "name": "POSB Everyday Savings",
+        "fee": "Walang fall-below fee",
+        "minBalance": "Wala",
         "notes": "Pinakamahusay para sa karamihan ng mga manggagawa. Pinakamalawak na ATM network sa Singapore (mahigit 1,400 makina). Tumatanggap ng mga may work permit.",
-        "docs": ["Work Permit (asul na card)", "Pasaporte", "Patunay ng address sa Singapore (liham ng employer o kasunduan sa pagpapaupa)"]
+        "docs": [
+          "Work Permit (asul na card)",
+          "Pasaporte",
+          "Patunay ng address sa Singapore (liham ng employer o kasunduan sa pagpapaupa)"
+        ]
       },
       {
-        "name": "DBS Multiplier Account", "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$3,000", "minBalance": "S$3,000 para maiwasan ang bayad",
+        "name": "DBS Multiplier Account",
+        "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$3,000",
+        "minBalance": "S$3,000 para maiwasan ang bayad",
         "notes": "Mas mataas na interes kung makakatanggap ng sahod at regular na nagtatransaksyon. Mabuti kapag may naipong ipon ka na.",
-        "docs": ["Work Permit o S Pass o Employment Pass", "Pasaporte", "SingPass (kung available)"]
+        "docs": [
+          "Work Permit o S Pass o Employment Pass",
+          "Pasaporte",
+          "SingPass (kung available)"
+        ]
       },
       {
-        "name": "OCBC 360 Account", "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$1,000", "minBalance": "S$1,000 para maiwasan ang bayad",
+        "name": "OCBC 360 Account",
+        "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$1,000",
+        "minBalance": "S$1,000 para maiwasan ang bayad",
         "notes": "Bonus na interes kapag nai-credit ang sahod. Tinatanggap ang mga may work permit. Kailangang pumunta sa branch para magbukas.",
-        "docs": ["Work Permit", "Pasaporte", "Liham ng employer"]
+        "docs": [
+          "Work Permit",
+          "Pasaporte",
+          "Liham ng employer"
+        ]
       },
       {
-        "name": "UOB One Account", "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$1,000", "minBalance": "S$1,000 para maiwasan ang bayad",
+        "name": "UOB One Account",
+        "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$1,000",
+        "minBalance": "S$1,000 para maiwasan ang bayad",
         "notes": "Magandang interes sa pag-credit ng sahod. Ilang branch ang nagsisilbi sa mga dayuhang manggagawa — tumawag muna para kumpirmahin.",
-        "docs": ["Work Permit o S Pass", "Pasaporte", "Liham ng employer na may company stamp"]
+        "docs": [
+          "Work Permit o S Pass",
+          "Pasaporte",
+          "Liham ng employer na may company stamp"
+        ]
       }
     ],
     "digital": [
-      { "name": "GXS Bank", "badge": "Pinakamataas na interes", "requirement": "Work permit + Singapore mobile number", "desc": "Isang ganap na digital na bangko na bukas para sa mga may work permit. Walang minimum na balanse, walang bayad. Nag-aalok ng hanggang 3.48% na interes sa ipon. Buksan nang buo sa pamamagitan ng app — hindi kailangang pumunta sa branch." },
-      { "name": "MariBank", "badge": "Walang bayad", "requirement": "Work permit + Singapore mobile number", "desc": "Digital na bangko ng Sea Group. Walang minimum na balanse, walang fall-below fee, mapagkumpitensyang rate ng ipon. Buksan sa pamamagitan ng app gamit ang iyong mga detalye ng work permit." },
-      { "name": "YouTrip", "badge": "Pinakamahusay para sa remitansa", "requirement": "Work permit o FIN number", "desc": "Multi-currency na e-wallet. Mahusay para sa pagpapadala ng pera sa bahay sa mababang rate at pagbabayad sa iyong katutubong pera kapag namimili online. Hindi isang buong bangko — walang interes sa balanse." },
-      { "name": "GrabPay", "badge": "Malawak na tinatanggap", "requirement": "Singapore mobile number", "desc": "E-wallet na nakakonekta sa iyong Grab app. Tinatanggap sa libu-libong merchant, hawker centre, at para sa GrabFood. Mag-top up sa pamamagitan ng PayNow o ATM. Hindi kailangan ng bank account para magsimula." },
-      { "name": "Singtel Dash", "badge": "Madaling mag-top up", "requirement": "Anumang mobile number (hindi kailangan ng bank account)", "desc": "E-wallet ng Singtel. Mag-top up ng cash sa 7-Eleven o Cheers stores — kapaki-pakinabang kung wala ka pang lokal na bank account. Maaaring magpadala ng pera sa mahigit 30 bansa." }
+      {
+        "name": "GXS Bank",
+        "badge": "Pinakamataas na interes",
+        "requirement": "Work permit + Singapore mobile number",
+        "desc": "Isang ganap na digital na bangko na bukas para sa mga may work permit. Walang minimum na balanse, walang bayad. Nag-aalok ng hanggang 3.48% na interes sa ipon. Buksan nang buo sa pamamagitan ng app — hindi kailangang pumunta sa branch."
+      },
+      {
+        "name": "MariBank",
+        "badge": "Walang bayad",
+        "requirement": "Work permit + Singapore mobile number",
+        "desc": "Digital na bangko ng Sea Group. Walang minimum na balanse, walang fall-below fee, mapagkumpitensyang rate ng ipon. Buksan sa pamamagitan ng app gamit ang iyong mga detalye ng work permit."
+      },
+      {
+        "name": "YouTrip",
+        "badge": "Pinakamahusay para sa remitansa",
+        "requirement": "Work permit o FIN number",
+        "desc": "Multi-currency na e-wallet. Mahusay para sa pagpapadala ng pera sa bahay sa mababang rate at pagbabayad sa iyong katutubong pera kapag namimili online. Hindi isang buong bangko — walang interes sa balanse."
+      },
+      {
+        "name": "GrabPay",
+        "badge": "Malawak na tinatanggap",
+        "requirement": "Singapore mobile number",
+        "desc": "E-wallet na nakakonekta sa iyong Grab app. Tinatanggap sa libu-libong merchant, hawker centre, at para sa GrabFood. Mag-top up sa pamamagitan ng PayNow o ATM. Hindi kailangan ng bank account para magsimula."
+      },
+      {
+        "name": "Singtel Dash",
+        "badge": "Madaling mag-top up",
+        "requirement": "Anumang mobile number (hindi kailangan ng bank account)",
+        "desc": "E-wallet ng Singtel. Mag-top up ng cash sa 7-Eleven o Cheers stores — kapaki-pakinabang kung wala ka pang lokal na bank account. Maaaring magpadala ng pera sa mahigit 30 bansa."
+      }
     ],
     "steps": [
-      { "title": "Alamin ang iyong mga karapatan", "body": "Ilegal sa Singapore para sa iyong employer na humawak ng iyong bank card, ATM card, o passbook. Ito ay saklaw sa ilalim ng Employment Act at mga regulasyon ng MOM." },
-      { "title": "Mahinahong humingi muna", "body": "Sabihin sa iyong employer: \"Kailangan ko ng aking bank card para makuha ang aking sariling sahod.\" Karamihan sa mga employer ay ibabalik ito kapag direktang hiningi." },
-      { "title": "Makipag-ugnayan sa MOM", "body": "Kung tumanggi ang iyong employer, tumawag sa MOM sa 1800-333-1313 (libreng tawag, Lunes–Biyernes 8:30am–5:30pm). Maaari silang makialam para sa iyo." },
-      { "title": "Tumawag sa pulisya kung binalaan", "body": "Kung binalaan ka ng iyong employer dahil sa paghingi ng iyong card, tumawag sa 999. Ang pagkumiskos ng iyong card nang sapilitan ay isang krimen." },
-      { "title": "Palitan ang card kung kailangan", "body": "Pumunta sa iyong bank branch na may work permit at pasaporte. Sabihin sa kanila na kinuha ang iyong card. Kanselahin ng bangko ang lumang card at mag-isyu ng bago — kadalasan ay libre." }
+      {
+        "title": "Alamin ang iyong mga karapatan",
+        "body": "Ilegal sa Singapore para sa iyong employer na humawak ng iyong bank card, ATM card, o passbook. Ito ay saklaw sa ilalim ng Employment Act at mga regulasyon ng MOM."
+      },
+      {
+        "title": "Mahinahong humingi muna",
+        "body": "Sabihin sa iyong employer: \"Kailangan ko ng aking bank card para makuha ang aking sariling sahod.\" Karamihan sa mga employer ay ibabalik ito kapag direktang hiningi."
+      },
+      {
+        "title": "Makipag-ugnayan sa MOM",
+        "body": "Kung tumanggi ang iyong employer, tumawag sa MOM sa 1800-333-1313 (libreng tawag, Lunes–Biyernes 8:30am–5:30pm). Maaari silang makialam para sa iyo."
+      },
+      {
+        "title": "Tumawag sa pulisya kung binalaan",
+        "body": "Kung binalaan ka ng iyong employer dahil sa paghingi ng iyong card, tumawag sa 999. Ang pagkumiskos ng iyong card nang sapilitan ay isang krimen."
+      },
+      {
+        "title": "Palitan ang card kung kailangan",
+        "body": "Pumunta sa iyong bank branch na may work permit at pasaporte. Sabihin sa kanila na kinuha ang iyong card. Kanselahin ng bangko ang lumang card at mag-isyu ng bago — kadalasan ay libre."
+      }
     ],
     "helplines": [
-      { "label": "MOM Helpline (mga alitan sa sahod at card)" },
-      { "label": "Pulisya (emergency / mga banta)" },
-      { "label": "TWC2 (Transient Workers Count Too)" }
+      {
+        "label": "MOM Helpline (mga alitan sa sahod at card)"
+      },
+      {
+        "label": "Pulisya (emergency / mga banta)"
+      },
+      {
+        "label": "TWC2 (Transient Workers Count Too)"
+      }
     ]
   }
 }
