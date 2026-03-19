@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
+import { track } from '../lib/analytics.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -129,6 +130,7 @@ export default function Budget() {
   }, [user, isGuest, PRESET_EXPENSES])
 
   async function saveBudget(incomeVal, expensesVal) {
+    track('budget_updated', { income: parseFloat(incomeVal) || 0, expense_count: expensesVal.length })
     if (isGuest) {
       localStorage.setItem('remlo_guest_budget', JSON.stringify({
         income: parseFloat(incomeVal) || 0,

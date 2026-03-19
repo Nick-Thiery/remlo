@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 
 const COUNTRIES = {
@@ -131,6 +132,7 @@ export default function Remittance() {
                   step="1"
                   value={sendAmount}
                   onChange={(e) => setSendAmount(e.target.value)}
+                  onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { amount: parseFloat(sendAmount), destination_country: country }) }}
                   className="w-full border border-gray-200 rounded-lg pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="0"
                 />

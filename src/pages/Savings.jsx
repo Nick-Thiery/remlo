@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
+import { track } from '../lib/analytics.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -88,6 +89,8 @@ export default function Savings() {
     const target = parseFloat(newGoalTarget)
     if (!newGoalName.trim())      return setNewGoalError(t('savings.errorGoalName'))
     if (!target || target <= 0)   return setNewGoalError(t('savings.errorTarget'))
+
+    track('savings_goal_created', { target_amount: target })
 
     if (isGuest) {
       const newGoal = { id: Date.now(), name: newGoalName.trim(), target, saved: 0 }

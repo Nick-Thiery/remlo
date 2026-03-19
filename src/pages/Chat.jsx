@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Send, MessageCircle, Mic, MicOff } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
+import { track } from '../lib/analytics.js'
 
 const SYSTEM_PROMPT =
   'You are a friendly financial assistant for migrant workers in Singapore. You were created by Remlo, an app helping workers manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. If someone describes a loan shark or scam situation, provide the MOM helpline 1800-333-1313 and tell them to contact police if in danger.'
@@ -105,6 +106,7 @@ export default function Chat() {
     const trimmed = (text ?? input).trim()
     if (!trimmed || isLoading) return
 
+    track('chat_message_sent')
     const userMsg = { role: 'user', content: trimmed }
     const history = [...messages, userMsg]
     setMessages(history)

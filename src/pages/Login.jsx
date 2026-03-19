@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { migrateGuestData } from '../lib/migrateGuestData.js'
+import { track, identifyUser } from '../lib/analytics.js'
 
 function Login() {
   const navigate = useNavigate()
@@ -23,6 +24,8 @@ function Login() {
       setLoading(false)
     } else {
       if (wasGuest && data.user) await migrateGuestData(data.user.id)
+      identifyUser(data.user.id)
+      track('login', { method: 'email' })
       navigate('/', { replace: true })
     }
   }
@@ -39,8 +42,11 @@ function Login() {
     } else if (data.session) {
       // Auto-confirmed (email verification disabled)
       if (wasGuest && data.user) await migrateGuestData(data.user.id)
+      identifyUser(data.user.id)
+      track('signup', { method: 'email' })
       navigate('/', { replace: true })
     } else {
+      track('signup', { method: 'email', awaiting_confirmation: true })
       alert('Check your email to confirm your account. Your guest data will be migrated when you sign in.')
       setLoading(false)
     }
@@ -48,6 +54,7 @@ function Login() {
 
   function handleGuest() {
     localStorage.setItem('remlo_guest', 'true')
+    track('guest_mode_selected')
     navigate('/', { replace: true })
   }
 

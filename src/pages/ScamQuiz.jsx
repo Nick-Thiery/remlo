@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ShieldCheck, ShieldAlert, ChevronRight, RotateCcw, Trophy } from 'lucide-react'
+import { track } from '../lib/analytics.js'
 
 // Correct answer index for each question (option B = index 1 for all 8)
 const CORRECT_IDX = [1, 1, 1, 1, 1, 1, 1, 1]
@@ -53,8 +54,10 @@ export default function ScamQuiz() {
   }
 
   function next() {
-    if (isLast) { setDone(true) }
-    else { setCurrent((c) => c + 1); setSelected(null) }
+    if (isLast) {
+      track('scam_quiz_completed', { score, total: questions.length })
+      setDone(true)
+    } else { setCurrent((c) => c + 1); setSelected(null) }
   }
 
   function restart() {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
@@ -11,6 +11,16 @@ import {
   Wallet,
   ArrowUpRight,
 } from 'lucide-react'
+import { supabase } from '../lib/supabase.js'
+
+function formatSGD(amount) {
+  return new Intl.NumberFormat('en-SG', {
+    style: 'currency',
+    currency: 'SGD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount)
+}
 
 const LANGUAGES = [
   { code: 'en',  label: 'English'    },
@@ -50,6 +60,48 @@ function getGreetingKey() {
 export default function Home() {
   const { t, i18n } = useTranslation()
   const [langOpen, setLangOpen] = useState(false)
+  const [statsLoading, setStatsLoading] = useState(true)
+  const [totalSaved, setTotalSaved] = useState(0)
+  const [budgetLeft, setBudgetLeft] = useState(0)
+
+  useEffect(() => {
+    async function loadStats() {
+      const isGuest = localStorage.getItem('remlo_guest') === 'true'
+
+      if (isGuest) {
+        const savings = JSON.parse(localStorage.getItem('remlo_guest_savings') || '[]')
+        setTotalSaved(savings.reduce((sum, g) => sum + g.saved, 0))
+
+        const budget = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
+        if (budget) {
+          const totalExp = (budget.expenses || []).reduce((sum, e) => sum + e.amount, 0)
+          setBudgetLeft(Math.max((budget.income || 0) - totalExp, 0))
+        }
+        setStatsLoading(false)
+        return
+      }
+
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) { setStatsLoading(false); return }
+
+      const userId = session.user.id
+      const [savingsRes, budgetRes] = await Promise.all([
+        supabase.from('savings_goals').select('current_amount').eq('user_id', userId),
+        supabase.from('budgets').select('income, expenses').eq('user_id', userId).maybeSingle(),
+      ])
+
+      if (savingsRes.data) {
+        setTotalSaved(savingsRes.data.reduce((sum, r) => sum + r.current_amount, 0))
+      }
+      if (budgetRes.data) {
+        const totalExp = (budgetRes.data.expenses || []).reduce((sum, e) => sum + e.amount, 0)
+        setBudgetLeft(Math.max((budgetRes.data.income || 0) - totalExp, 0))
+      }
+      setStatsLoading(false)
+    }
+
+    loadStats()
+  }, [])
 
   function switchLang(code) {
     i18n.changeLanguage(code)
@@ -113,7 +165,7 @@ export default function Home() {
   const QUICK_STATS = [
     {
       label: t('stats.totalSaved'),
-      value: 'S$0',
+      value: statsLoading ? '—' : formatSGD(totalSaved),
       sub: t('stats.totalSavedSub'),
       icon: Coins,
       color: 'text-amber-600',
@@ -121,7 +173,7 @@ export default function Home() {
     },
     {
       label: t('stats.budgetLeft'),
-      value: 'S$0',
+      value: statsLoading ? '—' : formatSGD(budgetLeft),
       sub: t('stats.budgetLeftSub'),
       icon: Wallet,
       color: 'text-violet-600',
@@ -219,7 +271,9 @@ export default function Home() {
               <div className={`w-8 h-8 rounded-xl ${stat.bg} flex items-center justify-center mb-3`}>
                 <stat.icon className={`w-4 h-4 ${stat.color}`} />
               </div>
-              <p className="text-lg font-bold text-gray-900 leading-none">{stat.value}</p>
+              <p className={`text-lg font-bold leading-none ${statsLoading ? 'text-gray-300 animate-pulse' : 'text-gray-900'}`}>
+                {stat.value}
+              </p>
               <p className="text-xs text-gray-500 mt-1 font-medium">{stat.label}</p>
               <p className="text-xs text-gray-400 mt-0.5 leading-snug">{stat.sub}</p>
             </div>
