@@ -1,5 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { supabase } from '../lib/supabase.js'
+import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -27,15 +29,12 @@ function ordinalStr(n) {
   return n + (s[(v - 20) % 10] || s[v] || s[0])
 }
 
-// Returns the expected payday for the month containing `paymentDate`.
-// If payday is e.g. 28 and the month has fewer days, clamp to last day.
 function expectedPayday(year, month, paydayOfMonth) {
   const lastDay = new Date(year, month + 1, 0).getDate()
   const day = Math.min(paydayOfMonth, lastDay)
   return new Date(year, month, day)
 }
 
-// A payment is late if it arrived more than 3 days after the expected payday.
 function isLate(paymentIso, paydayOfMonth) {
   const paid = new Date(paymentIso)
   const expected = expectedPayday(paid.getFullYear(), paid.getMonth(), paydayOfMonth)
@@ -53,11 +52,17 @@ const today = toYYYYMMDD(new Date())
 
 export default function Salary() {
   const { t } = useTranslation()
+  const { user, authLoading } = useRequireAuth()
 
   const [payments, setPayments] = useState([])
-  const [payday, setPayday] = useState(1)
+  const [payday, setPayday] = useState(() => {
+    const saved = localStorage.getItem('remlo_payday')
+    return saved ? parseInt(saved, 10) : 1
+  })
   const [showForm, setShowForm] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   // Form state
   const [fDate, setFDate] = useState(today)
@@ -65,6 +70,32 @@ export default function Salary() {
   const [fEmployer, setFEmployer] = useState('')
   const [fNote, setFNote] = useState('')
   const [errors, setErrors] = useState({})
+
+  useEffect(() => {
+    if (!user) return
+    setLoading(true)
+    supabase
+      .from('salary_logs')
+      .select('id, payment_date, amount, employer, note')
+      .eq('user_id', user.id)
+      .order('payment_date', { ascending: false })
+      .then(({ data, error: err }) => {
+        if (err) {
+          setError(err.message)
+        } else {
+          setPayments(
+            (data || []).map((row) => ({
+              id: row.id,
+              date: row.payment_date,
+              amount: row.amount,
+              employer: row.employer,
+              note: row.note || '',
+            }))
+          )
+        }
+        setLoading(false)
+      })
+  }, [user])
 
   const sorted = useMemo(
     () => [...payments].sort((a, b) => new Date(b.date) - new Date(a.date)),
@@ -99,6 +130,11 @@ export default function Salary() {
     [payments, payday]
   )
 
+  function handlePaydayChange(val) {
+    setPayday(val)
+    localStorage.setItem('remlo_payday', String(val))
+  }
+
   function openForm() {
     setFDate(today)
     setFAmount('')
@@ -113,7 +149,7 @@ export default function Salary() {
     setErrors({})
   }
 
-  function handleAdd() {
+  async function handleAdd() {
     const errs = {}
     if (!fDate) errs.date = t('salary.errorDate')
     const amt = parseFloat(fAmount)
@@ -121,19 +157,46 @@ export default function Salary() {
     if (!fEmployer.trim()) errs.employer = t('salary.errorEmployer')
     if (Object.keys(errs).length) return setErrors(errs)
 
+    const { data, error: err } = await supabase
+      .from('salary_logs')
+      .insert({
+        user_id: user.id,
+        payment_date: fDate,
+        amount: amt,
+        employer: fEmployer.trim(),
+        note: fNote.trim() || null,
+      })
+      .select('id')
+      .single()
+
+    if (err) {
+      setError(err.message)
+      return
+    }
+
     setPayments((prev) => [
+      { id: data.id, date: fDate, amount: amt, employer: fEmployer.trim(), note: fNote.trim() },
       ...prev,
-      { id: Date.now(), date: fDate, amount: amt, employer: fEmployer.trim(), note: fNote.trim() },
     ])
     closeForm()
   }
 
-  function deletePayment(id) {
+  async function deletePayment(id) {
+    const { error: err } = await supabase.from('salary_logs').delete().eq('id', id)
+    if (err) { setError(err.message); return }
     setPayments((prev) => prev.filter((p) => p.id !== id))
     if (expandedId === id) setExpandedId(null)
   }
 
   const monthName = now.toLocaleDateString('en-SG', { month: 'long' })
+
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -152,6 +215,14 @@ export default function Salary() {
             {t('salary.logBtn')}
           </button>
         </div>
+
+        {/* Error banner */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3">
+            <p className="text-sm text-red-700">{error}</p>
+            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 text-lg leading-none flex-shrink-0">×</button>
+          </div>
+        )}
 
         {/* Summary tiles */}
         <div className="grid grid-cols-2 gap-3 mb-4">
@@ -190,7 +261,7 @@ export default function Salary() {
             <div className="relative">
               <select
                 value={payday}
-                onChange={(e) => setPayday(Number(e.target.value))}
+                onChange={(e) => handlePaydayChange(Number(e.target.value))}
                 className="border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white appearance-none"
               >
                 {Array.from({ length: 28 }, (_, i) => i + 1).map((d) => (
@@ -235,7 +306,6 @@ export default function Salary() {
                     late ? 'border-red-100' : 'border-gray-100'
                   }`}
                 >
-                  {/* Main row — tappable */}
                   <button
                     className="w-full text-left px-5 py-4"
                     onClick={() => setExpandedId(isExpanded ? null : p.id)}
@@ -261,7 +331,6 @@ export default function Salary() {
                     </div>
                   </button>
 
-                  {/* Expanded detail */}
                   {isExpanded && (
                     <div className="px-5 pb-4 border-t border-gray-50">
                       <div className="pt-3 space-y-3">
@@ -310,7 +379,6 @@ export default function Salary() {
             <p className="text-sm text-gray-500 mb-5">{t('salary.modalDesc')}</p>
 
             <div className="space-y-3 mb-5">
-              {/* Date */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('salary.dateLabel')}</label>
                 <input
@@ -323,7 +391,6 @@ export default function Salary() {
                 {errors.date && <p className="text-xs text-red-500 mt-1">{errors.date}</p>}
               </div>
 
-              {/* Amount */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
                 <div className="relative">
@@ -341,7 +408,6 @@ export default function Salary() {
                 {errors.amount && <p className="text-xs text-red-500 mt-1">{errors.amount}</p>}
               </div>
 
-              {/* Employer */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('salary.employerLabel')}</label>
                 <input
@@ -354,7 +420,6 @@ export default function Salary() {
                 {errors.employer && <p className="text-xs text-red-500 mt-1">{errors.employer}</p>}
               </div>
 
-              {/* Note */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">
                   {t('salary.noteLabelModal')} <span className="text-gray-300 font-normal">({t('common.optional')})</span>

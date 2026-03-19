@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { supabase } from '../lib/supabase.js'
+import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -10,91 +12,140 @@ function formatSGD(amount) {
 }
 
 const GOAL_COLORS = [
-  { bar: 'bg-blue-500', badge: 'bg-blue-50 text-blue-600' },
+  { bar: 'bg-blue-500',   badge: 'bg-blue-50 text-blue-600'   },
   { bar: 'bg-violet-500', badge: 'bg-violet-50 text-violet-600' },
-  { bar: 'bg-amber-500', badge: 'bg-amber-50 text-amber-600' },
-  { bar: 'bg-rose-500', badge: 'bg-rose-50 text-rose-600' },
-  { bar: 'bg-cyan-500', badge: 'bg-cyan-50 text-cyan-600' },
+  { bar: 'bg-amber-500',  badge: 'bg-amber-50 text-amber-600'  },
+  { bar: 'bg-rose-500',   badge: 'bg-rose-50 text-rose-600'    },
+  { bar: 'bg-cyan-500',   badge: 'bg-cyan-50 text-cyan-600'    },
   { bar: 'bg-orange-500', badge: 'bg-orange-50 text-orange-600' },
 ]
 
 export default function Savings() {
   const { t } = useTranslation()
+  const { user, authLoading } = useRequireAuth()
 
-  const [goals, setGoals] = useState([])
-  // Trigger progress bar animation after mount
+  const [goals,   setGoals]   = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error,   setError]   = useState(null)
+
+  // Progress bar animation after mount
   const [mounted, setMounted] = useState(false)
   useEffect(() => {
     const id = requestAnimationFrame(() => setMounted(true))
     return () => cancelAnimationFrame(id)
   }, [])
-  const [showNewGoal, setShowNewGoal] = useState(false)
-  const [depositGoalId, setDepositGoalId] = useState(null)
 
-  const [newGoalName, setNewGoalName] = useState('')
-  const [newGoalTarget, setNewGoalTarget] = useState('')
-  const [newGoalError, setNewGoalError] = useState('')
+  const [showNewGoal,    setShowNewGoal]    = useState(false)
+  const [depositGoalId,  setDepositGoalId]  = useState(null)
+  const [newGoalName,    setNewGoalName]    = useState('')
+  const [newGoalTarget,  setNewGoalTarget]  = useState('')
+  const [newGoalError,   setNewGoalError]   = useState('')
+  const [depositAmount,  setDepositAmount]  = useState('')
+  const [depositError,   setDepositError]   = useState('')
 
-  const [depositAmount, setDepositAmount] = useState('')
-  const [depositError, setDepositError] = useState('')
+  // ── Fetch on mount ──────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (!user) return
+    setLoading(true)
+    setError(null)
 
-  const totalSaved = goals.reduce((sum, g) => sum + g.saved, 0)
+    supabase
+      .from('savings_goals')
+      .select('id, name, target_amount, current_amount')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: true })
+      .then(({ data, error: err }) => {
+        if (err) {
+          setError(err.message)
+        } else {
+          setGoals(data.map(row => ({
+            id:     row.id,
+            name:   row.name,
+            target: row.target_amount,
+            saved:  row.current_amount,
+          })))
+        }
+        setLoading(false)
+      })
+  }, [user])
+
+  // ── Derived ─────────────────────────────────────────────────────────────────
+  const totalSaved  = goals.reduce((sum, g) => sum + g.saved,  0)
   const totalTarget = goals.reduce((sum, g) => sum + g.target, 0)
-  const overallPct = totalTarget > 0 ? Math.min((totalSaved / totalTarget) * 100, 100) : 0
+  const overallPct  = totalTarget > 0 ? Math.min((totalSaved / totalTarget) * 100, 100) : 0
 
-  function openNewGoal() {
-    setNewGoalName('')
-    setNewGoalTarget('')
-    setNewGoalError('')
-    setShowNewGoal(true)
-  }
+  // ── New goal ─────────────────────────────────────────────────────────────────
+  function openNewGoal()  { setNewGoalName(''); setNewGoalTarget(''); setNewGoalError(''); setShowNewGoal(true) }
+  function closeNewGoal() { setShowNewGoal(false); setNewGoalError('') }
 
-  function closeNewGoal() {
-    setShowNewGoal(false)
-    setNewGoalError('')
-  }
-
-  function handleAddGoal() {
+  async function handleAddGoal() {
     const target = parseFloat(newGoalTarget)
-    if (!newGoalName.trim()) return setNewGoalError(t('savings.errorGoalName'))
-    if (!target || target <= 0) return setNewGoalError(t('savings.errorTarget'))
-    setGoals(prev => [...prev, { id: Date.now(), name: newGoalName.trim(), target, saved: 0 }])
+    if (!newGoalName.trim())      return setNewGoalError(t('savings.errorGoalName'))
+    if (!target || target <= 0)   return setNewGoalError(t('savings.errorTarget'))
+
+    const { data, error: err } = await supabase
+      .from('savings_goals')
+      .insert({ user_id: user.id, name: newGoalName.trim(), target_amount: target, current_amount: 0 })
+      .select('id, name, target_amount, current_amount')
+      .single()
+
+    if (err) return setNewGoalError(err.message)
+
+    setGoals(prev => [...prev, { id: data.id, name: data.name, target: data.target_amount, saved: data.current_amount }])
     closeNewGoal()
   }
 
-  function openDeposit(goalId) {
-    setDepositAmount('')
-    setDepositError('')
-    setDepositGoalId(goalId)
-  }
+  // ── Deposit ──────────────────────────────────────────────────────────────────
+  function openDeposit(goalId)  { setDepositAmount(''); setDepositError(''); setDepositGoalId(goalId) }
+  function closeDeposit()       { setDepositGoalId(null); setDepositError('') }
 
-  function closeDeposit() {
-    setDepositGoalId(null)
-    setDepositError('')
-  }
-
-  function handleAddDeposit() {
+  async function handleAddDeposit() {
     const amount = parseFloat(depositAmount)
     if (!amount || amount <= 0) return setDepositError(t('savings.errorDeposit'))
-    setGoals(prev =>
-      prev.map(g =>
-        g.id === depositGoalId
-          ? { ...g, saved: Math.min(g.saved + amount, g.target) }
-          : g
-      )
-    )
+
+    const goal     = goals.find(g => g.id === depositGoalId)
+    const newSaved = Math.min(goal.saved + amount, goal.target)
+
+    const { error: err } = await supabase
+      .from('savings_goals')
+      .update({ current_amount: newSaved })
+      .eq('id', depositGoalId)
+
+    if (err) return setDepositError(err.message)
+
+    setGoals(prev => prev.map(g => g.id === depositGoalId ? { ...g, saved: newSaved } : g))
     closeDeposit()
   }
 
-  function deleteGoal(id) {
+  // ── Delete ───────────────────────────────────────────────────────────────────
+  async function deleteGoal(id) {
+    const { error: err } = await supabase.from('savings_goals').delete().eq('id', id)
+    if (err) return setError(err.message)
     setGoals(prev => prev.filter(g => g.id !== id))
   }
 
   const depositGoal = goals.find(g => g.id === depositGoalId)
 
+  // ── Auth / loading guards ─────────────────────────────────────────────────
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-lg mx-auto px-4 py-8">
+
+        {/* Error banner */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-4 flex items-center justify-between">
+            <span>{error}</span>
+            <button onClick={() => setError(null)} className="ml-3 text-red-400 hover:text-red-600 font-bold">×</button>
+          </div>
+        )}
 
         {/* Page header */}
         <div className="flex items-center justify-between mb-6">
@@ -148,14 +199,13 @@ export default function Savings() {
             </div>
           ) : (
             goals.map((goal, index) => {
-              const pct = Math.min((goal.saved / goal.target) * 100, 100)
-              const remaining = Math.max(goal.target - goal.saved, 0)
+              const pct        = Math.min((goal.saved / goal.target) * 100, 100)
+              const remaining  = Math.max(goal.target - goal.saved, 0)
               const isComplete = goal.saved >= goal.target
-              const color = GOAL_COLORS[index % GOAL_COLORS.length]
+              const color      = GOAL_COLORS[index % GOAL_COLORS.length]
 
               return (
                 <div key={goal.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                  {/* Goal header */}
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h3 className="font-semibold text-gray-900">{goal.name}</h3>
@@ -181,7 +231,6 @@ export default function Savings() {
                     </div>
                   </div>
 
-                  {/* Progress bar */}
                   <div className="w-full bg-gray-100 rounded-full h-2 mb-4">
                     <div
                       className={`h-2 rounded-full ${isComplete ? 'bg-emerald-500' : color.bar}`}
@@ -189,7 +238,6 @@ export default function Savings() {
                     />
                   </div>
 
-                  {/* Amounts row */}
                   <div className="flex justify-between mb-4">
                     <div>
                       <p className="text-xs text-gray-400 mb-0.5">{t('savings.savedLabel')}</p>
@@ -218,7 +266,7 @@ export default function Savings() {
         </div>
       </div>
 
-      {/* Floating Action Button — shown when goals exist */}
+      {/* FAB */}
       {goals.length > 0 && (
         <button
           onClick={openNewGoal}
@@ -259,9 +307,7 @@ export default function Savings() {
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('savings.targetAmountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">
-                    S$
-                  </span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
                   <input
                     type="number"
                     placeholder="0.00"
@@ -277,16 +323,10 @@ export default function Savings() {
             </div>
 
             <div className="flex gap-3">
-              <button
-                onClick={closeNewGoal}
-                className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
-              >
+              <button onClick={closeNewGoal} className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors">
                 {t('common.cancel')}
               </button>
-              <button
-                onClick={handleAddGoal}
-                className="flex-1 bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors"
-              >
+              <button onClick={handleAddGoal} className="flex-1 bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors">
                 {t('savings.createGoalBtn')}
               </button>
             </div>
@@ -304,7 +344,7 @@ export default function Savings() {
             <h2 className="text-lg font-bold text-gray-900 mb-1">{t('savings.addFundsTitle')}</h2>
             <p className="text-sm text-gray-500 mb-5">
               {t('savings.addFundsDesc', {
-                name: depositGoal.name,
+                name:   depositGoal.name,
                 amount: formatSGD(depositGoal.target - depositGoal.saved),
               })}
             </p>
@@ -316,9 +356,7 @@ export default function Savings() {
             <div className="mb-5">
               <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('savings.depositLabel')}</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">
-                  S$
-                </span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
                 <input
                   autoFocus
                   type="number"
@@ -334,16 +372,10 @@ export default function Savings() {
             </div>
 
             <div className="flex gap-3">
-              <button
-                onClick={closeDeposit}
-                className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
-              >
+              <button onClick={closeDeposit} className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors">
                 {t('common.cancel')}
               </button>
-              <button
-                onClick={handleAddDeposit}
-                className="flex-1 bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors"
-              >
+              <button onClick={handleAddDeposit} className="flex-1 bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors">
                 {t('common.confirm')}
               </button>
             </div>

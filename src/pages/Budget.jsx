@@ -1,5 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { supabase } from '../lib/supabase.js'
+import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -20,7 +22,6 @@ const SEGMENT_COLORS = [
   { bar: 'bg-orange-500',  dot: 'bg-orange-500',  text: 'text-orange-600',  light: 'bg-orange-50'  },
 ]
 
-// Stacked horizontal bar — returns SVG-free pure CSS segments
 function StackedBar({ segments }) {
   return (
     <div className="flex w-full h-4 rounded-full overflow-hidden gap-px bg-gray-100">
@@ -38,12 +39,11 @@ function StackedBar({ segments }) {
   )
 }
 
-// Simple donut chart using SVG
 function DonutChart({ slices, size = 160 }) {
   const r = 54
   const cx = size / 2
   const cy = size / 2
-  const gap = 1.5 // degrees gap between slices
+  const gap = 1.5
 
   let cumulativeAngle = -90
 
@@ -65,7 +65,6 @@ function DonutChart({ slices, size = 160 }) {
       return {
         d: `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`,
         color: s.svgColor,
-        label: s.label,
       }
     })
 
@@ -74,7 +73,6 @@ function DonutChart({ slices, size = 160 }) {
       {paths.map((p, i) => (
         <path key={i} d={p.d} fill={p.color} />
       ))}
-      {/* Inner white circle for donut effect */}
       <circle cx={cx} cy={cy} r={r * 0.62} fill="white" />
     </svg>
   )
@@ -82,6 +80,7 @@ function DonutChart({ slices, size = 160 }) {
 
 export default function Budget() {
   const { t } = useTranslation()
+  const { user, authLoading } = useRequireAuth()
 
   const PRESET_EXPENSES = useMemo(() => [
     { name: t('budget.presetRent'),        amount: 400 },
@@ -96,6 +95,36 @@ export default function Budget() {
   const [newAmount, setNewAmount] = useState('')
   const [nameError, setNameError] = useState('')
   const [amountError, setAmountError] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (!user) return
+    setLoading(true)
+    supabase
+      .from('budgets')
+      .select('monthly_income, expenses')
+      .eq('user_id', user.id)
+      .maybeSingle()
+      .then(({ data, error: err }) => {
+        if (err) {
+          setError(err.message)
+        } else if (data) {
+          setIncome(data.monthly_income > 0 ? String(data.monthly_income) : '')
+          setExpenses(Array.isArray(data.expenses) && data.expenses.length > 0 ? data.expenses : PRESET_EXPENSES)
+        }
+        setLoading(false)
+      })
+  }, [user, PRESET_EXPENSES])
+
+  async function saveBudget(incomeVal, expensesVal) {
+    if (!user) return
+    const { error: err } = await supabase.from('budgets').upsert(
+      { user_id: user.id, monthly_income: parseFloat(incomeVal) || 0, expenses: expensesVal },
+      { onConflict: 'user_id' }
+    )
+    if (err) setError(err.message)
+  }
 
   const monthlyIncome = parseFloat(income) || 0
 
@@ -108,7 +137,6 @@ export default function Budget() {
   const overspend = Math.max(totalExpenses - monthlyIncome, 0)
   const isOverBudget = totalExpenses > monthlyIncome && monthlyIncome > 0
 
-  // Bar segments: each expense + savings remainder
   const barSegments = useMemo(() => {
     if (monthlyIncome <= 0) return []
     const expSegs = expenses.map((e, i) => ({
@@ -123,7 +151,6 @@ export default function Budget() {
     ]
   }, [expenses, monthlyIncome, totalExpenses, t])
 
-  // Donut slices
   const SVG_COLORS = ['#3b82f6', '#f43f5e', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#f97316']
   const donutSlices = useMemo(() => {
     if (monthlyIncome <= 0) return []
@@ -139,7 +166,6 @@ export default function Budget() {
     return expSlices
   }, [expenses, monthlyIncome, totalExpenses, t])
 
-  // 50/30/20 adapted for migrant workers
   const suggested = useMemo(() => {
     if (monthlyIncome <= 0) return null
     return {
@@ -156,13 +182,25 @@ export default function Budget() {
     if (!amt || amt <= 0) { setAmountError(t('budget.errorAmount')); valid = false } else setAmountError('')
     if (!valid) return
 
-    setExpenses((prev) => [...prev, { name: newName.trim(), amount: amt }])
+    const newExpenses = [...expenses, { name: newName.trim(), amount: amt }]
+    setExpenses(newExpenses)
     setNewName('')
     setNewAmount('')
+    saveBudget(income, newExpenses)
   }
 
   function removeExpense(index) {
-    setExpenses((prev) => prev.filter((_, i) => i !== index))
+    const newExpenses = expenses.filter((_, i) => i !== index)
+    setExpenses(newExpenses)
+    saveBudget(income, newExpenses)
+  }
+
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
   }
 
   return (
@@ -175,6 +213,14 @@ export default function Budget() {
           <p className="text-sm text-gray-500 mt-0.5">{t('budget.pageSubtitle')}</p>
         </div>
 
+        {/* Error banner */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3">
+            <p className="text-sm text-red-700">{error}</p>
+            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 text-lg leading-none flex-shrink-0">×</button>
+          </div>
+        )}
+
         {/* Income input */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
           <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('budget.incomeLabel')}</label>
@@ -186,6 +232,7 @@ export default function Budget() {
               step="50"
               value={income}
               onChange={(e) => setIncome(e.target.value)}
+              onBlur={() => saveBudget(income, expenses)}
               className="w-full border border-gray-200 rounded-lg pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="0"
             />
@@ -220,12 +267,10 @@ export default function Budget() {
             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-4">{t('budget.breakdownTitle')}</p>
 
             <div className="flex items-center gap-6">
-              {/* Donut */}
               <div className="flex-shrink-0">
                 <DonutChart slices={donutSlices} size={140} />
               </div>
 
-              {/* Legend */}
               <div className="flex-1 min-w-0 space-y-2">
                 {expenses.map((e, i) => {
                   const pct = monthlyIncome > 0 ? (e.amount / monthlyIncome) * 100 : 0
@@ -254,7 +299,6 @@ export default function Budget() {
               </div>
             </div>
 
-            {/* Stacked bar */}
             <div className="mt-5">
               <StackedBar segments={barSegments} />
             </div>
@@ -352,7 +396,6 @@ export default function Budget() {
             <p className="text-xs text-gray-500 mb-4 mt-0.5">{t('budget.guideDesc')}</p>
 
             <div className="space-y-4">
-              {/* Needs 50% */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
@@ -376,7 +419,6 @@ export default function Budget() {
                 </p>
               </div>
 
-              {/* Send Home 30% */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
@@ -392,7 +434,6 @@ export default function Budget() {
                 <p className="text-xs text-gray-400 mt-1">{t('budget.sendHomeDesc')}</p>
               </div>
 
-              {/* Savings 20% */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">

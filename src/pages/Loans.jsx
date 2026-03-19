@@ -1,6 +1,8 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabase.js'
+import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -19,7 +21,6 @@ function formatSGDExact(amount) {
   }).format(Math.max(amount, 0))
 }
 
-// Full months elapsed from startDate to today (0 if start is in the future)
 function monthsElapsed(startIso) {
   const start = new Date(startIso)
   const now = new Date()
@@ -29,7 +30,6 @@ function monthsElapsed(startIso) {
   return Math.max(months, 0)
 }
 
-// Remaining balance after n payments using standard amortisation formula
 function calcRemaining(principal, monthlyRatePct, monthlyPayment, paymentsMade) {
   if (paymentsMade === 0) return principal
   const r = monthlyRatePct / 100
@@ -40,12 +40,11 @@ function calcRemaining(principal, monthlyRatePct, monthlyPayment, paymentsMade) 
   return Math.max(balance, 0)
 }
 
-// Total months to pay off the original principal (from start date)
 function totalPayoffMonths(principal, monthlyRatePct, monthlyPayment) {
   const r = monthlyRatePct / 100
   if (monthlyPayment <= 0) return Infinity
   if (r === 0) return Math.ceil(principal / monthlyPayment)
-  if (monthlyPayment <= principal * r) return Infinity // payment < interest — never paid off
+  if (monthlyPayment <= principal * r) return Infinity
   return Math.ceil(-Math.log(1 - (r * principal) / monthlyPayment) / Math.log(1 + r))
 }
 
@@ -59,7 +58,6 @@ function formatMonthYear(date) {
   return date.toLocaleDateString('en-SG', { month: 'short', year: 'numeric' })
 }
 
-// Derive all computed fields for a loan
 function computeLoan(loan) {
   const made = Math.min(monthsElapsed(loan.startDate), totalPayoffMonths(loan.principal, loan.rate, loan.monthlyPayment))
   const remaining = calcRemaining(loan.principal, loan.rate, loan.monthlyPayment, made)
@@ -74,17 +72,20 @@ function computeLoan(loan) {
   return { ...loan, made, remaining, totalMonths, neverPaidOff, payoffDate, paidOff, progressPct, totalInterestPaid }
 }
 
-const ILLEGAL_RATE_THRESHOLD = 4 // % per month — above this is flagged
+const ILLEGAL_RATE_THRESHOLD = 4
 
 const today = new Date().toISOString().slice(0, 10)
 
 export default function Loans() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { user, authLoading } = useRequireAuth()
 
   const [loans, setLoans] = useState([])
   const [showForm, setShowForm] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   // Form fields
   const [fLender, setFLender] = useState('')
@@ -93,6 +94,33 @@ export default function Loans() {
   const [fPayment, setFPayment] = useState('')
   const [fStart, setFStart] = useState(today)
   const [errors, setErrors] = useState({})
+
+  useEffect(() => {
+    if (!user) return
+    setLoading(true)
+    supabase
+      .from('loans')
+      .select('id, lender, principal, monthly_rate, monthly_payment, start_date')
+      .eq('user_id', user.id)
+      .order('start_date', { ascending: false })
+      .then(({ data, error: err }) => {
+        if (err) {
+          setError(err.message)
+        } else {
+          setLoans(
+            (data || []).map((row) => ({
+              id: row.id,
+              lender: row.lender,
+              principal: row.principal,
+              rate: row.monthly_rate,
+              monthlyPayment: row.monthly_payment,
+              startDate: row.start_date,
+            }))
+          )
+        }
+        setLoading(false)
+      })
+  }, [user])
 
   const computed = useMemo(() => loans.map(computeLoan), [loans])
 
@@ -114,7 +142,7 @@ export default function Loans() {
     setErrors({})
   }
 
-  function handleAdd() {
+  async function handleAdd() {
     const errs = {}
     if (!fLender.trim()) errs.lender = t('loans.errorRequired')
     const principal = parseFloat(fPrincipal)
@@ -126,16 +154,44 @@ export default function Loans() {
     if (!fStart) errs.start = t('loans.errorRequired')
     if (Object.keys(errs).length) return setErrors(errs)
 
+    const { data, error: err } = await supabase
+      .from('loans')
+      .insert({
+        user_id: user.id,
+        lender: fLender.trim(),
+        principal,
+        monthly_rate: rate,
+        monthly_payment: payment,
+        start_date: fStart,
+      })
+      .select('id')
+      .single()
+
+    if (err) {
+      setError(err.message)
+      return
+    }
+
     setLoans((prev) => [
       ...prev,
-      { id: Date.now(), lender: fLender.trim(), principal, rate, monthlyPayment: payment, startDate: fStart },
+      { id: data.id, lender: fLender.trim(), principal, rate, monthlyPayment: payment, startDate: fStart },
     ])
     closeForm()
   }
 
-  function deleteLoan(id) {
+  async function deleteLoan(id) {
+    const { error: err } = await supabase.from('loans').delete().eq('id', id)
+    if (err) { setError(err.message); return }
     setLoans((prev) => prev.filter((l) => l.id !== id))
     if (expandedId === id) setExpandedId(null)
+  }
+
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
   }
 
   return (
@@ -157,6 +213,14 @@ export default function Loans() {
             {t('loans.addBtn')}
           </button>
         </div>
+
+        {/* Error banner */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3">
+            <p className="text-sm text-red-700">{error}</p>
+            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 text-lg leading-none flex-shrink-0">×</button>
+          </div>
+        )}
 
         {/* Illegal loan alert banner */}
         {illegalCount > 0 && (
@@ -216,7 +280,6 @@ export default function Loans() {
                     isIllegal ? 'border-red-200' : loan.paidOff ? 'border-emerald-100' : 'border-gray-100'
                   }`}
                 >
-                  {/* Illegal rate warning stripe */}
                   {isIllegal && (
                     <div className="bg-red-600 rounded-t-2xl px-5 py-2 flex items-center gap-2">
                       <span className="text-white text-xs">⚠</span>
@@ -226,12 +289,10 @@ export default function Loans() {
                     </div>
                   )}
 
-                  {/* Main tappable area */}
                   <button
                     className="w-full text-left px-5 pt-4 pb-4"
                     onClick={() => setExpandedId(isExpanded ? null : loan.id)}
                   >
-                    {/* Lender name + badges */}
                     <div className="flex items-start justify-between gap-2 mb-3">
                       <div className="min-w-0">
                         <p className="text-sm font-semibold text-gray-900 leading-snug">{loan.lender}</p>
@@ -255,7 +316,6 @@ export default function Loans() {
                       </div>
                     </div>
 
-                    {/* Remaining + progress */}
                     <div className="flex items-end justify-between mb-2">
                       <div>
                         <p className="text-xs text-gray-400 mb-0.5">{t('loans.remainingLabel')}</p>
@@ -278,10 +338,8 @@ export default function Loans() {
                     </div>
                   </button>
 
-                  {/* Expanded detail */}
                   {isExpanded && (
                     <div className="border-t border-gray-50 px-5 py-4 space-y-4">
-                      {/* Stats grid */}
                       <div className="grid grid-cols-2 gap-3">
                         <div className="bg-gray-50 rounded-xl p-3">
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.originalAmount')}</p>
@@ -313,7 +371,6 @@ export default function Loans() {
                         </div>
                       </div>
 
-                      {/* Never-paid-off warning */}
                       {loan.neverPaidOff && !loan.paidOff && (
                         <div className="bg-amber-50 border border-amber-100 rounded-xl p-3">
                           <p className="text-xs font-semibold text-amber-700 mb-0.5">{t('loans.neverTitle')}</p>
@@ -326,7 +383,6 @@ export default function Loans() {
                         </div>
                       )}
 
-                      {/* Illegal loan detail warning */}
                       {isIllegal && (
                         <div className="bg-red-50 border border-red-100 rounded-xl p-3">
                           <p className="text-xs font-semibold text-red-700 mb-1">{t('loans.illegalCardTitle')}</p>
@@ -362,7 +418,6 @@ export default function Loans() {
             <p className="text-sm text-gray-500 mb-5">{t('loans.modalDesc')}</p>
 
             <div className="space-y-3 mb-5">
-              {/* Lender */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.lenderLabel')}</label>
                 <input
@@ -376,7 +431,6 @@ export default function Loans() {
                 {errors.lender && <p className="text-xs text-red-500 mt-1">{errors.lender}</p>}
               </div>
 
-              {/* Principal */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.principalLabel')}</label>
                 <div className="relative">
@@ -394,7 +448,6 @@ export default function Loans() {
                 {errors.principal && <p className="text-xs text-red-500 mt-1">{errors.principal}</p>}
               </div>
 
-              {/* Interest rate */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">
                   {t('loans.rateLabel')}
@@ -418,7 +471,6 @@ export default function Loans() {
                 {errors.rate && <p className="text-xs text-red-500 mt-1">{errors.rate}</p>}
               </div>
 
-              {/* Monthly payment */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.paymentLabel')}</label>
                 <div className="relative">
@@ -436,7 +488,6 @@ export default function Loans() {
                 {errors.payment && <p className="text-xs text-red-500 mt-1">{errors.payment}</p>}
               </div>
 
-              {/* Start date */}
               <div>
                 <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.startDateLabel')}</label>
                 <input
