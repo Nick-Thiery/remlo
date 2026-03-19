@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
@@ -97,6 +97,7 @@ export default function Budget() {
   const [amountError, setAmountError] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const budgetExists = useRef(false)
 
   useEffect(() => {
     if (isGuest) {
@@ -119,6 +120,7 @@ export default function Budget() {
         if (err) {
           setError(err.message)
         } else if (data) {
+          budgetExists.current = true
           setIncome(data.income > 0 ? String(data.income) : '')
           setExpenses(Array.isArray(data.expenses) && data.expenses.length > 0 ? data.expenses : PRESET_EXPENSES)
         }
@@ -135,10 +137,14 @@ export default function Budget() {
       return
     }
     if (!user) return
-    const { error: err } = await supabase.from('budgets').upsert(
-      { user_id: user.id, income: parseFloat(incomeVal) || 0, expenses: expensesVal },
-      { onConflict: 'user_id' }
-    )
+    const payload = { income: parseFloat(incomeVal) || 0, expenses: expensesVal }
+    let err
+    if (budgetExists.current) {
+      ({ error: err } = await supabase.from('budgets').update(payload).eq('user_id', user.id))
+    } else {
+      ({ error: err } = await supabase.from('budgets').insert({ user_id: user.id, ...payload }))
+      if (!err) budgetExists.current = true
+    }
     if (err) setError(err.message)
   }
 
