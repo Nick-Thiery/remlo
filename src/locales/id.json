@@ -453,5 +453,168 @@
       "antiscam": "Laporkan insiden penipuan, bekukan transaksi, pulihkan dana yang hilang",
       "momtaskforce": "Laporkan tawaran kerja palsu, biaya penempatan ilegal, penipuan izin kerja"
     }
+  },
+
+  "scamQuiz": {
+    "pageTitle": "Kuis Kesadaran Penipuan",
+    "scenarioLabel": "Skenario",
+    "scoreLabel": "{{score}} benar",
+    "yourAnswers": "Jawaban Anda",
+    "perfectBadge": "Nilai sempurna! Anda sadar akan penipuan. Ajak teman untuk mengikuti kuis ini.",
+    "correct": "✓ Benar!",
+    "incorrect": "✗ Salah",
+    "nextBtn": "Pertanyaan berikutnya",
+    "resultsBtn": "Lihat hasil saya",
+    "retryBtn": "Coba lagi",
+    "scamAlertsBtn": "Lihat peringatan penipuan",
+    "ratings": [
+      { "label": "Anda perlu berhati-hati", "desc": "Penipu secara khusus menargetkan pekerja migran. Pelajari tanda-tanda peringatan di bawah ini dan tetap aman." },
+      { "label": "Kesadaran yang baik", "desc": "Anda mengetahui beberapa taktik penipuan — tapi satu kesalahan bisa merugikan Anda ribuan dolar. Tinjau tips di bawah ini." },
+      { "label": "Ahli penipuan!", "desc": "Luar biasa! Bagikan pengetahuan Anda kepada teman-teman dan bantu jaga keamanan komunitas Anda." }
+    ],
+    "questions": [
+      {
+        "scenario": "Orang asing mengirim pesan di WhatsApp: \"Hai, saya dari MOM. Izin kerja Anda bermasalah. Kirimkan login dan kata sandi SingPass Anda sekarang atau izin Anda akan dibatalkan hari ini.\"",
+        "options": ["Kirim detail SingPass saya dengan cepat agar tidak kehilangan pekerjaan", "Ini penipuan — MOM tidak pernah meminta kata sandi SingPass", "Minta ID staf orang tersebut terlebih dahulu, baru putuskan"],
+        "explanation": "MOM, polisi, bank, dan instansi pemerintah TIDAK AKAN PERNAH meminta kata sandi SingPass atau OTP Anda. Tutup telepon atau abaikan pesan dan hubungi MOM langsung di 6438-5122 untuk memverifikasi."
+      },
+      {
+        "scenario": "Iklan Facebook menawarkan pekerjaan di Singapura dengan gaji S$4.000/bulan untuk pekerjaan ringan. Tidak perlu pengalaman. Anda hanya perlu membayar \"biaya pendaftaran\" S$300 untuk mendapatkan tempat Anda.",
+        "options": ["Bayar biayanya — pekerjaan bagus cepat habis", "Ini penipuan kerja — pemberi kerja yang sah tidak pernah memungut biaya dari pekerja di muka", "Negosiasikan biayanya turun menjadi S$100 sebelum membayar"],
+        "explanation": "Berdasarkan Undang-Undang Ketenagakerjaan Tenaga Kerja Asing, pemberi kerja tidak boleh memungut biaya rekrutmen dari pekerja. Setiap pekerjaan yang mengharuskan Anda membayar terlebih dahulu adalah penipuan. Laporkan ke MOM di 1800-333-1313."
+      },
+      {
+        "scenario": "Seseorang menyelipkan kartu di bawah pintu asrama Anda: \"Butuh uang cepat? Tanpa cek kredit! Pinjam hingga S$5.000 hari ini. WhatsApp kami.\" Kartu tersebut tidak ada nama perusahaan atau nomor lisensi.",
+        "options": ["WhatsApp mereka — mudah dan saya butuh uang mendesak", "Abaikan — ini adalah rentenir ilegal (Ah Long)", "Pinjam jumlah kecil dulu untuk menguji apakah mereka bisa dipercaya"],
+        "explanation": "Pemberi pinjaman berlisensi di Singapura hanya beriklan melalui situs web mereka sendiri, direktori bisnis, atau kantor fisik — tidak pernah melalui selebaran atau SMS. Meminjam dari rentenir berujung pada pelecehan dan kekerasan. Hubungi hotline X-Ah Long: 1800-924-5664."
+      },
+      {
+        "scenario": "Pemberi kerja Anda tidak membayar gaji Anda selama 2 bulan. Dia berkata: \"Jangan lapor ke MOM atau saya akan membatalkan izin kerja Anda dan mengirim Anda pulang.\" Apa yang harus Anda lakukan?",
+        "options": ["Tunggu diam-diam — saya tidak bisa mengambil risiko kehilangan izin kerja", "Laporkan ke MOM — mereka melindungi pekerja dan tidak bisa membatalkan izin Anda karena melapor", "Pinjam uang dari teman dan diam saja"],
+        "explanation": "MOM melindungi pekerja yang mengajukan klaim gaji. Pemberi kerja Anda TIDAK BISA membatalkan izin kerja Anda hanya karena melaporkan upah yang tidak dibayar — itu akan menjadi pelanggaran tambahan. Ajukan klaim gaji di mom.gov.sg atau hubungi 1800-333-1313."
+      },
+      {
+        "scenario": "Teman baru meminta apakah Anda bisa menerima S$8.000 ke rekening bank Anda dan mentransfernya ke rekening lain untuk \"komisi kecil.\" Dia bilang itu untuk bisnisnya.",
+        "options": ["Setuju — mudah saja dan saya hanya memindahkan dana", "Tolak — menggunakan rekening Anda dengan cara ini adalah penipuan money mule, yang merupakan tindak pidana", "Minta komisi lebih besar sebelum setuju"],
+        "explanation": "Mengizinkan orang lain menggunakan rekening bank Anda untuk memindahkan uang adalah tindak pidana di Singapura berdasarkan Undang-Undang Korupsi, Perdagangan Narkoba, dan Kejahatan Serius Lainnya. Anda bisa dipenjara hingga 3 tahun dan didenda hingga S$50.000, meskipun Anda tidak tahu uang itu berasal dari kejahatan."
+      },
+      {
+        "scenario": "Anda menerima SMS: \"DBS Bank: Login tidak biasa terdeteksi di akun Anda. Klik tautan ini untuk verifikasi: dbs-secure-login.com.\" Tautannya terlihat berbeda dari situs web DBS resmi.",
+        "options": ["Klik tautannya dan login segera untuk melindungi akun saya", "Hapus SMS-nya — ini penipuan phishing. Hubungi DBS langsung di 1800-111-1111", "Teruskan tautannya ke teman untuk memeriksa apakah itu asli"],
+        "explanation": "Bank tidak pernah mengirim tautan yang meminta Anda untuk login. Situs DBS yang asli adalah dbs.com.sg — yang lainnya palsu. Selalu ketik URL bank sendiri atau hubungi nomor di belakang kartu Anda. Anda juga dapat menghubungi helpline ScamShield: 1799."
+      },
+      {
+        "scenario": "\"Guru investasi\" online dalam grup Telegram mengatakan Anda bisa menggandakan uang dalam 30 hari dengan berinvestasi di dana kripto khusus. Banyak orang dalam grup memposting tangkapan layar keuntungan besar mereka.",
+        "options": ["Investasikan S$500 — testimoninya terlihat meyakinkan", "Laporkan grupnya — ini adalah penipuan investasi klasik dengan testimoni palsu", "Tunggu untuk melihat apakah orang lain dibayar sebelum berinvestasi"],
+        "explanation": "Keuntungan tinggi yang dijamin dalam waktu singkat adalah tanda penipuan nomor 1. Tangkapan layar keuntungan itu palsu, dan \"anggota grup\" yang memuji skema tersebut adalah penipu bayaran. Laporkan penipuan investasi ke polisi di police.gov.sg/iwitness atau hubungi 999."
+      },
+      {
+        "scenario": "Seorang pemilik rumah di Carousell meminta uang sewa 3 bulan (S$2.400) sebagai deposit melalui PayNow sebelum Anda bisa melihat kamarnya. Dia mengatakan banyak orang menginginkan kamar itu dan akan habis malam ini.",
+        "options": ["Transfer uangnya cepat sebelum orang lain mengambil kamarnya", "Tolak — jangan pernah bayar sebelum melihat. Ini kemungkinan penipuan sewa", "Bayar setengahnya sekarang dan setengahnya setelah melihat"],
+        "explanation": "Desakan dan tekanan untuk membayar sebelum melihat adalah taktik penipuan sewa yang klasik. Selalu lihat propertinya secara langsung, verifikasi identitas dan kepemilikan pemilik rumah, dan jangan pernah transfer uang sebelum menandatangani kontrak. Periksa scamalert.sg untuk daftar penipuan yang dilaporkan."
+      }
+    ]
+  },
+
+  "emergencyFund": {
+    "pageTitle": "Kalkulator Dana Darurat",
+    "pageSubtitle": "Ketahui dengan tepat berapa yang Anda butuhkan — dan berapa lama untuk mencapainya.",
+    "sectionNumbers": "Angka Anda",
+    "expensesLabel": "Pengeluaran bulanan (sewa + makan + transportasi + tagihan)",
+    "savingsLabel": "Berapa yang bisa Anda tabung setiap bulan?",
+    "sectionTargets": "Target Anda",
+    "minTarget": "Jaring pengaman minimum",
+    "recTarget": "Jaring pengaman yang direkomendasikan",
+    "threeMonths": "3 bulan pengeluaran",
+    "sixMonths": "6 bulan pengeluaran",
+    "enterSavingsHint": "Masukkan tabungan bulanan Anda untuk melihat berapa lama waktu yang dibutuhkan.",
+    "reachInOneMonth": "Anda bisa mencapai ini dalam 1 bulan!",
+    "savingToReach": "Menabung {{amount}}/bln → tercapai dalam {{time}}",
+    "whyTitle": "Mengapa pekerja migran membutuhkan lebih",
+    "whyDesc": "Jika Anda kehilangan pekerjaan di Singapura, izin kerja Anda akan dibatalkan dan Anda mungkin harus pergi dalam 30 hari. Dana darurat 6 bulan memberi Anda waktu untuk mencari pemberi kerja baru, membayar tiket pesawat, atau menafkahi keluarga Anda saat mengurus segalanya — tanpa meminjam dari rentenir.",
+    "emptyTitle": "Masukkan pengeluaran Anda di atas",
+    "emptyDesc": "Kami akan menghitung berapa yang Anda butuhkan dan berapa lama untuk mencapainya.",
+    "tipsHeading": "Di mana menyimpan dana darurat Anda",
+    "disclaimer": "Asuransi deposito di Singapura melindungi hingga S$75.000 per bank per nasabah melalui SDIC.",
+    "tips": [
+      { "title": "POSB / DBS eMySavings", "body": "Tidak ada saldo minimum, tidak ada biaya. Buka secara online dengan SingPass. Uang Anda dilindungi oleh SDIC hingga S$75.000." },
+      { "title": "GXS Bank atau MariBank", "body": "Bank digital yang terbuka untuk pemegang izin kerja. Bunga tabungan lebih tinggi (hingga ~3%), tanpa biaya, tanpa saldo minimum." },
+      { "title": "Pisahkan rekeningnya", "body": "Simpan dana darurat Anda di rekening berbeda dari rekening pengeluaran Anda agar Anda tidak tergoda untuk menggunakannya." },
+      { "title": "Hindari kelompok tabungan informal (arisan)", "body": "\"Chit fund\" atau klub tabungan bergilir tidak memiliki perlindungan hukum. Jika penyelenggaranya menghilang, uang Anda hilang." }
+    ],
+    "time": {
+      "oneMonth": "1 bulan",
+      "months": "{{count}} bulan",
+      "oneYear": "1 tahun",
+      "years": "{{count}} tahun",
+      "yearsMonths": "{{years}} thn {{months}} bln"
+    }
+  },
+
+  "bankingGuide": {
+    "pageTitle": "Perbankan di Singapura",
+    "pageSubtitle": "Cara membuka rekening, apa yang Anda butuhkan, dan apa yang harus dilakukan jika ada yang salah.",
+    "docsHeading": "Dokumen yang Anda butuhkan",
+    "docsTip": "Tips: Minta pemberi kerja Anda mencetak surat mereka di kop surat perusahaan dengan stempel perusahaan — bank sering menolak surat tanpa stempel.",
+    "banksHeading": "Bank tradisional",
+    "recHeading": "Rekomendasi kami untuk sebagian besar pekerja",
+    "recDesc": "Mulai dengan rekening POSB Everyday Savings — tanpa biaya, tanpa saldo minimum, dan jaringan ATM terluas. Setelah Anda memiliki tabungan S$1.000+, pertimbangkan bank digital seperti GXS untuk bunga lebih tinggi pada dana darurat Anda.",
+    "digitalHeading": "Alternatif digital",
+    "cardHolderHeading": "Jika pemberi kerja memegang kartu bank Anda",
+    "cardHolderAlertTitle": "Ini ilegal di Singapura",
+    "cardHolderAlertDesc": "Tidak ada pemberi kerja yang berhak memegang kartu bank, kartu ATM, atau buku tabungan Anda. Gaji Anda adalah milik Anda. Jika ini terjadi pada Anda, ikuti langkah-langkah di bawah ini.",
+    "helplineHeading": "Hotline",
+    "minBalanceLabel": "Saldo min.",
+    "feeLabel": "Biaya bulanan",
+    "docsNeededLabel": "Dokumen yang dibutuhkan",
+    "noFeeLabel": "Tidak ada biaya",
+    "disclaimer": "Informasi benar per awal 2025. Selalu verifikasi langsung dengan bank sebelum berkunjung.",
+    "docs": [
+      { "label": "Kartu Izin Kerja", "sub": "Kartu biru dari MOM — selalu bawa" },
+      { "label": "Paspor", "sub": "Asli + fotokopi halaman foto" },
+      { "label": "Surat pemberi kerja", "sub": "Di kop surat perusahaan, dengan stempel perusahaan, yang mengonfirmasi pekerjaan dan gaji Anda" },
+      { "label": "Bukti alamat", "sub": "Perjanjian sewa atau surat pemberi kerja yang menunjukkan alamat Singapura Anda" }
+    ],
+    "banks": [
+      {
+        "name": "POSB Everyday Savings", "fee": "Tidak ada biaya", "minBalance": "Tidak ada",
+        "notes": "Terbaik untuk sebagian besar pekerja. Jaringan ATM terluas di Singapura (lebih dari 1.400 mesin). Menerima pemegang izin kerja.",
+        "docs": ["Izin Kerja (kartu biru)", "Paspor", "Bukti alamat Singapura (surat pemberi kerja atau perjanjian sewa)"]
+      },
+      {
+        "name": "DBS Multiplier Account", "fee": "S$2/bulan jika saldo < S$3.000", "minBalance": "S$3.000 untuk menghindari biaya",
+        "notes": "Bunga lebih tinggi jika Anda menerima gaji dan bertransaksi secara rutin. Bagus setelah Anda memiliki tabungan.",
+        "docs": ["Izin Kerja atau S Pass atau Employment Pass", "Paspor", "SingPass (jika tersedia)"]
+      },
+      {
+        "name": "OCBC 360 Account", "fee": "S$2/bulan jika saldo < S$1.000", "minBalance": "S$1.000 untuk menghindari biaya",
+        "notes": "Bunga bonus saat Anda mengkreditkan gaji. Pemegang izin kerja diterima. Kunjungan cabang diperlukan untuk membuka.",
+        "docs": ["Izin Kerja", "Paspor", "Surat pemberi kerja"]
+      },
+      {
+        "name": "UOB One Account", "fee": "S$2/bulan jika saldo < S$1.000", "minBalance": "S$1.000 untuk menghindari biaya",
+        "notes": "Bunga bagus untuk pengkreditan gaji. Beberapa cabang melayani pekerja asing — hubungi terlebih dahulu untuk konfirmasi.",
+        "docs": ["Izin Kerja atau S Pass", "Paspor", "Surat pemberi kerja dengan stempel perusahaan"]
+      }
+    ],
+    "digital": [
+      { "name": "GXS Bank", "badge": "Bunga terbaik", "requirement": "Izin kerja + nomor telepon Singapura", "desc": "Bank digital penuh yang terbuka untuk pemegang izin kerja. Tidak ada saldo minimum, tidak ada biaya. Menawarkan bunga hingga 3,48% untuk tabungan. Buka sepenuhnya melalui aplikasi — tidak perlu kunjungan cabang." },
+      { "name": "MariBank", "badge": "Tanpa biaya", "requirement": "Izin kerja + nomor telepon Singapura", "desc": "Bank digital Sea Group. Tidak ada saldo minimum, tidak ada biaya, suku bunga tabungan kompetitif. Buka melalui aplikasi dengan detail izin kerja Anda." },
+      { "name": "YouTrip", "badge": "Terbaik untuk remitansi", "requirement": "Izin kerja atau nomor FIN", "desc": "Dompet elektronik multi-mata uang. Bagus untuk mengirim uang ke rumah dengan biaya rendah dan membayar dalam mata uang asal saat belanja online. Bukan bank penuh — tidak ada bunga atas saldo." },
+      { "name": "GrabPay", "badge": "Diterima luas", "requirement": "Nomor telepon Singapura", "desc": "Dompet elektronik yang terhubung ke aplikasi Grab Anda. Diterima di ribuan pedagang, pusat jajanan, dan untuk GrabFood. Isi ulang melalui PayNow atau ATM. Tidak memerlukan rekening bank untuk memulai." },
+      { "name": "Singtel Dash", "badge": "Isi ulang mudah", "requirement": "Nomor telepon apapun (tidak perlu rekening bank)", "desc": "Dompet elektronik dari Singtel. Isi ulang dengan tunai di toko 7-Eleven atau Cheers — berguna jika Anda belum memiliki rekening bank lokal. Bisa kirim uang ke lebih dari 30 negara." }
+    ],
+    "steps": [
+      { "title": "Ketahui hak Anda", "body": "Adalah ilegal di Singapura bagi pemberi kerja Anda untuk memegang kartu bank, kartu ATM, atau buku tabungan Anda. Ini diatur dalam Undang-Undang Ketenagakerjaan dan peraturan MOM." },
+      { "title": "Minta dengan sopan terlebih dahulu", "body": "Katakan kepada pemberi kerja Anda: \"Saya perlu kartu bank saya untuk menarik gaji saya sendiri.\" Sebagian besar pemberi kerja akan mengembalikannya ketika diminta secara langsung." },
+      { "title": "Hubungi MOM", "body": "Jika pemberi kerja Anda menolak, hubungi MOM di 1800-333-1313 (panggilan gratis, Senin–Jumat 08.30–17.30). Mereka dapat turun tangan atas nama Anda." },
+      { "title": "Hubungi polisi jika diancam", "body": "Jika pemberi kerja Anda mengancam Anda karena meminta kartu kembali, hubungi 999. Menahan kartu Anda dengan paksa adalah masalah pidana." },
+      { "title": "Ganti kartu jika diperlukan", "body": "Pergi ke cabang bank Anda dengan izin kerja dan paspor. Beritahu mereka kartu Anda diambil. Bank akan membatalkan kartu lama dan menerbitkan yang baru — biasanya gratis." }
+    ],
+    "helplines": [
+      { "label": "Helpline MOM (sengketa gaji & kartu)" },
+      { "label": "Polisi (darurat / ancaman)" },
+      { "label": "TWC2 (Transient Workers Count Too)" }
+    ]
   }
 }

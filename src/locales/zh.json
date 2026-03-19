@@ -19,5 +19,168 @@
   "scams": { "emergencyBanner": "🚨 如有危险请拨打 999  ·  MOM 热线：1800-333-1313", "pageTitle": "诈骗警报", "pageSubtitle": "新加坡最新针对工人的诈骗信息", "reportBtn": "举报诈骗", "filterAll": "全部", "whatToDoHeading": "应对措施", "noAlerts": "该类别暂无警报。", "sourceNote": "警报内容来源于 MOM、SPF 及新加坡诈骗警报资讯。请务必通过官方渠道核实。", "types": { "jobScam": "求职诈骗", "loanScam": "贷款诈骗", "phishing": "网络钓鱼", "impersonation": "冒充诈骗", "paymentScam": "付款诈骗" }, "report": { "title": "举报诈骗", "subtitle": "您的举报有助于保护其他工友。您不会因此惹上麻烦。", "whatLabel": "发生了什么？", "whatPlaceholder": "描述诈骗经过 — 对方说了什么，要求您做什么？", "whenLabel": "事件发生时间？", "lostLabel": "您损失了多少钱？", "lostNote": "（可选 — 如未损失请填 0）", "contactLabel": "您的联系电话", "contactPlaceholder": "例如：9123 4567", "contactNote": "仅用于必要时联系您，不会对外公开。", "policeTitle": "同时向警方报案", "policeDesc": "向我们举报并不代替警方报案。如涉及财务损失，请在 police.gov.sg/e-services/make-e-report 提交正式报案，或拨打 1800-255-0000。", "submitBtn": "提交举报", "successTitle": "举报已收到", "successDesc": "感谢您的举报。您提供的信息有助于警示其他工友。如您身处危险，请立即拨打 999。", "errorWhat": "请描述事件经过。", "errorWhen": "必填", "errorContact": "请提供联系电话。" }, "alerts": [ { "id": "fake_mom", "title": "冒充 MOM 官员索取征税款", "type": "impersonation", "description": "骗子致电工人，声称是 MOM 官员并索要征税款。真正的 MOM 官员绝不会通过电话要求付款。", "whatToDo": ["立即挂断 — MOM 绝不会打电话索取付款。", "不要转账，即使对方威胁要逮捕您。", "直接拨打 MOM 电话 6438 5122 进行核实。", "向警方举报，电话：1800-255-0000。"] }, { "id": "whatsapp_phishing", "title": "WhatsApp 网络钓鱼：伪造 DBS / POSB 登录链接", "type": "phishing", "description": "WhatsApp 消息声称来自 DBS 银行，包含伪造登录链接以窃取您的账户信息。", "whatToDo": ["切勿点击 WhatsApp、短信或电子邮件中的银行链接。", "始终直接在浏览器中输入银行网址。", "如已输入账户信息，请立即致电 DBS：1800-111-1111。", "向 ScamShield 举报：拨打 1799。"] }, { "id": "fake_job", "title": "虚假招聘：预收中介费后消失", "type": "jobScam", "description": "社交媒体群组发布新加坡工作广告，但要求预付 200 至 800 新元的中介费后便消失无踪。", "whatToDo": ["切勿为求职支付任何费用 — 在新加坡属违法行为。", "在 mom.gov.sg/employment-agencies-search 核实中介机构资质。", "如已付款，请向 MOM 专案组举报：1800-333-1313。", "保留所有收据和聊天记录作为证据。"] }, { "id": "illegal_lender", "title": "非法放贷者通过短信提供即时贷款", "type": "loanScam", "description": "无证放贷者通过短信或 WhatsApp 提供即时贷款，利率远超法定月利率 4% 的上限。", "whatToDo": ["不要向任何主动通过短信或 WhatsApp 联系您的人借款。", "如受到威胁，请拨打 999 报警。", "向 X-Ah Long 热线举报：1800-924-5664（全天候）。", "即使您已借款，新加坡法律仍保护您。"] }, { "id": "fake_dorm", "title": "虚假宿舍中介预收租金", "type": "paymentScam", "description": "骗子冒充宿舍中介，为不存在的住所收取预付租金。", "whatToDo": ["在未看房前切勿支付预付租金。", "在 bca.gov.sg/workersdormitory 查询 BCA 注册宿舍。", "仅通过 PayNow 或支票向官方公司付款。", "如被骗，请前往任何邻里警察中心报案。"] } ] },
   "loanshark": { "pageTitle": "非法放贷识别", "pageSubtitle": "勾选符合情况的选项，识别非法放贷者", "infoNote": "在新加坡，持牌放贷人受放贷人注册局监管，月利率上限为 4%。无证放贷属刑事罪行。", "checklistTitle": "红旗警示清单", "showMore": "▼ 显示更多 {{count}} 项", "showLess": "▲ 收起", "riskTitle": "风险评估", "riskCounter": "已勾选 {{checked}} / {{total}} 项", "legalTitle": "合法放贷人的特征", "legalDesc": "新加坡的持牌放贷人已登记注册，受监管，并受《放贷人法》约束。", "verifyNote": "借款前请在 moneylenders.justice.gov.sg 核实放贷人资质。", "helpTitle": "获取帮助", "callXAhLong": "拨打 X-Ah Long：1800-924-5664", "callPolice": "拨打警察：999", "disclaimer": "信息依据《放贷人法》（第 188 章）及 MOM 指引，不构成法律意见。", "flags": [ { "id": "unsolicited_contact", "label": "对方主动联系您 — 通过 WhatsApp、短信或社交媒体", "detail": "持牌放贷人不得通过短信、WhatsApp 或社交媒体做广告。如对方主动联系您，则其无证经营。" }, { "id": "no_license", "label": "对方无法提供或拒绝出示执照编号", "detail": "每位持牌放贷人必须登记注册。请在 moneylenders.justice.gov.sg 核实。" }, { "id": "high_interest", "label": "月利率超过 4%", "detail": "新加坡法律规定月利率上限为 4%，超出此上限即属违法。" }, { "id": "singpass_demand", "label": "对方索要您的 SingPass 登录账号或密码", "detail": "任何合法放贷人都不会索要 SingPass 凭证，这属于身份盗窃行为。" }, { "id": "bank_login_demand", "label": "对方索要您的网银账号、ATM 密码或银行卡", "detail": "持牌放贷人通过银行转账发放贷款 — 无需访问您的账户。" }, { "id": "no_contract", "label": "未提供书面贷款合同，或合同空白 / 不完整", "detail": "《放贷人法》要求在任何资金转手前须签署合同。" }, { "id": "upfront_fee", "label": "对方在放款前要求预付费用或押金", "detail": "持牌放贷人仅从贷款金额中扣除手续费 — 绝不要求预付现金。" }, { "id": "no_office", "label": "对方没有实体办公室，或办公场所不正规", "detail": "所有持牌放贷人必须在注册的商业办公室经营。" }, { "id": "threats", "label": "对方威胁您、您的家人或雇主", "detail": "威胁和骚扰在新加坡属刑事罪行，请立即拨打 999。" }, { "id": "retain_id", "label": "对方扣押您的护照、工作准证或证件作为抵押", "detail": "扣押身份证件属违法行为，请立即向 MOM 或警方举报。" } ], "risks": { "green": { "label": "可能合法", "summary": "无红旗警示。可能是持牌放贷人。签署任何文件前请在 moneylenders.justice.gov.sg 核实。" }, "yellow": { "label": "请谨慎", "summary": "存在部分警示信号。请核实放贷人资质并获取完整书面合同后再行决定。" }, "red": { "label": "可能违法 — 请勿继续", "summary": "多项红旗警示表明可能是无证放贷者。请勿借款、缴纳费用或提交任何证件。" } }, "legalFacts": ["拥有您可前往的注册商业办公室", "在资金转手前提供完整书面贷款合同", "出示放贷人注册局执照编号", "月利率不超过 4%", "不通过 WhatsApp、短信或社交媒体联系您", "从不索要 SingPass、网银账号、ATM 卡或证件作为抵押", "从贷款金额中扣除手续费 — 绝不要求预付现金"], "helpContacts": [ { "org": "X-Ah Long 热线（非法放贷举报）", "number": "1800-924-5664", "hours": "24 / 7", "note": "可匿名举报，致电不会有任何麻烦。" }, { "org": "新加坡警察部队", "number": "999", "hours": "Emergency — 24 / 7", "note": "如受到威胁或处于危险中，请立即致电。" }, { "org": "放贷人注册局", "number": "1800-2255-529", "hours": "Mon–Fri 8:30 am – 5:30 pm", "note": "核实放贷人资质或举报非法放贷者。" }, { "org": "MOM 外来务工人员热线", "number": "1800-333-1313", "hours": "Mon–Fri 8:00 am – 5:00 pm", "note": "处理工作准证问题、劳动纠纷及一般援助。" }, { "org": "新加坡信贷辅导协会", "number": "6225-5227", "hours": "Mon–Fri 9:00 am – 6:00 pm", "note": "免费债务辅导。" } ] },
   "chat": { "pageTitle": "AI 助手", "pageSubtitle": "为工人提供的财务指导", "inputPlaceholder": "随时提问...", "typing": "思考中...", "emptyTitle": "有什么可以帮您？", "emptySubtitle": "您可以询问预算规划、汇款回家、非法放贷或您在新加坡作为工人的权利。", "suggested": ["如何以最低费用汇款回家？", "这是非法放贷吗？", "帮我制定预算"], "errorMsg": "抱歉，出现错误，请重试。", "disclaimer": "仅供参考。紧急情况请拨打 999。", "noApiKey": "API 密钥未配置。请在 .env 文件中添加 VITE_ANTHROPIC_API_KEY。" },
-  "emergency": { "dangerText": "身处紧急危险？", "callPolice": "拨打 999 — 警察紧急热线", "pageTitle": "紧急联系方式", "pageSubtitle": "新加坡外来务工人员求助热线", "footer": "所有号码截至 2026 年均有效。如某号码无法接通，请拨打 MOM 热线 1800-333-1313 转介。", "badge247": "24 / 7", "byAppt": "需预约", "categories": { "government": "政府", "workerSupport": "劳工支援", "financialHelp": "财务帮助", "scamReporting": "举报诈骗" }, "roles": { "police": "紧急响应、犯罪举报、威胁或暴力事件", "mom": "工作准证问题、雇主纠纷、欠薪、遣返事宜", "moneylenders": "核实持牌放贷人、举报非法放贷", "comcare": "社会援助、危机支持、家庭困难", "twc2": "欠薪、工伤、雇主虐待、餐食援助", "irr": "为家庭佣工提供支持 — 庇护、法律援助、心理辅导", "home": "为外来务工人员提供庇护、法律支持和权益倡导", "fast": "家庭佣工热线 — 纠纷、虐待、住宿问题", "ccs": "免费债务辅导、还款计划、保护免受非法放贷骚扰", "xahlong": "匿名举报非法放贷骚扰，无需担心后果", "moneysense": "免费理财教育及合法借贷指导", "scamshield": "举报求职诈骗、网络钓鱼、冒充诈骗", "antiscam": "举报诈骗事件、冻结交易、追回损失资金", "momtaskforce": "举报虚假招聘、非法中介费、工作准证欺诈" } }
+  "emergency": { "dangerText": "身处紧急危险？", "callPolice": "拨打 999 — 警察紧急热线", "pageTitle": "紧急联系方式", "pageSubtitle": "新加坡外来务工人员求助热线", "footer": "所有号码截至 2026 年均有效。如某号码无法接通，请拨打 MOM 热线 1800-333-1313 转介。", "badge247": "24 / 7", "byAppt": "需预约", "categories": { "government": "政府", "workerSupport": "劳工支援", "financialHelp": "财务帮助", "scamReporting": "举报诈骗" }, "roles": { "police": "紧急响应、犯罪举报、威胁或暴力事件", "mom": "工作准证问题、雇主纠纷、欠薪、遣返事宜", "moneylenders": "核实持牌放贷人、举报非法放贷", "comcare": "社会援助、危机支持、家庭困难", "twc2": "欠薪、工伤、雇主虐待、餐食援助", "irr": "为家庭佣工提供支持 — 庇护、法律援助、心理辅导", "home": "为外来务工人员提供庇护、法律支持和权益倡导", "fast": "家庭佣工热线 — 纠纷、虐待、住宿问题", "ccs": "免费债务辅导、还款计划、保护免受非法放贷骚扰", "xahlong": "匿名举报非法放贷骚扰，无需担心后果", "moneysense": "免费理财教育及合法借贷指导", "scamshield": "举报求职诈骗、网络钓鱼、冒充诈骗", "antiscam": "举报诈骗事件、冻结交易、追回损失资金", "momtaskforce": "举报虚假招聘、非法中介费、工作准证欺诈" } },
+
+  "scamQuiz": {
+    "pageTitle": "诈骗防范知识测验",
+    "scenarioLabel": "场景",
+    "scoreLabel": "答对 {{score}} 题",
+    "yourAnswers": "您的答案",
+    "perfectBadge": "满分！您具备很强的防骗意识。帮助朋友一起参加测验吧。",
+    "correct": "✓ 回答正确！",
+    "incorrect": "✗ 回答错误",
+    "nextBtn": "下一题",
+    "resultsBtn": "查看成绩",
+    "retryBtn": "重新作答",
+    "scamAlertsBtn": "查看诈骗警报",
+    "ratings": [
+      { "label": "您需要提高警惕", "desc": "骗子专门针对外来务工人员。请学习以下警示信号，保护好自己。" },
+      { "label": "防骗意识不错", "desc": "您了解一些诈骗手法，但一次失误就可能损失数千元。请复习以下提示。" },
+      { "label": "防骗达人！", "desc": "非常出色！请把您的知识分享给朋友，帮助社区共同保持安全。" }
+    ],
+    "questions": [
+      {
+        "scenario": "一个陌生人在 WhatsApp 上给您发消息：\"你好，我是 MOM 的工作人员。您的工作准证有问题。请立即发送您的 SingPass 登录账号和密码，否则您的准证将于今日被取消。\"",
+        "options": ["赶快发送我的 SingPass 信息，以免失去工作", "这是诈骗——MOM 绝不会索要 SingPass 密码", "先向对方索要员工证件，再做决定"],
+        "explanation": "MOM、警察、银行及政府机构绝对不会索要您的 SingPass 密码或一次性密码（OTP）。请挂断电话或忽略该消息，直接拨打 MOM 电话 6438-5122 进行核实。"
+      },
+      {
+        "scenario": "一则 Facebook 广告提供新加坡工作机会，月薪 S$4,000，工作轻松，无需经验。您只需缴纳 S$300 的\"注册费\"即可锁定名额。",
+        "options": ["缴纳费用——好工作转瞬即逝", "这是求职诈骗——合法雇主绝不会向工人预收任何费用", "先把费用压到 S$100 再付"],
+        "explanation": "根据《外国劳工法》，雇主不得向工人收取招聘费用。任何要求您先付钱的工作都是诈骗。请向 MOM 举报，电话：1800-333-1313。"
+      },
+      {
+        "scenario": "有人在您宿舍门缝塞了一张卡片：\"急需现金？免信用审查！今日可借最高 S$5,000。WhatsApp 联系我们。\"该卡片没有公司名称或执照号码。",
+        "options": ["WhatsApp 联系他们——方便，而且我急需用钱", "忽略它——这是无证放贷者（Ah Long）", "先借小额试试，看看对方是否可信"],
+        "explanation": "新加坡持牌放贷人只通过自己的官方网站、商业目录或实体店面打广告，从不通过传单或短信。向非法放贷者借款会导致骚扰和暴力。请拨打 X-Ah Long 热线：1800-924-5664。"
+      },
+      {
+        "scenario": "您的雇主已连续 2 个月未发工资。他说：\"不许向 MOM 举报，否则我就取消你的工作准证，把你遣送回国。\"您该怎么办？",
+        "options": ["默默等待——我不能冒失去工作准证的风险", "向 MOM 举报——他们保护工人权益，不会因为您举报而取消准证", "向朋友借钱，什么都不说"],
+        "explanation": "MOM 保护提出工资索赔的工人。您的雇主不能仅因您举报欠薪而取消您的工作准证——那将构成额外违法行为。请在 mom.gov.sg 提交工资索赔，或拨打 1800-333-1313。"
+      },
+      {
+        "scenario": "一位新朋友问您能否将 S$8,000 收入您的银行账户，再转账到另一个账户，他会给您一笔\"小佣金\"。他说这是为了做生意。",
+        "options": ["答应——这很轻松，我只是转一下账而已", "拒绝——以这种方式使用您的账户属于\"钱骡\"诈骗，是刑事犯罪", "要求更高佣金后再决定"],
+        "explanation": "允许他人使用您的银行账户转移资金，在新加坡依据《贪污、毒品走私及其他严重罪行法》属于刑事犯罪。即使您不知道这笔钱来自犯罪，也可被判处最高 3 年有期徒刑及最高 S$50,000 的罚款。"
+      },
+      {
+        "scenario": "您收到一条短信：\"DBS Bank：检测到您的账户有异常登录。请点击此链接进行验证：dbs-secure-login.com。\"该链接看起来与 DBS 官方网站不同。",
+        "options": ["点击链接并立即登录，以保护我的账户", "删除短信——这是网络钓鱼诈骗。直接拨打 DBS 电话 1800-111-1111", "将链接转发给朋友，请他们帮忙鉴别真伪"],
+        "explanation": "银行绝不会发送链接要求您登录。DBS 真实网址为 dbs.com.sg——其他均为假冒。请务必自行输入银行网址，或拨打卡背面的电话号码。您也可以拨打 ScamShield 热线：1799。"
+      },
+      {
+        "scenario": "一个 Telegram 群里的在线\"投资导师\"声称，只需投资一种特殊加密货币基金，30 天内即可让您的钱翻倍。群内很多人晒出了高额收益的截图。",
+        "options": ["投入 S$500——那些见证看起来很有说服力", "举报该群——这是经典的投资诈骗，附有虚假见证", "等看到其他人收到钱后再投资"],
+        "explanation": "在短时间内保证高额回报是诈骗的头号标志。那些盈利截图都是伪造的，在群里鼓吹该计划的\"群员\"都是受雇的骗子。请在 police.gov.sg/iwitness 向警方举报投资诈骗，或拨打 999。"
+      },
+      {
+        "scenario": "Carousell 上一位房东要求您在看房前先通过 PayNow 缴纳 3 个月租金（S$2,400）作为押金。他说很多人抢这个房间，今晚就会租出去。",
+        "options": ["赶快转账，以免被别人抢走", "拒绝——看房前绝不付款。这很可能是租房诈骗", "先付一半，看房后再付另一半"],
+        "explanation": "催促您在看房前付款是典型的租房诈骗手法。务必亲自看房，核实房东身份和产权证明，签合同前切勿转账。请在 scamalert.sg 查询已报告的诈骗租房信息。"
+      }
+    ]
+  },
+
+  "emergencyFund": {
+    "pageTitle": "应急基金计算器",
+    "pageSubtitle": "精确了解您需要存多少钱，以及需要多长时间。",
+    "sectionNumbers": "您的数字",
+    "expensesLabel": "每月支出（租房 + 餐饮 + 交通 + 账单）",
+    "savingsLabel": "您每月能存多少钱？",
+    "sectionTargets": "您的目标",
+    "minTarget": "最低安全线",
+    "recTarget": "建议安全线",
+    "threeMonths": "3 个月支出",
+    "sixMonths": "6 个月支出",
+    "enterSavingsHint": "输入您的月储蓄金额，查看达成目标所需时间。",
+    "reachInOneMonth": "您可以在 1 个月内达成目标！",
+    "savingToReach": "每月储蓄 {{amount}} → {{time}} 后达成",
+    "whyTitle": "为什么外来务工人员需要更多储备",
+    "whyDesc": "如果您在新加坡失业，工作准证将被取消，您可能需要在 30 天内离境。6 个月的应急基金可以让您有时间寻找新雇主、支付机票费用，或在处理事务期间养活家人——而无需向非法放贷者借款。",
+    "emptyTitle": "请在上方输入您的支出",
+    "emptyDesc": "我们将为您计算所需金额及达成目标的时间。",
+    "tipsHeading": "应急基金存哪里",
+    "disclaimer": "新加坡存款保险通过 SDIC 为每位存款人在每家银行提供最高 S$75,000 的保障。",
+    "tips": [
+      { "title": "POSB / DBS eMySavings", "body": "无最低存款要求，无费用。可通过 SingPass 在线开户。您的存款受 SDIC 保障，上限 S$75,000。" },
+      { "title": "GXS Bank 或 MariBank", "body": "向工作准证持有人开放的数字银行。储蓄利率较高（最高约 3%），无手续费，无最低存款要求。" },
+      { "title": "单独存放", "body": "将应急基金存入与日常消费不同的账户，避免挪用。" },
+      { "title": "避免非正式储蓄互助会（会标）", "body": "\"会标\"或轮流储蓄组织不受法律保护。若组织者消失，您的钱将血本无归。" }
+    ],
+    "time": {
+      "oneMonth": "1 个月",
+      "months": "{{count}} 个月",
+      "oneYear": "1 年",
+      "years": "{{count}} 年",
+      "yearsMonths": "{{years}} 年 {{months}} 个月"
+    }
+  },
+
+  "bankingGuide": {
+    "pageTitle": "在新加坡开户",
+    "pageSubtitle": "如何开户、需要哪些材料，以及出现问题时该怎么办。",
+    "docsHeading": "所需材料",
+    "docsTip": "提示：请雇主在公司信笺上打印证明信并加盖公章——银行通常拒绝没有公章的信件。",
+    "banksHeading": "传统银行",
+    "recHeading": "我们对大多数工人的推荐",
+    "recDesc": "先开一个 POSB Everyday Savings 账户——无手续费、无最低存款要求，ATM 网络覆盖最广。存款达到 S$1,000 以上后，可考虑数字银行（如 GXS）以获得更高的应急基金利息。",
+    "digitalHeading": "数字银行与电子钱包",
+    "cardHolderHeading": "如果雇主持有您的银行卡",
+    "cardHolderAlertTitle": "这在新加坡属于违法行为",
+    "cardHolderAlertDesc": "任何雇主都无权扣押您的银行卡、ATM 卡或存折。您的工资属于您自己。如果遇到这种情况，请按照以下步骤处理。",
+    "helplineHeading": "求助热线",
+    "minBalanceLabel": "最低存款",
+    "feeLabel": "月费",
+    "docsNeededLabel": "所需证件",
+    "noFeeLabel": "无低余额费",
+    "disclaimer": "信息截至 2025 年初有效。前往银行前请务必直接与银行核实。",
+    "docs": [
+      { "label": "工作准证卡", "sub": "MOM 颁发的蓝色卡片——随时携带" },
+      { "label": "护照", "sub": "原件 + 照片页复印件" },
+      { "label": "雇主证明信", "sub": "需在公司信笺上打印、加盖公章，证明您的职位和薪资" },
+      { "label": "地址证明", "sub": "租房合同或雇主证明信，须注明您在新加坡的地址" }
+    ],
+    "banks": [
+      {
+        "name": "POSB Everyday Savings", "fee": "无低余额费", "minBalance": "无",
+        "notes": "适合大多数工人。新加坡 ATM 网络最广（逾 1,400 台）。接受工作准证持有人。",
+        "docs": ["工作准证（蓝色卡片）", "护照", "新加坡地址证明（雇主信或租房合同）"]
+      },
+      {
+        "name": "DBS Multiplier Account", "fee": "余额低于 S$3,000 时收取 S$2/月", "minBalance": "S$3,000（免手续费门槛）",
+        "notes": "按时收取工资并定期交易可获得更高利率。适合已有一定储蓄的工人。",
+        "docs": ["工作准证、S Pass 或 Employment Pass", "护照", "SingPass（如有）"]
+      },
+      {
+        "name": "OCBC 360 Account", "fee": "余额低于 S$1,000 时收取 S$2/月", "minBalance": "S$1,000（免手续费门槛）",
+        "notes": "工资转入账户可享额外利息。接受工作准证持有人。需亲自前往支行开户。",
+        "docs": ["工作准证", "护照", "雇主证明信"]
+      },
+      {
+        "name": "UOB One Account", "fee": "余额低于 S$1,000 时收取 S$2/月", "minBalance": "S$1,000（免手续费门槛）",
+        "notes": "工资转入可获良好利息。部分支行服务外籍工人——请提前致电确认。",
+        "docs": ["工作准证或 S Pass", "护照", "加盖公章的雇主证明信"]
+      }
+    ],
+    "digital": [
+      { "name": "GXS Bank", "badge": "利率最高", "requirement": "工作准证 + 新加坡手机号", "desc": "向工作准证持有人开放的全数字银行。无最低存款要求，无手续费。储蓄利率最高达 3.48%。全程通过 APP 开户，无需前往支行。" },
+      { "name": "MariBank", "badge": "零手续费", "requirement": "工作准证 + 新加坡手机号", "desc": "Sea Group 旗下数字银行。无最低存款要求，无低余额费，储蓄利率具有竞争力。通过 APP 使用工作准证信息开户。" },
+      { "name": "YouTrip", "badge": "汇款首选", "requirement": "工作准证或 FIN 号码", "desc": "多币种电子钱包。以低汇率向家乡汇款，或在网购时以母国货币付款，非常方便。非完整银行账户——余额不计利息。" },
+      { "name": "GrabPay", "badge": "覆盖广泛", "requirement": "新加坡手机号", "desc": "与 Grab APP 绑定的电子钱包。可在数千家商户、小贩中心消费，也可用于 GrabFood。通过 PayNow 或 ATM 充值。无需银行账户即可开始使用。" },
+      { "name": "Singtel Dash", "badge": "充值便捷", "requirement": "任意手机号（无需银行账户）", "desc": "Singtel 旗下电子钱包。可在 7-Eleven 或 Cheers 便利店现金充值——适合尚未开立本地银行账户的工人。支持向 30 多个国家汇款。" }
+    ],
+    "steps": [
+      { "title": "了解您的权利", "body": "在新加坡，雇主扣押您的银行卡、ATM 卡或存折属于违法行为，受《劳动法》及 MOM 相关法规约束。" },
+      { "title": "先礼貌地要求归还", "body": "告诉雇主：\"我需要银行卡来提取自己的工资。\"大多数雇主在直接被要求时会归还卡片。" },
+      { "title": "联系 MOM", "body": "如果雇主拒绝，请拨打 MOM 电话 1800-333-1313（免费电话，周一至周五 8:30–17:30）。MOM 可代您介入处理。" },
+      { "title": "遭受威胁时拨打警方电话", "body": "如果雇主因您索要卡片而威胁您，请拨打 999。强行扣押您的卡片属于刑事犯罪。" },
+      { "title": "如有需要可补办卡片", "body": "携带工作准证和护照前往银行支行，告知工作人员您的卡片被没收。银行将注销旧卡并重新补发——通常免费。" }
+    ],
+    "helplines": [
+      { "label": "MOM 热线（工资及银行卡纠纷）" },
+      { "label": "警察（紧急情况 / 威胁）" },
+      { "label": "TWC2 (Transient Workers Count Too)" }
+    ]
+  }
 }

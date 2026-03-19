@@ -453,5 +453,168 @@
       "antiscam": "Mag-report ng mga insidente ng scam, i-freeze ang mga transaksyon, mabawi ang mga nawala",
       "momtaskforce": "Mag-report ng mga pekeng alok sa trabaho, ilegal na placement fee, pandaraya sa work permit"
     }
+  },
+
+  "scamQuiz": {
+    "pageTitle": "Quiz sa Kamalayan sa Scam",
+    "scenarioLabel": "Sitwasyon",
+    "scoreLabel": "{{score}} na tama",
+    "yourAnswers": "Ang iyong mga sagot",
+    "perfectBadge": "Perpektong iskor! Alam mo ang tungkol sa mga scam. Tulungan ang isang kaibigan na sumagot ng quiz.",
+    "correct": "✓ Tama!",
+    "incorrect": "✗ Mali",
+    "nextBtn": "Susunod na tanong",
+    "resultsBtn": "Tingnan ang aking mga resulta",
+    "retryBtn": "Subukan ulit",
+    "scamAlertsBtn": "Tingnan ang mga babala sa scam",
+    "ratings": [
+      { "label": "Kailangan kang mag-ingat", "desc": "Ang mga scammer ay espesyal na nagta-target sa mga migranteng manggagawa. Alamin ang mga babala sa ibaba at manatiling ligtas." },
+      { "label": "Magandang kamalayan", "desc": "Alam mo ang ilang taktika ng scam — ngunit ang isang pagkakamali ay maaaring magastos ng libo-libo. Suriin ang mga tip sa ibaba." },
+      { "label": "Eksperto sa scam!", "desc": "Napakahusay! Ibahagi ang iyong nalalaman sa iyong mga kaibigan at tulungan na panatilihing ligtas ang iyong komunidad." }
+    ],
+    "questions": [
+      {
+        "scenario": "Isang estranyo ang nagmemensahe sa iyo sa WhatsApp: \"Hi, ako ay mula sa MOM. May problema ang iyong work pass. Ipadala mo na ngayon ang iyong SingPass login at password o kakanselin ang iyong pass ngayon.\"",
+        "options": ["Ipadala ang aking mga detalye sa SingPass agad para hindi mawala ang trabaho ko", "Ito ay scam — hindi kailanman humihingi ng SingPass password ang MOM", "Humingi muna ng staff ID ng tao, tapos magdesisyon"],
+        "explanation": "Ang MOM, pulisya, mga bangko, at ahensya ng gobyerno ay HINDI KAILANMAN hihinging ng iyong SingPass password o OTP. Ibaba ang telepono o huwag pansinin ang mensahe at tumawag nang direkta sa MOM sa 6438-5122 para i-verify."
+      },
+      {
+        "scenario": "Isang ad sa Facebook ang nag-aalok ng trabaho sa Singapore na nagbabayad ng S$4,000/buwan para sa magaang na trabaho. Hindi kailangan ng karanasan. Kailangan mo lang magbayad ng S$300 na \"registration fee\" para masiguro ang iyong slot.",
+        "options": ["Magbayad ng bayad — mabilis na mapupunta ang magagandang trabaho", "Ito ay scam sa trabaho — ang mga lehitimong employer ay hindi kailanman naniningil ng upfront na bayad sa mga manggagawa", "Makipagtawaran na ibaba ang bayad sa S$100 bago magbayad"],
+        "explanation": "Sa ilalim ng Employment of Foreign Manpower Act, hindi maaaring singilin ng mga employer ang mga manggagawa ng recruitment fee. Ang anumang trabaho na nangangailangan kang magbayad muna ay scam. Mag-report sa MOM sa 1800-333-1313."
+      },
+      {
+        "scenario": "May nagsiksik ng card sa ilalim ng pinto ng iyong dormitoryo: \"Kailangan ng mabilis na cash? Walang credit check! Umutang ng hanggang S$5,000 ngayon. WhatsApp kami.\" Walang pangalan ng kumpanya o numero ng lisensya sa card.",
+        "options": ["Mag-WhatsApp sa kanila — maginhawa at kailangan ko ng pera nang mabilis", "Huwag pansinin — ito ay isang hindi lisensyadong loan shark (Ah Long)", "Umutang muna ng maliit na halaga para subukan kung mapagkakatiwalaan sila"],
+        "explanation": "Ang mga lisensyadong nagpapahiram sa Singapore ay nag-a-advertise lamang sa pamamagitan ng kanilang sariling mga website, direktoryo ng negosyo, o pisikal na lugar — hindi sa pamamagitan ng flyer o SMS. Ang panghihiram mula sa mga loan shark ay humahantong sa harassment at karahasan. Tumawag sa X-Ah Long hotline: 1800-924-5664."
+      },
+      {
+        "scenario": "Hindi nagbayad ng sahod ang iyong employer sa loob ng 2 buwan. Sinasabi niya: \"Huwag mag-report sa MOM o kakanselin ko ang iyong work pass at pauuwiin kita.\" Ano ang dapat mong gawin?",
+        "options": ["Tahimik na maghintay — hindi ko maaaring ipanganib ang aking work pass", "Mag-report sa MOM — pinoprotektahan nila ang mga manggagawa at hindi nila maaaring kanselahin ang iyong pass dahil sa pag-uulat", "Humiram ng pera sa mga kaibigan at huwag magsalita"],
+        "explanation": "Pinoprotektahan ng MOM ang mga manggagawang naghahabol ng sahod. Hindi MAAARING kanselahin ng iyong employer ang iyong work pass dahil lang sa pag-uulat ng hindi pagbabayad ng sahod — iyon ay magiging karagdagang paglabag. Mag-file ng reklamo sa sahod sa mom.gov.sg o tumawag sa 1800-333-1313."
+      },
+      {
+        "scenario": "Isang bagong kaibigan ang nagtatanong kung maaari kang tumanggap ng S$8,000 sa iyong bank account at ilipat ito sa ibang account para sa \"maliit na komisyon.\" Sinasabi niya na para ito sa kanyang negosyo.",
+        "options": ["Sumang-ayon — madaling pera at naglilipat lang naman ako ng pondo", "Tumanggi — ang paggamit ng iyong account sa ganitong paraan ay money mule fraud, na isang krimen", "Humingi ng mas malaking komisyon bago sumang-ayon"],
+        "explanation": "Ang pagpapahintulot sa iba na gumamit ng iyong bank account para ilipat ang pera ay isang krimen sa Singapore sa ilalim ng Corruption, Drug Trafficking and Other Serious Crimes Act. Maaari kang makulong ng hanggang 3 taon at multahin ng hanggang S$50,000, kahit hindi mo alam na mula sa krimen ang pera."
+      },
+      {
+        "scenario": "Nakatanggap ka ng SMS: \"DBS Bank: Nakita ang hindi karaniwang login sa iyong account. I-click ang link na ito para ma-verify: dbs-secure-login.com.\" Ang link ay mukhang naiiba sa opisyal na website ng DBS.",
+        "options": ["I-click ang link at mag-login nang mabilis para protektahan ang aking account", "Burahin ang SMS — ito ay phishing scam. Tumawag nang direkta sa DBS sa 1800-111-1111", "I-forward ang link sa isang kaibigan para tingnan kung totoo ito"],
+        "explanation": "Hindi kailanman nagpapadala ang mga bangko ng mga link na hihinging sa iyo na mag-login. Ang tunay na site ng DBS ay dbs.com.sg — ang iba pa ay peke. Palaging i-type mismo ang URL ng bangko o tumawag sa numero sa likod ng iyong card. Maaari ka ring tumawag sa ScamShield helpline: 1799."
+      },
+      {
+        "scenario": "Isang online na \"investment guru\" sa isang grupo sa Telegram ang nagsasabing maaari mong doblehin ang iyong pera sa loob ng 30 araw sa pamamagitan ng pag-invest sa isang espesyal na cryptocurrency fund. Maraming tao sa grupo ang nagpo-post ng mga screenshot ng kanilang malaking kita.",
+        "options": ["Mag-invest ng S$500 — mukhang kaakit-akit ang mga testimonya", "I-report ang grupo — ito ay klasikong investment scam na may mga pekeng testimonya", "Maghintay muna kung mabayaran ang iba bago mag-invest"],
+        "explanation": "Ang garantisadong mataas na kita sa maikling panahon ay ang #1 na tanda ng scam. Ang mga screenshot ng kita ay peke, at ang mga \"miyembro ng grupo\" na pumupuri sa iskema ay mga bayad na scammer. Mag-report ng mga investment scam sa pulisya sa police.gov.sg/iwitness o tumawag sa 999."
+      },
+      {
+        "scenario": "Isang nagpapaupa sa Carousell ang humihingi ng 3 buwang upa (S$2,400) bilang deposito sa pamamagitan ng PayNow bago mo makita ang silid. Sinasabi niya na maraming tao ang gustong kumuha ng silid at mawawala na ito ngayong gabi.",
+        "options": ["Ilipat nang mabilis ang pera bago pa kumuha ang iba", "Tumanggi — huwag kailanman magbayad bago tumingin. Ito ay malamang na rental scam", "Magbayad ng kalahati ngayon at kalahati pagkatapos tumingin"],
+        "explanation": "Ang pagmamadali at presyon na magbayad bago tumingin ay mga klasikong taktika ng rental scam. Palaging tingnan ang ari-arian nang personal, i-verify ang pagkakakilanlan at pagmamay-ari ng nagpapaupa, at huwag kailanman maglipat ng pera bago pumirma ng kontrata. Tingnan ang scamalert.sg para sa mga naiulat na listahan ng scam."
+      }
+    ]
+  },
+
+  "emergencyFund": {
+    "pageTitle": "Kalkulador ng Emergency Fund",
+    "pageSubtitle": "Alamin kung magkano ang kailangan mo — at kung gaano katagal para makarating doon.",
+    "sectionNumbers": "Ang iyong mga numero",
+    "expensesLabel": "Buwanang gastusin (upa + pagkain + transportasyon + mga bayarin)",
+    "savingsLabel": "Magkano ang maitipid mo bawat buwan?",
+    "sectionTargets": "Ang iyong mga target",
+    "minTarget": "Pinakamababang safety net",
+    "recTarget": "Inirerekomendang safety net",
+    "threeMonths": "3 buwang gastusin",
+    "sixMonths": "6 na buwang gastusin",
+    "enterSavingsHint": "Ilagay ang iyong buwanang ipon para makita kung gaano katagal ito maaabot.",
+    "reachInOneMonth": "Maaabot mo ito sa loob ng 1 buwan!",
+    "savingToReach": "Nag-iipon ng {{amount}}/buwan → maaabot sa {{time}}",
+    "whyTitle": "Bakit kailangan ng mas marami ng mga migranteng manggagawa",
+    "whyDesc": "Kung mawalan ka ng trabaho sa Singapore, kakanselin ang iyong work pass at maaaring kailangang umalis ka sa loob ng 30 araw. Ang 6-buwang emergency fund ay nagbibigay sa iyo ng oras para makahanap ng bagong employer, magbayad ng tiket, o suportahan ang iyong pamilya habang inaayos mo ang mga bagay — nang hindi humiram sa mga loan shark.",
+    "emptyTitle": "Ilagay ang iyong mga gastusin sa itaas",
+    "emptyDesc": "Kalkulahin namin kung magkano ang kailangan mo at kung gaano katagal.",
+    "tipsHeading": "Saan itatago ang iyong emergency fund",
+    "disclaimer": "Ang deposito insurance sa Singapore ay nagpoprotekta ng hanggang S$75,000 bawat bangko bawat nagdeposito sa pamamagitan ng SDIC.",
+    "tips": [
+      { "title": "POSB / DBS eMySavings", "body": "Walang minimum na balanse, walang fall-below fee. Buksan online gamit ang SingPass. Ang iyong pera ay protektado ng SDIC hanggang S$75,000." },
+      { "title": "GXS Bank o MariBank", "body": "Mga digital na bangko na bukas para sa mga may work pass. Mas mataas na interes sa ipon (hanggang ~3%), walang bayad, walang minimum na balanse." },
+      { "title": "Panatilihing hiwalay", "body": "Ilagay ang iyong emergency fund sa ibang account kaysa sa iyong spending account para hindi matukso na gamitin ito." },
+      { "title": "Iwasan ang mga impormal na savings group (ROSCA)", "body": "Ang mga \"chit fund\" o rotating savings club ay walang legal na proteksyon. Kung mawawala ang organizer, mawawala rin ang iyong pera." }
+    ],
+    "time": {
+      "oneMonth": "1 buwan",
+      "months": "{{count}} na buwan",
+      "oneYear": "1 taon",
+      "years": "{{count}} na taon",
+      "yearsMonths": "{{years}} ta {{months}} bu"
+    }
+  },
+
+  "bankingGuide": {
+    "pageTitle": "Pagbabangko sa Singapore",
+    "pageSubtitle": "Paano magbukas ng account, ano ang kailangan, at ano ang gagawin kung may masamang mangyari.",
+    "docsHeading": "Mga dokumentong kakailanganin mo",
+    "docsTip": "Tip: Hilingin sa iyong employer na i-print ang kanilang liham sa company letterhead na may company stamp — madalas na tinatanggihan ng mga bangko ang mga liham na walang isa.",
+    "banksHeading": "Mga tradisyonal na bangko",
+    "recHeading": "Ang aming rekomendasyon para sa karamihan ng mga manggagawa",
+    "recDesc": "Magsimula sa isang POSB Everyday Savings account — walang bayad, walang minimum na balanse, at ang pinakamalaking ATM network. Kapag mayroon ka nang naipong S$1,000+, isaalang-alang ang isang digital na bangko tulad ng GXS para sa mas mataas na interes sa iyong emergency fund.",
+    "digitalHeading": "Mga digital na alternatibo",
+    "cardHolderHeading": "Kung hawak ng iyong employer ang iyong bank card",
+    "cardHolderAlertTitle": "Ito ay ilegal sa Singapore",
+    "cardHolderAlertDesc": "Walang employer ang may karapatang humawak ng iyong bank card, ATM card, o bank passbook. Ang iyong sahod ay para sa iyo. Kung nangyayari ito sa iyo, sundin ang mga hakbang sa ibaba.",
+    "helplineHeading": "Mga helpline",
+    "minBalanceLabel": "Min. balanse",
+    "feeLabel": "Buwanang bayad",
+    "docsNeededLabel": "Mga dokumentong kailangan",
+    "noFeeLabel": "Walang fall-below fee",
+    "disclaimer": "Impormasyon tama simula ng unang bahagi ng 2025. Palaging i-verify nang direkta sa bangko bago bumisita.",
+    "docs": [
+      { "label": "Work Permit card", "sub": "Ang asul na card mula sa MOM — palaging dalhin ito" },
+      { "label": "Pasaporte", "sub": "Orihinal + photocopy ng pahina ng larawan" },
+      { "label": "Liham ng employer", "sub": "Sa company letterhead, na may company stamp, na nagpapatunay ng iyong trabaho at sahod" },
+      { "label": "Patunay ng address", "sub": "Kasunduan sa pagpapaupa o liham ng employer na nagpapakita ng iyong address sa Singapore" }
+    ],
+    "banks": [
+      {
+        "name": "POSB Everyday Savings", "fee": "Walang fall-below fee", "minBalance": "Wala",
+        "notes": "Pinakamahusay para sa karamihan ng mga manggagawa. Pinakamalawak na ATM network sa Singapore (mahigit 1,400 makina). Tumatanggap ng mga may work permit.",
+        "docs": ["Work Permit (asul na card)", "Pasaporte", "Patunay ng address sa Singapore (liham ng employer o kasunduan sa pagpapaupa)"]
+      },
+      {
+        "name": "DBS Multiplier Account", "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$3,000", "minBalance": "S$3,000 para maiwasan ang bayad",
+        "notes": "Mas mataas na interes kung makakatanggap ng sahod at regular na nagtatransaksyon. Mabuti kapag may naipong ipon ka na.",
+        "docs": ["Work Permit o S Pass o Employment Pass", "Pasaporte", "SingPass (kung available)"]
+      },
+      {
+        "name": "OCBC 360 Account", "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$1,000", "minBalance": "S$1,000 para maiwasan ang bayad",
+        "notes": "Bonus na interes kapag nai-credit ang sahod. Tinatanggap ang mga may work permit. Kailangang pumunta sa branch para magbukas.",
+        "docs": ["Work Permit", "Pasaporte", "Liham ng employer"]
+      },
+      {
+        "name": "UOB One Account", "fee": "S$2/buwan kung ang balanse ay mas mababa sa S$1,000", "minBalance": "S$1,000 para maiwasan ang bayad",
+        "notes": "Magandang interes sa pag-credit ng sahod. Ilang branch ang nagsisilbi sa mga dayuhang manggagawa — tumawag muna para kumpirmahin.",
+        "docs": ["Work Permit o S Pass", "Pasaporte", "Liham ng employer na may company stamp"]
+      }
+    ],
+    "digital": [
+      { "name": "GXS Bank", "badge": "Pinakamataas na interes", "requirement": "Work permit + Singapore mobile number", "desc": "Isang ganap na digital na bangko na bukas para sa mga may work permit. Walang minimum na balanse, walang bayad. Nag-aalok ng hanggang 3.48% na interes sa ipon. Buksan nang buo sa pamamagitan ng app — hindi kailangang pumunta sa branch." },
+      { "name": "MariBank", "badge": "Walang bayad", "requirement": "Work permit + Singapore mobile number", "desc": "Digital na bangko ng Sea Group. Walang minimum na balanse, walang fall-below fee, mapagkumpitensyang rate ng ipon. Buksan sa pamamagitan ng app gamit ang iyong mga detalye ng work permit." },
+      { "name": "YouTrip", "badge": "Pinakamahusay para sa remitansa", "requirement": "Work permit o FIN number", "desc": "Multi-currency na e-wallet. Mahusay para sa pagpapadala ng pera sa bahay sa mababang rate at pagbabayad sa iyong katutubong pera kapag namimili online. Hindi isang buong bangko — walang interes sa balanse." },
+      { "name": "GrabPay", "badge": "Malawak na tinatanggap", "requirement": "Singapore mobile number", "desc": "E-wallet na nakakonekta sa iyong Grab app. Tinatanggap sa libu-libong merchant, hawker centre, at para sa GrabFood. Mag-top up sa pamamagitan ng PayNow o ATM. Hindi kailangan ng bank account para magsimula." },
+      { "name": "Singtel Dash", "badge": "Madaling mag-top up", "requirement": "Anumang mobile number (hindi kailangan ng bank account)", "desc": "E-wallet ng Singtel. Mag-top up ng cash sa 7-Eleven o Cheers stores — kapaki-pakinabang kung wala ka pang lokal na bank account. Maaaring magpadala ng pera sa mahigit 30 bansa." }
+    ],
+    "steps": [
+      { "title": "Alamin ang iyong mga karapatan", "body": "Ilegal sa Singapore para sa iyong employer na humawak ng iyong bank card, ATM card, o passbook. Ito ay saklaw sa ilalim ng Employment Act at mga regulasyon ng MOM." },
+      { "title": "Mahinahong humingi muna", "body": "Sabihin sa iyong employer: \"Kailangan ko ng aking bank card para makuha ang aking sariling sahod.\" Karamihan sa mga employer ay ibabalik ito kapag direktang hiningi." },
+      { "title": "Makipag-ugnayan sa MOM", "body": "Kung tumanggi ang iyong employer, tumawag sa MOM sa 1800-333-1313 (libreng tawag, Lunes–Biyernes 8:30am–5:30pm). Maaari silang makialam para sa iyo." },
+      { "title": "Tumawag sa pulisya kung binalaan", "body": "Kung binalaan ka ng iyong employer dahil sa paghingi ng iyong card, tumawag sa 999. Ang pagkumiskos ng iyong card nang sapilitan ay isang krimen." },
+      { "title": "Palitan ang card kung kailangan", "body": "Pumunta sa iyong bank branch na may work permit at pasaporte. Sabihin sa kanila na kinuha ang iyong card. Kanselahin ng bangko ang lumang card at mag-isyu ng bago — kadalasan ay libre." }
+    ],
+    "helplines": [
+      { "label": "MOM Helpline (mga alitan sa sahod at card)" },
+      { "label": "Pulisya (emergency / mga banta)" },
+      { "label": "TWC2 (Transient Workers Count Too)" }
+    ]
   }
 }

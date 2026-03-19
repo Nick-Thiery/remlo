@@ -12,6 +12,7 @@ const COUNTRIES = [
   { code: 'TH', flag: '🇹🇭', name: 'Thailand',     lang: 'en' },
   { code: 'PK', flag: '🇵🇰', name: 'Pakistan',     lang: 'en' },
   { code: 'NP', flag: '🇳🇵', name: 'Nepal',        lang: 'en' },
+  { code: 'OTHER', flag: '🌍', name: 'Other',      lang: 'en' },
 ]
 
 const LANGUAGES = [
@@ -99,6 +100,8 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
                 key={c.code}
                 onClick={() => onSelectCountry(c)}
                 className={`flex items-center gap-2.5 px-3 py-3 rounded-xl border-2 transition-all active:scale-95 text-left ${
+                  c.code === 'OTHER' ? 'col-span-2' : ''
+                } ${
                   selected
                     ? 'border-blue-500 bg-blue-50'
                     : 'border-gray-100 bg-gray-50 hover:border-gray-200'
@@ -162,7 +165,7 @@ export default function Onboarding({ onComplete }) {
   function finish() {
     i18n.changeLanguage(lang)
     localStorage.setItem('remlo_lang', lang)
-    localStorage.setItem('remlo_country', country ?? 'IN')
+    localStorage.setItem('remlo_country', (country === 'OTHER' || !country) ? '' : country)
     localStorage.setItem('remlo_onboarded', 'true')
     onComplete()
   }

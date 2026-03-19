@@ -13,7 +13,8 @@
       "Bash(sed -i '' 's/pt-6 pb-24/py-6/g' Scams.jsx Emergency.jsx)",
       "Bash(do)",
       "Bash(sed -i '' 's/\"\"emergency\"\": { \"\"label\"\": \"\"Emergency Contacts\"\", \"\"desc\"\": \"\"Helplines for workers in Singapore\"\" }/\"\"scamQuiz\"\":  { \"\"label\"\": \"\"Scam Quiz\"\", \"\"desc\"\": \"\"Test your scam awareness in 8 questions\"\" },\\\\n    \"\"emergency\"\": { \"\"label\"\": \"\"Emergency Contacts\"\", \"\"desc\"\": \"\"Helplines for workers in Singapore\"\" }/' \"$f\")",
-      "Bash(do node:*)"
+      "Bash(do node:*)",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\(''/Users/nick/forwardwallet/src/locales/$f.json''\\)\\); keys=list\\(d.keys\\(\\)\\); print\\(''Keys:'', [k for k in keys if k in [''scamQuiz'',''emergencyFund'',''bankingGuide'']]\\); print\\(''Valid JSON ✓''\\)\")"
     ]
   }
 }

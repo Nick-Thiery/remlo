@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ShieldCheck, Lightbulb, Clock, TrendingUp, Landmark, Smartphone, PiggyBank } from 'lucide-react'
+import { ShieldCheck, Lightbulb, Clock, TrendingUp, Landmark, Smartphone, Wallet } from 'lucide-react'
 
 function formatSGD(n) {
   return new Intl.NumberFormat('en-SG', {
@@ -22,7 +22,7 @@ function formatTime(n, t) {
 }
 
 // Icon order matches the tips array in locale files
-const TIP_ICONS = [Landmark, Smartphone, PiggyBank, ShieldCheck]
+const TIP_ICONS = [Landmark, Smartphone, Wallet, ShieldCheck]
 
 export default function EmergencyFund() {
   const { t } = useTranslation()

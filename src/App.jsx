@@ -4,7 +4,6 @@ import Onboarding from './pages/Onboarding.jsx'
 import { useTranslation } from 'react-i18next'
 import {
   Home as HomeIcon,
-  PiggyBank,
   Wallet,
   ArrowLeftRight,
   MessageCircle,
@@ -55,7 +54,7 @@ const LANGUAGES = [
 
 const TABS = [
   { path: '/',           key: 'home',    Icon: HomeIcon       },
-  { path: '/savings',    key: 'savings', Icon: PiggyBank      },
+  { path: '/savings',    key: 'savings', Icon: Wallet         },
   { path: '/budget',     key: 'budget',  Icon: Wallet         },
   { path: '/remittance', key: 'send',    Icon: ArrowLeftRight },
   { path: '/chat',       key: 'chat',    Icon: MessageCircle  },

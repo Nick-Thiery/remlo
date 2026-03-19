@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
-  PiggyBank,
   LayoutGrid,
   SendHorizonal,
   Sparkles,
@@ -66,7 +65,7 @@ export default function Home() {
   const FEATURES = [
     {
       to: '/savings',
-      icon: PiggyBank,
+      icon: Wallet,
       title: t('features.savings.title'),
       description: t('features.savings.description'),
       bg: 'bg-amber-50',
@@ -115,7 +114,7 @@ export default function Home() {
       label: t('stats.totalSaved'),
       value: 'S$0',
       sub: t('stats.totalSavedSub'),
-      icon: PiggyBank,
+      icon: Wallet,
       color: 'text-amber-600',
       bg: 'bg-amber-50',
     },
