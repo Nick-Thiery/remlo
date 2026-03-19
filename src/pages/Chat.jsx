@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Send, MessageCircle } from 'lucide-react'
+import { Send, MessageCircle, Mic, MicOff } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 
 const SYSTEM_PROMPT =
@@ -12,6 +12,28 @@ const LANGUAGES = [
   { code: 'hi', label: 'हि' },
   { code: 'bn', label: 'ব'  },
 ]
+
+// Map i18next language codes → BCP-47 tags for SpeechRecognition
+const SPEECH_LANG = {
+  en:  'en-SG',
+  ta:  'ta-SG',
+  hi:  'hi-IN',
+  bn:  'bn-BD',
+  my:  'my-MM',
+  si:  'si-LK',
+  fil: 'fil-PH',
+  id:  'id-ID',
+  zh:  'zh-CN',
+  th:  'th-TH',
+  ur:  'ur-PK',
+  ne:  'ne-NP',
+}
+
+// Detect browser support once at module level
+const SpeechRecognition =
+  typeof window !== 'undefined'
+    ? window.SpeechRecognition ?? window.webkitSpeechRecognition ?? null
+    : null
 
 // Typing indicator — three bouncing dots
 function TypingDots() {
@@ -34,6 +56,41 @@ export default function Chat() {
 
   const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY
 
+  // ── Voice input ───────────────────────────────────────────────────────────
+  const [isRecording, setIsRecording] = useState(false)
+  const recognitionRef = useRef(null)
+
+  const stopRecording = useCallback(() => {
+    recognitionRef.current?.stop()
+    recognitionRef.current = null
+    setIsRecording(false)
+  }, [])
+
+  const startRecording = useCallback(() => {
+    if (!SpeechRecognition || isRecording) return
+
+    const rec = new SpeechRecognition()
+    rec.continuous = false
+    rec.interimResults = false
+    rec.lang = SPEECH_LANG[i18n.language] ?? 'en-SG'
+
+    rec.onresult = (e) => {
+      const transcript = e.results[0]?.[0]?.transcript ?? ''
+      if (transcript) setInput((prev) => (prev ? prev + ' ' + transcript : transcript))
+    }
+
+    rec.onerror = () => stopRecording()
+    rec.onend  = () => stopRecording()
+
+    recognitionRef.current = rec
+    rec.start()
+    setIsRecording(true)
+  }, [i18n.language, isRecording, stopRecording])
+
+  // Stop recognition if the component unmounts while recording
+  useEffect(() => () => recognitionRef.current?.stop(), [])
+
+  // ── Scroll ────────────────────────────────────────────────────────────────
   // Scroll to the latest message whenever messages or loading state changes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -249,7 +306,7 @@ export default function Chat() {
           <input
             ref={inputRef}
             type="text"
-            placeholder={t('chat.inputPlaceholder')}
+            placeholder={isRecording ? 'Listening…' : t('chat.inputPlaceholder')}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
@@ -259,8 +316,36 @@ export default function Chat() {
               }
             }}
             disabled={isLoading || !apiKey}
-            className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition-all"
+            className={`flex-1 bg-gray-50 border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-50 transition-all ${
+              isRecording
+                ? 'border-red-300 ring-2 ring-red-200 bg-red-50 placeholder:text-red-400'
+                : 'border-gray-200 focus:ring-blue-500'
+            }`}
           />
+
+          {/* Mic button — only shown when SpeechRecognition is supported */}
+          {SpeechRecognition && (
+            <button
+              onClick={isRecording ? stopRecording : startRecording}
+              disabled={isLoading || !apiKey}
+              aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
+              className={`rounded-xl px-3 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 ${
+                isRecording
+                  ? 'bg-red-500 text-white shadow-md shadow-red-200'
+                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+              }`}
+            >
+              {isRecording ? (
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <MicOff className="w-4 h-4" />
+                </span>
+              ) : (
+                <Mic className="w-4 h-4" />
+              )}
+            </button>
+          )}
+
           <button
             onClick={() => send(input)}
             disabled={!input.trim() || isLoading || !apiKey}

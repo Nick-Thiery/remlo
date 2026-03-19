@@ -9,6 +9,9 @@ import {
   ArrowLeftRight,
   MessageCircle,
   Menu,
+  Brain,
+  Calculator,
+  BookOpen,
   Banknote,
   CreditCard,
   ShieldAlert,
@@ -29,6 +32,9 @@ import LoanShark from './pages/LoanShark.jsx'
 import Emergency from './pages/Emergency.jsx'
 import Chat from './pages/Chat.jsx'
 import Login from './pages/Login.jsx'
+import ScamQuiz from './pages/ScamQuiz.jsx'
+import EmergencyFund from './pages/EmergencyFund.jsx'
+import BankingGuide from './pages/BankingGuide.jsx'
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -57,11 +63,14 @@ const TABS = [
 ]
 
 const MORE_ITEMS = [
-  { path: '/salary',    key: 'salary',    Icon: Banknote,    accent: 'bg-blue-100 text-blue-600'     },
-  { path: '/loans',     key: 'loans',     Icon: CreditCard,  accent: 'bg-violet-100 text-violet-600' },
-  { path: '/scams',     key: 'scams',     Icon: ShieldAlert, accent: 'bg-red-100 text-red-600'       },
-  { path: '/loanshark', key: 'loanshark', Icon: Scale,       accent: 'bg-amber-100 text-amber-700'   },
-  { path: '/emergency', key: 'emergency', Icon: Phone,       accent: 'bg-red-100 text-red-600'       },
+  { path: '/salary',     key: 'salary',    Icon: Banknote,    accent: 'bg-blue-100 text-blue-600'     },
+  { path: '/loans',      key: 'loans',     Icon: CreditCard,  accent: 'bg-violet-100 text-violet-600' },
+  { path: '/scams',      key: 'scams',     Icon: ShieldAlert, accent: 'bg-red-100 text-red-600'       },
+  { path: '/scam-quiz',      key: 'scamQuiz',      Icon: Brain,       accent: 'bg-purple-100 text-purple-600' },
+  { path: '/emergency-fund',  key: 'emergencyFund', Icon: Calculator, accent: 'bg-teal-100 text-teal-600'    },
+  { path: '/banking-guide',   key: 'bankingGuide',  Icon: BookOpen,   accent: 'bg-sky-100 text-sky-600'      },
+  { path: '/loanshark',       key: 'loanshark',     Icon: Scale,      accent: 'bg-amber-100 text-amber-700'  },
+  { path: '/emergency',  key: 'emergency', Icon: Phone,       accent: 'bg-red-100 text-red-600'       },
 ]
 
 const EMERGENCY_CONTACTS = [
@@ -237,6 +246,9 @@ function AppShell() {
             <Route path="/loanshark"  element={<LoanShark />}  />
             <Route path="/emergency"  element={<Emergency />}  />
             <Route path="/chat"       element={<Chat />}       />
+            <Route path="/scam-quiz"      element={<ScamQuiz />}      />
+            <Route path="/emergency-fund" element={<EmergencyFund />}  />
+            <Route path="/banking-guide"  element={<BankingGuide />}  />
             <Route path="/login"      element={<Login />}      />
           </Routes>
         </div>

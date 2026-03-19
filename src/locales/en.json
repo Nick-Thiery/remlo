@@ -50,6 +50,9 @@
     "loans": { "label": "Loan Tracker", "desc": "Track repayments and payoff dates" },
     "scams": { "label": "Scam Alerts", "desc": "Latest scams targeting workers in Singapore" },
     "loanshark": { "label": "Loan Shark Guide", "desc": "Identify illegal lenders and get help" },
+    "scamQuiz":      { "label": "Scam Quiz", "desc": "Test your scam awareness in 8 questions" },
+    "emergencyFund": { "label": "Emergency Fund", "desc": "Calculate how much backup savings you need" },
+    "bankingGuide":  { "label": "Banking Guide", "desc": "How to open a bank account in Singapore" },
     "emergency": { "label": "Emergency Contacts", "desc": "Helplines for workers in Singapore" }
   },
 

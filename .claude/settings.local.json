@@ -10,7 +10,10 @@
       "Bash(node:*)",
       "Bash(python3 -c \"import sys,json; lines=[l for l in sys.stdin if l.strip\\(\\)]; last=json.loads\\(lines[-1]\\) if lines else {}; print\\(last.get\\(''''message'''',{}\\).get\\(''''role'''',''''?''''\\), ''''|'''', str\\(last\\)[:200]\\)\")",
       "Bash(sed -i '' 's/pt-8 pb-24/py-8/g' Savings.jsx Remittance.jsx Budget.jsx)",
-      "Bash(sed -i '' 's/pt-6 pb-24/py-6/g' Scams.jsx Emergency.jsx)"
+      "Bash(sed -i '' 's/pt-6 pb-24/py-6/g' Scams.jsx Emergency.jsx)",
+      "Bash(do)",
+      "Bash(sed -i '' 's/\"\"emergency\"\": { \"\"label\"\": \"\"Emergency Contacts\"\", \"\"desc\"\": \"\"Helplines for workers in Singapore\"\" }/\"\"scamQuiz\"\":  { \"\"label\"\": \"\"Scam Quiz\"\", \"\"desc\"\": \"\"Test your scam awareness in 8 questions\"\" },\\\\n    \"\"emergency\"\": { \"\"label\"\": \"\"Emergency Contacts\"\", \"\"desc\"\": \"\"Helplines for workers in Singapore\"\" }/' \"$f\")",
+      "Bash(do node:*)"
     ]
   }
 }
