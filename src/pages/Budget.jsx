@@ -102,7 +102,7 @@ export default function Budget() {
     if (isGuest) {
       const stored = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
       if (stored) {
-        setIncome(stored.monthly_income > 0 ? String(stored.monthly_income) : '')
+        setIncome(stored.income > 0 ? String(stored.income) : '')
         setExpenses(Array.isArray(stored.expenses) && stored.expenses.length > 0 ? stored.expenses : PRESET_EXPENSES)
       }
       setLoading(false)
@@ -112,14 +112,14 @@ export default function Budget() {
     setLoading(true)
     supabase
       .from('budgets')
-      .select('monthly_income, expenses')
+      .select('income, expenses')
       .eq('user_id', user.id)
       .maybeSingle()
       .then(({ data, error: err }) => {
         if (err) {
           setError(err.message)
         } else if (data) {
-          setIncome(data.monthly_income > 0 ? String(data.monthly_income) : '')
+          setIncome(data.income > 0 ? String(data.income) : '')
           setExpenses(Array.isArray(data.expenses) && data.expenses.length > 0 ? data.expenses : PRESET_EXPENSES)
         }
         setLoading(false)
@@ -129,14 +129,14 @@ export default function Budget() {
   async function saveBudget(incomeVal, expensesVal) {
     if (isGuest) {
       localStorage.setItem('remlo_guest_budget', JSON.stringify({
-        monthly_income: parseFloat(incomeVal) || 0,
+        income: parseFloat(incomeVal) || 0,
         expenses: expensesVal,
       }))
       return
     }
     if (!user) return
     const { error: err } = await supabase.from('budgets').upsert(
-      { user_id: user.id, monthly_income: parseFloat(incomeVal) || 0, expenses: expensesVal },
+      { user_id: user.id, income: parseFloat(incomeVal) || 0, expenses: expensesVal },
       { onConflict: 'user_id' }
     )
     if (err) setError(err.message)

@@ -90,7 +90,7 @@ export default function Home() {
       to: '/remittance',
       icon: SendHorizonal,
       title: t('features.remittance.title'),
-      description: `${homeMeta.flag} ${t('features.remittance.description')}`,
+      description: t('features.remittance.description'),
       bg: 'bg-sky-50',
       iconColor: 'text-sky-600',
       iconBg: 'bg-sky-100',

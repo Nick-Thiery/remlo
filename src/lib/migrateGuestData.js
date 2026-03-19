@@ -25,7 +25,7 @@ export async function migrateGuestData(userId) {
     const budget = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
     if (budget) {
       const { error } = await supabase.from('budgets').upsert(
-        { user_id: userId, monthly_income: budget.monthly_income, expenses: budget.expenses },
+        { user_id: userId, income: budget.income, expenses: budget.expenses },
         { onConflict: 'user_id' }
       )
       if (error) errors.push(error.message)
