@@ -96,6 +96,8 @@ export default function Budget() {
   const [newAmount, setNewAmount] = useState('')
   const [nameError, setNameError] = useState('')
   const [amountError, setAmountError] = useState('')
+  const [editingIndex, setEditingIndex] = useState(null)
+  const [editingValue, setEditingValue] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const budgetExists = useRef(false)
@@ -215,6 +217,21 @@ export default function Budget() {
 
   function removeExpense(index) {
     const newExpenses = expenses.filter((_, i) => i !== index)
+    setExpenses(newExpenses)
+    saveBudget(income, newExpenses)
+  }
+
+  function startEdit(index) {
+    setEditingIndex(index)
+    setEditingValue(String(expenses[index].amount))
+  }
+
+  function commitEdit(index) {
+    const amt = parseFloat(editingValue)
+    setEditingIndex(null)
+    setEditingValue('')
+    if (!amt || amt <= 0 || amt === expenses[index].amount) return
+    const newExpenses = expenses.map((e, i) => i === index ? { ...e, amount: amt } : e)
     setExpenses(newExpenses)
     saveBudget(income, newExpenses)
   }
@@ -350,8 +367,39 @@ export default function Budget() {
                       <span className="text-sm text-gray-800 truncate">{e.name}</span>
                     </div>
                     <div className="flex items-center gap-3 flex-shrink-0">
-                      <span className="text-sm font-medium text-gray-900">{formatSGD(e.amount)}</span>
-                      {monthlyIncome > 0 && (
+                      {editingIndex === i ? (
+                        <div className="relative">
+                          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">S$</span>
+                          <input
+                            autoFocus
+                            type="number"
+                            min="0"
+                            step="1"
+                            value={editingValue}
+                            onChange={(e) => setEditingValue(e.target.value)}
+                            onBlur={() => commitEdit(i)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') e.target.blur()
+                              if (e.key === 'Escape') { setEditingIndex(null); setEditingValue('') }
+                            }}
+                            className="w-24 border border-blue-400 rounded-lg pl-6 pr-2 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                          />
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => startEdit(i)}
+                          title="Click to edit"
+                          className="text-sm font-medium text-gray-900 group/amt flex items-center gap-1 hover:text-blue-600 transition-colors"
+                        >
+                          <span className="underline decoration-dashed decoration-gray-300 underline-offset-2 group-hover/amt:decoration-blue-400 transition-colors">
+                            {formatSGD(e.amount)}
+                          </span>
+                          <svg className="w-3 h-3 text-gray-300 group-hover/amt:text-blue-400 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z" />
+                          </svg>
+                        </button>
+                      )}
+                      {monthlyIncome > 0 && editingIndex !== i && (
                         <span className={`text-xs px-2 py-0.5 rounded-full ${c.light} ${c.text}`}>
                           {pct.toFixed(0)}%
                         </span>
