@@ -83,9 +83,9 @@ export default function Salary() {
     setLoading(true)
     supabase
       .from('salary_logs')
-      .select('id, payment_date, amount, employer, note')
+      .select('id, date, amount, employer, note')
       .eq('user_id', user.id)
-      .order('payment_date', { ascending: false })
+      .order('date', { ascending: false })
       .then(({ data, error: err }) => {
         if (err) {
           setError(err.message)
@@ -93,7 +93,7 @@ export default function Salary() {
           setPayments(
             (data || []).map((row) => ({
               id: row.id,
-              date: row.payment_date,
+              date: row.date,
               amount: row.amount,
               employer: row.employer,
               note: row.note || '',
@@ -177,7 +177,7 @@ export default function Salary() {
       .from('salary_logs')
       .insert({
         user_id: user.id,
-        payment_date: fDate,
+        date: fDate,
         amount: amt,
         employer: fEmployer.trim(),
         note: fNote.trim() || null,

@@ -107,7 +107,7 @@ export default function Loans() {
     setLoading(true)
     supabase
       .from('loans')
-      .select('id, lender, principal, monthly_rate, monthly_payment, start_date')
+      .select('id, lender, total_amount, monthly_rate, monthly_payment, start_date')
       .eq('user_id', user.id)
       .order('start_date', { ascending: false })
       .then(({ data, error: err }) => {
@@ -118,7 +118,7 @@ export default function Loans() {
             (data || []).map((row) => ({
               id: row.id,
               lender: row.lender,
-              principal: row.principal,
+              principal: row.total_amount,
               rate: row.monthly_rate,
               monthlyPayment: row.monthly_payment,
               startDate: row.start_date,
@@ -175,7 +175,7 @@ export default function Loans() {
       .insert({
         user_id: user.id,
         lender: fLender.trim(),
-        principal,
+        total_amount: principal,
         monthly_rate: rate,
         monthly_payment: payment,
         start_date: fStart,
