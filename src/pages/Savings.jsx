@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PiggyBank } from 'lucide-react'
+import { Coins } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
@@ -221,7 +221,7 @@ export default function Savings() {
           {goals.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-12 text-center">
               <div className="w-20 h-20 bg-amber-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                <PiggyBank className="w-10 h-10 text-amber-400" strokeWidth={1.5} />
+                <Coins className="w-10 h-10 text-amber-400" strokeWidth={1.5} />
               </div>
               <p className="text-base font-bold text-gray-900 mb-2">{t('savings.emptyTitle')}</p>
               <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('savings.emptyDesc')}</p>

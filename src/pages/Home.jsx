@@ -324,6 +324,7 @@ export default function Home() {
 
         {/* Footer */}
         <p className="text-[10px] text-gray-300 text-center mt-10">{t('footer')}</p>
+        <p className="text-[10px] text-gray-300 text-center mt-1">Built by FinanceForward</p>
       </div>
 
       {/* Tap outside to close language dropdown */}
