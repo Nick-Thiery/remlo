@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { useSwipeable } from 'react-swipeable'
 import Onboarding from './pages/Onboarding.jsx'
 import { useTranslation } from 'react-i18next'
 import { supabase } from './lib/supabase.js'
@@ -319,6 +320,87 @@ function AuthGuard({ children }) {
   return children
 }
 
+// ─── Swipe Nav ────────────────────────────────────────────────────────────────
+
+const SWIPE_PATHS = ['/', '/savings', '/budget', '/remittance', '/chat']
+
+function SwipeNav({ children }) {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const innerRef = useRef(null)
+  const [dragX, setDragX] = useState(0)
+  const [snapping, setSnapping] = useState(false)
+
+  const currentIndex = SWIPE_PATHS.indexOf(location.pathname)
+  const isSwipeable = currentIndex !== -1
+
+  function applyTransform(x, animated) {
+    if (!innerRef.current) return
+    innerRef.current.style.transition = animated ? 'transform 0.25s ease' : 'none'
+    innerRef.current.style.transform = x === 0 ? '' : `translateX(${x}px)`
+  }
+
+  function snapBack() {
+    setSnapping(true)
+    applyTransform(0, true)
+    setTimeout(() => {
+      setSnapping(false)
+      setDragX(0)
+    }, 250)
+  }
+
+  const handlers = useSwipeable({
+    onSwiping({ deltaX }) {
+      if (!isSwipeable || snapping) return
+      const atLeftEdge = currentIndex === 0 && deltaX > 0
+      const atRightEdge = currentIndex === SWIPE_PATHS.length - 1 && deltaX < 0
+      const dampen = atLeftEdge || atRightEdge ? 0.1 : 0.3
+      const x = deltaX * dampen
+      setDragX(x)
+      applyTransform(x, false)
+    },
+    onSwipedLeft({ velocity }) {
+      if (!isSwipeable) return
+      if (currentIndex < SWIPE_PATHS.length - 1 && Math.abs(dragX) > 20) {
+        applyTransform(0, false)
+        setDragX(0)
+        navigate(SWIPE_PATHS[currentIndex + 1])
+      } else {
+        snapBack()
+      }
+    },
+    onSwipedRight({ velocity }) {
+      if (!isSwipeable) return
+      if (currentIndex > 0 && Math.abs(dragX) > 20) {
+        applyTransform(0, false)
+        setDragX(0)
+        navigate(SWIPE_PATHS[currentIndex - 1])
+      } else {
+        snapBack()
+      }
+    },
+    preventScrollOnSwipe: true,
+    touchEventOptions: { passive: false },
+    delta: 10,
+    trackTouch: true,
+    trackMouse: false,
+  })
+
+  // Snap back on route change (e.g. tab bar tap while dragging)
+  useEffect(() => {
+    applyTransform(0, false)
+    setDragX(0)
+  }, [location.pathname])
+
+  return (
+    <div {...handlers} className="overflow-x-hidden pb-[65px] touch-pan-y">
+      <div ref={innerRef} style={{ willChange: 'transform' }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
 // ─── App Shell ────────────────────────────────────────────────────────────────
 
 function AppShell() {
@@ -330,7 +412,7 @@ function AppShell() {
       <div className="relative w-full max-w-[430px] min-h-screen bg-gray-50 shadow-[0_0_60px_rgba(0,0,0,0.25)]">
 
         {/* Scrollable content area — bottom padding clears the fixed tab bar */}
-        <div className="overflow-x-hidden pb-[65px]">
+        <SwipeNav>
           <GuestBanner />
           <AuthGuard>
           <Routes>
@@ -351,7 +433,7 @@ function AppShell() {
             <Route path="/login"      element={<Login />}      />
           </Routes>
           </AuthGuard>
-        </div>
+        </SwipeNav>
 
         {/* Tab bar: fixed to viewport, always on top of content */}
         <BottomTabBar />
