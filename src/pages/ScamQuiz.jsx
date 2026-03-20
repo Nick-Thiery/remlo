@@ -109,13 +109,13 @@ export default function ScamQuiz() {
           <div className="flex gap-3">
             <button
               onClick={restart}
-              className="flex-1 flex items-center justify-center gap-2 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors"
             >
               <RotateCcw className="w-4 h-4" /> {t('scamQuiz.retryBtn')}
             </button>
             <button
               onClick={() => navigate('/scams')}
-              className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-medium hover:bg-blue-700 transition-colors"
+              className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 transition-colors"
             >
               {t('scamQuiz.scamAlertsBtn')}
             </button>
@@ -135,7 +135,7 @@ export default function ScamQuiz() {
         <div className="mb-5">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center">
                 <ShieldAlert className="w-4 h-4 text-red-600" />
               </div>
               <p className="text-sm font-semibold text-gray-700">{t('scamQuiz.pageTitle')}</p>

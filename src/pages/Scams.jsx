@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 // Keyed by type ID (matches locale scams.alerts[].type)
@@ -68,7 +69,7 @@ export default function Scams() {
         </p>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 py-6">
+      <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
         <div className="flex items-start justify-between mb-5">
@@ -162,8 +163,11 @@ export default function Scams() {
           })}
 
           {visible.length === 0 && (
-            <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
-              <p className="text-gray-400 text-sm">{t('scams.noAlerts')}</p>
+            <div className="bg-white rounded-2xl border border-gray-100 px-8 py-10 text-center">
+              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <ShieldCheck className="w-8 h-8 text-emerald-400" strokeWidth={1.5} />
+              </div>
+              <p className="font-semibold text-gray-900 mb-1">{t('scams.noAlerts')}</p>
             </div>
           )}
         </div>
@@ -198,7 +202,7 @@ export default function Scams() {
                   </p>
                   <button
                     onClick={closeReport}
-                    className="bg-gray-900 text-white rounded-lg px-6 py-2.5 text-sm font-medium hover:bg-gray-800 transition-colors"
+                    className="bg-gray-900 text-white rounded-xl px-6 py-3 text-sm font-semibold hover:bg-gray-800 transition-colors"
                   >
                     {t('common.close')}
                   </button>
@@ -214,7 +218,7 @@ export default function Scams() {
                         value={rWhat}
                         onChange={(e) => setRWhat(e.target.value)}
                         rows={4}
-                        className={`w-full border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 resize-none ${rErrors.what ? 'border-red-300' : 'border-gray-200'}`}
+                        className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 resize-none ${rErrors.what ? 'border-red-300' : 'border-gray-200'}`}
                       />
                       {rErrors.what && <p className="text-xs text-red-500 mt-1">{rErrors.what}</p>}
                     </div>
@@ -227,7 +231,7 @@ export default function Scams() {
                         value={rWhen}
                         max={today}
                         onChange={(e) => setRWhen(e.target.value)}
-                        className={`w-full border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 ${rErrors.when ? 'border-red-300' : 'border-gray-200'}`}
+                        className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 ${rErrors.when ? 'border-red-300' : 'border-gray-200'}`}
                       />
                       {rErrors.when && <p className="text-xs text-red-500 mt-1">{rErrors.when}</p>}
                     </div>
@@ -247,7 +251,7 @@ export default function Scams() {
                           step="1"
                           value={rLost}
                           onChange={(e) => setRLost(e.target.value)}
-                          className="w-full border border-gray-200 rounded-lg pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+                          className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
                         />
                       </div>
                     </div>
@@ -260,7 +264,7 @@ export default function Scams() {
                         placeholder={t('scams.report.contactPlaceholder')}
                         value={rContact}
                         onChange={(e) => setRContact(e.target.value)}
-                        className={`w-full border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 ${rErrors.contact ? 'border-red-300' : 'border-gray-200'}`}
+                        className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 ${rErrors.contact ? 'border-red-300' : 'border-gray-200'}`}
                       />
                       {rErrors.contact && <p className="text-xs text-red-500 mt-1">{rErrors.contact}</p>}
                       <p className="text-xs text-gray-400 mt-1">{t('scams.report.contactNote')}</p>
@@ -276,13 +280,13 @@ export default function Scams() {
                   <div className="flex gap-3">
                     <button
                       onClick={closeReport}
-                      className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+                      className="flex-1 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors"
                     >
                       {t('common.cancel')}
                     </button>
                     <button
                       onClick={handleReport}
-                      className="flex-1 bg-red-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-red-700 transition-colors"
+                      className="flex-1 bg-red-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-red-700 transition-colors"
                     >
                       {t('scams.report.submitBtn')}
                     </button>

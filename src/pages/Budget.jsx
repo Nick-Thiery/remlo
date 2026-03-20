@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { ListPlus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
@@ -274,7 +275,7 @@ export default function Budget() {
               value={income}
               onChange={(e) => setIncome(e.target.value)}
               onBlur={() => saveBudget(income, expenses)}
-              className="w-full border border-gray-200 rounded-lg pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="0"
             />
           </div>
@@ -351,7 +352,12 @@ export default function Budget() {
           <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-4">{t('budget.expensesTitle')}</p>
 
           {expenses.length === 0 ? (
-            <p className="text-sm text-gray-400 text-center py-4">{t('budget.expensesEmpty')}</p>
+            <div className="flex flex-col items-center py-6 text-center">
+              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-3">
+                <ListPlus className="w-6 h-6 text-blue-400" strokeWidth={1.5} />
+              </div>
+              <p className="text-sm font-medium text-gray-700 mb-0.5">{t('budget.expensesEmpty')}</p>
+            </div>
           ) : (
             <div className="space-y-1 mb-4">
               {expenses.map((e, i) => {
@@ -429,7 +435,7 @@ export default function Budget() {
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
-                  className={`w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${nameError ? 'border-rose-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${nameError ? 'border-rose-300' : 'border-gray-200'}`}
                 />
               </div>
               <div className="relative w-28">
@@ -442,12 +448,12 @@ export default function Budget() {
                   value={newAmount}
                   onChange={(e) => setNewAmount(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
-                  className={`w-full border rounded-lg pl-7 pr-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${amountError ? 'border-rose-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl pl-7 pr-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${amountError ? 'border-rose-300' : 'border-gray-200'}`}
                 />
               </div>
               <button
                 onClick={handleAddExpense}
-                className="bg-blue-600 text-white rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors flex-shrink-0"
+                className="bg-blue-600 text-white rounded-xl px-4 py-2.5 text-sm font-semibold hover:bg-blue-700 transition-colors flex-shrink-0"
               >
                 {t('budget.addBtn')}
               </button>

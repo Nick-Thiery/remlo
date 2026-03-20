@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { ArrowLeftRight } from 'lucide-react'
 import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 
@@ -133,7 +134,7 @@ export default function Remittance() {
                   value={sendAmount}
                   onChange={(e) => setSendAmount(e.target.value)}
                   onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { amount: parseFloat(sendAmount), destination_country: country }) }}
-                  className="w-full border border-gray-200 rounded-lg pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="0"
                 />
               </div>
@@ -149,7 +150,7 @@ export default function Remittance() {
                 <select
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white appearance-none"
+                  className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white appearance-none"
                 >
                   {Object.entries(COUNTRIES).map(([code, c]) => (
                     <option key={code} value={code}>
@@ -186,10 +187,12 @@ export default function Remittance() {
         {/* Provider cards */}
         <div className="space-y-3">
           {amount <= 0 ? (
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 text-center">
-              <p className="text-3xl mb-3">💸</p>
-              <p className="font-semibold text-gray-900 mb-1">{t('remittance.emptyTitle')}</p>
-              <p className="text-sm text-gray-500">{t('remittance.emptyDesc')}</p>
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-10 text-center">
+              <div className="w-20 h-20 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                <ArrowLeftRight className="w-10 h-10 text-sky-400" strokeWidth={1.5} />
+              </div>
+              <p className="text-base font-bold text-gray-900 mb-2">{t('remittance.emptyTitle')}</p>
+              <p className="text-sm text-gray-500 max-w-[200px] mx-auto leading-relaxed">{t('remittance.emptyDesc')}</p>
             </div>
           ) : (
             results.map((p, i) => {

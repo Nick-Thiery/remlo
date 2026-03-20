@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { Receipt } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
@@ -278,13 +279,15 @@ export default function Loans() {
 
         {/* Loan cards */}
         {computed.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
-            <p className="text-4xl mb-3">📋</p>
-            <p className="font-semibold text-gray-900 mb-1">{t('loans.emptyTitle')}</p>
-            <p className="text-sm text-gray-500 mb-5">{t('loans.emptyDesc')}</p>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-12 text-center">
+            <div className="w-20 h-20 bg-violet-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+              <Receipt className="w-10 h-10 text-violet-400" strokeWidth={1.5} />
+            </div>
+            <p className="text-base font-bold text-gray-900 mb-2">{t('loans.emptyTitle')}</p>
+            <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('loans.emptyDesc')}</p>
             <button
               onClick={openForm}
-              className="bg-blue-600 text-white rounded-lg px-5 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
+              className="bg-blue-600 text-white rounded-xl px-6 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all"
             >
               {t('loans.emptyBtn')}
             </button>
@@ -448,7 +451,7 @@ export default function Loans() {
                   placeholder={t('loans.lenderPlaceholder')}
                   value={fLender}
                   onChange={(e) => setFLender(e.target.value)}
-                  className={`w-full border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.lender ? 'border-red-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.lender ? 'border-red-300' : 'border-gray-200'}`}
                 />
                 {errors.lender && <p className="text-xs text-red-500 mt-1">{errors.lender}</p>}
               </div>
@@ -464,7 +467,7 @@ export default function Loans() {
                     step="0.01"
                     value={fPrincipal}
                     onChange={(e) => setFPrincipal(e.target.value)}
-                    className={`w-full border rounded-lg pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.principal ? 'border-red-300' : 'border-gray-200'}`}
+                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.principal ? 'border-red-300' : 'border-gray-200'}`}
                   />
                 </div>
                 {errors.principal && <p className="text-xs text-red-500 mt-1">{errors.principal}</p>}
@@ -483,7 +486,7 @@ export default function Loans() {
                     step="0.01"
                     value={fRate}
                     onChange={(e) => setFRate(e.target.value)}
-                    className={`w-full border rounded-lg px-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.rate ? 'border-red-300' : parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
+                    className={`w-full border rounded-xl px-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.rate ? 'border-red-300' : parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">%</span>
                 </div>
@@ -504,7 +507,7 @@ export default function Loans() {
                     step="0.01"
                     value={fPayment}
                     onChange={(e) => setFPayment(e.target.value)}
-                    className={`w-full border rounded-lg pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.payment ? 'border-red-300' : 'border-gray-200'}`}
+                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.payment ? 'border-red-300' : 'border-gray-200'}`}
                   />
                 </div>
                 {errors.payment && <p className="text-xs text-red-500 mt-1">{errors.payment}</p>}
@@ -517,7 +520,7 @@ export default function Loans() {
                   value={fStart}
                   max={today}
                   onChange={(e) => setFStart(e.target.value)}
-                  className={`w-full border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.start ? 'border-red-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.start ? 'border-red-300' : 'border-gray-200'}`}
                 />
                 {errors.start && <p className="text-xs text-red-500 mt-1">{errors.start}</p>}
               </div>
@@ -526,13 +529,13 @@ export default function Loans() {
             <div className="flex gap-3">
               <button
                 onClick={closeForm}
-                className="flex-1 border border-gray-200 text-gray-700 rounded-lg py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+                className="flex-1 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors"
               >
                 {t('common.cancel')}
               </button>
               <button
                 onClick={handleAdd}
-                className="flex-1 bg-blue-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-blue-700 transition-colors"
+                className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 transition-colors"
               >
                 {t('loans.addLoanBtn')}
               </button>
