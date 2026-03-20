@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { Receipt } from 'lucide-react'
+import { Receipt, ChevronLeft } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
@@ -107,7 +107,7 @@ export default function Loans() {
     setLoading(true)
     supabase
       .from('loans')
-      .select('id, lender, total_amount, monthly_rate, monthly_payment, start_date')
+      .select('id, lender, total_amount, interest_rate, monthly_payment, start_date')
       .eq('user_id', user.id)
       .order('start_date', { ascending: false })
       .then(({ data, error: err }) => {
@@ -119,7 +119,7 @@ export default function Loans() {
               id: row.id,
               lender: row.lender,
               principal: row.total_amount,
-              rate: row.monthly_rate,
+              rate: row.interest_rate,
               monthlyPayment: row.monthly_payment,
               startDate: row.start_date,
             }))
@@ -176,7 +176,7 @@ export default function Loans() {
         user_id: user.id,
         lender: fLender.trim(),
         total_amount: principal,
-        monthly_rate: rate,
+        interest_rate: rate,
         monthly_payment: payment,
         start_date: fStart,
       })
@@ -222,8 +222,14 @@ export default function Loans() {
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
+        <div className="flex items-center gap-3 mb-6">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold text-gray-900">{t('loans.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">
               {t('loans.pageSubtitle', { count: activeCount })}
@@ -231,7 +237,7 @@ export default function Loans() {
           </div>
           <button
             onClick={openForm}
-            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5"
+            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0"
           >
             {t('loans.addBtn')}
           </button>

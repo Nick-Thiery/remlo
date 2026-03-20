@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ShieldCheck } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ShieldCheck, ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 // Keyed by type ID (matches locale scams.alerts[].type)
@@ -20,6 +21,7 @@ function formatDate(iso) {
 const today = new Date().toISOString().slice(0, 10)
 
 export default function Scams() {
+  const navigate = useNavigate()
   const { t } = useTranslation()
 
   const [filter, setFilter] = useState('all')
@@ -72,8 +74,14 @@ export default function Scams() {
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
-        <div className="flex items-start justify-between mb-5">
-          <div>
+        <div className="flex items-center gap-3 mb-5">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold text-gray-900">{t('scams.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('scams.pageSubtitle')}</p>
           </div>

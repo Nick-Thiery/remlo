@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ShieldCheck, ShieldAlert, ChevronRight, RotateCcw, Trophy } from 'lucide-react'
+import { ShieldCheck, ShieldAlert, ChevronRight, ChevronLeft, RotateCcw, Trophy } from 'lucide-react'
 import { track } from '../lib/analytics.js'
 
 // Correct answer index for each question (option B = index 1 for all 8)
@@ -70,6 +70,12 @@ export default function ScamQuiz() {
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all shadow-sm mb-5"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
 
           <div className={`rounded-2xl border ${rating.border} ${rating.bg} p-8 text-center mb-6`}>
             <p className="text-5xl mb-3">{rating.emoji}</p>
@@ -133,6 +139,12 @@ export default function ScamQuiz() {
       <div className="max-w-lg mx-auto px-4 pt-6 pb-8">
 
         <div className="mb-5">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all shadow-sm mb-4"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center">

@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Landmark, Smartphone, ShieldAlert, ChevronDown, ChevronUp, Phone } from 'lucide-react'
+import { Landmark, Smartphone, ShieldAlert, ChevronDown, ChevronUp, ChevronLeft, Phone } from 'lucide-react'
 
 // Non-translatable style metadata — merged with locale text at render time
 const BANKS_STYLE = [
@@ -73,6 +74,7 @@ function BankCard({ style, text, feeLabel, minBalanceLabel, docsNeededLabel }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function BankingGuide() {
+  const navigate = useNavigate()
   const { t } = useTranslation()
 
   const docs     = t('bankingGuide.docs',     { returnObjects: true })
@@ -86,9 +88,17 @@ export default function BankingGuide() {
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t('bankingGuide.pageTitle')}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{t('bankingGuide.pageSubtitle')}</p>
+        <div className="flex items-center gap-3 mb-6">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">{t('bankingGuide.pageTitle')}</h1>
+            <p className="text-sm text-gray-500 mt-0.5">{t('bankingGuide.pageSubtitle')}</p>
+          </div>
         </div>
 
         {/* Documents */}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Banknote } from 'lucide-react'
+import { Banknote, ChevronLeft } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
@@ -52,6 +53,7 @@ function daysLate(paymentIso, paydayOfMonth) {
 const today = toYYYYMMDD(new Date())
 
 export default function Salary() {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { user, authLoading, isGuest } = useRequireAuth()
 
@@ -83,7 +85,7 @@ export default function Salary() {
     setLoading(true)
     supabase
       .from('salary_logs')
-      .select('id, date, amount, employer, note')
+      .select('id, date, amount, employer, notes')
       .eq('user_id', user.id)
       .order('date', { ascending: false })
       .then(({ data, error: err }) => {
@@ -96,7 +98,7 @@ export default function Salary() {
               date: row.date,
               amount: row.amount,
               employer: row.employer,
-              note: row.note || '',
+              note: row.notes || '',
             }))
           )
         }
@@ -180,7 +182,7 @@ export default function Salary() {
         date: fDate,
         amount: amt,
         employer: fEmployer.trim(),
-        note: fNote.trim() || null,
+        notes: fNote.trim() || null,
       })
       .select('id')
       .single()
@@ -226,14 +228,20 @@ export default function Salary() {
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
+        <div className="flex items-center gap-3 mb-6">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold text-gray-900">{t('salary.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('salary.pageSubtitle', { count: payments.length })}</p>
           </div>
           <button
             onClick={openForm}
-            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5"
+            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0"
           >
             {t('salary.logBtn')}
           </button>

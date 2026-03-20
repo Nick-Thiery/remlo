@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 // Weights stay in component — not translatable, just numeric
@@ -47,6 +49,7 @@ const HELP_CONTACT_META = [
 const LEGAL_ICONS = ['🏢', '📋', '🪪', '💰', '📣', '🔒', '🤝']
 
 export default function LoanShark() {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const [checked, setChecked] = useState(new Set())
   const [showAll, setShowAll] = useState(false)
@@ -83,9 +86,17 @@ export default function LoanShark() {
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
-        <div className="mb-2">
-          <h1 className="text-2xl font-bold text-gray-900">{t('loanshark.pageTitle')}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{t('loanshark.pageSubtitle')}</p>
+        <div className="flex items-center gap-3 mb-2">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">{t('loanshark.pageTitle')}</h1>
+            <p className="text-sm text-gray-500 mt-0.5">{t('loanshark.pageSubtitle')}</p>
+          </div>
         </div>
 
         {/* Legal limit note */}

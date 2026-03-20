@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+import { ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 // Static contact data — org names, numbers, hours are factual/proper nouns
@@ -57,6 +59,7 @@ function CallButton({ number, label }) {
 }
 
 export default function Emergency() {
+  const navigate = useNavigate()
   const { t } = useTranslation()
 
   return (
@@ -81,9 +84,17 @@ export default function Emergency() {
       <div className="max-w-lg mx-auto px-4 py-6">
 
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t('emergency.pageTitle')}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{t('emergency.pageSubtitle')}</p>
+        <div className="flex items-center gap-3 mb-6">
+          <button
+            onClick={() => navigate('/more')}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">{t('emergency.pageTitle')}</h1>
+            <p className="text-sm text-gray-500 mt-0.5">{t('emergency.pageSubtitle')}</p>
+          </div>
         </div>
 
         {/* Categories */}
