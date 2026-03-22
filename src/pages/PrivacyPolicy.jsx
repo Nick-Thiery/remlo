@@ -76,7 +76,7 @@ export default function PrivacyPolicy() {
         <div className="bg-blue-50 border border-blue-100 rounded-2xl px-4 py-4 mb-6 flex gap-3">
           <Shield className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
           <p className="text-xs text-blue-700 leading-relaxed">
-            Remlo is built by FinanceForward, a non-profit initiative supporting migrant workers in Singapore. We are committed to protecting your privacy and being transparent about how we handle your data.
+            Remlo is built by FinanceForward, a non-profit supporting migrant workers in Singapore. We are committed to protecting your privacy and being transparent about how we handle your data.
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export default function PrivacyPolicy() {
         </div>
 
         <p className="text-xs text-gray-400 text-center mt-8 leading-relaxed">
-          FinanceForward Initiative · financeforwardinitiative@gmail.com
+          FinanceForward · financeforwardinitiative@gmail.com
         </p>
       </div>
     </div>

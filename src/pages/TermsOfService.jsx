@@ -72,7 +72,7 @@ export default function TermsOfService() {
         <div className="bg-amber-50 border border-amber-100 rounded-2xl px-4 py-4 mb-6 flex gap-3">
           <FileText className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
           <p className="text-xs text-amber-700 leading-relaxed">
-            By using Remlo you agree to these terms. Please read them carefully. Remlo is a free tool built to help migrant workers manage their finances — it is not a licensed financial institution.
+            By using Remlo you agree to these terms. Please read them carefully. Remlo is built by FinanceForward to help migrant workers manage their finances — it is not a licensed financial institution.
           </p>
         </div>
 
@@ -94,7 +94,7 @@ export default function TermsOfService() {
         </div>
 
         <p className="text-xs text-gray-400 text-center mt-8 leading-relaxed">
-          FinanceForward Initiative · financeforwardinitiative@gmail.com
+          FinanceForward · financeforwardinitiative@gmail.com
         </p>
       </div>
     </div>
