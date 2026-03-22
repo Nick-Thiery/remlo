@@ -183,7 +183,7 @@ export default function Savings() {
         {/* Page header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('savings.pageTitle')}</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{t('savings.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">
               {t('savings.pageSubtitle', { count: goals.length })}
             </p>
@@ -200,13 +200,13 @@ export default function Savings() {
         {goals.length > 0 && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6 relative overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-orange-400" />
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-3">{t('savings.overallProgress')}</p>
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">{t('savings.overallProgress')}</p>
             <div className="flex items-end justify-between mb-3">
               <div>
-                <p className="text-3xl font-black text-gray-900 tracking-tight">{formatSGD(totalSaved)}</p>
+                <p className="text-2xl font-bold text-gray-900">{formatSGD(totalSaved)}</p>
                 <p className="text-sm text-gray-500">{t('savings.savedOf', { amount: formatSGD(totalTarget) })}</p>
               </div>
-              <p className="text-xl font-black text-orange-500">{Math.round(overallPct)}%</p>
+              <p className="text-lg font-bold text-orange-500">{Math.round(overallPct)}%</p>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-2">
               <div

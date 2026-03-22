@@ -86,7 +86,7 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto px-6 pt-10 pb-4">
 
-        <h2 className="text-2xl font-black text-gray-900 mb-1 tracking-tight">Set up your account</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-1">Set up your account</h2>
         <p className="text-sm text-gray-500 mb-7">
           Choose your home country and preferred language.
         </p>

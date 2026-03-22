@@ -69,7 +69,7 @@ function Login() {
             <path d="M14 20h12M14 15.5h12M14 24.5h8" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
           </svg>
         </div>
-        <h1 className="text-3xl font-black text-white tracking-tight">Remlo</h1>
+        <h1 className="text-2xl font-bold text-white">Remlo</h1>
         <p className="text-white/70 text-sm mt-1.5">Smart finance for migrant workers</p>
       </div>
 
@@ -77,7 +77,7 @@ function Login() {
       <div className="flex-1 flex flex-col px-5 -mt-6">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 w-full max-w-sm mx-auto">
 
-          <h2 className="text-xl font-black text-gray-900 mb-1 tracking-tight">Welcome back</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-1">Welcome back</h2>
           <p className="text-sm text-gray-500 mb-5">Sign in or create a new account</p>
 
           {error && (

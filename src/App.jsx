@@ -155,7 +155,7 @@ function MorePage() {
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Heading */}
-        <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-0.5">{t('nav.moreHeading')}</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-0.5">{t('nav.moreHeading')}</h1>
         <p className="text-sm text-gray-500 mb-7">{t('nav.moreDesc')}</p>
 
         {/* Page links */}

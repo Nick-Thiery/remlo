@@ -38,12 +38,6 @@ const LANGUAGES = [
   { code: 'ne',  label: 'नेपाली'    },
 ]
 
-function getGreetingKey() {
-  const h = new Date().getHours()
-  if (h < 12) return 'greetingMorning'
-  if (h < 17) return 'greetingAfternoon'
-  return 'greetingEvening'
-}
 
 export default function Home() {
   const { t, i18n } = useTranslation()
@@ -201,11 +195,8 @@ export default function Home() {
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
 
-            {/* Greeting + name */}
-            <div>
-              <p className="text-xs text-gray-400 font-medium">{t(getGreetingKey())}</p>
-              <h1 className="text-2xl font-black text-gray-900 mt-0.5 tracking-tight">{t('appName')}</h1>
-            </div>
+            {/* App name */}
+            <h1 className="text-xl font-bold text-gray-900">{t('appName')}</h1>
 
             <div className="flex items-center gap-2">
               {/* Language pill */}
@@ -295,7 +286,7 @@ export default function Home() {
         </div>
 
         {/* ── Quick stats ───────────────────────────────────────────────── */}
-        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-3">
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
           {t('stats.heading')}
         </p>
         <div className="grid grid-cols-3 gap-2.5 mb-7">
@@ -307,7 +298,7 @@ export default function Home() {
               <div className={`absolute top-0 left-0 right-0 h-[3px] ${stat.accentBar}`} />
               <stat.icon className={`w-4 h-4 ${stat.iconColor} mb-2`} strokeWidth={1.8} />
               <p
-                className={`text-lg font-black leading-none tabular-nums tracking-tight ${
+                className={`text-base font-bold leading-none tabular-nums ${
                   statsLoading ? 'text-gray-200 animate-pulse' : stat.numColor
                 }`}
               >
@@ -321,7 +312,7 @@ export default function Home() {
         </div>
 
         {/* ── Feature cards ─────────────────────────────────────────────── */}
-        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-3">
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
           {t('features.heading')}
         </p>
         <div className="grid grid-cols-2 gap-3">
@@ -338,7 +329,7 @@ export default function Home() {
                   </div>
 
                   {/* Text */}
-                  <p className="text-sm font-black text-gray-900 leading-tight mb-1 tracking-tight">{f.title}</p>
+                  <p className="text-sm font-semibold text-gray-900 leading-tight mb-1">{f.title}</p>
                   <p className="text-[11px] text-gray-500 leading-relaxed mb-4">{f.description}</p>
 
                   {/* Arrow indicator */}

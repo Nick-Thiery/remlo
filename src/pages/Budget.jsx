@@ -258,7 +258,7 @@ export default function Budget() {
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('budget.pageTitle')}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('budget.pageTitle')}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{t('budget.pageSubtitle')}</p>
         </div>
 
@@ -313,7 +313,7 @@ export default function Budget() {
         {/* Visual breakdown */}
         {monthlyIncome > 0 && expenses.length > 0 && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-4">{t('budget.breakdownTitle')}</p>
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('budget.breakdownTitle')}</p>
 
             <div className="flex items-center gap-6">
               <div className="flex-shrink-0">
@@ -356,7 +356,7 @@ export default function Budget() {
 
         {/* Expenses list */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-4">{t('budget.expensesTitle')}</p>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('budget.expensesTitle')}</p>
 
           {expenses.length === 0 ? (
             <div className="flex flex-col items-center py-6 text-center">
@@ -475,7 +475,7 @@ export default function Budget() {
         {suggested && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-start justify-between mb-1">
-              <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em]">{t('budget.guideTitle')}</p>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t('budget.guideTitle')}</p>
               <span className="text-xs bg-blue-50 text-blue-600 font-medium px-2 py-0.5 rounded-full">{t('budget.guideBadge')}</span>
             </div>
             <p className="text-xs text-gray-500 mb-4 mt-0.5">{t('budget.guideDesc')}</p>

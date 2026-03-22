@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { ArrowLeftRight } from 'lucide-react'
+import { useState, useEffect, useMemo } from 'react'
+import { ArrowLeftRight, RefreshCw, WifiOff } from 'lucide-react'
 import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 
@@ -16,41 +16,52 @@ const COUNTRIES = {
   NP: { currency: 'NPR', flag: '🇳🇵', symbol: 'Rs',  nameKey: 'countryNepal'       },
 }
 
-// Mock data: base exchange rates and fees per provider per country
-// rate: SGD 1 = X foreign currency (mid-market minus provider margin)
-// fee: flat SGD fee charged on top of the send amount
-// speed: transfer time string
-const PROVIDERS = [
+// Fallback mid-market rates (SGD 1 = X) — used when API is unreachable
+const FALLBACK_MID_RATES = {
+  INR: 62.15,
+  BDT: 87.20,
+  PHP: 43.55,
+  MMK: 572.80,
+  IDR: 11830,
+  LKR: 240.50,
+  CNY: 5.31,
+  THB: 27.05,
+  PKR: 217.80,
+  NPR: 99.90,
+}
+
+// Provider spread on top of mid-market rate, plus flat fees per destination country
+const PROVIDER_CONFIG = [
   {
     id: 'wise',
     name: 'Wise',
     color: 'bg-emerald-500',
-    rates: { IN: 61.82, BD: 86.54, PH: 43.20, MM: 568.40, ID: 11750, LK: 238.90, CN: 5.28, TH: 26.85, PK: 216.40, NP: 99.20 },
-    fees:  { IN: 1.40,  BD: 1.65,  PH: 1.50,  MM: 2.10,   ID: 1.80,  LK: 1.55,   CN: 1.20, TH: 1.40,  PK: 1.80,   NP: 1.60  },
+    spread: 0.005, // 0.5% — closest to mid-market
+    fees:  { IN: 1.40,  BD: 1.65,  PH: 1.50,  MM: 2.10,  ID: 1.80,  LK: 1.55,  CN: 1.20, TH: 1.40, PK: 1.80,  NP: 1.60  },
     speed: { IN: 'Instant – 2 hrs', BD: '1 – 2 days', PH: 'Instant', MM: '2 – 5 days', ID: 'Instant', LK: '1 – 2 days', CN: '1 – 2 days', TH: 'Instant', PK: '1 – 2 days', NP: '1 – 2 days' },
   },
   {
     id: 'remitly',
     name: 'Remitly',
     color: 'bg-blue-500',
-    rates: { IN: 61.50, BD: 86.10, PH: 42.90, MM: 564.80, ID: 11680, LK: 237.60, CN: 5.24, TH: 26.60, PK: 214.80, NP: 98.60 },
-    fees:  { IN: 0.00,  BD: 0.00,  PH: 0.00,  MM: 0.00,   ID: 0.00,  LK: 0.00,   CN: 0.00, TH: 0.00,  PK: 0.00,   NP: 0.00  },
+    spread: 0.010, // 1%
+    fees:  { IN: 0.00,  BD: 0.00,  PH: 0.00,  MM: 0.00,  ID: 0.00,  LK: 0.00,  CN: 0.00, TH: 0.00, PK: 0.00,  NP: 0.00  },
     speed: { IN: 'Instant', BD: '3 – 5 days', PH: 'Instant', MM: '3 – 7 days', ID: 'Instant', LK: '3 – 5 days', CN: '2 – 4 days', TH: 'Instant', PK: '3 – 5 days', NP: '3 – 5 days' },
   },
   {
     id: 'wu',
     name: 'Western Union',
     color: 'bg-yellow-500',
-    rates: { IN: 60.40, BD: 84.90, PH: 42.10, MM: 558.30, ID: 11520, LK: 235.20, CN: 5.16, TH: 26.10, PK: 211.60, NP: 97.00 },
-    fees:  { IN: 3.90,  BD: 4.50,  PH: 3.50,  MM: 5.00,   ID: 4.00,  LK: 4.20,   CN: 3.80, TH: 3.50,  PK: 4.50,   NP: 4.00  },
+    spread: 0.020, // 2%
+    fees:  { IN: 3.90,  BD: 4.50,  PH: 3.50,  MM: 5.00,  ID: 4.00,  LK: 4.20,  CN: 3.80, TH: 3.50, PK: 4.50,  NP: 4.00  },
     speed: { IN: 'Minutes', BD: 'Minutes', PH: 'Minutes', MM: 'Minutes', ID: 'Minutes', LK: 'Minutes', CN: 'Minutes', TH: 'Minutes', PK: 'Minutes', NP: 'Minutes' },
   },
   {
     id: 'bank',
     name: 'Bank Transfer',
     color: 'bg-gray-400',
-    rates: { IN: 59.80, BD: 84.20, PH: 41.60, MM: 552.00, ID: 11380, LK: 233.80, CN: 5.10, TH: 25.80, PK: 209.40, NP: 96.20 },
-    fees:  { IN: 15.00, BD: 15.00, PH: 15.00, MM: 15.00,  ID: 15.00, LK: 15.00,  CN: 15.00, TH: 15.00, PK: 15.00,  NP: 15.00 },
+    spread: 0.030, // 3%
+    fees:  { IN: 15.00, BD: 15.00, PH: 15.00, MM: 15.00, ID: 15.00, LK: 15.00, CN: 15.00, TH: 15.00, PK: 15.00, NP: 15.00 },
     speed: { IN: '1 – 3 days', BD: '2 – 5 days', PH: '1 – 3 days', MM: '3 – 7 days', ID: '2 – 4 days', LK: '2 – 5 days', CN: '2 – 4 days', TH: '1 – 3 days', PK: '2 – 5 days', NP: '2 – 5 days' },
   },
 ]
@@ -65,6 +76,10 @@ function formatForeignAmount(amount, symbol) {
 
 function formatSGD(amount) {
   return `S$${amount.toFixed(2)}`
+}
+
+function formatTime(date) {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
 function SpeedIcon() {
@@ -92,18 +107,56 @@ export default function Remittance() {
   })()
   const [country, setCountry] = useState(defaultCountry)
 
+  const [midRates, setMidRates]       = useState(null)      // keyed by currency code
+  const [ratesLoading, setRatesLoading] = useState(true)
+  const [ratesStale, setRatesStale]   = useState(false)     // true = using fallback
+  const [fetchedAt, setFetchedAt]     = useState(null)      // Date of last successful fetch
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function fetchRates() {
+      try {
+        const res = await fetch('https://open.er-api.com/v6/latest/SGD')
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        if (cancelled) return
+        if (data?.result === 'success' && data?.rates) {
+          setMidRates(data.rates)
+          setRatesStale(false)
+          setFetchedAt(new Date())
+        } else {
+          throw new Error('Unexpected response shape')
+        }
+      } catch {
+        if (cancelled) return
+        setMidRates(FALLBACK_MID_RATES)
+        setRatesStale(true)
+      } finally {
+        if (!cancelled) setRatesLoading(false)
+      }
+    }
+
+    fetchRates()
+    return () => { cancelled = true }
+  }, [])
+
   const amount = parseFloat(sendAmount) || 0
   const dest = COUNTRIES[country]
 
   const results = useMemo(() => {
-    return PROVIDERS.map((p) => {
-      const rate = p.rates[country]
-      const fee = p.fees[country]
+    if (!midRates) return []
+    const mid = midRates[dest.currency]
+    if (!mid) return []
+
+    return PROVIDER_CONFIG.map((p) => {
+      const rate    = mid * (1 - p.spread)
+      const fee     = p.fees[country]
       const netSend = Math.max(amount - fee, 0)
       const received = netSend * rate
       return { ...p, rate, fee, received }
     }).sort((a, b) => b.received - a.received)
-  }, [amount, country])
+  }, [amount, country, midRates])
 
   const bestId = results[0]?.id
 
@@ -113,8 +166,34 @@ export default function Remittance() {
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('remittance.pageTitle')}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('remittance.pageTitle')}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{t('remittance.pageSubtitle')}</p>
+        </div>
+
+        {/* Live rates status bar */}
+        <div className={`flex items-center gap-2 px-4 py-2.5 rounded-xl mb-4 text-xs font-medium ${
+          ratesLoading
+            ? 'bg-gray-100 text-gray-500'
+            : ratesStale
+            ? 'bg-amber-50 border border-amber-200 text-amber-700'
+            : 'bg-emerald-50 border border-emerald-200 text-emerald-700'
+        }`}>
+          {ratesLoading ? (
+            <>
+              <RefreshCw className="w-3.5 h-3.5 animate-spin flex-shrink-0" />
+              <span>Fetching live rates…</span>
+            </>
+          ) : ratesStale ? (
+            <>
+              <WifiOff className="w-3.5 h-3.5 flex-shrink-0" />
+              <span>Rates may be outdated · Could not reach rate service</span>
+            </>
+          ) : (
+            <>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0" />
+              <span>Live rates · Updated {fetchedAt ? formatTime(fetchedAt) : ''}</span>
+            </>
+          )}
         </div>
 
         {/* Input card */}
@@ -158,7 +237,6 @@ export default function Remittance() {
                     </option>
                   ))}
                 </select>
-                {/* Custom dropdown arrow */}
                 <svg
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
                   fill="none"
@@ -173,110 +251,136 @@ export default function Remittance() {
           </div>
         </div>
 
-        {/* Results label */}
-        {amount > 0 && (
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">
-            {t('remittance.providersLabel', {
-              count: results.length,
-              amount: formatSGD(amount),
-              country: t(`remittance.${dest.nameKey}`),
-            })}
-          </p>
+        {/* Loading skeleton for results */}
+        {ratesLoading && (
+          <div className="space-y-3">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 p-6 animate-pulse">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-gray-200" />
+                    <div className="space-y-2">
+                      <div className="h-3.5 w-20 bg-gray-200 rounded" />
+                      <div className="h-3 w-28 bg-gray-100 rounded" />
+                    </div>
+                  </div>
+                  <div className="space-y-2 text-right">
+                    <div className="h-5 w-24 bg-gray-200 rounded ml-auto" />
+                    <div className="h-3 w-16 bg-gray-100 rounded ml-auto" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
 
-        {/* Provider cards */}
-        <div className="space-y-3">
-          {amount <= 0 ? (
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-10 text-center">
-              <div className="w-20 h-20 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                <ArrowLeftRight className="w-10 h-10 text-sky-400" strokeWidth={1.5} />
-              </div>
-              <p className="text-base font-bold text-gray-900 mb-2">{t('remittance.emptyTitle')}</p>
-              <p className="text-sm text-gray-500 max-w-[200px] mx-auto leading-relaxed">{t('remittance.emptyDesc')}</p>
-            </div>
-          ) : (
-            results.map((p, i) => {
-              const isBest = p.id === bestId
+        {/* Results */}
+        {!ratesLoading && (
+          <>
+            {/* Results label */}
+            {amount > 0 && (
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                {t('remittance.providersLabel', {
+                  count: results.length,
+                  amount: formatSGD(amount),
+                  country: t(`remittance.${dest.nameKey}`),
+                })}
+              </p>
+            )}
 
-              return (
-                <div
-                  key={p.id}
-                  className={`bg-white rounded-2xl shadow-sm border transition-all ${
-                    isBest
-                      ? 'border-blue-200 ring-1 ring-blue-200'
-                      : 'border-gray-100'
-                  }`}
-                >
-                  {/* Card header */}
-                  <div className="flex items-center justify-between px-6 pt-5 pb-4">
-                    <div className="flex items-center gap-3">
-                      {/* Provider logo placeholder */}
-                      <div className={`w-9 h-9 rounded-xl ${p.color} flex items-center justify-center`}>
-                        <span className="text-white text-xs font-bold">
-                          {p.name.slice(0, 2).toUpperCase()}
-                        </span>
+            <div className="space-y-3">
+              {amount <= 0 ? (
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-10 text-center">
+                  <div className="w-20 h-20 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                    <ArrowLeftRight className="w-10 h-10 text-sky-400" strokeWidth={1.5} />
+                  </div>
+                  <p className="text-base font-bold text-gray-900 mb-2">{t('remittance.emptyTitle')}</p>
+                  <p className="text-sm text-gray-500 max-w-[200px] mx-auto leading-relaxed">{t('remittance.emptyDesc')}</p>
+                </div>
+              ) : (
+                results.map((p, i) => {
+                  const isBest = p.id === bestId
+
+                  return (
+                    <div
+                      key={p.id}
+                      className={`bg-white rounded-2xl shadow-sm border transition-all ${
+                        isBest
+                          ? 'border-orange-200 ring-1 ring-orange-200'
+                          : 'border-gray-100'
+                      }`}
+                    >
+                      {/* Card header */}
+                      <div className="flex items-center justify-between px-6 pt-5 pb-4">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-xl ${p.color} flex items-center justify-center`}>
+                            <span className="text-white text-xs font-bold">
+                              {p.name.slice(0, 2).toUpperCase()}
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-semibold text-gray-900 text-sm">{p.name}</p>
+                            <div className="flex items-center gap-1 text-gray-400 mt-0.5">
+                              <SpeedIcon />
+                              <span className="text-xs">{p.speed[country]}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="text-right">
+                          {isBest && (
+                            <span className="inline-block bg-orange-500 text-white text-xs font-bold px-2.5 py-0.5 rounded-full mb-1">
+                              {t('remittance.bestValue')}
+                            </span>
+                          )}
+                          {!isBest && i > 0 && (
+                            <span className="inline-block text-xs font-medium text-gray-400 px-2.5 py-0.5 rounded-full mb-1 bg-gray-50">
+                              #{i + 1}
+                            </span>
+                          )}
+                          <p className="text-xl font-bold text-gray-900">
+                            {formatForeignAmount(p.received, dest.symbol)}
+                          </p>
+                          <p className="text-xs text-gray-400">{t('remittance.receivedLabel', { currency: dest.currency })}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-semibold text-gray-900 text-sm">{p.name}</p>
-                        <div className="flex items-center gap-1 text-gray-400 mt-0.5">
-                          <SpeedIcon />
-                          <span className="text-xs">{p.speed[country]}</span>
+
+                      {/* Divider */}
+                      <div className="border-t border-gray-50 mx-6" />
+
+                      {/* Details row */}
+                      <div className="grid grid-cols-2 gap-4 px-6 py-4">
+                        <div className="flex items-start gap-2">
+                          <div className="mt-0.5 text-gray-300">
+                            <RateIcon />
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-400 mb-0.5">{t('remittance.rateLabel')}</p>
+                            <p className="text-sm font-medium text-gray-900">
+                              {t('remittance.rateValue', { rate: p.rate.toFixed(2), currency: dest.currency })}
+                            </p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-400 mb-0.5">{t('remittance.feeLabel')}</p>
+                          <p className={`text-sm font-medium ${p.fee === 0 ? 'text-emerald-600' : 'text-gray-900'}`}>
+                            {p.fee === 0 ? t('common.noFee') : formatSGD(p.fee)}
+                          </p>
                         </div>
                       </div>
                     </div>
+                  )
+                })
+              )}
+            </div>
 
-                    <div className="text-right">
-                      {isBest && (
-                        <span className="inline-block bg-blue-600 text-white text-xs font-medium px-2.5 py-0.5 rounded-full mb-1">
-                          {t('remittance.bestValue')}
-                        </span>
-                      )}
-                      {!isBest && i > 0 && (
-                        <span className="inline-block text-xs font-medium text-gray-400 px-2.5 py-0.5 rounded-full mb-1 bg-gray-50">
-                          #{i + 1}
-                        </span>
-                      )}
-                      <p className="text-xl font-bold text-gray-900">
-                        {formatForeignAmount(p.received, dest.symbol)}
-                      </p>
-                      <p className="text-xs text-gray-400">{t('remittance.receivedLabel', { currency: dest.currency })}</p>
-                    </div>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="border-t border-gray-50 mx-6" />
-
-                  {/* Details row */}
-                  <div className="grid grid-cols-2 gap-4 px-6 py-4">
-                    <div className="flex items-start gap-2">
-                      <div className="mt-0.5 text-gray-300">
-                        <RateIcon />
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-400 mb-0.5">{t('remittance.rateLabel')}</p>
-                        <p className="text-sm font-medium text-gray-900">
-                          {t('remittance.rateValue', { rate: p.rate.toFixed(2), currency: dest.currency })}
-                        </p>
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-400 mb-0.5">{t('remittance.feeLabel')}</p>
-                      <p className={`text-sm font-medium ${p.fee === 0 ? 'text-emerald-600' : 'text-gray-900'}`}>
-                        {p.fee === 0 ? t('common.noFee') : formatSGD(p.fee)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )
-            })
-          )}
-        </div>
-
-        {/* Disclaimer */}
-        {amount > 0 && (
-          <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
-            {t('remittance.disclaimer')}
-          </p>
+            {/* Disclaimer */}
+            {amount > 0 && (
+              <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+                {t('remittance.disclaimer')}
+              </p>
+            )}
+          </>
         )}
       </div>
     </div>

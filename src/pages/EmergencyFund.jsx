@@ -57,7 +57,7 @@ export default function EmergencyFund() {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('emergencyFund.pageTitle')}</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{t('emergencyFund.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('emergencyFund.pageSubtitle')}</p>
           </div>
         </div>
