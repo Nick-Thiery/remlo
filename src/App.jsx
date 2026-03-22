@@ -293,12 +293,14 @@ function AuthGuard({ children }) {
 
   useEffect(() => {
     const isGuest = localStorage.getItem('remlo_guest') === 'true'
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session && !isGuest && location.pathname !== '/login') {
-        navigate('/login', { replace: true })
-      }
-      setReady(true)
-    })
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        if (!session && !isGuest && location.pathname !== '/login') {
+          navigate('/login', { replace: true })
+        }
+        setReady(true)
+      })
+      .catch(() => setReady(true))
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       const stillGuest = localStorage.getItem('remlo_guest') === 'true'

@@ -160,7 +160,7 @@ export default function Home() {
     },
     {
       label: t('stats.lastSent'),
-      value: 'S$0',
+      value: '—',
       icon: TrendingUp,
       iconColor: 'text-sky-400',
       numColor: 'text-sky-600',

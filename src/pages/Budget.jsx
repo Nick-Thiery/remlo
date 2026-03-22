@@ -85,10 +85,10 @@ export default function Budget() {
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const PRESET_EXPENSES = useMemo(() => [
-    { name: t('budget.presetRent'),        amount: 400 },
-    { name: t('budget.presetGroceries'),   amount: 200 },
-    { name: t('budget.presetTransport'),   amount: 80  },
-    { name: t('budget.presetPhone'),       amount: 20  },
+    { name: t('budget.presetRent'),        amount: 400, _key: 'preset-0' },
+    { name: t('budget.presetGroceries'),   amount: 200, _key: 'preset-1' },
+    { name: t('budget.presetTransport'),   amount: 80,  _key: 'preset-2' },
+    { name: t('budget.presetPhone'),       amount: 20,  _key: 'preset-3' },
   ], [t])
 
   const [income, setIncome] = useState('')
@@ -97,7 +97,7 @@ export default function Budget() {
   const [newAmount, setNewAmount] = useState('')
   const [nameError, setNameError] = useState('')
   const [amountError, setAmountError] = useState('')
-  const [editingIndex, setEditingIndex] = useState(null)
+  const [editingKey, setEditingKey] = useState(null)
   const [editingValue, setEditingValue] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -108,7 +108,9 @@ export default function Budget() {
       const stored = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
       if (stored) {
         setIncome(stored.income > 0 ? String(stored.income) : '')
-        setExpenses(Array.isArray(stored.expenses) && stored.expenses.length > 0 ? stored.expenses : PRESET_EXPENSES)
+        setExpenses(Array.isArray(stored.expenses) && stored.expenses.length > 0
+          ? stored.expenses.map((e, i) => ({ ...e, _key: e._key ?? i }))
+          : PRESET_EXPENSES)
       }
       setLoading(false)
       return
@@ -126,23 +128,26 @@ export default function Budget() {
         } else if (data) {
           budgetExists.current = true
           setIncome(data.income > 0 ? String(data.income) : '')
-          setExpenses(Array.isArray(data.expenses) && data.expenses.length > 0 ? data.expenses : PRESET_EXPENSES)
+          setExpenses(Array.isArray(data.expenses) && data.expenses.length > 0
+            ? data.expenses.map((e, i) => ({ ...e, _key: e._key ?? i }))
+            : PRESET_EXPENSES)
         }
         setLoading(false)
       })
   }, [user, isGuest, PRESET_EXPENSES])
 
   async function saveBudget(incomeVal, expensesVal) {
-    track('budget_updated', { income: parseFloat(incomeVal) || 0, expense_count: expensesVal.length })
+    const cleanExpenses = expensesVal.map(({ _key, ...rest }) => rest)
+    track('budget_updated', { income: parseFloat(incomeVal) || 0, expense_count: cleanExpenses.length })
     if (isGuest) {
       localStorage.setItem('remlo_guest_budget', JSON.stringify({
         income: parseFloat(incomeVal) || 0,
-        expenses: expensesVal,
+        expenses: cleanExpenses,
       }))
       return
     }
     if (!user) return
-    const payload = { income: parseFloat(incomeVal) || 0, expenses: expensesVal }
+    const payload = { income: parseFloat(incomeVal) || 0, expenses: cleanExpenses }
     let err
     if (budgetExists.current) {
       ({ error: err } = await supabase.from('budgets').update(payload).eq('user_id', user.id))
@@ -209,30 +214,32 @@ export default function Budget() {
     if (!amt || amt <= 0) { setAmountError(t('budget.errorAmount')); valid = false } else setAmountError('')
     if (!valid) return
 
-    const newExpenses = [...expenses, { name: newName.trim(), amount: amt }]
+    const newExpenses = [...expenses, { name: newName.trim(), amount: amt, _key: Date.now() }]
     setExpenses(newExpenses)
     setNewName('')
     setNewAmount('')
     saveBudget(income, newExpenses)
   }
 
-  function removeExpense(index) {
-    const newExpenses = expenses.filter((_, i) => i !== index)
+  function removeExpense(key) {
+    const newExpenses = expenses.filter((e) => e._key !== key)
     setExpenses(newExpenses)
     saveBudget(income, newExpenses)
   }
 
-  function startEdit(index) {
-    setEditingIndex(index)
-    setEditingValue(String(expenses[index].amount))
+  function startEdit(key) {
+    const e = expenses.find((exp) => exp._key === key)
+    setEditingKey(key)
+    setEditingValue(String(e.amount))
   }
 
-  function commitEdit(index) {
+  function commitEdit(key) {
     const amt = parseFloat(editingValue)
-    setEditingIndex(null)
+    setEditingKey(null)
     setEditingValue('')
-    if (!amt || amt <= 0 || amt === expenses[index].amount) return
-    const newExpenses = expenses.map((e, i) => i === index ? { ...e, amount: amt } : e)
+    const e = expenses.find((exp) => exp._key === key)
+    if (!amt || amt <= 0 || amt === e?.amount) return
+    const newExpenses = expenses.map((exp) => exp._key === key ? { ...exp, amount: amt } : exp)
     setExpenses(newExpenses)
     saveBudget(income, newExpenses)
   }
@@ -365,7 +372,7 @@ export default function Budget() {
                 const pct = monthlyIncome > 0 ? (e.amount / monthlyIncome) * 100 : 0
                 return (
                   <div
-                    key={i}
+                    key={e._key}
                     className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0 group"
                   >
                     <div className="flex items-center gap-3 min-w-0">
@@ -373,7 +380,7 @@ export default function Budget() {
                       <span className="text-sm text-gray-800 truncate">{e.name}</span>
                     </div>
                     <div className="flex items-center gap-3 flex-shrink-0">
-                      {editingIndex === i ? (
+                      {editingKey === e._key ? (
                         <div className="relative">
                           <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">S$</span>
                           <input
@@ -382,18 +389,18 @@ export default function Budget() {
                             min="0"
                             step="1"
                             value={editingValue}
-                            onChange={(e) => setEditingValue(e.target.value)}
-                            onBlur={() => commitEdit(i)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') e.target.blur()
-                              if (e.key === 'Escape') { setEditingIndex(null); setEditingValue('') }
+                            onChange={(ev) => setEditingValue(ev.target.value)}
+                            onBlur={() => commitEdit(e._key)}
+                            onKeyDown={(ev) => {
+                              if (ev.key === 'Enter') ev.target.blur()
+                              if (ev.key === 'Escape') { setEditingKey(null); setEditingValue('') }
                             }}
                             className="w-24 border border-blue-400 rounded-lg pl-6 pr-2 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           />
                         </div>
                       ) : (
                         <button
-                          onClick={() => startEdit(i)}
+                          onClick={() => startEdit(e._key)}
                           title="Click to edit"
                           className="text-sm font-medium text-gray-900 group/amt flex items-center gap-1 hover:text-blue-600 transition-colors"
                         >
@@ -405,13 +412,13 @@ export default function Budget() {
                           </svg>
                         </button>
                       )}
-                      {monthlyIncome > 0 && editingIndex !== i && (
+                      {monthlyIncome > 0 && editingKey !== e._key && (
                         <span className={`text-xs px-2 py-0.5 rounded-full ${c.light} ${c.text}`}>
                           {pct.toFixed(0)}%
                         </span>
                       )}
                       <button
-                        onClick={() => removeExpense(i)}
+                        onClick={() => removeExpense(e._key)}
                         aria-label="Remove"
                         className="w-8 h-8 flex items-center justify-center rounded-full text-gray-300 hover:text-rose-400 hover:bg-rose-50 transition-all text-lg"
                       >

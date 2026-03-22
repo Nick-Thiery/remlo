@@ -40,10 +40,10 @@ export async function migrateGuestData(userId) {
       const { error } = await supabase.from('salary_logs').insert(
         salary.map((p) => ({
           user_id: userId,
-          payment_date: p.date,
+          date: p.date,
           amount: p.amount,
           employer: p.employer,
-          note: p.note || null,
+          notes: p.note || null,
         }))
       )
       if (error) errors.push(error.message)
@@ -59,8 +59,8 @@ export async function migrateGuestData(userId) {
         loans.map((l) => ({
           user_id: userId,
           lender: l.lender,
-          principal: l.principal,
-          monthly_rate: l.rate,
+          total_amount: l.principal,
+          interest_rate: l.rate,
           monthly_payment: l.monthlyPayment,
           start_date: l.startDate,
         }))

@@ -6,9 +6,6 @@ export function initAnalytics() {
   const key = import.meta.env.VITE_POSTHOG_KEY
   const host = import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com'
 
-  console.log('PostHog key:', key)
-  console.log('PostHog host:', host)
-
   if (!key) {
     console.warn('PostHog: VITE_POSTHOG_KEY is not set — tracking disabled')
     return

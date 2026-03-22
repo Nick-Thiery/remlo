@@ -15,14 +15,19 @@ export function useRequireAuth() {
     }
 
     // Resolve the current session once on mount
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        if (!session) {
+          navigate('/login')
+        } else {
+          setUser(session.user)
+        }
+        setAuthLoading(false)
+      })
+      .catch(() => {
         navigate('/login')
-      } else {
-        setUser(session.user)
-      }
-      setAuthLoading(false)
-    })
+        setAuthLoading(false)
+      })
 
     // Keep in sync if the user signs out in another tab
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {

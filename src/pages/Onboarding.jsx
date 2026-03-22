@@ -3,17 +3,17 @@ import i18n from '../i18n.js'
 import { track } from '../lib/analytics.js'
 
 const COUNTRIES = [
-  { code: 'IN', flag: '🇮🇳', name: 'India',        lang: 'hi' },
-  { code: 'BD', flag: '🇧🇩', name: 'Bangladesh',   lang: 'bn' },
-  { code: 'PH', flag: '🇵🇭', name: 'Philippines',  lang: 'en' },
-  { code: 'MM', flag: '🇲🇲', name: 'Myanmar',      lang: 'en' },
-  { code: 'ID', flag: '🇮🇩', name: 'Indonesia',    lang: 'en' },
-  { code: 'LK', flag: '🇱🇰', name: 'Sri Lanka',    lang: 'ta' },
-  { code: 'CN', flag: '🇨🇳', name: 'China',        lang: 'en' },
-  { code: 'TH', flag: '🇹🇭', name: 'Thailand',     lang: 'en' },
-  { code: 'PK', flag: '🇵🇰', name: 'Pakistan',     lang: 'en' },
-  { code: 'NP', flag: '🇳🇵', name: 'Nepal',        lang: 'en' },
-  { code: 'OTHER', flag: '🌍', name: 'Other',      lang: 'en' },
+  { code: 'IN', flag: '🇮🇳', name: 'India',        lang: 'hi'  },
+  { code: 'BD', flag: '🇧🇩', name: 'Bangladesh',   lang: 'bn'  },
+  { code: 'PH', flag: '🇵🇭', name: 'Philippines',  lang: 'fil' },
+  { code: 'MM', flag: '🇲🇲', name: 'Myanmar',      lang: 'my'  },
+  { code: 'ID', flag: '🇮🇩', name: 'Indonesia',    lang: 'id'  },
+  { code: 'LK', flag: '🇱🇰', name: 'Sri Lanka',    lang: 'si'  },
+  { code: 'CN', flag: '🇨🇳', name: 'China',        lang: 'zh'  },
+  { code: 'TH', flag: '🇹🇭', name: 'Thailand',     lang: 'th'  },
+  { code: 'PK', flag: '🇵🇰', name: 'Pakistan',     lang: 'ur'  },
+  { code: 'NP', flag: '🇳🇵', name: 'Nepal',        lang: 'ne'  },
+  { code: 'OTHER', flag: '🌍', name: 'Other',      lang: 'en'  },
 ]
 
 const LANGUAGES = [
