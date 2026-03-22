@@ -1,23 +1,20 @@
 {
-  "greetingMorning":   "Good morning 👋",
+  "greetingMorning": "Good morning 👋",
   "greetingAfternoon": "Good afternoon 👋",
-  "greetingEvening":   "Good evening 👋",
+  "greetingEvening": "Good evening 👋",
   "greeting": "Good morning 👋",
   "appName": "Remlo",
   "footer": "Remlo v1.0 · Secured by Supabase · Made for workers in Singapore",
-
   "guestBanner": {
     "message": "Create an account to sync your data across devices",
     "signUp": "Sign Up"
   },
-
   "hero": {
     "eyebrow": "Built for you",
     "headline": "Your money,\nyour future.",
     "tagline": "Plan, save, and send money home — smarter, for less.",
     "cta": "Get Started"
   },
-
   "stats": {
     "heading": "Quick Stats",
     "totalSaved": "Total Saved",
@@ -26,15 +23,26 @@
     "budgetLeftSub": "this month",
     "dayStreak": "Day Streak"
   },
-
   "features": {
     "heading": "Features",
-    "savings": { "title": "Savings Goals", "description": "Track your targets — emergency fund, travel, family." },
-    "budget": { "title": "Budget Planner", "description": "Plan your monthly spend and see what you can save." },
-    "remittance": { "title": "Send Money", "description": "Compare Wise, Remitly, and more to get the best rate." },
-    "ai": { "title": "AI Assistant", "description": "Get personalised money tips based on your profile.", "badge": "Coming Soon" }
+    "savings": {
+      "title": "Savings Goals",
+      "description": "Track your targets — emergency fund, travel, family."
+    },
+    "budget": {
+      "title": "Budget Planner",
+      "description": "Plan your monthly spend and see what you can save."
+    },
+    "remittance": {
+      "title": "Send Money",
+      "description": "Compare Wise, Remitly, and more to get the best rate."
+    },
+    "ai": {
+      "title": "AI Assistant",
+      "description": "Get personalised money tips based on your profile.",
+      "badge": "Coming Soon"
+    }
   },
-
   "nav": {
     "home": "Home",
     "savings": "Savings",
@@ -50,18 +58,40 @@
     "signOut": "Sign Out",
     "endGuestSession": "End Guest Session"
   },
-
   "moreItems": {
-    "salary": { "label": "Salary Tracker", "desc": "Log payments and flag late paydays" },
-    "loans": { "label": "Loan Tracker", "desc": "Track repayments and payoff dates" },
-    "scams": { "label": "Scam Alerts", "desc": "Latest scams targeting workers in Singapore" },
-    "loanshark": { "label": "Loan Shark Guide", "desc": "Identify illegal lenders and get help" },
-    "scamQuiz":      { "label": "Scam Quiz", "desc": "Test your scam awareness in 8 questions" },
-    "emergencyFund": { "label": "Emergency Fund", "desc": "Calculate how much backup savings you need" },
-    "bankingGuide":  { "label": "Banking Guide", "desc": "How to open a bank account in Singapore" },
-    "emergency": { "label": "Emergency Contacts", "desc": "Helplines for workers in Singapore" }
+    "salary": {
+      "label": "Salary Tracker",
+      "desc": "Log payments and flag late paydays"
+    },
+    "loans": {
+      "label": "Loan Tracker",
+      "desc": "Track repayments and payoff dates"
+    },
+    "scams": {
+      "label": "Scam Alerts",
+      "desc": "Latest scams targeting workers in Singapore"
+    },
+    "loanshark": {
+      "label": "Loan Shark Guide",
+      "desc": "Identify illegal lenders and get help"
+    },
+    "scamQuiz": {
+      "label": "Scam Quiz",
+      "desc": "Test your scam awareness in 8 questions"
+    },
+    "emergencyFund": {
+      "label": "Emergency Fund",
+      "desc": "Calculate how much backup savings you need"
+    },
+    "bankingGuide": {
+      "label": "Banking Guide",
+      "desc": "How to open a bank account in Singapore"
+    },
+    "emergency": {
+      "label": "Emergency Contacts",
+      "desc": "Helplines for workers in Singapore"
+    }
   },
-
   "common": {
     "cancel": "Cancel",
     "save": "Save",
@@ -78,7 +108,6 @@
     "emergency": "Emergency",
     "nonEmergency": "Non-emergency"
   },
-
   "savings": {
     "pageTitle": "Savings Goals",
     "pageSubtitle_one": "{{count}} active goal",
@@ -108,7 +137,6 @@
     "errorTarget": "Enter a valid target amount.",
     "errorDeposit": "Enter a valid deposit amount."
   },
-
   "budget": {
     "pageTitle": "Budget Planner",
     "pageSubtitle": "Plan your monthly income and expenses",
@@ -147,7 +175,6 @@
     "presetTransport": "Transport",
     "presetPhone": "Phone Plan"
   },
-
   "remittance": {
     "pageTitle": "Send Money",
     "pageSubtitle": "Compare live rates across providers",
@@ -171,9 +198,20 @@
     "countryChina": "China",
     "countryThailand": "Thailand",
     "countryPakistan": "Pakistan",
-    "countryNepal": "Nepal"
+    "countryNepal": "Nepal",
+    "speedInstant": "Instant",
+    "speedInstant2hrs": "Instant – 2 hrs",
+    "speedMinutes": "Minutes",
+    "speed1to2days": "1 – 2 days",
+    "speed1to3days": "1 – 3 days",
+    "speed2to4days": "2 – 4 days",
+    "speed2to5days": "2 – 5 days",
+    "speed3to5days": "3 – 5 days",
+    "speed3to7days": "3 – 7 days",
+    "ratesFetching": "Fetching live rates…",
+    "ratesStale": "Rates may be outdated · Could not reach rate service",
+    "ratesLive": "Live rates · Updated {{time}}"
   },
-
   "salary": {
     "pageTitle": "Salary Tracker",
     "pageSubtitle": "{{count}} payments logged",
@@ -214,7 +252,6 @@
     "errorAmount": "Enter a valid amount",
     "errorEmployer": "Required"
   },
-
   "loans": {
     "pageTitle": "Loan Tracker",
     "pageSubtitle_one": "{{count}} active loan",
@@ -263,7 +300,6 @@
     "errorRate": "Enter a valid rate (0 or above)",
     "errorPayment": "Enter a valid payment amount"
   },
-
   "scams": {
     "emergencyBanner": "🚨 If you are in danger call 999  ·  MOM Helpline: 1800-333-1313",
     "pageTitle": "Scam Alerts",
@@ -363,7 +399,6 @@
       }
     ]
   },
-
   "loanshark": {
     "pageTitle": "Loan Shark Identifier",
     "pageSubtitle": "Check which statements apply to identify an illegal lender",
@@ -381,21 +416,70 @@
     "callPolice": "Call Police: 999",
     "disclaimer": "Information based on the Moneylenders Act (Cap. 188) and MOM guidelines. Not legal advice.",
     "flags": [
-      { "id": "unsolicited_contact", "label": "They contacted you first — by WhatsApp, SMS, or social media", "detail": "Licensed moneylenders in Singapore are prohibited by law from advertising via SMS, WhatsApp, phone calls, or social media. If they reached out to you, they are not licensed." },
-      { "id": "no_license", "label": "They cannot provide a license number or refuse to show it", "detail": "Every licensed moneylender must be registered with the Registry of Moneylenders. You can verify any license number at moneylenders.justice.gov.sg. Refusing to provide one is a serious red flag." },
-      { "id": "high_interest", "label": "Interest rate is above 4% per month", "detail": "Singapore law caps interest at 4% per month for all licensed moneylenders, regardless of your income or loan size. Any rate above this is illegal." },
-      { "id": "singpass_demand", "label": "They asked for your SingPass login or password", "detail": "No legitimate lender, bank, or government agency will ever ask for your SingPass credentials. This is identity theft. Do not provide them under any circumstances." },
-      { "id": "bank_login_demand", "label": "They asked for your internet banking login, ATM PIN, or bank card", "detail": "Licensed lenders disburse loans directly to your bank account — they have no reason to access your account themselves. Handing over banking access exposes all your savings." },
-      { "id": "no_contract", "label": "No written loan contract was provided, or it was blank / incomplete", "detail": "The Moneylenders Act requires a signed loan contract before any money changes hands. A legitimate lender will give you time to read it. Never sign a blank or partially filled form." },
-      { "id": "upfront_fee", "label": "They asked for an upfront fee or deposit before releasing the loan", "detail": "Licensed lenders may only deduct an administrative fee (max 10% of principal) from the loan amount itself — never as an upfront cash payment before you receive anything." },
-      { "id": "no_office", "label": "They have no physical office, or the office feels unofficial / residential", "detail": "All licensed moneylenders must operate from a registered commercial office address. If there is no office, or they only meet you in coffeeshops or via phone, they are not licensed." },
-      { "id": "threats", "label": "They threatened you, your family, or your employer", "detail": "Threats, harassment, property damage (splashing paint, locking doors), and contacting your employer are criminal offences in Singapore. You are a victim — call 999 immediately." },
-      { "id": "retain_id", "label": "They kept your passport, Work Permit, or IDs as collateral", "detail": "It is illegal for anyone to retain your travel or identity documents. Licensed moneylenders are expressly prohibited from doing this. Report to MOM or Police immediately." }
+      {
+        "id": "unsolicited_contact",
+        "label": "They contacted you first — by WhatsApp, SMS, or social media",
+        "detail": "Licensed moneylenders in Singapore are prohibited by law from advertising via SMS, WhatsApp, phone calls, or social media. If they reached out to you, they are not licensed."
+      },
+      {
+        "id": "no_license",
+        "label": "They cannot provide a license number or refuse to show it",
+        "detail": "Every licensed moneylender must be registered with the Registry of Moneylenders. You can verify any license number at moneylenders.justice.gov.sg. Refusing to provide one is a serious red flag."
+      },
+      {
+        "id": "high_interest",
+        "label": "Interest rate is above 4% per month",
+        "detail": "Singapore law caps interest at 4% per month for all licensed moneylenders, regardless of your income or loan size. Any rate above this is illegal."
+      },
+      {
+        "id": "singpass_demand",
+        "label": "They asked for your SingPass login or password",
+        "detail": "No legitimate lender, bank, or government agency will ever ask for your SingPass credentials. This is identity theft. Do not provide them under any circumstances."
+      },
+      {
+        "id": "bank_login_demand",
+        "label": "They asked for your internet banking login, ATM PIN, or bank card",
+        "detail": "Licensed lenders disburse loans directly to your bank account — they have no reason to access your account themselves. Handing over banking access exposes all your savings."
+      },
+      {
+        "id": "no_contract",
+        "label": "No written loan contract was provided, or it was blank / incomplete",
+        "detail": "The Moneylenders Act requires a signed loan contract before any money changes hands. A legitimate lender will give you time to read it. Never sign a blank or partially filled form."
+      },
+      {
+        "id": "upfront_fee",
+        "label": "They asked for an upfront fee or deposit before releasing the loan",
+        "detail": "Licensed lenders may only deduct an administrative fee (max 10% of principal) from the loan amount itself — never as an upfront cash payment before you receive anything."
+      },
+      {
+        "id": "no_office",
+        "label": "They have no physical office, or the office feels unofficial / residential",
+        "detail": "All licensed moneylenders must operate from a registered commercial office address. If there is no office, or they only meet you in coffeeshops or via phone, they are not licensed."
+      },
+      {
+        "id": "threats",
+        "label": "They threatened you, your family, or your employer",
+        "detail": "Threats, harassment, property damage (splashing paint, locking doors), and contacting your employer are criminal offences in Singapore. You are a victim — call 999 immediately."
+      },
+      {
+        "id": "retain_id",
+        "label": "They kept your passport, Work Permit, or IDs as collateral",
+        "detail": "It is illegal for anyone to retain your travel or identity documents. Licensed moneylenders are expressly prohibited from doing this. Report to MOM or Police immediately."
+      }
     ],
     "risks": {
-      "green": { "label": "Likely Legitimate", "summary": "No red flags selected. This may be a licensed moneylender. Always verify their license number at moneylenders.justice.gov.sg before signing anything." },
-      "yellow": { "label": "Be Cautious", "summary": "Some warning signs are present. Do not proceed until you have verified the lender's license number and received a full written contract. Consider calling Credit Counselling Singapore for advice." },
-      "red": { "label": "Likely Illegal — Do Not Proceed", "summary": "Multiple serious red flags indicate this is very likely an unlicensed moneylender (loan shark). Do not borrow, do not pay any fees, and do not hand over any documents or passwords. You are protected by law." }
+      "green": {
+        "label": "Likely Legitimate",
+        "summary": "No red flags selected. This may be a licensed moneylender. Always verify their license number at moneylenders.justice.gov.sg before signing anything."
+      },
+      "yellow": {
+        "label": "Be Cautious",
+        "summary": "Some warning signs are present. Do not proceed until you have verified the lender's license number and received a full written contract. Consider calling Credit Counselling Singapore for advice."
+      },
+      "red": {
+        "label": "Likely Illegal — Do Not Proceed",
+        "summary": "Multiple serious red flags indicate this is very likely an unlicensed moneylender (loan shark). Do not borrow, do not pay any fees, and do not hand over any documents or passwords. You are protected by law."
+      }
     },
     "legalFacts": [
       "Has a registered commercial office you can visit in person",
@@ -407,14 +491,38 @@
       "Deducts any admin fee from the loan — never asks for upfront cash before disbursement"
     ],
     "helpContacts": [
-      { "org": "X-Ah Long Hotline (Loan Shark Reporting)", "number": "1800-924-5664", "hours": "24 / 7", "note": "Anonymous reporting. You will not get in trouble for calling." },
-      { "org": "Singapore Police Force", "number": "999", "hours": "Emergency — 24 / 7", "note": "Call immediately if you are threatened, harassed, or in danger." },
-      { "org": "Registry of Moneylenders", "number": "1800-2255-529", "hours": "Mon–Fri 8:30 am – 5:30 pm", "note": "Verify a moneylender licence or report an illegal lender." },
-      { "org": "MOM Migrant Worker Helpline", "number": "1800-333-1313", "hours": "Mon–Fri 8:00 am – 5:00 pm", "note": "For work permit issues, employment disputes, and general assistance." },
-      { "org": "Credit Counselling Singapore", "number": "6225-5227", "hours": "Mon–Fri 9:00 am – 6:00 pm", "note": "Free debt counselling. They help you find legal ways to manage debt." }
+      {
+        "org": "X-Ah Long Hotline (Loan Shark Reporting)",
+        "number": "1800-924-5664",
+        "hours": "24 / 7",
+        "note": "Anonymous reporting. You will not get in trouble for calling."
+      },
+      {
+        "org": "Singapore Police Force",
+        "number": "999",
+        "hours": "Emergency — 24 / 7",
+        "note": "Call immediately if you are threatened, harassed, or in danger."
+      },
+      {
+        "org": "Registry of Moneylenders",
+        "number": "1800-2255-529",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
+        "note": "Verify a moneylender licence or report an illegal lender."
+      },
+      {
+        "org": "MOM Migrant Worker Helpline",
+        "number": "1800-333-1313",
+        "hours": "Mon–Fri 8:00 am – 5:00 pm",
+        "note": "For work permit issues, employment disputes, and general assistance."
+      },
+      {
+        "org": "Credit Counselling Singapore",
+        "number": "6225-5227",
+        "hours": "Mon–Fri 9:00 am – 6:00 pm",
+        "note": "Free debt counselling. They help you find legal ways to manage debt."
+      }
     ]
   },
-
   "chat": {
     "pageTitle": "AI Assistant",
     "pageSubtitle": "Financial guidance for workers",
@@ -431,7 +539,6 @@
     "disclaimer": "For guidance only. Call 999 in emergencies.",
     "noApiKey": "API key not configured. Add VITE_ANTHROPIC_API_KEY to your .env file."
   },
-
   "scamQuiz": {
     "pageTitle": "Scam Awareness Quiz",
     "scenarioLabel": "Scenario",
@@ -445,54 +552,94 @@
     "retryBtn": "Try again",
     "scamAlertsBtn": "See scam alerts",
     "ratings": [
-      { "label": "You need to be careful",  "desc": "Scammers specifically target migrant workers. Learn the warning signs below and stay safe." },
-      { "label": "Good awareness",           "desc": "You know some scam tactics — but one mistake can cost you thousands. Review the tips below." },
-      { "label": "Scam expert!",             "desc": "Excellent! Share what you know with your friends and help keep your community safe." }
+      {
+        "label": "You need to be careful",
+        "desc": "Scammers specifically target migrant workers. Learn the warning signs below and stay safe."
+      },
+      {
+        "label": "Good awareness",
+        "desc": "You know some scam tactics — but one mistake can cost you thousands. Review the tips below."
+      },
+      {
+        "label": "Scam expert!",
+        "desc": "Excellent! Share what you know with your friends and help keep your community safe."
+      }
     ],
     "questions": [
       {
         "scenario": "A stranger messages you on WhatsApp: \"Hi, I am from MOM. Your work pass has a problem. Send me your SingPass login and password now or your pass will be cancelled today.\"",
-        "options": ["Send my SingPass details quickly so I don't lose my job", "This is a scam — MOM never asks for SingPass passwords", "Ask the person for their staff ID first, then decide"],
+        "options": [
+          "Send my SingPass details quickly so I don't lose my job",
+          "This is a scam — MOM never asks for SingPass passwords",
+          "Ask the person for their staff ID first, then decide"
+        ],
         "explanation": "MOM, police, banks, and government agencies will NEVER ask for your SingPass password or OTP. Hang up or ignore the message and call MOM directly at 6438-5122 to verify."
       },
       {
         "scenario": "A Facebook ad offers a job in Singapore paying S$4,000/month for light work. No experience needed. You just need to pay a S$300 \"registration fee\" to secure your spot.",
-        "options": ["Pay the fee — good jobs go fast", "This is a job scam — legitimate employers never charge workers upfront fees", "Negotiate the fee down to S$100 before paying"],
+        "options": [
+          "Pay the fee — good jobs go fast",
+          "This is a job scam — legitimate employers never charge workers upfront fees",
+          "Negotiate the fee down to S$100 before paying"
+        ],
         "explanation": "Under the Employment of Foreign Manpower Act, employers cannot charge workers recruitment fees. Any job that requires you to pay money first is a scam. Report to MOM at 1800-333-1313."
       },
       {
         "scenario": "Someone slips a card under your dormitory door: \"Need cash fast? No credit check! Borrow up to S$5,000 today. WhatsApp us.\" The card has no company name or licence number.",
-        "options": ["WhatsApp them — it's convenient and I need money urgently", "Ignore it — this is an unlicensed loan shark (Ah Long)", "Borrow a small amount first to test if they're trustworthy"],
+        "options": [
+          "WhatsApp them — it's convenient and I need money urgently",
+          "Ignore it — this is an unlicensed loan shark (Ah Long)",
+          "Borrow a small amount first to test if they're trustworthy"
+        ],
         "explanation": "Licensed moneylenders in Singapore advertise only through their own websites, business directories, or physical premises — never by flyers or SMS. Borrowing from loan sharks leads to harassment and violence. Call the X-Ah Long hotline: 1800-924-5664."
       },
       {
         "scenario": "Your employer has not paid your salary for 2 months. He says: \"Don't report to MOM or I will cancel your work pass and send you home.\" What should you do?",
-        "options": ["Wait quietly — I can't risk losing my work pass", "Report to MOM — they protect workers and cannot cancel your pass for reporting", "Borrow money from friends and say nothing"],
+        "options": [
+          "Wait quietly — I can't risk losing my work pass",
+          "Report to MOM — they protect workers and cannot cancel your pass for reporting",
+          "Borrow money from friends and say nothing"
+        ],
         "explanation": "MOM protects workers who make salary claims. Your employer CANNOT cancel your work pass just for reporting unpaid wages — that would be an additional offence. File a salary claim at mom.gov.sg or call 1800-333-1313."
       },
       {
         "scenario": "A new friend asks if you can receive S$8,000 into your bank account and transfer it to another account for a \"small commission.\" He says it's for his business.",
-        "options": ["Agree — it's easy money and I'm just moving funds", "Refuse — using your account this way is money mule fraud, which is a criminal offence", "Ask for a bigger commission before agreeing"],
+        "options": [
+          "Agree — it's easy money and I'm just moving funds",
+          "Refuse — using your account this way is money mule fraud, which is a criminal offence",
+          "Ask for a bigger commission before agreeing"
+        ],
         "explanation": "Allowing others to use your bank account to move money is a criminal offence in Singapore under the Corruption, Drug Trafficking and Other Serious Crimes Act. You can be jailed up to 3 years and fined up to S$50,000, even if you didn't know the money was from crime."
       },
       {
         "scenario": "You receive an SMS: \"DBS Bank: Unusual login detected on your account. Click this link to verify: dbs-secure-login.com.\" The link looks different from the official DBS website.",
-        "options": ["Click the link and log in quickly to protect my account", "Delete the SMS — this is a phishing scam. Call DBS directly at 1800-111-1111", "Forward the link to a friend to check if it's real"],
+        "options": [
+          "Click the link and log in quickly to protect my account",
+          "Delete the SMS — this is a phishing scam. Call DBS directly at 1800-111-1111",
+          "Forward the link to a friend to check if it's real"
+        ],
         "explanation": "Banks never send links asking you to log in. The real DBS site is dbs.com.sg — anything else is fake. Always type the bank's URL yourself or call the number on the back of your card. You can also call ScamShield helpline: 1799."
       },
       {
         "scenario": "An online \"investment guru\" in a Telegram group says you can double your money in 30 days by investing in a special cryptocurrency fund. Many people in the group post screenshots of their big profits.",
-        "options": ["Invest S$500 — the testimonials look convincing", "Report the group — this is a classic investment scam with fake testimonials", "Wait to see if others get paid before investing"],
+        "options": [
+          "Invest S$500 — the testimonials look convincing",
+          "Report the group — this is a classic investment scam with fake testimonials",
+          "Wait to see if others get paid before investing"
+        ],
         "explanation": "Guaranteed high returns in a short time is the #1 sign of a scam. The profit screenshots are fake, and the \"group members\" praising the scheme are paid scammers. Report investment scams to the police at police.gov.sg/iwitness or call 999."
       },
       {
         "scenario": "A landlord on Carousell asks for 3 months' rent (S$2,400) as deposit via PayNow before you can view the room. He says many people want the room and it will be gone by tonight.",
-        "options": ["Transfer the money fast before someone else takes the room", "Refuse — never pay before viewing. This is likely a rental scam", "Pay half now and half after viewing"],
+        "options": [
+          "Transfer the money fast before someone else takes the room",
+          "Refuse — never pay before viewing. This is likely a rental scam",
+          "Pay half now and half after viewing"
+        ],
         "explanation": "Urgency and pressure to pay before viewing are classic rental scam tactics. Always view the property in person, verify the landlord's identity and ownership, and never transfer money before signing a contract. Check scamalert.sg for reported scam listings."
       }
     ]
   },
-
   "emergencyFund": {
     "pageTitle": "Emergency Fund Calculator",
     "pageSubtitle": "Know exactly how much you need — and how long to get there.",
@@ -514,20 +661,31 @@
     "tipsHeading": "Where to keep your emergency fund",
     "disclaimer": "Deposit insurance in Singapore protects up to S$75,000 per bank per depositor via SDIC.",
     "tips": [
-      { "title": "POSB / DBS eMySavings",               "body": "No minimum balance, no fall-below fee. Open online with SingPass. Your money is protected by SDIC up to S$75,000." },
-      { "title": "GXS Bank or MariBank",                "body": "Digital banks open to work-pass holders. Higher savings interest (up to ~3%), no fees, no minimum balance." },
-      { "title": "Keep it separate",                    "body": "Put your emergency fund in a different account from your spending account so you're not tempted to dip into it." },
-      { "title": "Avoid informal savings groups (ROSCAs)", "body": "\"Chit funds\" or rotating savings clubs have no legal protection. If the organiser disappears, your money is gone." }
+      {
+        "title": "POSB / DBS eMySavings",
+        "body": "No minimum balance, no fall-below fee. Open online with SingPass. Your money is protected by SDIC up to S$75,000."
+      },
+      {
+        "title": "GXS Bank or MariBank",
+        "body": "Digital banks open to work-pass holders. Higher savings interest (up to ~3%), no fees, no minimum balance."
+      },
+      {
+        "title": "Keep it separate",
+        "body": "Put your emergency fund in a different account from your spending account so you're not tempted to dip into it."
+      },
+      {
+        "title": "Avoid informal savings groups (ROSCAs)",
+        "body": "\"Chit funds\" or rotating savings clubs have no legal protection. If the organiser disappears, your money is gone."
+      }
     ],
     "time": {
-      "oneMonth":    "1 month",
-      "months":      "{{count}} months",
-      "oneYear":     "1 year",
-      "years":       "{{count}} years",
+      "oneMonth": "1 month",
+      "months": "{{count}} months",
+      "oneYear": "1 year",
+      "years": "{{count}} years",
       "yearsMonths": "{{years}} yr {{months}} mo"
     }
   },
-
   "bankingGuide": {
     "pageTitle": "Banking in Singapore",
     "pageSubtitle": "How to open an account, what you need, and what to do if something goes wrong.",
@@ -547,54 +705,135 @@
     "noFeeLabel": "No fall-below fee",
     "disclaimer": "Information correct as of early 2025. Always verify directly with the bank before visiting.",
     "docs": [
-      { "label": "Work Permit card", "sub": "The blue card from MOM — always carry it" },
-      { "label": "Passport",         "sub": "Original + photocopy of photo page" },
-      { "label": "Employer letter",  "sub": "On company letterhead, with company stamp, confirming your employment and salary" },
-      { "label": "Address proof",    "sub": "Tenancy agreement or employer letter showing your Singapore address" }
+      {
+        "label": "Work Permit card",
+        "sub": "The blue card from MOM — always carry it"
+      },
+      {
+        "label": "Passport",
+        "sub": "Original + photocopy of photo page"
+      },
+      {
+        "label": "Employer letter",
+        "sub": "On company letterhead, with company stamp, confirming your employment and salary"
+      },
+      {
+        "label": "Address proof",
+        "sub": "Tenancy agreement or employer letter showing your Singapore address"
+      }
     ],
     "banks": [
       {
-        "name": "POSB Everyday Savings",   "fee": "No fall-below fee",              "minBalance": "None",
+        "name": "POSB Everyday Savings",
+        "fee": "No fall-below fee",
+        "minBalance": "None",
         "notes": "Best for most workers. Widest ATM network in Singapore (over 1,400 machines). Accepts work permit holders.",
-        "docs": ["Work Permit (blue card)", "Passport", "Singapore address proof (employer letter or tenancy agreement)"]
+        "docs": [
+          "Work Permit (blue card)",
+          "Passport",
+          "Singapore address proof (employer letter or tenancy agreement)"
+        ]
       },
       {
-        "name": "DBS Multiplier Account",  "fee": "S$2/month if balance < S$3,000", "minBalance": "S$3,000 to avoid fee",
+        "name": "DBS Multiplier Account",
+        "fee": "S$2/month if balance < S$3,000",
+        "minBalance": "S$3,000 to avoid fee",
         "notes": "Higher interest rates if you receive salary and transact regularly. Good once you have some savings built up.",
-        "docs": ["Work Permit or S Pass or Employment Pass", "Passport", "SingPass (if available)"]
+        "docs": [
+          "Work Permit or S Pass or Employment Pass",
+          "Passport",
+          "SingPass (if available)"
+        ]
       },
       {
-        "name": "OCBC 360 Account",        "fee": "S$2/month if balance < S$1,000", "minBalance": "S$1,000 to avoid fee",
+        "name": "OCBC 360 Account",
+        "fee": "S$2/month if balance < S$1,000",
+        "minBalance": "S$1,000 to avoid fee",
         "notes": "Bonus interest when you credit salary. Work permit holders accepted. Branch visit required to open.",
-        "docs": ["Work Permit", "Passport", "Employer letter"]
+        "docs": [
+          "Work Permit",
+          "Passport",
+          "Employer letter"
+        ]
       },
       {
-        "name": "UOB One Account",         "fee": "S$2/month if balance < S$1,000", "minBalance": "S$1,000 to avoid fee",
+        "name": "UOB One Account",
+        "fee": "S$2/month if balance < S$1,000",
+        "minBalance": "S$1,000 to avoid fee",
         "notes": "Good interest on salary crediting. Some branches serve foreign workers — call ahead to confirm.",
-        "docs": ["Work Permit or S Pass", "Passport", "Employer letter with company stamp"]
+        "docs": [
+          "Work Permit or S Pass",
+          "Passport",
+          "Employer letter with company stamp"
+        ]
       }
     ],
     "digital": [
-      { "name": "GXS Bank",     "badge": "Best interest rate",  "requirement": "Work permit + Singapore mobile number",     "desc": "A fully digital bank open to work permit holders. No minimum balance, no fees. Offers up to 3.48% interest on savings. Open entirely through the app — no branch visit needed." },
-      { "name": "MariBank",     "badge": "No fees",             "requirement": "Work permit + Singapore mobile number",     "desc": "Sea Group's digital bank. No minimum balance, no fall-below fee, competitive savings rate. Open via app with your work permit details." },
-      { "name": "YouTrip",      "badge": "Best for remittance", "requirement": "Work permit or FIN number",                 "desc": "Multi-currency e-wallet. Great for sending money home at low rates and paying in your home currency when shopping online. Not a full bank — no interest on balance." },
-      { "name": "GrabPay",      "badge": "Widely accepted",     "requirement": "Singapore mobile number",                   "desc": "E-wallet linked to your Grab app. Accepted at thousands of merchants, hawker centres, and for GrabFood. Top up via PayNow or ATM. No bank account required to start." },
-      { "name": "Singtel Dash", "badge": "Easy top-up",         "requirement": "Any mobile number (no bank account needed)", "desc": "E-wallet by Singtel. Top up with cash at 7-Eleven or Cheers stores — useful if you don't have a local bank account yet. Can send money to over 30 countries." }
+      {
+        "name": "GXS Bank",
+        "badge": "Best interest rate",
+        "requirement": "Work permit + Singapore mobile number",
+        "desc": "A fully digital bank open to work permit holders. No minimum balance, no fees. Offers up to 3.48% interest on savings. Open entirely through the app — no branch visit needed."
+      },
+      {
+        "name": "MariBank",
+        "badge": "No fees",
+        "requirement": "Work permit + Singapore mobile number",
+        "desc": "Sea Group's digital bank. No minimum balance, no fall-below fee, competitive savings rate. Open via app with your work permit details."
+      },
+      {
+        "name": "YouTrip",
+        "badge": "Best for remittance",
+        "requirement": "Work permit or FIN number",
+        "desc": "Multi-currency e-wallet. Great for sending money home at low rates and paying in your home currency when shopping online. Not a full bank — no interest on balance."
+      },
+      {
+        "name": "GrabPay",
+        "badge": "Widely accepted",
+        "requirement": "Singapore mobile number",
+        "desc": "E-wallet linked to your Grab app. Accepted at thousands of merchants, hawker centres, and for GrabFood. Top up via PayNow or ATM. No bank account required to start."
+      },
+      {
+        "name": "Singtel Dash",
+        "badge": "Easy top-up",
+        "requirement": "Any mobile number (no bank account needed)",
+        "desc": "E-wallet by Singtel. Top up with cash at 7-Eleven or Cheers stores — useful if you don't have a local bank account yet. Can send money to over 30 countries."
+      }
     ],
     "steps": [
-      { "title": "Know your rights",              "body": "It is illegal in Singapore for your employer to hold your bank card, ATM card, or passbook. This is covered under the Employment Act and MOM regulations." },
-      { "title": "Ask politely first",            "body": "Tell your employer: \"I need my bank card to withdraw my own salary.\" Most employers will return it when asked directly." },
-      { "title": "Contact MOM",                   "body": "If your employer refuses, call MOM at 1800-333-1313 (free call, Monday–Friday 8:30am–5:30pm). They can intervene on your behalf." },
-      { "title": "Call the police if threatened", "body": "If your employer threatens you for asking for your card back, call 999. Withholding your card by force is a criminal matter." },
-      { "title": "Replace the card if needed",   "body": "Go to your bank branch with your work permit and passport. Tell them your card was taken. The bank will cancel the old card and issue a new one — usually free of charge." }
+      {
+        "title": "Know your rights",
+        "body": "It is illegal in Singapore for your employer to hold your bank card, ATM card, or passbook. This is covered under the Employment Act and MOM regulations."
+      },
+      {
+        "title": "Ask politely first",
+        "body": "Tell your employer: \"I need my bank card to withdraw my own salary.\" Most employers will return it when asked directly."
+      },
+      {
+        "title": "Contact MOM",
+        "body": "If your employer refuses, call MOM at 1800-333-1313 (free call, Monday–Friday 8:30am–5:30pm). They can intervene on your behalf."
+      },
+      {
+        "title": "Call the police if threatened",
+        "body": "If your employer threatens you for asking for your card back, call 999. Withholding your card by force is a criminal matter."
+      },
+      {
+        "title": "Replace the card if needed",
+        "body": "Go to your bank branch with your work permit and passport. Tell them your card was taken. The bank will cancel the old card and issue a new one — usually free of charge."
+      }
     ],
     "helplines": [
-      { "label": "MOM Helpline (salary & card disputes)" },
-      { "label": "Police (emergency / threats)" },
-      { "label": "TWC2 (Transient Workers Count Too)" }
+      {
+        "label": "MOM Helpline (salary & card disputes)"
+      },
+      {
+        "label": "Police (emergency / threats)"
+      },
+      {
+        "label": "TWC2 (Transient Workers Count Too)"
+      }
     ]
   },
-
   "emergency": {
     "dangerText": "In immediate danger?",
     "callPolice": "Call 999 — Police Emergency",

@@ -31,6 +31,7 @@ const FALLBACK_MID_RATES = {
 }
 
 // Provider spread on top of mid-market rate, plus flat fees per destination country
+// speed values are i18n keys under remittance.*
 const PROVIDER_CONFIG = [
   {
     id: 'wise',
@@ -38,7 +39,7 @@ const PROVIDER_CONFIG = [
     color: 'bg-emerald-500',
     spread: 0.005, // 0.5% — closest to mid-market
     fees:  { IN: 1.40,  BD: 1.65,  PH: 1.50,  MM: 2.10,  ID: 1.80,  LK: 1.55,  CN: 1.20, TH: 1.40, PK: 1.80,  NP: 1.60  },
-    speed: { IN: 'Instant – 2 hrs', BD: '1 – 2 days', PH: 'Instant', MM: '2 – 5 days', ID: 'Instant', LK: '1 – 2 days', CN: '1 – 2 days', TH: 'Instant', PK: '1 – 2 days', NP: '1 – 2 days' },
+    speed: { IN: 'remittance.speedInstant2hrs', BD: 'remittance.speed1to2days', PH: 'remittance.speedInstant', MM: 'remittance.speed2to5days', ID: 'remittance.speedInstant', LK: 'remittance.speed1to2days', CN: 'remittance.speed1to2days', TH: 'remittance.speedInstant', PK: 'remittance.speed1to2days', NP: 'remittance.speed1to2days' },
   },
   {
     id: 'remitly',
@@ -46,7 +47,7 @@ const PROVIDER_CONFIG = [
     color: 'bg-blue-500',
     spread: 0.010, // 1%
     fees:  { IN: 0.00,  BD: 0.00,  PH: 0.00,  MM: 0.00,  ID: 0.00,  LK: 0.00,  CN: 0.00, TH: 0.00, PK: 0.00,  NP: 0.00  },
-    speed: { IN: 'Instant', BD: '3 – 5 days', PH: 'Instant', MM: '3 – 7 days', ID: 'Instant', LK: '3 – 5 days', CN: '2 – 4 days', TH: 'Instant', PK: '3 – 5 days', NP: '3 – 5 days' },
+    speed: { IN: 'remittance.speedInstant', BD: 'remittance.speed3to5days', PH: 'remittance.speedInstant', MM: 'remittance.speed3to7days', ID: 'remittance.speedInstant', LK: 'remittance.speed3to5days', CN: 'remittance.speed2to4days', TH: 'remittance.speedInstant', PK: 'remittance.speed3to5days', NP: 'remittance.speed3to5days' },
   },
   {
     id: 'wu',
@@ -54,7 +55,7 @@ const PROVIDER_CONFIG = [
     color: 'bg-yellow-500',
     spread: 0.020, // 2%
     fees:  { IN: 3.90,  BD: 4.50,  PH: 3.50,  MM: 5.00,  ID: 4.00,  LK: 4.20,  CN: 3.80, TH: 3.50, PK: 4.50,  NP: 4.00  },
-    speed: { IN: 'Minutes', BD: 'Minutes', PH: 'Minutes', MM: 'Minutes', ID: 'Minutes', LK: 'Minutes', CN: 'Minutes', TH: 'Minutes', PK: 'Minutes', NP: 'Minutes' },
+    speed: { IN: 'remittance.speedMinutes', BD: 'remittance.speedMinutes', PH: 'remittance.speedMinutes', MM: 'remittance.speedMinutes', ID: 'remittance.speedMinutes', LK: 'remittance.speedMinutes', CN: 'remittance.speedMinutes', TH: 'remittance.speedMinutes', PK: 'remittance.speedMinutes', NP: 'remittance.speedMinutes' },
   },
   {
     id: 'bank',
@@ -62,7 +63,7 @@ const PROVIDER_CONFIG = [
     color: 'bg-gray-400',
     spread: 0.030, // 3%
     fees:  { IN: 15.00, BD: 15.00, PH: 15.00, MM: 15.00, ID: 15.00, LK: 15.00, CN: 15.00, TH: 15.00, PK: 15.00, NP: 15.00 },
-    speed: { IN: '1 – 3 days', BD: '2 – 5 days', PH: '1 – 3 days', MM: '3 – 7 days', ID: '2 – 4 days', LK: '2 – 5 days', CN: '2 – 4 days', TH: '1 – 3 days', PK: '2 – 5 days', NP: '2 – 5 days' },
+    speed: { IN: 'remittance.speed1to3days', BD: 'remittance.speed2to5days', PH: 'remittance.speed1to3days', MM: 'remittance.speed3to7days', ID: 'remittance.speed2to4days', LK: 'remittance.speed2to5days', CN: 'remittance.speed2to4days', TH: 'remittance.speed1to3days', PK: 'remittance.speed2to5days', NP: 'remittance.speed2to5days' },
   },
 ]
 
@@ -181,17 +182,17 @@ export default function Remittance() {
           {ratesLoading ? (
             <>
               <RefreshCw className="w-3.5 h-3.5 animate-spin flex-shrink-0" />
-              <span>Fetching live rates…</span>
+              <span>{t('remittance.ratesFetching')}</span>
             </>
           ) : ratesStale ? (
             <>
               <WifiOff className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>Rates may be outdated · Could not reach rate service</span>
+              <span>{t('remittance.ratesStale')}</span>
             </>
           ) : (
             <>
               <span className="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0" />
-              <span>Live rates · Updated {fetchedAt ? formatTime(fetchedAt) : ''}</span>
+              <span>{t('remittance.ratesLive', { time: fetchedAt ? formatTime(fetchedAt) : '' })}</span>
             </>
           )}
         </div>
@@ -322,7 +323,7 @@ export default function Remittance() {
                             <p className="font-semibold text-gray-900 text-sm">{p.name}</p>
                             <div className="flex items-center gap-1 text-gray-400 mt-0.5">
                               <SpeedIcon />
-                              <span className="text-xs">{p.speed[country]}</span>
+                              <span className="text-xs">{t(p.speed[country])}</span>
                             </div>
                           </div>
                         </div>

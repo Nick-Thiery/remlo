@@ -194,7 +194,19 @@
     "countryChina": "চীন",
     "countryThailand": "থাইল্যান্ড",
     "countryPakistan": "পাকিস্তান",
-    "countryNepal": "নেপাল"
+    "countryNepal": "নেপাল",
+    "speedInstant": "তাৎক্ষণিক",
+    "speedInstant2hrs": "তাৎক্ষণিক – ২ ঘণ্টা",
+    "speedMinutes": "কয়েক মিনিট",
+    "speed1to2days": "১ – ২ দিন",
+    "speed1to3days": "১ – ৩ দিন",
+    "speed2to4days": "২ – ৪ দিন",
+    "speed2to5days": "২ – ৫ দিন",
+    "speed3to5days": "৩ – ৫ দিন",
+    "speed3to7days": "৩ – ৭ দিন",
+    "ratesFetching": "লাইভ রেট আনা হচ্ছে…",
+    "ratesStale": "রেট পুরানো হতে পারে · রেট সেবায় পৌঁছানো যাচ্ছে না",
+    "ratesLive": "লাইভ রেট · {{time}}-এ আপডেট"
   },
   "salary": {
     "pageTitle": "বেতন ট্র্যাকার",

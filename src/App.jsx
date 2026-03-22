@@ -36,6 +36,8 @@ import Login from './pages/Login.jsx'
 import ScamQuiz from './pages/ScamQuiz.jsx'
 import EmergencyFund from './pages/EmergencyFund.jsx'
 import BankingGuide from './pages/BankingGuide.jsx'
+import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
+import TermsOfService from './pages/TermsOfService.jsx'
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -245,6 +247,23 @@ function MorePage() {
         </div>
 
         <p className="text-xs text-center text-gray-400 mt-8">{t('nav.drawerFooter')}</p>
+
+        {/* Legal links */}
+        <div className="flex items-center justify-center gap-4 mt-3">
+          <button
+            onClick={() => navigate('/privacy')}
+            className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors"
+          >
+            Privacy Policy
+          </button>
+          <span className="text-gray-200 text-xs">·</span>
+          <button
+            onClick={() => navigate('/terms')}
+            className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors"
+          >
+            Terms of Service
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -356,6 +375,8 @@ function AppShell() {
             <Route path="/scam-quiz"      element={<ScamQuiz />}      />
             <Route path="/emergency-fund" element={<EmergencyFund />}  />
             <Route path="/banking-guide"  element={<BankingGuide />}  />
+            <Route path="/privacy"    element={<PrivacyPolicy />}   />
+            <Route path="/terms"      element={<TermsOfService />}  />
             <Route path="/login"      element={<Login />}      />
           </Routes>
           </AuthGuard>

@@ -194,7 +194,19 @@
     "countryChina": "චීනය",
     "countryThailand": "තායිලන්තය",
     "countryPakistan": "පාකිස්තානය",
-    "countryNepal": "නේපාලය"
+    "countryNepal": "නේපාලය",
+    "speedInstant": "ක්ෂණිකව",
+    "speedInstant2hrs": "ක්ෂණිකව – පැය 2",
+    "speedMinutes": "මිනිත්තු කිහිපයක්",
+    "speed1to2days": "දින 1 – 2",
+    "speed1to3days": "දින 1 – 3",
+    "speed2to4days": "දින 2 – 4",
+    "speed2to5days": "දින 2 – 5",
+    "speed3to5days": "දින 3 – 5",
+    "speed3to7days": "දින 3 – 7",
+    "ratesFetching": "සජීවී අනුපාත ලබාගනිමින්…",
+    "ratesStale": "අනුපාත යල්පැනිය හැක · සේවාවට ළඟා විය නොහැකිය",
+    "ratesLive": "සජීවී අනුපාත · {{time}} ට යාවත්කාලීන"
   },
   "salary": {
     "pageTitle": "වැටුප් ලේඛනය",

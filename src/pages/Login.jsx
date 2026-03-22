@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { migrateGuestData } from '../lib/migrateGuestData.js'
 import { track, identifyUser } from '../lib/analytics.js'
@@ -138,6 +138,16 @@ function Login() {
             Guest data is saved on this device only.
             <br />Create an account to sync across devices.
           </p>
+
+          <div className="flex items-center justify-center gap-4 mt-4">
+            <Link to="/privacy" className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="text-gray-200 text-xs">·</span>
+            <Link to="/terms" className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
 

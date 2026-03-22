@@ -194,7 +194,19 @@
     "countryChina": "चीन",
     "countryThailand": "थाइल्याण्ड",
     "countryPakistan": "पाकिस्तान",
-    "countryNepal": "नेपाल"
+    "countryNepal": "नेपाल",
+    "speedInstant": "तुरुन्त",
+    "speedInstant2hrs": "तुरुन्त – २ घण्टा",
+    "speedMinutes": "केही मिनेट",
+    "speed1to2days": "१ – २ दिन",
+    "speed1to3days": "१ – ३ दिन",
+    "speed2to4days": "२ – ४ दिन",
+    "speed2to5days": "२ – ५ दिन",
+    "speed3to5days": "३ – ५ दिन",
+    "speed3to7days": "३ – ७ दिन",
+    "ratesFetching": "लाइभ दरहरू ल्याइँदैछ…",
+    "ratesStale": "दरहरू पुराना हुन सक्छन् · सेवामा पहुँच गर्न सकिएन",
+    "ratesLive": "लाइभ दरहरू · {{time}} मा अपडेट"
   },
   "salary": {
     "pageTitle": "तलब ट्र्याकर",

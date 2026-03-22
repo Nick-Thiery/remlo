@@ -194,7 +194,19 @@
     "countryChina": "சீனா",
     "countryThailand": "தாய்லாந்து",
     "countryPakistan": "பாகிஸ்தான்",
-    "countryNepal": "நேபாளம்"
+    "countryNepal": "நேபாளம்",
+    "speedInstant": "உடனடி",
+    "speedInstant2hrs": "உடனடி – 2 மணி நேரம்",
+    "speedMinutes": "சில நிமிடங்கள்",
+    "speed1to2days": "1 – 2 நாட்கள்",
+    "speed1to3days": "1 – 3 நாட்கள்",
+    "speed2to4days": "2 – 4 நாட்கள்",
+    "speed2to5days": "2 – 5 நாட்கள்",
+    "speed3to5days": "3 – 5 நாட்கள்",
+    "speed3to7days": "3 – 7 நாட்கள்",
+    "ratesFetching": "நேரடி விகிதங்கள் பெறப்படுகின்றன…",
+    "ratesStale": "விகிதங்கள் காலாவதியாகியிருக்கலாம் · சேவையை அணுக முடியவில்லை",
+    "ratesLive": "நேரடி விகிதங்கள் · {{time}} இல் புதுப்பிக்கப்பட்டது"
   },
   "salary": {
     "pageTitle": "சம்பள கண்காணிப்பு",

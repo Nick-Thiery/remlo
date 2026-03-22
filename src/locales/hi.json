@@ -194,7 +194,19 @@
     "countryChina": "चीन",
     "countryThailand": "थाईलैंड",
     "countryPakistan": "पाकिस्तान",
-    "countryNepal": "नेपाल"
+    "countryNepal": "नेपाल",
+    "speedInstant": "तुरंत",
+    "speedInstant2hrs": "तुरंत – 2 घंटे",
+    "speedMinutes": "कुछ मिनट",
+    "speed1to2days": "1 – 2 दिन",
+    "speed1to3days": "1 – 3 दिन",
+    "speed2to4days": "2 – 4 दिन",
+    "speed2to5days": "2 – 5 दिन",
+    "speed3to5days": "3 – 5 दिन",
+    "speed3to7days": "3 – 7 दिन",
+    "ratesFetching": "लाइव दरें प्राप्त हो रही हैं…",
+    "ratesStale": "दरें पुरानी हो सकती हैं · सेवा से संपर्क नहीं हो सका",
+    "ratesLive": "लाइव दरें · {{time}} को अपडेट किया"
   },
   "salary": {
     "pageTitle": "वेतन ट्रैकर",

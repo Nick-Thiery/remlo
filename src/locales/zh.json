@@ -194,7 +194,19 @@
     "countryChina": "中国",
     "countryThailand": "泰国",
     "countryPakistan": "巴基斯坦",
-    "countryNepal": "尼泊尔"
+    "countryNepal": "尼泊尔",
+    "speedInstant": "即时",
+    "speedInstant2hrs": "即时 – 2小时",
+    "speedMinutes": "几分钟",
+    "speed1to2days": "1 – 2天",
+    "speed1to3days": "1 – 3天",
+    "speed2to4days": "2 – 4天",
+    "speed2to5days": "2 – 5天",
+    "speed3to5days": "3 – 5天",
+    "speed3to7days": "3 – 7天",
+    "ratesFetching": "正在获取实时汇率…",
+    "ratesStale": "汇率可能已过时 · 无法连接汇率服务",
+    "ratesLive": "实时汇率 · 更新于 {{time}}"
   },
   "salary": {
     "pageTitle": "工资记录",

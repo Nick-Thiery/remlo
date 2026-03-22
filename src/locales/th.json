@@ -194,7 +194,19 @@
     "countryChina": "จีน",
     "countryThailand": "ไทย",
     "countryPakistan": "ปากีสถาน",
-    "countryNepal": "เนปาล"
+    "countryNepal": "เนปาล",
+    "speedInstant": "ทันที",
+    "speedInstant2hrs": "ทันที – 2 ชั่วโมง",
+    "speedMinutes": "ไม่กี่นาที",
+    "speed1to2days": "1 – 2 วัน",
+    "speed1to3days": "1 – 3 วัน",
+    "speed2to4days": "2 – 4 วัน",
+    "speed2to5days": "2 – 5 วัน",
+    "speed3to5days": "3 – 5 วัน",
+    "speed3to7days": "3 – 7 วัน",
+    "ratesFetching": "กำลังดึงอัตราแลกเปลี่ยนสด…",
+    "ratesStale": "อัตราอาจไม่เป็นปัจจุบัน · ไม่สามารถเชื่อมต่อบริการได้",
+    "ratesLive": "อัตราสด · อัปเดตเมื่อ {{time}}"
   },
   "salary": {
     "pageTitle": "ติดตามเงินเดือน",

@@ -194,7 +194,19 @@
     "countryChina": "China",
     "countryThailand": "Thailand",
     "countryPakistan": "Pakistan",
-    "countryNepal": "Nepal"
+    "countryNepal": "Nepal",
+    "speedInstant": "Agad",
+    "speedInstant2hrs": "Agad – 2 oras",
+    "speedMinutes": "Ilang minuto",
+    "speed1to2days": "1 – 2 araw",
+    "speed1to3days": "1 – 3 araw",
+    "speed2to4days": "2 – 4 araw",
+    "speed2to5days": "2 – 5 araw",
+    "speed3to5days": "3 – 5 araw",
+    "speed3to7days": "3 – 7 araw",
+    "ratesFetching": "Kinukuha ang mga live na rate…",
+    "ratesStale": "Maaaring luma na ang mga rate · Hindi ma-access ang serbisyo",
+    "ratesLive": "Mga live na rate · Na-update noong {{time}}"
   },
   "salary": {
     "pageTitle": "Tracker ng Sahod",

@@ -194,7 +194,19 @@
     "countryChina": "چین",
     "countryThailand": "تھائی لینڈ",
     "countryPakistan": "پاکستان",
-    "countryNepal": "نیپال"
+    "countryNepal": "نیپال",
+    "speedInstant": "فوری",
+    "speedInstant2hrs": "فوری – ۲ گھنٹے",
+    "speedMinutes": "چند منٹ",
+    "speed1to2days": "۱ – ۲ دن",
+    "speed1to3days": "۱ – ۳ دن",
+    "speed2to4days": "۲ – ۴ دن",
+    "speed2to5days": "۲ – ۵ دن",
+    "speed3to5days": "۳ – ۵ دن",
+    "speed3to7days": "۳ – ۷ دن",
+    "ratesFetching": "لائیو ریٹس حاصل ہو رہے ہیں…",
+    "ratesStale": "ریٹس پرانے ہو سکتے ہیں · سروس تک رسائی نہیں ہو سکی",
+    "ratesLive": "لائیو ریٹس · {{time}} کو اپ ڈیٹ"
   },
   "salary": {
     "pageTitle": "تنخواہ ٹریکر",

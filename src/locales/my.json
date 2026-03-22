@@ -194,7 +194,19 @@
     "countryChina": "တရုတ်",
     "countryThailand": "ထိုင်း",
     "countryPakistan": "ပါကစ္စတန်",
-    "countryNepal": "နီပေါ"
+    "countryNepal": "နီပေါ",
+    "speedInstant": "ချက်ချင်း",
+    "speedInstant2hrs": "ချက်ချင်း – ၂ နာရီ",
+    "speedMinutes": "မိနစ်အနည်းငယ်",
+    "speed1to2days": "၁ – ၂ ရက်",
+    "speed1to3days": "၁ – ၃ ရက်",
+    "speed2to4days": "၂ – ၄ ရက်",
+    "speed2to5days": "၂ – ၅ ရက်",
+    "speed3to5days": "၃ – ၅ ရက်",
+    "speed3to7days": "၃ – ၇ ရက်",
+    "ratesFetching": "တိုက်ရိုက်နှုန်းများ ရယူနေသည်…",
+    "ratesStale": "နှုန်းများ ခေတ်မမီဖြစ်နိုင်သည် · ဝန်ဆောင်မှုသို့ ချိတ်ဆက်၍မရပါ",
+    "ratesLive": "တိုက်ရိုက်နှုန်းများ · {{time}} တွင် အပ်ဒိတ်"
   },
   "salary": {
     "pageTitle": "လစာမှတ်တမ်း",
