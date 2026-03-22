@@ -17,8 +17,7 @@
     "totalSavedSub": "รวมทุกเป้าหมาย",
     "budgetLeft": "งบคงเหลือ",
     "budgetLeftSub": "เดือนนี้",
-    "lastSent": "ส่งครั้งล่าสุด",
-    "lastSentSub": "การโอนเงินกลับบ้าน"
+    "dayStreak": "วันติดต่อกัน"
   },
   "features": {
     "heading": "ฟีเจอร์",

@@ -17,8 +17,7 @@
     "totalSavedSub": "跨所有目标",
     "budgetLeft": "剩余预算",
     "budgetLeftSub": "本月",
-    "lastSent": "上次汇款",
-    "lastSentSub": "家庭汇款"
+    "dayStreak": "连续天数"
   },
   "features": {
     "heading": "功能",

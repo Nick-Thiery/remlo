@@ -6,7 +6,7 @@ import {
   SendHorizonal,
   Sparkles,
   ChevronDown,
-  TrendingUp,
+  Flame,
   Coins,
   Wallet,
   ArrowUpRight,
@@ -52,6 +52,29 @@ export default function Home() {
   const [totalSaved, setTotalSaved] = useState(0)
   const [budgetLeft, setBudgetLeft] = useState(0)
   const [userInitial, setUserInitial] = useState('')
+  const [streak, setStreak] = useState(1)
+
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10)
+    const lastDate = localStorage.getItem('remlo_streak_date')
+    const lastCount = parseInt(localStorage.getItem('remlo_streak_count') || '0', 10)
+
+    let newCount
+    if (!lastDate) {
+      newCount = 1
+    } else if (lastDate === today) {
+      newCount = lastCount || 1
+    } else {
+      const yesterday = new Date()
+      yesterday.setDate(yesterday.getDate() - 1)
+      const yesterdayStr = yesterday.toISOString().slice(0, 10)
+      newCount = lastDate === yesterdayStr ? lastCount + 1 : 1
+    }
+
+    localStorage.setItem('remlo_streak_date', today)
+    localStorage.setItem('remlo_streak_count', String(newCount))
+    setStreak(newCount)
+  }, [])
 
   useEffect(() => {
     async function loadData() {
@@ -159,11 +182,11 @@ export default function Home() {
       numColor: 'text-violet-600',
     },
     {
-      label: t('stats.lastSent'),
-      value: '—',
-      icon: TrendingUp,
-      iconColor: 'text-sky-400',
-      numColor: 'text-sky-600',
+      label: t('stats.dayStreak'),
+      value: statsLoading ? '—' : String(streak),
+      icon: Flame,
+      iconColor: 'text-orange-400',
+      numColor: 'text-orange-600',
     },
   ]
 
