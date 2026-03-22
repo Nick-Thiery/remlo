@@ -57,7 +57,7 @@ export default function EmergencyFund() {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('emergencyFund.pageTitle')}</h1>
+            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('emergencyFund.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('emergencyFund.pageSubtitle')}</p>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function EmergencyFund() {
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={expenses} onChange={(e) => setExpenses(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
                 />
               </div>
             </div>
@@ -90,7 +90,7 @@ export default function EmergencyFund() {
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={monthlySave} onChange={(e) => setMonthlySave(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
                 />
               </div>
             </div>

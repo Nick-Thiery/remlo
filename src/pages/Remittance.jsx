@@ -113,7 +113,7 @@ export default function Remittance() {
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t('remittance.pageTitle')}</h1>
+          <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('remittance.pageTitle')}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{t('remittance.pageSubtitle')}</p>
         </div>
 
@@ -134,7 +134,7 @@ export default function Remittance() {
                   value={sendAmount}
                   onChange={(e) => setSendAmount(e.target.value)}
                   onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { amount: parseFloat(sendAmount), destination_country: country }) }}
-                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                   placeholder="0"
                 />
               </div>
@@ -150,7 +150,7 @@ export default function Remittance() {
                 <select
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white appearance-none"
+                  className="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white appearance-none"
                 >
                   {Object.entries(COUNTRIES).map(([code, c]) => (
                     <option key={code} value={code}>

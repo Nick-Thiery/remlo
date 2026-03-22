@@ -64,14 +64,14 @@ const TABS = [
 ]
 
 const MORE_ITEMS = [
-  { path: '/salary',     key: 'salary',    Icon: Banknote,    accent: 'bg-blue-100 text-blue-600'     },
-  { path: '/loans',      key: 'loans',     Icon: CreditCard,  accent: 'bg-violet-100 text-violet-600' },
-  { path: '/scams',      key: 'scams',     Icon: ShieldAlert, accent: 'bg-red-100 text-red-600'       },
-  { path: '/scam-quiz',      key: 'scamQuiz',      Icon: Brain,       accent: 'bg-purple-100 text-purple-600' },
-  { path: '/emergency-fund',  key: 'emergencyFund', Icon: Calculator, accent: 'bg-teal-100 text-teal-600'    },
-  { path: '/banking-guide',   key: 'bankingGuide',  Icon: BookOpen,   accent: 'bg-sky-100 text-sky-600'      },
-  { path: '/loanshark',       key: 'loanshark',     Icon: Scale,      accent: 'bg-amber-100 text-amber-700'  },
-  { path: '/emergency',  key: 'emergency', Icon: Phone,       accent: 'bg-red-100 text-red-600'       },
+  { path: '/salary',         key: 'salary',        Icon: Banknote,    accent: 'bg-blue-100 text-blue-600',     bar: 'bg-blue-400'    },
+  { path: '/loans',          key: 'loans',         Icon: CreditCard,  accent: 'bg-violet-100 text-violet-600', bar: 'bg-violet-400'  },
+  { path: '/scams',          key: 'scams',         Icon: ShieldAlert, accent: 'bg-red-100 text-red-600',       bar: 'bg-red-400'     },
+  { path: '/scam-quiz',      key: 'scamQuiz',      Icon: Brain,       accent: 'bg-purple-100 text-purple-600', bar: 'bg-purple-400'  },
+  { path: '/emergency-fund', key: 'emergencyFund', Icon: Calculator,  accent: 'bg-teal-100 text-teal-600',     bar: 'bg-teal-400'    },
+  { path: '/banking-guide',  key: 'bankingGuide',  Icon: BookOpen,    accent: 'bg-sky-100 text-sky-600',       bar: 'bg-sky-400'     },
+  { path: '/loanshark',      key: 'loanshark',     Icon: Scale,       accent: 'bg-amber-100 text-amber-700',   bar: 'bg-amber-400'   },
+  { path: '/emergency',      key: 'emergency',     Icon: Phone,       accent: 'bg-rose-100 text-rose-600',     bar: 'bg-rose-400'    },
 ]
 
 const EMERGENCY_CONTACTS = [
@@ -93,20 +93,25 @@ function BottomTabBar() {
   const onMoreSection = location.pathname === '/more' || MORE_SUB_PATHS.includes(location.pathname)
 
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40 bg-white border-t border-gray-200">
-      <div className="flex items-stretch">
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40 bg-white/98 backdrop-blur-sm border-t border-gray-100 shadow-[0_-1px_12px_rgba(0,0,0,0.06)]">
+      <div className="flex items-center px-1">
         {TABS.map(({ path, key, Icon }) => {
           const active = key === 'more' ? onMoreSection : location.pathname === path
           return (
             <button
               key={path}
               onClick={() => navigate(path)}
-              className={`flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition-colors ${
-                active ? 'text-blue-600' : 'text-gray-400 hover:text-gray-500'
-              }`}
+              className="flex-1 flex flex-col items-center pt-2 pb-1.5 gap-0.5 transition-all"
             >
-              <Icon className="w-[22px] h-[22px]" strokeWidth={active ? 2.5 : 1.8} />
-              <span className={`text-[10px] font-medium ${active ? 'font-semibold' : ''}`}>
+              <div className={`flex items-center justify-center w-11 h-7 rounded-full transition-all duration-200 ${
+                active ? 'bg-orange-100' : ''
+              }`}>
+                <Icon
+                  className={`w-[20px] h-[20px] transition-all duration-200 ${active ? 'text-orange-500' : 'text-gray-400'}`}
+                  strokeWidth={active ? 2.4 : 1.8}
+                />
+              </div>
+              <span className={`text-[10px] leading-none transition-all duration-200 ${active ? 'font-bold text-orange-500' : 'font-medium text-gray-400'}`}>
                 {t(`nav.${key}`)}
               </span>
             </button>
@@ -150,22 +155,23 @@ function MorePage() {
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Heading */}
-        <h1 className="text-2xl font-bold text-gray-900 mb-0.5">{t('nav.moreHeading')}</h1>
+        <h1 className="text-3xl font-black text-gray-900 tracking-tight mb-0.5">{t('nav.moreHeading')}</h1>
         <p className="text-sm text-gray-500 mb-7">{t('nav.moreDesc')}</p>
 
         {/* Page links */}
         <div className="space-y-2 mb-6">
-          {MORE_ITEMS.map(({ path, key, Icon, accent }) => (
+          {MORE_ITEMS.map(({ path, key, Icon, accent, bar }) => (
             <button
               key={path}
               onClick={() => navigate(path)}
-              className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:bg-gray-50 active:scale-[0.98] transition-all"
+              className="relative w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm hover:bg-gray-50 active:scale-[0.98] transition-all overflow-hidden"
             >
+              <div className={`absolute left-0 top-0 bottom-0 w-1 ${bar}`} />
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${accent}`}>
                 <Icon className="w-5 h-5" />
               </div>
               <div className="flex-1 text-left min-w-0">
-                <p className="text-sm font-semibold text-gray-900">{t(`moreItems.${key}.label`)}</p>
+                <p className="text-sm font-bold text-gray-900">{t(`moreItems.${key}.label`)}</p>
                 <p className="text-xs text-gray-500 mt-0.5 truncate">{t(`moreItems.${key}.desc`)}</p>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
@@ -195,7 +201,7 @@ function MorePage() {
                       key={l.code}
                       onClick={() => switchLang(l.code)}
                       className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-gray-50 ${
-                        l.code === i18n.language ? 'font-semibold text-blue-600' : 'text-gray-700'
+                        l.code === i18n.language ? 'font-semibold text-orange-600' : 'text-gray-700'
                       }`}
                     >
                       {l.label}
@@ -313,7 +319,7 @@ function AuthGuard({ children }) {
   if (!ready) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }

@@ -241,7 +241,7 @@ export default function Chat() {
                 <div
                   className={`max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
                     msg.role === 'user'
-                      ? 'bg-blue-600 text-white rounded-br-sm'
+                      ? 'bg-orange-500 text-white rounded-br-sm'
                       : msg.isError
                       ? 'bg-red-50 text-red-700 border border-red-100 rounded-bl-sm'
                       : 'bg-white text-gray-800 border border-gray-100 rounded-bl-sm'
@@ -321,7 +321,7 @@ export default function Chat() {
             className={`flex-1 bg-gray-50 border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-50 transition-all ${
               isRecording
                 ? 'border-red-300 ring-2 ring-red-200 bg-red-50 placeholder:text-red-400'
-                : 'border-gray-200 focus:ring-blue-500'
+                : 'border-gray-200 focus:ring-orange-400'
             }`}
           />
 
@@ -351,7 +351,7 @@ export default function Chat() {
           <button
             onClick={() => send(input)}
             disabled={!input.trim() || isLoading || !apiKey}
-            className="bg-blue-600 text-white rounded-xl px-4 py-3 flex items-center justify-center hover:bg-blue-700 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+            className="bg-orange-500 text-white rounded-xl px-4 py-3 flex items-center justify-center hover:bg-orange-600 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
           >
             <Send className="w-4 h-4" />
           </button>

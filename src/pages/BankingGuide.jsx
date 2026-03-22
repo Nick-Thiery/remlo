@@ -96,7 +96,7 @@ export default function BankingGuide() {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('bankingGuide.pageTitle')}</h1>
+            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('bankingGuide.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('bankingGuide.pageSubtitle')}</p>
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function BankingGuide() {
         <div className="space-y-3 mb-6">
           {Array.isArray(steps) && steps.map((s, i) => (
             <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4 flex gap-4">
-              <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+              <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
                 {i + 1}
               </div>
               <div>

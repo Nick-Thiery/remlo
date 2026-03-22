@@ -247,7 +247,7 @@ export default function Budget() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -258,7 +258,7 @@ export default function Budget() {
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t('budget.pageTitle')}</h1>
+          <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('budget.pageTitle')}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{t('budget.pageSubtitle')}</p>
         </div>
 
@@ -282,7 +282,7 @@ export default function Budget() {
               value={income}
               onChange={(e) => setIncome(e.target.value)}
               onBlur={() => saveBudget(income, expenses)}
-              className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
               placeholder="0"
             />
           </div>
@@ -313,7 +313,7 @@ export default function Budget() {
         {/* Visual breakdown */}
         {monthlyIncome > 0 && expenses.length > 0 && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-4">{t('budget.breakdownTitle')}</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-4">{t('budget.breakdownTitle')}</p>
 
             <div className="flex items-center gap-6">
               <div className="flex-shrink-0">
@@ -356,7 +356,7 @@ export default function Budget() {
 
         {/* Expenses list */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-4">{t('budget.expensesTitle')}</p>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-4">{t('budget.expensesTitle')}</p>
 
           {expenses.length === 0 ? (
             <div className="flex flex-col items-center py-6 text-center">
@@ -395,7 +395,7 @@ export default function Budget() {
                               if (ev.key === 'Enter') ev.target.blur()
                               if (ev.key === 'Escape') { setEditingKey(null); setEditingValue('') }
                             }}
-                            className="w-24 border border-blue-400 rounded-lg pl-6 pr-2 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                            className="w-24 border border-blue-400 rounded-lg pl-6 pr-2 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-900"
                           />
                         </div>
                       ) : (
@@ -442,7 +442,7 @@ export default function Budget() {
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
-                  className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${nameError ? 'border-rose-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${nameError ? 'border-rose-300' : 'border-gray-200'}`}
                 />
               </div>
               <div className="relative w-28">
@@ -455,12 +455,12 @@ export default function Budget() {
                   value={newAmount}
                   onChange={(e) => setNewAmount(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
-                  className={`w-full border rounded-xl pl-7 pr-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${amountError ? 'border-rose-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl pl-7 pr-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${amountError ? 'border-rose-300' : 'border-gray-200'}`}
                 />
               </div>
               <button
                 onClick={handleAddExpense}
-                className="bg-blue-600 text-white rounded-xl px-4 py-2.5 text-sm font-semibold hover:bg-blue-700 transition-colors flex-shrink-0"
+                className="bg-orange-500 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-orange-600 transition-colors flex-shrink-0 shadow-sm"
               >
                 {t('budget.addBtn')}
               </button>
@@ -475,7 +475,7 @@ export default function Budget() {
         {suggested && (
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-start justify-between mb-1">
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">{t('budget.guideTitle')}</p>
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em]">{t('budget.guideTitle')}</p>
               <span className="text-xs bg-blue-50 text-blue-600 font-medium px-2 py-0.5 rounded-full">{t('budget.guideBadge')}</span>
             </div>
             <p className="text-xs text-gray-500 mb-4 mt-0.5">{t('budget.guideDesc')}</p>

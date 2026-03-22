@@ -218,7 +218,7 @@ export default function Salary() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -236,12 +236,12 @@ export default function Salary() {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900">{t('salary.pageTitle')}</h1>
+            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('salary.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('salary.pageSubtitle', { count: payments.length })}</p>
           </div>
           <button
             onClick={openForm}
-            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0"
+            className="bg-orange-500 text-white rounded-xl px-4 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0 shadow-sm"
           >
             {t('salary.logBtn')}
           </button>
@@ -293,7 +293,7 @@ export default function Salary() {
               <select
                 value={payday}
                 onChange={(e) => handlePaydayChange(Number(e.target.value))}
-                className="border border-gray-200 rounded-xl pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white appearance-none"
+                className="border border-gray-200 rounded-xl pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white appearance-none"
               >
                 {Array.from({ length: 28 }, (_, i) => i + 1).map((d) => (
                   <option key={d} value={d}>{d}</option>
@@ -320,7 +320,7 @@ export default function Salary() {
             <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('salary.emptyDesc')}</p>
             <button
               onClick={openForm}
-              className="bg-blue-600 text-white rounded-xl px-6 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all"
+              className="bg-orange-500 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all shadow-sm"
             >
               {t('salary.emptyBtn')}
             </button>
@@ -419,7 +419,7 @@ export default function Salary() {
                   value={fDate}
                   max={today}
                   onChange={(e) => setFDate(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.date ? 'border-red-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.date ? 'border-red-300' : 'border-gray-200'}`}
                 />
                 {errors.date && <p className="text-xs text-red-500 mt-1">{errors.date}</p>}
               </div>
@@ -435,7 +435,7 @@ export default function Salary() {
                     step="0.01"
                     value={fAmount}
                     onChange={(e) => setFAmount(e.target.value)}
-                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.amount ? 'border-red-300' : 'border-gray-200'}`}
+                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.amount ? 'border-red-300' : 'border-gray-200'}`}
                   />
                 </div>
                 {errors.amount && <p className="text-xs text-red-500 mt-1">{errors.amount}</p>}
@@ -448,7 +448,7 @@ export default function Salary() {
                   placeholder={t('salary.employerPlaceholder')}
                   value={fEmployer}
                   onChange={(e) => setFEmployer(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.employer ? 'border-red-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.employer ? 'border-red-300' : 'border-gray-200'}`}
                 />
                 {errors.employer && <p className="text-xs text-red-500 mt-1">{errors.employer}</p>}
               </div>
@@ -462,7 +462,7 @@ export default function Salary() {
                   value={fNote}
                   onChange={(e) => setFNote(e.target.value)}
                   rows={2}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
                 />
               </div>
             </div>
@@ -476,7 +476,7 @@ export default function Salary() {
               </button>
               <button
                 onClick={handleAdd}
-                className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 transition-colors"
+                className="flex-1 bg-orange-500 text-white rounded-xl py-3 text-sm font-bold hover:bg-orange-600 transition-colors shadow-sm"
               >
                 {t('salary.saveBtn')}
               </button>

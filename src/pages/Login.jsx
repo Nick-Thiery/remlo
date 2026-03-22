@@ -61,7 +61,7 @@ function Login() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
 
       {/* Brand header */}
-      <div className="bg-gradient-to-br from-blue-600 to-violet-600 px-6 pt-16 pb-12 flex flex-col items-center text-center">
+      <div className="px-6 pt-16 pb-14 flex flex-col items-center text-center" style={{ background: 'linear-gradient(140deg, #b45309 0%, #ea580c 50%, #c2410c 100%)' }}>
         {/* Logo mark */}
         <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
           <svg viewBox="0 0 40 40" className="w-9 h-9" fill="none">
@@ -69,15 +69,15 @@ function Login() {
             <path d="M14 20h12M14 15.5h12M14 24.5h8" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">Remlo</h1>
-        <p className="text-white/70 text-sm mt-1">Smart finance for migrant workers</p>
+        <h1 className="text-3xl font-black text-white tracking-tight">Remlo</h1>
+        <p className="text-white/70 text-sm mt-1.5">Smart finance for migrant workers</p>
       </div>
 
       {/* Form card */}
       <div className="flex-1 flex flex-col px-5 -mt-6">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 w-full max-w-sm mx-auto">
 
-          <h2 className="text-lg font-bold text-gray-900 mb-1">Welcome back</h2>
+          <h2 className="text-xl font-black text-gray-900 mb-1 tracking-tight">Welcome back</h2>
           <p className="text-sm text-gray-500 mb-5">Sign in or create a new account</p>
 
           {error && (
@@ -92,7 +92,7 @@ function Login() {
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
             />
             <input
               type="password"
@@ -100,13 +100,13 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleLogin(e)}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
             />
 
             <button
               onClick={handleLogin}
               disabled={loading}
-              className="w-full bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all disabled:opacity-60"
+              className="w-full bg-orange-500 text-white rounded-xl py-3.5 text-sm font-bold hover:bg-orange-600 active:scale-[0.98] transition-all disabled:opacity-60 shadow-sm"
             >
               {loading ? 'Signing in…' : 'Sign In'}
             </button>

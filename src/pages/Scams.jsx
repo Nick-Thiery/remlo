@@ -82,7 +82,7 @@ export default function Scams() {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900">{t('scams.pageTitle')}</h1>
+            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('scams.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('scams.pageSubtitle')}</p>
           </div>
           <button

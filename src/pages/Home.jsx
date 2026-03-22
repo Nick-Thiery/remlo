@@ -171,22 +171,25 @@ export default function Home() {
       label: t('stats.totalSaved'),
       value: statsLoading ? '—' : formatSGD(totalSaved),
       icon: Coins,
-      iconColor: 'text-amber-400',
-      numColor: 'text-amber-600',
+      iconColor: 'text-amber-500',
+      numColor: 'text-amber-700',
+      accentBar: 'bg-amber-400',
     },
     {
       label: t('stats.budgetLeft'),
       value: statsLoading ? '—' : formatSGD(budgetLeft),
       icon: Wallet,
-      iconColor: 'text-violet-400',
-      numColor: 'text-violet-600',
+      iconColor: 'text-violet-500',
+      numColor: 'text-violet-700',
+      accentBar: 'bg-violet-400',
     },
     {
       label: t('stats.dayStreak'),
       value: statsLoading ? '—' : String(streak),
       icon: Flame,
-      iconColor: 'text-orange-400',
+      iconColor: 'text-orange-500',
       numColor: 'text-orange-600',
+      accentBar: 'bg-orange-400',
     },
   ]
 
@@ -201,7 +204,7 @@ export default function Home() {
             {/* Greeting + name */}
             <div>
               <p className="text-xs text-gray-400 font-medium">{t(getGreetingKey())}</p>
-              <h1 className="text-xl font-bold text-gray-900 mt-0.5 tracking-tight">{t('appName')}</h1>
+              <h1 className="text-2xl font-black text-gray-900 mt-0.5 tracking-tight">{t('appName')}</h1>
             </div>
 
             <div className="flex items-center gap-2">
@@ -292,18 +295,19 @@ export default function Home() {
         </div>
 
         {/* ── Quick stats ───────────────────────────────────────────────── */}
-        <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.08em] mb-3">
+        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-3">
           {t('stats.heading')}
         </p>
         <div className="grid grid-cols-3 gap-2.5 mb-7">
           {QUICK_STATS.map((stat) => (
             <div
               key={stat.label}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm px-3.5 py-4"
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm px-3.5 pt-3.5 pb-4 overflow-hidden relative"
             >
-              <stat.icon className={`w-4 h-4 ${stat.iconColor} mb-2.5`} strokeWidth={1.8} />
+              <div className={`absolute top-0 left-0 right-0 h-[3px] ${stat.accentBar}`} />
+              <stat.icon className={`w-4 h-4 ${stat.iconColor} mb-2`} strokeWidth={1.8} />
               <p
-                className={`text-base font-bold leading-none tabular-nums ${
+                className={`text-lg font-black leading-none tabular-nums tracking-tight ${
                   statsLoading ? 'text-gray-200 animate-pulse' : stat.numColor
                 }`}
               >
@@ -317,7 +321,7 @@ export default function Home() {
         </div>
 
         {/* ── Feature cards ─────────────────────────────────────────────── */}
-        <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.08em] mb-3">
+        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-3">
           {t('features.heading')}
         </p>
         <div className="grid grid-cols-2 gap-3">
@@ -334,8 +338,8 @@ export default function Home() {
                   </div>
 
                   {/* Text */}
-                  <p className="text-sm font-bold text-gray-900 leading-tight mb-1">{f.title}</p>
-                  <p className="text-[11px] text-gray-400 leading-relaxed mb-4">{f.description}</p>
+                  <p className="text-sm font-black text-gray-900 leading-tight mb-1 tracking-tight">{f.title}</p>
+                  <p className="text-[11px] text-gray-500 leading-relaxed mb-4">{f.description}</p>
 
                   {/* Arrow indicator */}
                   <ChevronRight className={`w-3.5 h-3.5 ${f.iconColor} opacity-50`} />

@@ -212,7 +212,7 @@ export default function Loans() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -230,14 +230,14 @@ export default function Loans() {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900">{t('loans.pageTitle')}</h1>
+            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('loans.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">
               {t('loans.pageSubtitle', { count: activeCount })}
             </p>
           </div>
           <button
             onClick={openForm}
-            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0"
+            className="bg-orange-500 text-white rounded-xl px-4 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0 shadow-sm"
           >
             {t('loans.addBtn')}
           </button>
@@ -293,7 +293,7 @@ export default function Loans() {
             <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('loans.emptyDesc')}</p>
             <button
               onClick={openForm}
-              className="bg-blue-600 text-white rounded-xl px-6 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all"
+              className="bg-orange-500 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all shadow-sm"
             >
               {t('loans.emptyBtn')}
             </button>
@@ -457,7 +457,7 @@ export default function Loans() {
                   placeholder={t('loans.lenderPlaceholder')}
                   value={fLender}
                   onChange={(e) => setFLender(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.lender ? 'border-red-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.lender ? 'border-red-300' : 'border-gray-200'}`}
                 />
                 {errors.lender && <p className="text-xs text-red-500 mt-1">{errors.lender}</p>}
               </div>
@@ -473,7 +473,7 @@ export default function Loans() {
                     step="0.01"
                     value={fPrincipal}
                     onChange={(e) => setFPrincipal(e.target.value)}
-                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.principal ? 'border-red-300' : 'border-gray-200'}`}
+                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.principal ? 'border-red-300' : 'border-gray-200'}`}
                   />
                 </div>
                 {errors.principal && <p className="text-xs text-red-500 mt-1">{errors.principal}</p>}
@@ -492,7 +492,7 @@ export default function Loans() {
                     step="0.01"
                     value={fRate}
                     onChange={(e) => setFRate(e.target.value)}
-                    className={`w-full border rounded-xl px-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.rate ? 'border-red-300' : parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
+                    className={`w-full border rounded-xl px-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.rate ? 'border-red-300' : parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">%</span>
                 </div>
@@ -513,7 +513,7 @@ export default function Loans() {
                     step="0.01"
                     value={fPayment}
                     onChange={(e) => setFPayment(e.target.value)}
-                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.payment ? 'border-red-300' : 'border-gray-200'}`}
+                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.payment ? 'border-red-300' : 'border-gray-200'}`}
                   />
                 </div>
                 {errors.payment && <p className="text-xs text-red-500 mt-1">{errors.payment}</p>}
@@ -526,7 +526,7 @@ export default function Loans() {
                   value={fStart}
                   max={today}
                   onChange={(e) => setFStart(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.start ? 'border-red-300' : 'border-gray-200'}`}
+                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.start ? 'border-red-300' : 'border-gray-200'}`}
                 />
                 {errors.start && <p className="text-xs text-red-500 mt-1">{errors.start}</p>}
               </div>
@@ -541,7 +541,7 @@ export default function Loans() {
               </button>
               <button
                 onClick={handleAdd}
-                className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 transition-colors"
+                className="flex-1 bg-orange-500 text-white rounded-xl py-3 text-sm font-bold hover:bg-orange-600 transition-colors shadow-sm"
               >
                 {t('loans.addLoanBtn')}
               </button>

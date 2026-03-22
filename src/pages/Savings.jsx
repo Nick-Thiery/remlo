@@ -14,12 +14,12 @@ function formatSGD(amount) {
 }
 
 const GOAL_COLORS = [
-  { bar: 'bg-blue-500',   badge: 'bg-blue-50 text-blue-600'   },
-  { bar: 'bg-violet-500', badge: 'bg-violet-50 text-violet-600' },
-  { bar: 'bg-amber-500',  badge: 'bg-amber-50 text-amber-600'  },
-  { bar: 'bg-rose-500',   badge: 'bg-rose-50 text-rose-600'    },
-  { bar: 'bg-cyan-500',   badge: 'bg-cyan-50 text-cyan-600'    },
-  { bar: 'bg-orange-500', badge: 'bg-orange-50 text-orange-600' },
+  { bar: 'bg-blue-500',   badge: 'bg-blue-50 text-blue-600',    btn: 'bg-blue-500 hover:bg-blue-600'   },
+  { bar: 'bg-violet-500', badge: 'bg-violet-50 text-violet-600', btn: 'bg-violet-500 hover:bg-violet-600' },
+  { bar: 'bg-amber-500',  badge: 'bg-amber-50 text-amber-600',  btn: 'bg-amber-500 hover:bg-amber-600'  },
+  { bar: 'bg-rose-500',   badge: 'bg-rose-50 text-rose-600',    btn: 'bg-rose-500 hover:bg-rose-600'    },
+  { bar: 'bg-cyan-500',   badge: 'bg-cyan-50 text-cyan-600',    btn: 'bg-cyan-500 hover:bg-cyan-600'    },
+  { bar: 'bg-orange-500', badge: 'bg-orange-50 text-orange-600', btn: 'bg-orange-500 hover:bg-orange-600' },
 ]
 
 export default function Savings() {
@@ -163,7 +163,7 @@ export default function Savings() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -183,14 +183,14 @@ export default function Savings() {
         {/* Page header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('savings.pageTitle')}</h1>
+            <h1 className="text-3xl font-black text-gray-900 tracking-tight">{t('savings.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">
               {t('savings.pageSubtitle', { count: goals.length })}
             </p>
           </div>
           <button
             onClick={openNewGoal}
-            className="bg-blue-600 text-white rounded-xl px-4 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all flex items-center gap-1.5"
+            className="bg-orange-500 text-white rounded-xl px-4 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
           >
             {t('savings.newGoalBtn')}
           </button>
@@ -198,18 +198,19 @@ export default function Savings() {
 
         {/* Overall summary */}
         {goals.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">{t('savings.overallProgress')}</p>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6 relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[3px] bg-orange-400" />
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.12em] mb-3">{t('savings.overallProgress')}</p>
             <div className="flex items-end justify-between mb-3">
               <div>
-                <p className="text-2xl font-bold text-gray-900">{formatSGD(totalSaved)}</p>
+                <p className="text-3xl font-black text-gray-900 tracking-tight">{formatSGD(totalSaved)}</p>
                 <p className="text-sm text-gray-500">{t('savings.savedOf', { amount: formatSGD(totalTarget) })}</p>
               </div>
-              <p className="text-lg font-semibold text-blue-600">{Math.round(overallPct)}%</p>
+              <p className="text-xl font-black text-orange-500">{Math.round(overallPct)}%</p>
             </div>
-            <div className="w-full bg-gray-100 rounded-full h-1.5">
+            <div className="w-full bg-gray-100 rounded-full h-2">
               <div
-                className="bg-blue-600 h-1.5 rounded-full"
+                className="bg-orange-500 h-2 rounded-full"
                 style={{ width: mounted ? `${overallPct}%` : '0%', transition: 'width 0.9s ease-out' }}
               />
             </div>
@@ -227,7 +228,7 @@ export default function Savings() {
               <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('savings.emptyDesc')}</p>
               <button
                 onClick={openNewGoal}
-                className="bg-blue-600 text-white rounded-xl px-6 py-3 text-sm font-semibold hover:bg-blue-700 active:scale-95 transition-all"
+                className="bg-orange-500 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all shadow-sm"
               >
                 {t('savings.emptyBtn')}
               </button>
@@ -240,10 +241,11 @@ export default function Savings() {
               const color      = GOAL_COLORS[index % GOAL_COLORS.length]
 
               return (
-                <div key={goal.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <div key={goal.id} className="relative bg-white rounded-2xl shadow-sm border border-gray-100 p-6 overflow-hidden">
+                  <div className={`absolute left-0 top-0 bottom-0 w-1 ${color.bar}`} />
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="font-semibold text-gray-900">{goal.name}</h3>
+                      <h3 className="font-bold text-gray-900 text-base">{goal.name}</h3>
                       <p className="text-xs text-gray-400 mt-0.5">{t('savings.targetLabel', { amount: formatSGD(goal.target) })}</p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -289,7 +291,7 @@ export default function Savings() {
                   {!isComplete && (
                     <button
                       onClick={() => openDeposit(goal.id)}
-                      className="w-full border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors"
+                      className={`w-full text-white rounded-xl py-3 text-sm font-bold transition-all active:scale-[0.98] shadow-sm ${color.btn}`}
                     >
                       {t('savings.addFundsBtn')}
                     </button>
@@ -306,7 +308,7 @@ export default function Savings() {
         <button
           onClick={openNewGoal}
           aria-label="Add new goal"
-          className="fixed bottom-[81px] right-4 w-14 h-14 bg-blue-600 text-white rounded-full shadow-xl flex items-center justify-center text-3xl font-light hover:bg-blue-700 active:scale-90 transition-all z-30"
+          className="fixed bottom-[81px] right-4 w-14 h-14 bg-orange-500 text-white rounded-full shadow-xl flex items-center justify-center text-3xl font-light hover:bg-orange-600 active:scale-90 transition-all z-30"
         >
           +
         </button>
@@ -336,7 +338,7 @@ export default function Savings() {
                   value={newGoalName}
                   onChange={(e) => setNewGoalName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
               <div>
@@ -351,17 +353,17 @@ export default function Savings() {
                     value={newGoalTarget}
                     onChange={(e) => setNewGoalTarget(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
-                    className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                   />
                 </div>
               </div>
             </div>
 
             <div className="flex gap-3">
-              <button onClick={closeNewGoal} className="flex-1 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors">
+              <button onClick={closeNewGoal} className="flex-1 border border-gray-200 text-gray-600 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors">
                 {t('common.cancel')}
               </button>
-              <button onClick={handleAddGoal} className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 transition-colors">
+              <button onClick={handleAddGoal} className="flex-1 bg-orange-500 text-white rounded-xl py-3 text-sm font-bold hover:bg-orange-600 transition-colors shadow-sm">
                 {t('savings.createGoalBtn')}
               </button>
             </div>
@@ -401,16 +403,16 @@ export default function Savings() {
                   value={depositAmount}
                   onChange={(e) => setDepositAmount(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddDeposit()}
-                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
             </div>
 
             <div className="flex gap-3">
-              <button onClick={closeDeposit} className="flex-1 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors">
+              <button onClick={closeDeposit} className="flex-1 border border-gray-200 text-gray-600 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors">
                 {t('common.cancel')}
               </button>
-              <button onClick={handleAddDeposit} className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 transition-colors">
+              <button onClick={handleAddDeposit} className="flex-1 bg-orange-500 text-white rounded-xl py-3 text-sm font-bold hover:bg-orange-600 transition-colors shadow-sm">
                 {t('common.confirm')}
               </button>
             </div>

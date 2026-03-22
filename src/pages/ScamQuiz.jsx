@@ -121,7 +121,7 @@ export default function ScamQuiz() {
             </button>
             <button
               onClick={() => navigate('/scams')}
-              className="flex-1 bg-blue-600 text-white rounded-xl py-3 text-sm font-semibold hover:bg-blue-700 transition-colors"
+              className="flex-1 bg-orange-500 text-white rounded-xl py-3 text-sm font-bold hover:bg-orange-600 transition-colors shadow-sm"
             >
               {t('scamQuiz.scamAlertsBtn')}
             </button>
@@ -156,7 +156,7 @@ export default function ScamQuiz() {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-1.5">
             <div
-              className="bg-blue-600 h-1.5 rounded-full transition-all duration-500"
+              className="bg-orange-500 h-1.5 rounded-full transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -216,7 +216,7 @@ export default function ScamQuiz() {
         {answered && (
           <button
             onClick={next}
-            className="w-full bg-blue-600 text-white rounded-xl py-3.5 text-sm font-semibold hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+            className="w-full bg-orange-500 text-white rounded-xl py-3.5 text-sm font-bold hover:bg-orange-600 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-sm"
           >
             {isLast ? t('scamQuiz.resultsBtn') : t('scamQuiz.nextBtn')}
             <ChevronRight className="w-4 h-4" />
