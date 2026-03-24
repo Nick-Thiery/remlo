@@ -103,17 +103,17 @@ function BottomTabBar() {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className="flex-1 flex flex-col items-center pt-2 pb-1.5 gap-0.5 transition-all"
+              className="flex-1 flex flex-col items-center pt-3 pb-2 gap-1 transition-all"
             >
-              <div className={`flex items-center justify-center w-11 h-7 rounded-full transition-all duration-200 ${
+              <div className={`flex items-center justify-center w-12 h-8 rounded-full transition-all duration-200 ${
                 active ? 'bg-orange-100' : ''
               }`}>
                 <Icon
-                  className={`w-[20px] h-[20px] transition-all duration-200 ${active ? 'text-orange-500' : 'text-gray-400'}`}
+                  className={`w-[22px] h-[22px] transition-all duration-200 ${active ? 'text-orange-500' : 'text-gray-400'}`}
                   strokeWidth={active ? 2.4 : 1.8}
                 />
               </div>
-              <span className={`text-[10px] leading-none transition-all duration-200 ${active ? 'font-bold text-orange-500' : 'font-medium text-gray-400'}`}>
+              <span className={`text-[11px] leading-none transition-all duration-200 ${active ? 'font-bold text-orange-500' : 'font-medium text-gray-400'}`}>
                 {t(`nav.${key}`)}
               </span>
             </button>
@@ -121,8 +121,8 @@ function BottomTabBar() {
         })}
       </div>
 
-      {/* iPhone home indicator clearance */}
-      <div className="h-[env(safe-area-inset-bottom,0px)]" />
+      {/* Extra clearance + iPhone home indicator */}
+      <div className="h-[max(env(safe-area-inset-bottom,0px),8px)]" />
     </div>
   )
 }
@@ -357,7 +357,7 @@ function AppShell() {
       <div className="relative w-full max-w-[430px] min-h-screen bg-gray-50 shadow-[0_0_60px_rgba(0,0,0,0.25)]">
 
         {/* Scrollable content area — bottom padding clears the fixed tab bar */}
-        <div className="overflow-x-hidden pb-[65px]">
+        <div className="overflow-x-hidden pb-[80px]">
           <GuestBanner />
           <AuthGuard>
           <Routes>

@@ -19,7 +19,10 @@
       "Bash(python3 -c \"import json; d=json.load\\(open\\(''/Users/nick/forwardwallet/src/locales/$f.json''\\)\\); mi=d.get\\(''moreItems'',{}\\); print\\(''scamQuiz:'', mi.get\\(''scamQuiz'',{}\\).get\\(''label'',''MISSING''\\)\\); print\\(''emergencyFund:'', mi.get\\(''emergencyFund'',{}\\).get\\(''label'',''MISSING''\\)\\); print\\(''bankingGuide:'', mi.get\\(''bankingGuide'',{}\\).get\\(''label'',''MISSING''\\)\\)\")",
       "Bash(python3:*)",
       "Bash(grep:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
