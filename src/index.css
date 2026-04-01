@@ -1,19 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
+/* ── Brand tokens ──────────────────────────────────────────────────── */
+:root {
+  --brand-primary: #F97316;
+  --brand-deep:    #EA580C;
+  --brand-amber:   #F59E0B;
+  --bg-base:       #FAF8F5;
+  --bg-card:       #FFFFFF;
+  --text-primary:  #111016;
+  --text-secondary:#6B7280;
+  --border-subtle: #F0EDE8;
+  --shadow-card:   0 2px 16px rgba(0, 0, 0, 0.06);
+  --shadow-deep:   0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Animations ────────────────────────────────────────────────────── */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0);    }
 }
-.fade-in-up { animation: fadeInUp 0.45s ease-out forwards; }
-.delay-50   { animation-delay:  50ms; opacity: 0; }
-.delay-100  { animation-delay: 100ms; opacity: 0; }
-.delay-150  { animation-delay: 150ms; opacity: 0; }
-.delay-200  { animation-delay: 200ms; opacity: 0; }
-.delay-250  { animation-delay: 250ms; opacity: 0; }
-.delay-300  { animation-delay: 300ms; opacity: 0; }
-.delay-350  { animation-delay: 350ms; opacity: 0; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+.fade-in-up  { animation: fadeInUp 0.45s ease-out forwards; }
+.fade-in     { animation: fadeIn   0.35s ease-out forwards; }
+.scale-in    { animation: scaleIn  0.3s  cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.float-anim  { animation: floatUp  3s ease-in-out infinite; }
+
+.delay-50    { animation-delay:  50ms; opacity: 0; }
+.delay-100   { animation-delay: 100ms; opacity: 0; }
+.delay-150   { animation-delay: 150ms; opacity: 0; }
+.delay-200   { animation-delay: 200ms; opacity: 0; }
+.delay-250   { animation-delay: 250ms; opacity: 0; }
+.delay-300   { animation-delay: 300ms; opacity: 0; }
+.delay-350   { animation-delay: 350ms; opacity: 0; }
+
+/* ── Skeleton shimmer ──────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #f0ece8 25%, #e8e4e0 50%, #f0ece8 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── Premium card ─────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ── Hide scrollbar ────────────────────────────────────────────────── */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ── Pill focus ring ───────────────────────────────────────────────── */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}

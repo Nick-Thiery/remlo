@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Banknote, ChevronLeft } from 'lucide-react'
+import { Banknote, ChevronLeft, Plus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 
@@ -67,7 +67,6 @@ export default function Salary() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Form state
   const [fDate, setFDate] = useState(today)
   const [fAmount, setFAmount] = useState('')
   const [fEmployer, setFEmployer] = useState('')
@@ -94,11 +93,8 @@ export default function Salary() {
         } else {
           setPayments(
             (data || []).map((row) => ({
-              id: row.id,
-              date: row.date,
-              amount: row.amount,
-              employer: row.employer,
-              note: row.notes || '',
+              id: row.id, date: row.date, amount: row.amount,
+              employer: row.employer, note: row.notes || '',
             }))
           )
         }
@@ -116,21 +112,15 @@ export default function Salary() {
   const thisYear = now.getFullYear()
 
   const earnedThisMonth = useMemo(
-    () =>
-      payments
-        .filter((p) => {
-          const d = new Date(p.date)
-          return d.getMonth() === thisMonth && d.getFullYear() === thisYear
-        })
-        .reduce((s, p) => s + p.amount, 0),
+    () => payments.filter((p) => {
+      const d = new Date(p.date)
+      return d.getMonth() === thisMonth && d.getFullYear() === thisYear
+    }).reduce((s, p) => s + p.amount, 0),
     [payments, thisMonth, thisYear]
   )
 
   const earnedThisYear = useMemo(
-    () =>
-      payments
-        .filter((p) => new Date(p.date).getFullYear() === thisYear)
-        .reduce((s, p) => s + p.amount, 0),
+    () => payments.filter((p) => new Date(p.date).getFullYear() === thisYear).reduce((s, p) => s + p.amount, 0),
     [payments, thisYear]
   )
 
@@ -145,18 +135,11 @@ export default function Salary() {
   }
 
   function openForm() {
-    setFDate(today)
-    setFAmount('')
-    setFEmployer('')
-    setFNote('')
-    setErrors({})
+    setFDate(today); setFAmount(''); setFEmployer(''); setFNote(''); setErrors({})
     setShowForm(true)
   }
 
-  function closeForm() {
-    setShowForm(false)
-    setErrors({})
-  }
+  function closeForm() { setShowForm(false); setErrors({}) }
 
   async function handleAdd() {
     const errs = {}
@@ -177,20 +160,10 @@ export default function Salary() {
 
     const { data, error: err } = await supabase
       .from('salary_logs')
-      .insert({
-        user_id: user.id,
-        date: fDate,
-        amount: amt,
-        employer: fEmployer.trim(),
-        notes: fNote.trim() || null,
-      })
-      .select('id')
-      .single()
+      .insert({ user_id: user.id, date: fDate, amount: amt, employer: fEmployer.trim(), notes: fNote.trim() || null })
+      .select('id').single()
 
-    if (err) {
-      setError(err.message)
-      return
-    }
+    if (err) { setError(err.message); return }
 
     setPayments((prev) => [
       { id: data.id, date: fDate, amount: amt, employer: fEmployer.trim(), note: fNote.trim() },
@@ -217,67 +190,93 @@ export default function Salary() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+        <div
+          className="w-10 h-10 rounded-full border-[3px] animate-spin"
+          style={{ borderColor: '#F97316', borderTopColor: 'transparent' }}
+        />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-lg mx-auto px-4 py-8">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+      <div className="max-w-lg mx-auto px-4 py-7">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0"
+            style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4 text-gray-600" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900">{t('salary.pageTitle')}</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('salary.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('salary.pageSubtitle', { count: payments.length })}</p>
           </div>
           <button
             onClick={openForm}
-            className="bg-orange-500 text-white rounded-xl px-4 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0 shadow-sm"
+            className="flex items-center gap-1.5 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-white transition-all active:scale-95 flex-shrink-0"
+            style={{
+              background: 'linear-gradient(135deg, #F97316, #EA580C)',
+              boxShadow: '0 6px 18px rgba(249,115,22,0.3)',
+            }}
           >
+            <Plus className="w-4 h-4" />
             {t('salary.logBtn')}
           </button>
         </div>
 
         {/* Error banner */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3">
+          <div
+            className="rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3"
+            style={{ background: '#FEF2F2', border: '1px solid #FECACA' }}
+          >
             <p className="text-sm text-red-700">{error}</p>
-            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 text-lg leading-none flex-shrink-0">×</button>
+            <button onClick={() => setError(null)} className="text-red-400 text-lg leading-none flex-shrink-0">×</button>
           </div>
         )}
 
         {/* Summary tiles */}
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-            <p className="text-xs text-gray-400 mb-1">{t('salary.monthEarnings', { month: monthName })}</p>
-            <p className="text-xl font-bold text-gray-900">{formatSGD(earnedThisMonth)}</p>
-            <p className="text-xs text-gray-400 mt-0.5">{t('salary.thisMonth')}</p>
+          <div
+            className="rounded-3xl p-5"
+            style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          >
+            <p className="text-xs text-gray-400 mb-1 font-semibold">{t('salary.monthEarnings', { month: monthName })}</p>
+            <p className="text-xl font-extrabold text-gray-900 tabular-nums">{formatSGD(earnedThisMonth)}</p>
+            <p className="text-xs text-gray-400 mt-0.5 font-medium">{t('salary.thisMonth')}</p>
           </div>
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-            <p className="text-xs text-gray-400 mb-1">{t('salary.yearEarnings', { year: thisYear })}</p>
-            <p className="text-xl font-bold text-gray-900">{formatSGD(earnedThisYear)}</p>
-            <p className="text-xs text-gray-400 mt-0.5">{t('salary.thisYear')}</p>
+          <div
+            className="rounded-3xl p-5"
+            style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          >
+            <p className="text-xs text-gray-400 mb-1 font-semibold">{t('salary.yearEarnings', { year: thisYear })}</p>
+            <p className="text-xl font-extrabold text-gray-900 tabular-nums">{formatSGD(earnedThisYear)}</p>
+            <p className="text-xs text-gray-400 mt-0.5 font-medium">{t('salary.thisYear')}</p>
           </div>
         </div>
 
         {/* Late payment alert */}
         {lateCount > 0 && (
-          <div className="bg-red-50 border border-red-100 rounded-2xl px-5 py-4 mb-4 flex items-start gap-3">
-            <span className="text-red-500 text-lg leading-none mt-0.5">⚠</span>
+          <div
+            className="rounded-2xl px-5 py-4 mb-4 flex items-start gap-3"
+            style={{ background: '#FEF2F2', border: '1px solid #FECACA' }}
+          >
+            <div
+              className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
+              style={{ background: '#FCA5A5' }}
+            >
+              <span className="text-red-700 text-sm font-extrabold">!</span>
+            </div>
             <div>
-              <p className="text-sm font-semibold text-red-700">
+              <p className="text-sm font-extrabold text-red-700">
                 {t('salary.lateAlert', { count: lateCount })}
               </p>
-              <p className="text-xs text-red-500 mt-0.5">
+              <p className="text-xs text-red-500 mt-0.5 font-medium">
                 {t('salary.lateAlertDesc', { ordinal: ordinalStr(payday) })}
               </p>
             </div>
@@ -285,42 +284,56 @@ export default function Salary() {
         )}
 
         {/* Payday setting */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">{t('salary.paydaySetting')}</p>
+        <div
+          className="rounded-3xl p-5 mb-6"
+          style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+        >
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{t('salary.paydaySetting')}</p>
           <div className="flex items-center gap-3">
-            <label className="text-sm text-gray-700 flex-shrink-0">{t('salary.paydayPrefix')}</label>
+            <label className="text-sm text-gray-700 flex-shrink-0 font-medium">{t('salary.paydayPrefix')}</label>
             <div className="relative">
               <select
                 value={payday}
                 onChange={(e) => handlePaydayChange(Number(e.target.value))}
-                className="border border-gray-200 rounded-xl pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white appearance-none"
+                className="rounded-xl pl-3 pr-8 py-2.5 text-sm font-bold appearance-none"
+                style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none', color: '#111016' }}
               >
                 {Array.from({ length: 28 }, (_, i) => i + 1).map((d) => (
                   <option key={d} value={d}>{d}</option>
                 ))}
               </select>
-              <svg className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </div>
-            <span className="text-sm text-gray-700">{t('salary.paydaySuffix')}</span>
+            <span className="text-sm text-gray-700 font-medium">{t('salary.paydaySuffix')}</span>
           </div>
-          <p className="text-xs text-gray-400 mt-2">{t('salary.paydayNote')}</p>
+          <p className="text-xs text-gray-400 mt-2 font-medium">{t('salary.paydayNote')}</p>
         </div>
 
         {/* Payment history */}
-        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">{t('salary.historyTitle')}</p>
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{t('salary.historyTitle')}</p>
 
         {sorted.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-12 text-center">
-            <div className="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
-              <Banknote className="w-10 h-10 text-emerald-400" strokeWidth={1.5} />
+          <div
+            className="rounded-3xl px-8 py-14 text-center"
+            style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          >
+            <div
+              className="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-5"
+              style={{ background: 'linear-gradient(135deg, #D1FAE5, #A7F3D0)' }}
+            >
+              <Banknote className="w-12 h-12" style={{ color: '#065F46' }} strokeWidth={1.5} />
             </div>
-            <p className="text-base font-bold text-gray-900 mb-2">{t('salary.emptyTitle')}</p>
-            <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('salary.emptyDesc')}</p>
+            <p className="text-base font-extrabold text-gray-900 mb-2">{t('salary.emptyTitle')}</p>
+            <p className="text-sm text-gray-500 mb-7 max-w-[220px] mx-auto leading-relaxed">{t('salary.emptyDesc')}</p>
             <button
               onClick={openForm}
-              className="bg-orange-500 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all shadow-sm"
+              className="rounded-2xl px-6 py-3 text-sm font-extrabold text-white transition-all active:scale-95"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                boxShadow: '0 6px 18px rgba(249,115,22,0.3)',
+              }}
             >
               {t('salary.emptyBtn')}
             </button>
@@ -335,9 +348,12 @@ export default function Salary() {
               return (
                 <div
                   key={p.id}
-                  className={`bg-white rounded-2xl shadow-sm border transition-all ${
-                    late ? 'border-red-100' : 'border-gray-100'
-                  }`}
+                  className="rounded-3xl overflow-hidden transition-all"
+                  style={{
+                    background: 'white',
+                    border: late ? '1px solid #FECACA' : '1px solid #F0EDE8',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+                  }}
                 >
                   <button
                     className="w-full text-left px-5 py-4"
@@ -346,18 +362,21 @@ export default function Salary() {
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-sm font-semibold text-gray-900">{p.employer}</p>
+                          <p className="text-sm font-extrabold text-gray-900">{p.employer}</p>
                           {late && (
-                            <span className="inline-flex items-center gap-1 bg-red-100 text-red-600 text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0">
+                            <span
+                              className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+                              style={{ background: '#FEE2E2', color: '#DC2626' }}
+                            >
                               {days > 0 ? t('salary.lateBadgeDays', { days }) : t('salary.lateBadge')}
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-gray-400 mt-0.5">{formatDate(p.date)}</p>
+                        <p className="text-xs text-gray-400 mt-0.5 font-medium">{formatDate(p.date)}</p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p className="text-base font-bold text-gray-900">{formatSGD(p.amount)}</p>
-                        <p className={`text-xs mt-0.5 transition-transform ${isExpanded ? 'text-blue-500' : 'text-gray-300'}`}>
+                        <p className="text-base font-extrabold text-gray-900 tabular-nums">{formatSGD(p.amount)}</p>
+                        <p className={`text-xs mt-0.5 font-bold transition-transform ${isExpanded ? 'text-orange-500' : 'text-gray-300'}`}>
                           {isExpanded ? '▲' : '▼'}
                         </p>
                       </div>
@@ -365,20 +384,20 @@ export default function Salary() {
                   </button>
 
                   {isExpanded && (
-                    <div className="px-5 pb-4 border-t border-gray-50">
+                    <div className="px-5 pb-4" style={{ borderTop: '1px solid #F5F2ED' }}>
                       <div className="pt-3 space-y-3">
                         {p.note ? (
                           <div>
-                            <p className="text-xs text-gray-400 mb-0.5">{t('salary.noteLabel')}</p>
-                            <p className="text-sm text-gray-700">{p.note}</p>
+                            <p className="text-xs text-gray-400 mb-0.5 font-semibold">{t('salary.noteLabel')}</p>
+                            <p className="text-sm text-gray-700 font-medium">{p.note}</p>
                           </div>
                         ) : (
                           <p className="text-xs text-gray-400 italic">{t('salary.noNote')}</p>
                         )}
                         {late && (
-                          <div className="bg-red-50 rounded-xl p-3">
-                            <p className="text-xs font-medium text-red-600 mb-0.5">{t('salary.lateDetailsTitle')}</p>
-                            <p className="text-xs text-red-500">
+                          <div className="rounded-2xl p-3" style={{ background: '#FEF2F2' }}>
+                            <p className="text-xs font-extrabold text-red-600 mb-0.5">{t('salary.lateDetailsTitle')}</p>
+                            <p className="text-xs text-red-500 font-medium">
                               {days > 0
                                 ? t('salary.lateDetailsLate', { ordinal: ordinalStr(payday), days })
                                 : t('salary.lateDetailsOnTime', { ordinal: ordinalStr(payday) })}
@@ -387,7 +406,7 @@ export default function Salary() {
                         )}
                         <button
                           onClick={() => deletePayment(p.id)}
-                          className="text-xs text-red-400 hover:text-red-600 transition-colors"
+                          className="text-xs text-red-400 hover:text-red-600 transition-colors font-semibold"
                         >
                           {t('salary.deleteEntry')}
                         </button>
@@ -404,30 +423,35 @@ export default function Salary() {
       {/* Add Payment Modal */}
       {showForm && (
         <div
-          className="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 p-4"
+          className="fixed inset-0 flex items-end sm:items-center justify-center z-50 p-4"
+          style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }}
           onClick={(e) => e.target === e.currentTarget && closeForm()}
         >
-          <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-xl">
-            <h2 className="text-lg font-bold text-gray-900 mb-1">{t('salary.modalTitle')}</h2>
+          <div
+            className="w-full max-w-sm p-6 scale-in"
+            style={{ background: 'white', borderRadius: 24, boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}
+          >
+            <h2 className="text-lg font-extrabold text-gray-900 mb-0.5 tracking-tight">{t('salary.modalTitle')}</h2>
             <p className="text-sm text-gray-500 mb-5">{t('salary.modalDesc')}</p>
 
             <div className="space-y-3 mb-5">
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('salary.dateLabel')}</label>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.dateLabel')}</label>
                 <input
                   type="date"
                   value={fDate}
                   max={today}
                   onChange={(e) => setFDate(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.date ? 'border-red-300' : 'border-gray-200'}`}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${errors.date ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF9', outline: 'none' }}
                 />
-                {errors.date && <p className="text-xs text-red-500 mt-1">{errors.date}</p>}
+                {errors.date && <p className="text-xs text-red-500 mt-1 font-medium">{errors.date}</p>}
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold">S$</span>
                   <input
                     type="number"
                     placeholder="0.00"
@@ -435,26 +459,28 @@ export default function Salary() {
                     step="0.01"
                     value={fAmount}
                     onChange={(e) => setFAmount(e.target.value)}
-                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.amount ? 'border-red-300' : 'border-gray-200'}`}
+                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    style={{ border: `2px solid ${errors.amount ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF9', outline: 'none' }}
                   />
                 </div>
-                {errors.amount && <p className="text-xs text-red-500 mt-1">{errors.amount}</p>}
+                {errors.amount && <p className="text-xs text-red-500 mt-1 font-medium">{errors.amount}</p>}
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('salary.employerLabel')}</label>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.employerLabel')}</label>
                 <input
                   type="text"
                   placeholder={t('salary.employerPlaceholder')}
                   value={fEmployer}
                   onChange={(e) => setFEmployer(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.employer ? 'border-red-300' : 'border-gray-200'}`}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${errors.employer ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF9', outline: 'none' }}
                 />
-                {errors.employer && <p className="text-xs text-red-500 mt-1">{errors.employer}</p>}
+                {errors.employer && <p className="text-xs text-red-500 mt-1 font-medium">{errors.employer}</p>}
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">
                   {t('salary.noteLabelModal')} <span className="text-gray-300 font-normal">({t('common.optional')})</span>
                 </label>
                 <textarea
@@ -462,7 +488,8 @@ export default function Salary() {
                   value={fNote}
                   onChange={(e) => setFNote(e.target.value)}
                   rows={2}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium resize-none"
+                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
                 />
               </div>
             </div>
@@ -470,13 +497,18 @@ export default function Salary() {
             <div className="flex gap-3">
               <button
                 onClick={closeForm}
-                className="flex-1 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors"
+                className="flex-1 rounded-2xl py-3 text-sm font-bold text-gray-700"
+                style={{ border: '2px solid #EDE8E0', background: 'white' }}
               >
                 {t('common.cancel')}
               </button>
               <button
                 onClick={handleAdd}
-                className="flex-1 bg-orange-500 text-white rounded-xl py-3 text-sm font-bold hover:bg-orange-600 transition-colors shadow-sm"
+                className="flex-1 rounded-2xl py-3 text-sm font-extrabold text-white transition-all active:scale-[0.98]"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                  boxShadow: '0 4px 14px rgba(249,115,22,0.3)',
+                }}
               >
                 {t('salary.saveBtn')}
               </button>

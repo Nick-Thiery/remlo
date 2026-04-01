@@ -15,18 +15,18 @@ function formatSGD(amount) {
 }
 
 const SEGMENT_COLORS = [
-  { bar: 'bg-blue-500',    dot: 'bg-blue-500',    text: 'text-blue-600',    light: 'bg-blue-50'    },
-  { bar: 'bg-rose-500',    dot: 'bg-rose-500',    text: 'text-rose-600',    light: 'bg-rose-50'    },
-  { bar: 'bg-emerald-500', dot: 'bg-emerald-500', text: 'text-emerald-600', light: 'bg-emerald-50' },
-  { bar: 'bg-amber-500',   dot: 'bg-amber-500',   text: 'text-amber-600',   light: 'bg-amber-50'   },
-  { bar: 'bg-violet-500',  dot: 'bg-violet-500',  text: 'text-violet-600',  light: 'bg-violet-50'  },
-  { bar: 'bg-cyan-500',    dot: 'bg-cyan-500',    text: 'text-cyan-600',    light: 'bg-cyan-50'    },
-  { bar: 'bg-orange-500',  dot: 'bg-orange-500',  text: 'text-orange-600',  light: 'bg-orange-50'  },
+  { bar: 'bg-blue-500',    dot: 'bg-blue-500',    text: 'text-blue-600',    light: 'bg-blue-50',    svgColor: '#3b82f6' },
+  { bar: 'bg-rose-500',    dot: 'bg-rose-500',    text: 'text-rose-600',    light: 'bg-rose-50',    svgColor: '#f43f5e' },
+  { bar: 'bg-emerald-500', dot: 'bg-emerald-500', text: 'text-emerald-600', light: 'bg-emerald-50', svgColor: '#10b981' },
+  { bar: 'bg-amber-500',   dot: 'bg-amber-500',   text: 'text-amber-600',   light: 'bg-amber-50',   svgColor: '#f59e0b' },
+  { bar: 'bg-violet-500',  dot: 'bg-violet-500',  text: 'text-violet-600',  light: 'bg-violet-50',  svgColor: '#8b5cf6' },
+  { bar: 'bg-cyan-500',    dot: 'bg-cyan-500',    text: 'text-cyan-600',    light: 'bg-cyan-50',    svgColor: '#06b6d4' },
+  { bar: 'bg-orange-500',  dot: 'bg-orange-500',  text: 'text-orange-600',  light: 'bg-orange-50',  svgColor: '#f97316' },
 ]
 
 function StackedBar({ segments }) {
   return (
-    <div className="flex w-full h-4 rounded-full overflow-hidden gap-px bg-gray-100">
+    <div className="flex w-full h-3 rounded-full overflow-hidden gap-px" style={{ background: '#F0EDE8' }}>
       {segments.map((seg, i) =>
         seg.pct > 0 ? (
           <div
@@ -246,35 +246,44 @@ export default function Budget() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+        <div
+          className="w-10 h-10 rounded-full border-[3px] animate-spin"
+          style={{ borderColor: '#F97316', borderTopColor: 'transparent' }}
+        />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-lg mx-auto px-4 py-8">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+      <div className="max-w-lg mx-auto px-4 py-7">
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t('budget.pageTitle')}</h1>
+          <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('budget.pageTitle')}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{t('budget.pageSubtitle')}</p>
         </div>
 
         {/* Error banner */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3">
+          <div
+            className="rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3"
+            style={{ background: '#FEF2F2', border: '1px solid #FECACA' }}
+          >
             <p className="text-sm text-red-700">{error}</p>
-            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 text-lg leading-none flex-shrink-0">×</button>
+            <button onClick={() => setError(null)} className="text-red-400 text-lg leading-none flex-shrink-0">×</button>
           </div>
         )}
 
         {/* Income input */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-          <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('budget.incomeLabel')}</label>
+        <div
+          className="rounded-3xl p-6 mb-4"
+          style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+        >
+          <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.incomeLabel')}</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
             <input
               type="number"
               min="0"
@@ -282,7 +291,8 @@ export default function Budget() {
               value={income}
               onChange={(e) => setIncome(e.target.value)}
               onBlur={() => saveBudget(income, expenses)}
-              className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+              style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
               placeholder="0"
             />
           </div>
@@ -291,19 +301,38 @@ export default function Budget() {
         {/* Summary cards */}
         {monthlyIncome > 0 && (
           <div className="grid grid-cols-3 gap-3 mb-4">
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-              <p className="text-xs text-gray-400 mb-1">{t('budget.summaryIncome')}</p>
-              <p className="text-base font-bold text-gray-900">{formatSGD(monthlyIncome)}</p>
+            <div
+              className="rounded-2xl p-4"
+              style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
+            >
+              <p className="text-xs text-gray-400 mb-1 font-semibold">{t('budget.summaryIncome')}</p>
+              <p className="text-base font-extrabold text-gray-900 tabular-nums">{formatSGD(monthlyIncome)}</p>
             </div>
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-              <p className="text-xs text-gray-400 mb-1">{t('budget.summaryExpenses')}</p>
-              <p className={`text-base font-bold ${isOverBudget ? 'text-rose-600' : 'text-gray-900'}`}>
+            <div
+              className="rounded-2xl p-4"
+              style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
+            >
+              <p className="text-xs text-gray-400 mb-1 font-semibold">{t('budget.summaryExpenses')}</p>
+              <p
+                className="text-base font-extrabold tabular-nums"
+                style={{ color: isOverBudget ? '#DC2626' : '#111016' }}
+              >
                 {formatSGD(totalExpenses)}
               </p>
             </div>
-            <div className={`rounded-2xl shadow-sm border p-4 ${isOverBudget ? 'bg-rose-50 border-rose-100' : 'bg-emerald-50 border-emerald-100'}`}>
-              <p className="text-xs text-gray-400 mb-1">{isOverBudget ? t('budget.summaryOverBy') : t('budget.summaryLeftOver')}</p>
-              <p className={`text-base font-bold ${isOverBudget ? 'text-rose-600' : 'text-emerald-600'}`}>
+            <div
+              className="rounded-2xl p-4"
+              style={{
+                background: isOverBudget ? '#FEF2F2' : '#F0FDF4',
+                border: isOverBudget ? '1px solid #FECACA' : '1px solid #BBF7D0',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+              }}
+            >
+              <p className="text-xs text-gray-400 mb-1 font-semibold">{isOverBudget ? t('budget.summaryOverBy') : t('budget.summaryLeftOver')}</p>
+              <p
+                className="text-base font-extrabold tabular-nums"
+                style={{ color: isOverBudget ? '#DC2626' : '#059669' }}
+              >
                 {formatSGD(isOverBudget ? overspend : remaining)}
               </p>
             </div>
@@ -312,35 +341,38 @@ export default function Budget() {
 
         {/* Visual breakdown */}
         {monthlyIncome > 0 && expenses.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('budget.breakdownTitle')}</p>
+          <div
+            className="rounded-3xl p-6 mb-4"
+            style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          >
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">{t('budget.breakdownTitle')}</p>
 
             <div className="flex items-center gap-6">
               <div className="flex-shrink-0">
                 <DonutChart slices={donutSlices} size={140} />
               </div>
 
-              <div className="flex-1 min-w-0 space-y-2">
+              <div className="flex-1 min-w-0 space-y-2.5">
                 {expenses.map((e, i) => {
                   const pct = monthlyIncome > 0 ? (e.amount / monthlyIncome) * 100 : 0
                   const c = SEGMENT_COLORS[i % SEGMENT_COLORS.length]
                   return (
                     <div key={i} className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${c.dot}`} />
-                        <span className="text-xs text-gray-600 truncate">{e.name}</span>
+                        <span className={`w-2 h-2 rounded-full flex-shrink-0 ${c.dot}`} />
+                        <span className="text-xs text-gray-600 truncate font-medium">{e.name}</span>
                       </div>
-                      <span className="text-xs font-medium text-gray-500 flex-shrink-0">{pct.toFixed(0)}%</span>
+                      <span className="text-xs font-bold text-gray-500 flex-shrink-0">{pct.toFixed(0)}%</span>
                     </div>
                   )
                 })}
                 {remaining > 0 && (
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0 bg-gray-200" />
-                      <span className="text-xs text-gray-400">{t('budget.remainingLabel')}</span>
+                      <span className="w-2 h-2 rounded-full flex-shrink-0 bg-gray-200" />
+                      <span className="text-xs text-gray-400 font-medium">{t('budget.remainingLabel')}</span>
                     </div>
-                    <span className="text-xs font-medium text-gray-400">
+                    <span className="text-xs font-bold text-gray-400">
                       {((remaining / monthlyIncome) * 100).toFixed(0)}%
                     </span>
                   </div>
@@ -355,29 +387,36 @@ export default function Budget() {
         )}
 
         {/* Expenses list */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('budget.expensesTitle')}</p>
+        <div
+          className="rounded-3xl p-6 mb-4"
+          style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+        >
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">{t('budget.expensesTitle')}</p>
 
           {expenses.length === 0 ? (
             <div className="flex flex-col items-center py-6 text-center">
-              <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-3">
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3"
+                style={{ background: '#EFF6FF' }}
+              >
                 <ListPlus className="w-6 h-6 text-blue-400" strokeWidth={1.5} />
               </div>
-              <p className="text-sm font-medium text-gray-700 mb-0.5">{t('budget.expensesEmpty')}</p>
+              <p className="text-sm font-bold text-gray-700 mb-0.5">{t('budget.expensesEmpty')}</p>
             </div>
           ) : (
-            <div className="space-y-1 mb-4">
+            <div className="space-y-1 mb-5">
               {expenses.map((e, i) => {
                 const c = SEGMENT_COLORS[i % SEGMENT_COLORS.length]
                 const pct = monthlyIncome > 0 ? (e.amount / monthlyIncome) * 100 : 0
                 return (
                   <div
                     key={e._key}
-                    className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0 group"
+                    className="flex items-center justify-between py-3"
+                    style={{ borderBottom: '1px solid #F5F2ED' }}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span className={`w-2 h-2 rounded-full flex-shrink-0 ${c.dot}`} />
-                      <span className="text-sm text-gray-800 truncate">{e.name}</span>
+                      <span className="text-sm text-gray-800 truncate font-medium">{e.name}</span>
                     </div>
                     <div className="flex items-center gap-3 flex-shrink-0">
                       {editingKey === e._key ? (
@@ -395,32 +434,34 @@ export default function Budget() {
                               if (ev.key === 'Enter') ev.target.blur()
                               if (ev.key === 'Escape') { setEditingKey(null); setEditingValue('') }
                             }}
-                            className="w-24 border border-blue-400 rounded-lg pl-6 pr-2 py-1 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-900"
+                            className="w-24 rounded-xl pl-6 pr-2 py-1 text-sm font-bold"
+                            style={{ border: '2px solid #F97316', outline: 'none' }}
                           />
                         </div>
                       ) : (
                         <button
                           onClick={() => startEdit(e._key)}
                           title="Click to edit"
-                          className="text-sm font-medium text-gray-900 group/amt flex items-center gap-1 hover:text-blue-600 transition-colors"
+                          className="text-sm font-bold text-gray-900 hover:text-orange-600 transition-colors group/amt flex items-center gap-1"
                         >
-                          <span className="underline decoration-dashed decoration-gray-300 underline-offset-2 group-hover/amt:decoration-blue-400 transition-colors">
+                          <span className="underline decoration-dashed decoration-gray-300 underline-offset-2 group-hover/amt:decoration-orange-400 transition-colors tabular-nums">
                             {formatSGD(e.amount)}
                           </span>
-                          <svg className="w-3 h-3 text-gray-300 group-hover/amt:text-blue-400 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <svg className="w-3 h-3 text-gray-300 group-hover/amt:text-orange-400 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z" />
                           </svg>
                         </button>
                       )}
                       {monthlyIncome > 0 && editingKey !== e._key && (
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${c.light} ${c.text}`}>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${c.light} ${c.text}`}>
                           {pct.toFixed(0)}%
                         </span>
                       )}
                       <button
                         onClick={() => removeExpense(e._key)}
                         aria-label="Remove"
-                        className="w-8 h-8 flex items-center justify-center rounded-full text-gray-300 hover:text-rose-400 hover:bg-rose-50 transition-all text-lg"
+                        className="w-7 h-7 flex items-center justify-center rounded-full text-gray-300 hover:text-rose-400 transition-all text-lg"
+                        style={{ background: '#F9F7F4' }}
                       >
                         ×
                       </button>
@@ -432,8 +473,8 @@ export default function Budget() {
           )}
 
           {/* Add expense form */}
-          <div className="pt-2">
-            <p className="text-xs font-medium text-gray-500 mb-2">{t('budget.addExpenseTitle')}</p>
+          <div className="pt-1">
+            <p className="text-xs font-bold text-gray-400 mb-2.5">{t('budget.addExpenseTitle')}</p>
             <div className="flex gap-2 mb-1.5">
               <div className="flex-1">
                 <input
@@ -442,11 +483,16 @@ export default function Budget() {
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
-                  className={`w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${nameError ? 'border-rose-300' : 'border-gray-200'}`}
+                  className="w-full rounded-xl px-3 py-2.5 text-sm font-medium"
+                  style={{
+                    border: `2px solid ${nameError ? '#FCA5A5' : '#EDE8E0'}`,
+                    background: '#FAFAF9',
+                    outline: 'none',
+                  }}
                 />
               </div>
               <div className="relative w-28">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">S$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none font-semibold">S$</span>
                 <input
                   type="number"
                   placeholder="0"
@@ -455,90 +501,113 @@ export default function Budget() {
                   value={newAmount}
                   onChange={(e) => setNewAmount(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
-                  className={`w-full border rounded-xl pl-7 pr-2 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${amountError ? 'border-rose-300' : 'border-gray-200'}`}
+                  className="w-full rounded-xl pl-7 pr-2 py-2.5 text-sm font-medium"
+                  style={{
+                    border: `2px solid ${amountError ? '#FCA5A5' : '#EDE8E0'}`,
+                    background: '#FAFAF9',
+                    outline: 'none',
+                  }}
                 />
               </div>
               <button
                 onClick={handleAddExpense}
-                className="bg-orange-500 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-orange-600 transition-colors flex-shrink-0 shadow-sm"
+                className="rounded-xl px-4 py-2.5 text-sm font-extrabold text-white flex-shrink-0 transition-all active:scale-95"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                  boxShadow: '0 3px 10px rgba(249,115,22,0.25)',
+                }}
               >
                 {t('budget.addBtn')}
               </button>
             </div>
             {(nameError || amountError) && (
-              <p className="text-xs text-rose-500">{nameError || amountError}</p>
+              <p className="text-xs text-rose-500 font-medium">{nameError || amountError}</p>
             )}
           </div>
         </div>
 
         {/* 50/30/20 guide */}
         {suggested && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <div
+            className="rounded-3xl p-6"
+            style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          >
             <div className="flex items-start justify-between mb-1">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t('budget.guideTitle')}</p>
-              <span className="text-xs bg-blue-50 text-blue-600 font-medium px-2 py-0.5 rounded-full">{t('budget.guideBadge')}</span>
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('budget.guideTitle')}</p>
+              <span
+                className="text-xs font-bold px-2 py-0.5 rounded-full"
+                style={{ background: '#EFF6FF', color: '#1D4ED8' }}
+              >
+                {t('budget.guideBadge')}
+              </span>
             </div>
-            <p className="text-xs text-gray-500 mb-4 mt-0.5">{t('budget.guideDesc')}</p>
+            <p className="text-xs text-gray-500 mb-5 mt-0.5 font-medium">{t('budget.guideDesc')}</p>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-blue-500" />
-                    <span className="text-sm font-medium text-gray-800">{t('budget.needsLabel')}</span>
-                    <span className="text-xs text-gray-400">{t('budget.needsPct')}</span>
+                    <span className="text-sm font-bold text-gray-800">{t('budget.needsLabel')}</span>
+                    <span className="text-xs text-gray-400 font-semibold">{t('budget.needsPct')}</span>
                   </div>
-                  <span className="text-sm font-semibold text-gray-900">{formatSGD(suggested.needs)}</span>
+                  <span className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(suggested.needs)}</span>
                 </div>
-                <div className="w-full bg-gray-100 rounded-full h-1.5">
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8E0' }}>
                   <div
-                    className={`h-1.5 rounded-full transition-all duration-500 ${totalExpenses <= suggested.needs ? 'bg-blue-500' : 'bg-rose-500'}`}
-                    style={{ width: `${Math.min((totalExpenses / suggested.needs) * 100, 100)}%` }}
+                    className="h-1.5 rounded-full transition-all duration-500"
+                    style={{
+                      width: `${Math.min((totalExpenses / suggested.needs) * 100, 100)}%`,
+                      background: totalExpenses <= suggested.needs ? '#3B82F6' : '#EF4444',
+                    }}
                   />
                 </div>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-gray-400 mt-1 font-medium">
                   {t('budget.needsDesc', { amount: formatSGD(totalExpenses) })}
                   {totalExpenses > suggested.needs
-                    ? <span className="text-rose-500">{t('budget.needsOver', { over: formatSGD(totalExpenses - suggested.needs) })}</span>
-                    : <span className="text-emerald-600">{t('budget.needsOk')}</span>}
+                    ? <span className="text-rose-500 font-bold">{t('budget.needsOver', { over: formatSGD(totalExpenses - suggested.needs) })}</span>
+                    : <span className="text-emerald-600 font-bold">{t('budget.needsOk')}</span>}
                 </p>
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-violet-500" />
-                    <span className="text-sm font-medium text-gray-800">{t('budget.sendHomeLabel')}</span>
-                    <span className="text-xs text-gray-400">{t('budget.sendHomePct')}</span>
+                    <span className="text-sm font-bold text-gray-800">{t('budget.sendHomeLabel')}</span>
+                    <span className="text-xs text-gray-400 font-semibold">{t('budget.sendHomePct')}</span>
                   </div>
-                  <span className="text-sm font-semibold text-gray-900">{formatSGD(suggested.remittance)}</span>
+                  <span className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(suggested.remittance)}</span>
                 </div>
-                <div className="w-full bg-gray-100 rounded-full h-1.5">
-                  <div className="bg-violet-500 h-1.5 rounded-full" style={{ width: '30%' }} />
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8E0' }}>
+                  <div className="h-1.5 rounded-full bg-violet-500" style={{ width: '30%' }} />
                 </div>
-                <p className="text-xs text-gray-400 mt-1">{t('budget.sendHomeDesc')}</p>
+                <p className="text-xs text-gray-400 mt-1 font-medium">{t('budget.sendHomeDesc')}</p>
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span className="text-sm font-medium text-gray-800">{t('budget.savingsLabel')}</span>
-                    <span className="text-xs text-gray-400">{t('budget.savingsPct')}</span>
+                    <span className="text-sm font-bold text-gray-800">{t('budget.savingsLabel')}</span>
+                    <span className="text-xs text-gray-400 font-semibold">{t('budget.savingsPct')}</span>
                   </div>
-                  <span className="text-sm font-semibold text-gray-900">{formatSGD(suggested.savings)}</span>
+                  <span className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(suggested.savings)}</span>
                 </div>
-                <div className="w-full bg-gray-100 rounded-full h-1.5">
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8E0' }}>
                   <div
-                    className={`h-1.5 rounded-full transition-all duration-500 ${remaining >= suggested.savings ? 'bg-emerald-500' : 'bg-amber-500'}`}
-                    style={{ width: `${Math.min((remaining / suggested.savings) * 100, 100)}%` }}
+                    className="h-1.5 rounded-full transition-all duration-500"
+                    style={{
+                      width: `${Math.min((remaining / suggested.savings) * 100, 100)}%`,
+                      background: remaining >= suggested.savings ? '#10B981' : '#F59E0B',
+                    }}
                   />
                 </div>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-gray-400 mt-1 font-medium">
                   {t('budget.savingsDesc', { amount: formatSGD(remaining) })}
                   {remaining >= suggested.savings
-                    ? <span className="text-emerald-600">{t('budget.savingsOk')}</span>
-                    : <span className="text-amber-600">{t('budget.savingsShort', { target: formatSGD(suggested.savings) })}</span>}
+                    ? <span className="text-emerald-600 font-bold">{t('budget.savingsOk')}</span>
+                    : <span className="text-amber-600 font-bold">{t('budget.savingsShort', { target: formatSGD(suggested.savings) })}</span>}
                 </p>
               </div>
             </div>

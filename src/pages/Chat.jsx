@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Send, MessageCircle, Mic, MicOff } from 'lucide-react'
+import { Send, Sparkles, Mic, MicOff } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { track } from '../lib/analytics.js'
 
@@ -14,29 +14,17 @@ const LANGUAGES = [
   { code: 'bn', label: 'ব'  },
 ]
 
-// Map i18next language codes → BCP-47 tags for SpeechRecognition
 const SPEECH_LANG = {
-  en:  'en-SG',
-  ta:  'ta-SG',
-  hi:  'hi-IN',
-  bn:  'bn-BD',
-  my:  'my-MM',
-  si:  'si-LK',
-  fil: 'fil-PH',
-  id:  'id-ID',
-  zh:  'zh-CN',
-  th:  'th-TH',
-  ur:  'ur-PK',
-  ne:  'ne-NP',
+  en:  'en-SG', ta:  'ta-SG', hi:  'hi-IN', bn:  'bn-BD',
+  my:  'my-MM', si:  'si-LK', fil: 'fil-PH', id:  'id-ID',
+  zh:  'zh-CN', th:  'th-TH', ur:  'ur-PK',  ne:  'ne-NP',
 }
 
-// Detect browser support once at module level
 const SpeechRecognition =
   typeof window !== 'undefined'
     ? window.SpeechRecognition ?? window.webkitSpeechRecognition ?? null
     : null
 
-// Typing indicator — three bouncing dots
 function TypingDots() {
   return (
     <div className="flex gap-1 items-center h-5">
@@ -57,7 +45,6 @@ export default function Chat() {
 
   const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY
 
-  // ── Voice input ───────────────────────────────────────────────────────────
   const [isRecording, setIsRecording] = useState(false)
   const recognitionRef = useRef(null)
 
@@ -69,30 +56,23 @@ export default function Chat() {
 
   const startRecording = useCallback(() => {
     if (!SpeechRecognition || isRecording) return
-
     const rec = new SpeechRecognition()
     rec.continuous = false
     rec.interimResults = false
     rec.lang = SPEECH_LANG[i18n.language] ?? 'en-SG'
-
     rec.onresult = (e) => {
       const transcript = e.results[0]?.[0]?.transcript ?? ''
       if (transcript) setInput((prev) => (prev ? prev + ' ' + transcript : transcript))
     }
-
     rec.onerror = () => stopRecording()
     rec.onend  = () => stopRecording()
-
     recognitionRef.current = rec
     rec.start()
     setIsRecording(true)
   }, [i18n.language, isRecording, stopRecording])
 
-  // Stop recognition if the component unmounts while recording
   useEffect(() => () => recognitionRef.current?.stop(), [])
 
-  // ── Scroll ────────────────────────────────────────────────────────────────
-  // Scroll to the latest message whenever messages or loading state changes
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, isLoading])
@@ -148,7 +128,6 @@ export default function Chat() {
       ])
     } finally {
       setIsLoading(false)
-      // Re-focus input on desktop
       inputRef.current?.focus()
     }
   }
@@ -157,32 +136,43 @@ export default function Chat() {
   const hasMessages = messages.length > 0
 
   return (
-    // Full-height flex column that sits inside the pb-24 app shell
-    <div className="flex flex-col bg-gray-50" style={{ height: 'calc(100dvh - 65px)' }}>
-
+    <div
+      className="flex flex-col"
+      style={{ height: 'calc(100dvh - 65px)', background: '#FAF8F5' }}
+    >
       {/* ── Header ────────────────────────────────────────────────── */}
-      <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100 shadow-sm">
+      <div
+        className="flex-shrink-0 flex items-center justify-between px-4 py-3"
+        style={{ background: 'white', borderBottom: '1px solid #F0EDE8', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+      >
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center flex-shrink-0">
-            <MessageCircle className="w-4.5 h-4.5 text-white w-[18px] h-[18px]" />
+          <div
+            className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)', boxShadow: '0 4px 12px rgba(249,115,22,0.3)' }}
+          >
+            <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-900 leading-tight">{t('chat.pageTitle')}</p>
-            <p className="text-xs text-gray-400 leading-tight">{t('chat.pageSubtitle')}</p>
+            <p className="text-sm font-extrabold text-gray-900 leading-tight">{t('chat.pageTitle')}</p>
+            <p className="text-xs text-gray-400 leading-tight font-medium">{t('chat.pageSubtitle')}</p>
           </div>
         </div>
 
         {/* Language switcher */}
-        <div className="flex gap-1 bg-gray-100 rounded-xl p-0.5">
+        <div
+          className="flex gap-0.5 p-0.5 rounded-xl"
+          style={{ background: '#F5F2EC' }}
+        >
           {LANGUAGES.map((l) => (
             <button
               key={l.code}
               onClick={() => switchLang(l.code)}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                i18n.language === l.code
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all"
+              style={{
+                background: i18n.language === l.code ? 'white' : 'transparent',
+                color: i18n.language === l.code ? '#F97316' : '#9CA3AF',
+                boxShadow: i18n.language === l.code ? '0 1px 4px rgba(0,0,0,0.08)' : 'none',
+              }}
             >
               {l.label}
             </button>
@@ -192,21 +182,30 @@ export default function Chat() {
 
       {/* ── No API key banner ──────────────────────────────────────── */}
       {!apiKey && (
-        <div className="flex-shrink-0 bg-amber-50 border-b border-amber-100 px-4 py-3">
-          <p className="text-xs text-amber-700 font-medium text-center">{t('chat.noApiKey')}</p>
+        <div
+          className="flex-shrink-0 px-4 py-3"
+          style={{ background: '#FFFBEB', borderBottom: '1px solid #FDE68A' }}
+        >
+          <p className="text-xs text-amber-800 font-bold text-center">{t('chat.noApiKey')}</p>
         </div>
       )}
 
       {/* ── Messages area ─────────────────────────────────────────── */}
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
         {!hasMessages ? (
-          /* Empty state with suggested questions */
-          <div className="flex flex-col items-center justify-center h-full text-center px-2 py-8">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center mb-5 shadow-md">
-              <MessageCircle className="w-8 h-8 text-white" />
+          <div className="flex flex-col items-center justify-center h-full text-center px-4 py-8">
+            {/* Illustration */}
+            <div
+              className="w-20 h-20 rounded-3xl flex items-center justify-center mb-5 float-anim"
+              style={{
+                background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                boxShadow: '0 8px 24px rgba(249,115,22,0.3)',
+              }}
+            >
+              <Sparkles className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-lg font-bold text-gray-900 mb-2">{t('chat.emptyTitle')}</h2>
-            <p className="text-sm text-gray-500 mb-7 leading-relaxed max-w-xs">
+            <h2 className="text-xl font-extrabold text-gray-900 mb-2 tracking-tight">{t('chat.emptyTitle')}</h2>
+            <p className="text-sm text-gray-500 mb-7 leading-relaxed max-w-xs font-medium">
               {t('chat.emptySubtitle')}
             </p>
 
@@ -216,9 +215,15 @@ export default function Chat() {
                   key={i}
                   onClick={() => send(q)}
                   disabled={!apiKey || isLoading}
-                  className="text-left text-sm bg-white border border-gray-200 rounded-2xl px-4 py-3.5 text-gray-700 hover:bg-blue-50 hover:border-blue-200 transition-all active:scale-[0.98] disabled:opacity-40 shadow-sm"
+                  className="text-left text-sm rounded-2xl px-4 py-3.5 font-medium transition-all active:scale-[0.98] disabled:opacity-40"
+                  style={{
+                    background: 'white',
+                    border: '1px solid #EDE8E0',
+                    color: '#374151',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                  }}
                 >
-                  <span className="text-blue-500 mr-2">→</span>{q}
+                  <span style={{ color: '#F97316' }} className="mr-2 font-bold">→</span>{q}
                 </button>
               ))}
             </div>
@@ -232,20 +237,29 @@ export default function Chat() {
               >
                 {/* Bot avatar */}
                 {msg.role === 'assistant' && (
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center flex-shrink-0 mb-0.5">
-                    <span className="text-xs text-white font-bold">AI</span>
+                  <div
+                    className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mb-0.5"
+                    style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)' }}
+                  >
+                    <span className="text-[10px] text-white font-extrabold">AI</span>
                   </div>
                 )}
 
                 {/* Bubble */}
                 <div
-                  className={`max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
+                  className="max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed"
+                  style={
                     msg.role === 'user'
-                      ? 'bg-orange-500 text-white rounded-br-sm'
+                      ? {
+                          background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                          color: 'white',
+                          borderBottomRightRadius: 4,
+                          boxShadow: '0 4px 12px rgba(249,115,22,0.25)',
+                        }
                       : msg.isError
-                      ? 'bg-red-50 text-red-700 border border-red-100 rounded-bl-sm'
-                      : 'bg-white text-gray-800 border border-gray-100 rounded-bl-sm'
-                  }`}
+                      ? { background: '#FEF2F2', color: '#DC2626', border: '1px solid #FECACA', borderBottomLeftRadius: 4 }
+                      : { background: 'white', color: '#111016', border: '1px solid #F0EDE8', borderBottomLeftRadius: 4, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }
+                  }
                 >
                   {msg.role === 'user' ? (
                     msg.content
@@ -253,7 +267,7 @@ export default function Chat() {
                     <ReactMarkdown
                       components={{
                         p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
-                        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                        strong: ({ children }) => <strong className="font-extrabold">{children}</strong>,
                         em: ({ children }) => <em className="italic">{children}</em>,
                         ul: ({ children }) => <ul className="list-disc pl-4 mb-1.5 space-y-0.5">{children}</ul>,
                         ol: ({ children }) => <ol className="list-decimal pl-4 mb-1.5 space-y-0.5">{children}</ol>,
@@ -271,24 +285,37 @@ export default function Chat() {
             {/* Typing indicator */}
             {isLoading && (
               <div className="flex items-end gap-2 justify-start">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center flex-shrink-0 mb-0.5">
-                  <span className="text-xs text-white font-bold">AI</span>
+                <div
+                  className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mb-0.5"
+                  style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)' }}
+                >
+                  <span className="text-[10px] text-white font-extrabold">AI</span>
                 </div>
-                <div className="bg-white border border-gray-100 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+                <div
+                  className="rounded-2xl px-4 py-3"
+                  style={{
+                    background: 'white',
+                    border: '1px solid #F0EDE8',
+                    borderBottomLeftRadius: 4,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                  }}
+                >
                   <TypingDots />
                 </div>
               </div>
             )}
 
-            {/* Anchor for auto-scroll */}
             <div ref={messagesEndRef} />
           </>
         )}
       </div>
 
       {/* ── Input area ────────────────────────────────────────────── */}
-      <div className="flex-shrink-0 bg-white border-t border-gray-100 px-4 pt-3 pb-4">
-        {/* Suggestion chips — shown early in conversation */}
+      <div
+        className="flex-shrink-0 px-4 pt-3 pb-4"
+        style={{ background: 'white', borderTop: '1px solid #F0EDE8' }}
+      >
+        {/* Suggestion chips */}
         {hasMessages && messages.length <= 2 && !isLoading && (
           <div className="flex gap-2 overflow-x-auto pb-2.5 scrollbar-none">
             {Array.isArray(suggested) && suggested.map((q, i) => (
@@ -296,7 +323,8 @@ export default function Chat() {
                 key={i}
                 onClick={() => send(q)}
                 disabled={!apiKey || isLoading}
-                className="flex-shrink-0 text-xs bg-gray-100 text-gray-700 rounded-full px-3.5 py-1.5 hover:bg-blue-100 hover:text-blue-700 transition-colors disabled:opacity-40"
+                className="flex-shrink-0 text-xs rounded-full px-3.5 py-1.5 font-semibold transition-colors disabled:opacity-40"
+                style={{ background: '#FFF7ED', color: '#C2410C', border: '1px solid #FED7AA' }}
               >
                 {q}
               </button>
@@ -318,24 +346,26 @@ export default function Chat() {
               }
             }}
             disabled={isLoading || !apiKey}
-            className={`flex-1 bg-gray-50 border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-50 transition-all ${
-              isRecording
-                ? 'border-red-300 ring-2 ring-red-200 bg-red-50 placeholder:text-red-400'
-                : 'border-gray-200 focus:ring-orange-400'
-            }`}
+            className="flex-1 rounded-2xl px-4 py-3 text-sm font-medium transition-all disabled:opacity-50"
+            style={{
+              border: isRecording ? '2px solid #FCA5A5' : '2px solid #EDE8E0',
+              background: isRecording ? '#FFF5F5' : '#FAFAF9',
+              outline: 'none',
+              color: '#111016',
+            }}
           />
 
-          {/* Mic button — only shown when SpeechRecognition is supported */}
           {SpeechRecognition && (
             <button
               onClick={isRecording ? stopRecording : startRecording}
               disabled={isLoading || !apiKey}
               aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
-              className={`rounded-xl px-3 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0 ${
-                isRecording
-                  ? 'bg-red-500 text-white shadow-md shadow-red-200'
-                  : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-              }`}
+              className="rounded-2xl px-3 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"
+              style={{
+                background: isRecording ? '#EF4444' : '#F5F2EC',
+                color: isRecording ? 'white' : '#6B7280',
+                boxShadow: isRecording ? '0 4px 12px rgba(239,68,68,0.3)' : 'none',
+              }}
             >
               {isRecording ? (
                 <span className="flex items-center gap-1.5">
@@ -351,13 +381,18 @@ export default function Chat() {
           <button
             onClick={() => send(input)}
             disabled={!input.trim() || isLoading || !apiKey}
-            className="bg-orange-500 text-white rounded-xl px-4 py-3 flex items-center justify-center hover:bg-orange-600 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+            className="rounded-2xl px-4 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"
+            style={{
+              background: 'linear-gradient(135deg, #F97316, #EA580C)',
+              color: 'white',
+              boxShadow: input.trim() ? '0 4px 14px rgba(249,115,22,0.3)' : 'none',
+            }}
           >
             <Send className="w-4 h-4" />
           </button>
         </div>
 
-        <p className="text-xs text-gray-400 text-center mt-2">{t('chat.disclaimer')}</p>
+        <p className="text-xs text-gray-400 text-center mt-2 font-medium">{t('chat.disclaimer')}</p>
       </div>
     </div>
   )

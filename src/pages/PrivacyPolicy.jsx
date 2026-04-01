@@ -55,19 +55,19 @@ export default function PrivacyPolicy() {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
       <div className="max-w-lg mx-auto px-4 pt-8 pb-12">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate(-1)}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Privacy Policy</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">Privacy Policy</h1>
             <p className="text-sm text-gray-500 mt-0.5">Last updated March 2025</p>
           </div>
         </div>

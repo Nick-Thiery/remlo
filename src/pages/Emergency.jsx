@@ -63,7 +63,7 @@ export default function Emergency() {
   const { t } = useTranslation()
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
 
       {/* Emergency call bar — always at top */}
       <div className="bg-red-600 px-4 py-4">
@@ -87,12 +87,12 @@ export default function Emergency() {
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('emergency.pageTitle')}</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('emergency.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('emergency.pageSubtitle')}</p>
           </div>
         </div>

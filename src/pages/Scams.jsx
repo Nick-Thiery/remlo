@@ -62,7 +62,7 @@ export default function Scams() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
 
       {/* Emergency banner — sticky */}
       <div className="sticky top-0 z-30 bg-red-600 px-4 py-3">
@@ -77,12 +77,12 @@ export default function Scams() {
         <div className="flex items-center gap-3 mb-5">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900">{t('scams.pageTitle')}</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('scams.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('scams.pageSubtitle')}</p>
           </div>
           <button
@@ -117,7 +117,7 @@ export default function Scams() {
             const isExpanded = expandedId === alert.id
 
             return (
-              <div key={alert.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div key={alert.id} className="rounded-3xl overflow-hidden" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
 
                 {/* Coloured left accent */}
                 <div className={`h-1 w-full ${badge.dot}`} />

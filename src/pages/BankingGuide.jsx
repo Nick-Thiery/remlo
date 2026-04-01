@@ -28,7 +28,7 @@ const HELPLINE_NUMBERS = ['1800-333-1313', '999', '6509-0026']
 function BankCard({ style, text, feeLabel, minBalanceLabel, docsNeededLabel }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+    <div className="rounded-3xl overflow-hidden" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
       <button className="w-full flex items-center gap-4 px-4 py-4 text-left" onClick={() => setOpen((o) => !o)}>
         <div className={`w-10 h-10 rounded-xl ${style.color} flex items-center justify-center flex-shrink-0`}>
           <span className="text-white text-xs font-bold">{style.logo}</span>
@@ -46,11 +46,11 @@ function BankCard({ style, text, feeLabel, minBalanceLabel, docsNeededLabel }) {
         <div className="border-t border-gray-50 px-4 pb-4">
           <p className="text-xs text-gray-600 leading-relaxed mt-3 mb-3">{text.notes}</p>
           <div className="grid grid-cols-2 gap-3 mb-3">
-            <div className="bg-gray-50 rounded-xl p-3">
+            <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
               <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">{minBalanceLabel}</p>
               <p className="text-sm font-semibold text-gray-800">{text.minBalance}</p>
             </div>
-            <div className="bg-gray-50 rounded-xl p-3">
+            <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
               <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">{feeLabel}</p>
               <p className={`text-sm font-semibold ${style.feeGood ? 'text-emerald-600' : 'text-gray-800'}`}>
                 {style.feeGood ? text.fee : text.fee.split(' ')[0]}
@@ -84,28 +84,28 @@ export default function BankingGuide() {
   const helplines = t('bankingGuide.helplines', { returnObjects: true })
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('bankingGuide.pageTitle')}</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('bankingGuide.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('bankingGuide.pageSubtitle')}</p>
           </div>
         </div>
 
         {/* Documents */}
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           {t('bankingGuide.docsHeading')}
         </p>
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 mb-6">
+        <div className="rounded-3xl p-4 mb-6" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
           <div className="space-y-3">
             {Array.isArray(docs) && docs.map((d, i) => (
               <div key={i} className="flex items-start gap-3">
@@ -125,7 +125,7 @@ export default function BankingGuide() {
         {/* Traditional banks */}
         <div className="flex items-center gap-2 mb-3">
           <Landmark className="w-4 h-4 text-gray-500" />
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
             {t('bankingGuide.banksHeading')}
           </p>
         </div>
@@ -151,13 +151,13 @@ export default function BankingGuide() {
         {/* Digital alternatives */}
         <div className="flex items-center gap-2 mb-3">
           <Smartphone className="w-4 h-4 text-gray-500" />
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
             {t('bankingGuide.digitalHeading')}
           </p>
         </div>
         <div className="space-y-3 mb-6">
           {Array.isArray(digital) && digital.map((d, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4">
+            <div key={i} className="rounded-3xl px-4 py-4" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
               <div className="flex items-center gap-3 mb-2">
                 <div className={`w-9 h-9 rounded-xl ${DIGITAL_STYLE[i].color} flex items-center justify-center flex-shrink-0`}>
                   <span className="text-white text-xs font-bold">{DIGITAL_STYLE[i].logo}</span>
@@ -180,7 +180,7 @@ export default function BankingGuide() {
         {/* Employer holds card */}
         <div className="flex items-center gap-2 mb-3">
           <ShieldAlert className="w-4 h-4 text-red-500" />
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
             {t('bankingGuide.cardHolderHeading')}
           </p>
         </div>
@@ -190,7 +190,7 @@ export default function BankingGuide() {
         </div>
         <div className="space-y-3 mb-6">
           {Array.isArray(steps) && steps.map((s, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-4 flex gap-4">
+            <div key={i} className="rounded-3xl px-4 py-4 flex gap-4" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
               <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
                 {i + 1}
               </div>
@@ -203,7 +203,7 @@ export default function BankingGuide() {
         </div>
 
         {/* Helplines */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-2">
+        <div className="rounded-3xl overflow-hidden mb-2" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
           <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-50">
             <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
             <p className="text-sm font-semibold text-gray-900">{t('bankingGuide.helplineHeading')}</p>

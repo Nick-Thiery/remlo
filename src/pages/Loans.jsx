@@ -211,33 +211,33 @@ export default function Loans() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+        <div className="w-10 h-10 rounded-full border-[3px] animate-spin" style={{ borderColor: '#F97316', borderTopColor: 'transparent' }} />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900">{t('loans.pageTitle')}</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('loans.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">
               {t('loans.pageSubtitle', { count: activeCount })}
             </p>
           </div>
           <button
             onClick={openForm}
-            className="bg-orange-500 text-white rounded-xl px-4 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all flex items-center gap-1.5 flex-shrink-0 shadow-sm"
+            className="flex items-center gap-1.5 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-white transition-all active:scale-95 flex-shrink-0" style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)', boxShadow: '0 6px 18px rgba(249,115,22,0.3)' }}
           >
             {t('loans.addBtn')}
           </button>
@@ -276,7 +276,7 @@ export default function Loans() {
 
         {/* Total debt summary */}
         {computed.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+          <div className="rounded-3xl p-6 mb-6" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">{t('loans.totalDebtLabel')}</p>
             <p className="text-3xl font-bold text-gray-900">{formatSGD(totalDebt)}</p>
             <p className="text-sm text-gray-500 mt-1">{t('loans.totalDebtSub', { count: computed.length })}</p>
@@ -285,7 +285,7 @@ export default function Loans() {
 
         {/* Loan cards */}
         {computed.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-12 text-center">
+          <div className="rounded-3xl px-8 py-12 text-center" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
             <div className="w-20 h-20 bg-violet-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
               <Receipt className="w-10 h-10 text-violet-400" strokeWidth={1.5} />
             </div>
@@ -293,7 +293,7 @@ export default function Loans() {
             <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('loans.emptyDesc')}</p>
             <button
               onClick={openForm}
-              className="bg-orange-500 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-orange-600 active:scale-95 transition-all shadow-sm"
+              className="rounded-2xl px-6 py-3 text-sm font-extrabold text-white transition-all active:scale-95" style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)', boxShadow: '0 6px 18px rgba(249,115,22,0.3)' }}
             >
               {t('loans.emptyBtn')}
             </button>
@@ -372,17 +372,17 @@ export default function Loans() {
                   {isExpanded && (
                     <div className="border-t border-gray-50 px-5 py-4 space-y-4">
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-gray-50 rounded-xl p-3">
+                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.originalAmount')}</p>
                           <p className="text-sm font-semibold text-gray-900">{formatSGD(loan.principal)}</p>
                         </div>
-                        <div className="bg-gray-50 rounded-xl p-3">
+                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.paymentsMade')}</p>
                           <p className="text-sm font-semibold text-gray-900">
                             {t('loans.paymentsMade', { count: loan.made })}
                           </p>
                         </div>
-                        <div className="bg-gray-50 rounded-xl p-3">
+                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.projectedPayoff')}</p>
                           <p className="text-sm font-semibold text-gray-900">
                             {loan.paidOff
@@ -392,7 +392,7 @@ export default function Loans() {
                               : formatMonthYear(loan.payoffDate)}
                           </p>
                         </div>
-                        <div className="bg-gray-50 rounded-xl p-3">
+                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.totalInterest')}</p>
                           <p className={`text-sm font-semibold ${isIllegal ? 'text-red-600' : 'text-gray-900'}`}>
                             {loan.neverPaidOff || loan.totalInterestPaid == null

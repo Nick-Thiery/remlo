@@ -45,26 +45,26 @@ export default function EmergencyFund() {
   const tips = t('emergencyFund.tips', { returnObjects: true })
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('emergencyFund.pageTitle')}</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('emergencyFund.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('emergencyFund.pageSubtitle')}</p>
           </div>
         </div>
 
         {/* Input card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-5">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">
+        <div className="rounded-3xl p-6 mb-5" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
             {t('emergencyFund.sectionNumbers')}
           </p>
           <div className="space-y-4">
@@ -100,7 +100,7 @@ export default function EmergencyFund() {
         {/* Results */}
         {hasExpenses ? (
           <>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
               {t('emergencyFund.sectionTargets')}
             </p>
 
@@ -111,7 +111,7 @@ export default function EmergencyFund() {
                   <p className="text-xs font-semibold text-blue-600 uppercase tracking-wide mb-0.5">
                     {t('emergencyFund.minTarget')}
                   </p>
-                  <p className="text-2xl font-bold text-gray-900">{formatSGD(target3)}</p>
+                  <p className="text-2xl font-extrabold text-gray-900 tracking-tight">{formatSGD(target3)}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{t('emergencyFund.threeMonths')}</p>
                 </div>
                 <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
@@ -149,7 +149,7 @@ export default function EmergencyFund() {
                   <p className="text-xs font-semibold text-violet-600 uppercase tracking-wide mb-0.5">
                     {t('emergencyFund.recTarget')}
                   </p>
-                  <p className="text-2xl font-bold text-gray-900">{formatSGD(target6)}</p>
+                  <p className="text-2xl font-extrabold text-gray-900 tracking-tight">{formatSGD(target6)}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{t('emergencyFund.sixMonths')}</p>
                 </div>
                 <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
@@ -189,7 +189,7 @@ export default function EmergencyFund() {
             </div>
           </>
         ) : (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 text-center mb-6">
+          <div className="rounded-3xl p-10 text-center mb-6" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
             <p className="text-4xl mb-3">🛡️</p>
             <p className="font-semibold text-gray-900 mb-1">{t('emergencyFund.emptyTitle')}</p>
             <p className="text-sm text-gray-500">{t('emergencyFund.emptyDesc')}</p>
@@ -197,14 +197,14 @@ export default function EmergencyFund() {
         )}
 
         {/* Tips */}
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           {t('emergencyFund.tipsHeading')}
         </p>
         <div className="space-y-3">
           {Array.isArray(tips) && tips.map((tip, i) => {
             const Icon = TIP_ICONS[i]
             return (
-              <div key={i} className="bg-white rounded-2xl shadow-sm border border-gray-100 px-4 py-4 flex gap-3">
+              <div key={i} className="rounded-3xl px-4 py-4 flex gap-3" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
                 <div className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center flex-shrink-0">
                   <Icon className="w-4 h-4 text-gray-500" />
                 </div>

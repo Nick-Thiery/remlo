@@ -127,36 +127,36 @@ export default function Home() {
       icon: Coins,
       title: t('features.savings.title'),
       description: t('features.savings.description'),
-      iconColor: 'text-amber-600',
-      iconBg: 'bg-amber-50',
-      accentBar: 'bg-amber-400',
+      grad: 'linear-gradient(135deg, #F59E0B, #D97706)',
+      iconColor: '#92400E',
+      bgLight: '#FFFBEB',
     },
     {
       to: '/budget',
       icon: LayoutGrid,
       title: t('features.budget.title'),
       description: t('features.budget.description'),
-      iconColor: 'text-violet-600',
-      iconBg: 'bg-violet-50',
-      accentBar: 'bg-violet-400',
+      grad: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
+      iconColor: '#4C1D95',
+      bgLight: '#F5F3FF',
     },
     {
       to: '/remittance',
       icon: SendHorizonal,
       title: t('features.remittance.title'),
       description: t('features.remittance.description'),
-      iconColor: 'text-sky-600',
-      iconBg: 'bg-sky-50',
-      accentBar: 'bg-sky-400',
+      grad: 'linear-gradient(135deg, #0EA5E9, #0284C7)',
+      iconColor: '#0C4A6E',
+      bgLight: '#F0F9FF',
     },
     {
       to: '/chat',
       icon: Sparkles,
       title: t('features.ai.title'),
       description: t('features.ai.description'),
-      iconColor: 'text-blue-600',
-      iconBg: 'bg-blue-50',
-      accentBar: 'bg-blue-400',
+      grad: 'linear-gradient(135deg, #F97316, #EA580C)',
+      iconColor: '#7C2D12',
+      bgLight: '#FFF7ED',
     },
   ]
 
@@ -165,57 +165,63 @@ export default function Home() {
       label: t('stats.totalSaved'),
       value: statsLoading ? '—' : formatSGD(totalSaved),
       icon: Coins,
-      iconColor: 'text-amber-500',
-      numColor: 'text-amber-700',
-      accentBar: 'bg-amber-400',
+      grad: 'linear-gradient(135deg, #F59E0B, #D97706)',
+      numColor: '#92400E',
     },
     {
       label: t('stats.budgetLeft'),
       value: statsLoading ? '—' : formatSGD(budgetLeft),
       icon: Wallet,
-      iconColor: 'text-violet-500',
-      numColor: 'text-violet-700',
-      accentBar: 'bg-violet-400',
+      grad: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
+      numColor: '#4C1D95',
     },
     {
       label: t('stats.dayStreak'),
       value: statsLoading ? '—' : String(streak),
       icon: Flame,
-      iconColor: 'text-orange-500',
-      numColor: 'text-orange-600',
-      accentBar: 'bg-orange-400',
+      grad: 'linear-gradient(135deg, #F97316, #EA580C)',
+      numColor: '#7C2D12',
     },
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
 
       {/* ── Header bar ────────────────────────────────────────────────── */}
-      <div className="bg-white border-b border-gray-100/80">
+      <div className="bg-white" style={{ borderBottom: '1px solid #F0EDE8' }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
 
             {/* App name */}
-            <h1 className="text-xl font-bold text-gray-900">{t('appName')}</h1>
+            <h1
+              className="tracking-tight"
+              style={{ fontSize: 22, fontWeight: 800, color: '#111016' }}
+            >
+              {t('appName')}
+            </h1>
 
             <div className="flex items-center gap-2">
               {/* Language pill */}
               <div className="relative">
                 <button
                   onClick={() => setLangOpen((o) => !o)}
-                  className="flex items-center gap-1 bg-gray-100 hover:bg-gray-200 rounded-xl px-2.5 py-1.5 transition-colors"
+                  className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 transition-colors"
+                  style={{ background: '#F5F2EC', border: '1px solid #EDE8E0' }}
                 >
-                  <span className="text-xs font-semibold text-gray-600">{currentLang.label.slice(0, 2).toUpperCase()}</span>
-                  <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
+                  <span className="text-xs font-bold text-gray-600">{currentLang.label.slice(0, 2).toUpperCase()}</span>
+                  <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {langOpen && (
-                  <div className="absolute right-0 mt-2 w-44 bg-white rounded-2xl shadow-xl border border-gray-100 py-1.5 z-50 max-h-72 overflow-y-auto">
+                  <div
+                    className="absolute right-0 mt-2 w-44 bg-white rounded-2xl py-1.5 z-50 max-h-72 overflow-y-auto"
+                    style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.14)', border: '1px solid #F0EDE8' }}
+                  >
                     {LANGUAGES.map((l) => (
                       <button
                         key={l.code}
                         onClick={() => switchLang(l.code)}
-                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-gray-50 ${
-                          l.code === i18n.language ? 'font-semibold text-blue-600' : 'text-gray-700'
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-orange-50 ${
+                          l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'
                         }`}
                       >
                         {l.label}
@@ -226,8 +232,14 @@ export default function Home() {
               </div>
 
               {/* Avatar */}
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-sm flex-shrink-0">
-                <span className="text-white text-sm font-bold select-none">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                  boxShadow: '0 3px 10px rgba(249,115,22,0.35)',
+                }}
+              >
+                <span className="text-white text-sm font-extrabold select-none">
                   {userInitial || '·'}
                 </span>
               </div>
@@ -236,48 +248,71 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-4 pb-12">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-12">
 
         {/* ── Hero card ─────────────────────────────────────────────────── */}
         <div
-          className="relative rounded-3xl overflow-hidden mb-5 shadow-lg"
-          style={{ background: 'linear-gradient(140deg, #b45309 0%, #ea580c 50%, #c2410c 100%)' }}
+          className="relative rounded-3xl overflow-hidden mb-6 fade-in-up"
+          style={{
+            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #F97316 75%, #F59E0B 100%)',
+            boxShadow: '0 12px 40px rgba(194,65,12,0.35)',
+          }}
         >
-          {/* Layered decorative circles */}
-          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full bg-white/[0.08]" />
-          <div className="absolute top-4 right-16 w-14 h-14 rounded-full bg-white/[0.06]" />
-          <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full bg-black/[0.08]" />
-          <div className="absolute bottom-5 right-7 w-5 h-5 rounded-full bg-white/20" />
-          {/* Subtle grid texture */}
+          {/* Decorative circles */}
           <div
-            className="absolute inset-0 opacity-[0.04]"
+            className="absolute -top-12 -right-12 w-48 h-48 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.07)' }}
+          />
+          <div
+            className="absolute top-5 right-20 w-16 h-16 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.05)' }}
+          />
+          <div
+            className="absolute -bottom-14 -left-10 w-40 h-40 rounded-full"
+            style={{ background: 'rgba(0,0,0,0.07)' }}
+          />
+          <div
+            className="absolute bottom-6 right-8 w-5 h-5 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.2)' }}
+          />
+          {/* Grid texture */}
+          <div
+            className="absolute inset-0"
             style={{
-              backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 24px,white 24px,white 25px),repeating-linear-gradient(90deg,transparent,transparent 24px,white 24px,white 25px)',
+              backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px)',
             }}
           />
 
-          <div className="relative px-6 pt-6 pb-7">
+          <div className="relative px-6 pt-7 pb-8">
             {/* Eyebrow badge */}
-            <div className="inline-flex items-center gap-1.5 bg-white/20 rounded-full px-3 py-1 mb-4">
+            <div
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-4"
+              style={{ background: 'rgba(255,255,255,0.18)' }}
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse" />
-              <span className="text-white/90 text-[10px] font-bold uppercase tracking-[0.12em]">
+              <span className="text-white/90 text-[10px] font-bold uppercase tracking-[0.14em]">
                 {t('hero.eyebrow')}
               </span>
             </div>
 
             <h2
-              className="text-white font-extrabold leading-tight mb-2 whitespace-pre-line"
-              style={{ fontSize: '1.5rem', letterSpacing: '-0.01em' }}
+              className="text-white font-extrabold leading-tight mb-2.5 whitespace-pre-line"
+              style={{ fontSize: '1.6rem', letterSpacing: '-0.02em' }}
             >
               {t('hero.headline')}
             </h2>
-            <p className="text-white/70 text-xs leading-relaxed max-w-[190px] mb-5">
+            <p className="text-white/65 text-xs leading-relaxed max-w-[200px] mb-6">
               {t('hero.tagline')}
             </p>
 
             <Link
               to="/savings"
-              className="inline-flex items-center gap-2 bg-white text-amber-700 rounded-xl px-5 py-2.5 text-sm font-bold shadow-md hover:bg-amber-50 active:scale-95 transition-all"
+              className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-extrabold transition-all active:scale-95"
+              style={{
+                background: 'white',
+                color: '#C2410C',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+              }}
             >
               {t('hero.cta')}
               <ArrowUpRight className="w-4 h-4" />
@@ -286,25 +321,37 @@ export default function Home() {
         </div>
 
         {/* ── Quick stats ───────────────────────────────────────────────── */}
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           {t('stats.heading')}
         </p>
-        <div className="grid grid-cols-3 gap-2.5 mb-7">
+        <div className="grid grid-cols-3 gap-3 mb-7">
           {QUICK_STATS.map((stat) => (
             <div
               key={stat.label}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm px-3.5 pt-3.5 pb-4 overflow-hidden relative"
+              className="rounded-2xl px-3.5 pt-4 pb-4 overflow-hidden fade-in-up"
+              style={{
+                background: 'white',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                border: '1px solid #F0EDE8',
+              }}
             >
-              <div className={`absolute top-0 left-0 right-0 h-[3px] ${stat.accentBar}`} />
-              <stat.icon className={`w-4 h-4 ${stat.iconColor} mb-2`} strokeWidth={1.8} />
+              {/* Icon */}
+              <div
+                className="w-8 h-8 rounded-xl flex items-center justify-center mb-2.5"
+                style={{ background: stat.grad }}
+              >
+                <stat.icon className="w-4 h-4 text-white" strokeWidth={2} />
+              </div>
               <p
-                className={`text-base font-bold leading-none tabular-nums ${
-                  statsLoading ? 'text-gray-200 animate-pulse' : stat.numColor
-                }`}
+                className="text-base font-extrabold leading-none tabular-nums"
+                style={{
+                  color: statsLoading ? '#D1CFC9' : stat.numColor,
+                  animation: statsLoading ? 'pulse 1.5s infinite' : 'none',
+                }}
               >
                 {stat.value}
               </p>
-              <p className="text-[10px] text-gray-400 mt-1.5 font-medium leading-tight">
+              <p className="text-[10px] text-gray-400 mt-1.5 font-semibold leading-tight">
                 {stat.label}
               </p>
             </div>
@@ -312,28 +359,46 @@ export default function Home() {
         </div>
 
         {/* ── Feature cards ─────────────────────────────────────────────── */}
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           {t('features.heading')}
         </p>
         <div className="grid grid-cols-2 gap-3">
-          {FEATURES.map((f) => (
-            <Link key={f.to} to={f.to} className="block">
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden h-full hover:shadow-md hover:-translate-y-0.5 active:scale-[0.97] transition-all">
-                {/* Accent bar */}
-                <div className={`h-[3px] w-full ${f.accentBar}`} />
+          {FEATURES.map((f, i) => (
+            <Link key={f.to} to={f.to} className="block fade-in-up" style={{ animationDelay: `${i * 60}ms`, opacity: 0 }}>
+              <div
+                className="rounded-2xl overflow-hidden h-full transition-all active:scale-[0.97]"
+                style={{
+                  background: 'white',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                  border: '1px solid #F0EDE8',
+                }}
+              >
+                {/* Gradient top strip */}
+                <div
+                  className="h-[3px] w-full"
+                  style={{ background: f.grad }}
+                />
 
                 <div className="p-5">
                   {/* Icon */}
-                  <div className={`w-10 h-10 rounded-xl ${f.iconBg} flex items-center justify-center mb-4`}>
-                    <f.icon className={`w-5 h-5 ${f.iconColor}`} strokeWidth={1.8} />
+                  <div
+                    className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4"
+                    style={{ background: f.grad, boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+                  >
+                    <f.icon className="w-5 h-5 text-white" strokeWidth={2} />
                   </div>
 
                   {/* Text */}
-                  <p className="text-sm font-semibold text-gray-900 leading-tight mb-1">{f.title}</p>
+                  <p className="text-sm font-bold text-gray-900 leading-tight mb-1.5">{f.title}</p>
                   <p className="text-[11px] text-gray-500 leading-relaxed mb-4">{f.description}</p>
 
-                  {/* Arrow indicator */}
-                  <ChevronRight className={`w-3.5 h-3.5 ${f.iconColor} opacity-50`} />
+                  {/* Arrow */}
+                  <div
+                    className="w-6 h-6 rounded-full flex items-center justify-center"
+                    style={{ background: '#F5F2EC' }}
+                  >
+                    <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
+                  </div>
                 </div>
               </div>
             </Link>

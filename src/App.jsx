@@ -66,14 +66,14 @@ const TABS = [
 ]
 
 const MORE_ITEMS = [
-  { path: '/salary',         key: 'salary',        Icon: Banknote,    accent: 'bg-blue-100 text-blue-600',     bar: 'bg-blue-400'    },
-  { path: '/loans',          key: 'loans',         Icon: CreditCard,  accent: 'bg-violet-100 text-violet-600', bar: 'bg-violet-400'  },
-  { path: '/scams',          key: 'scams',         Icon: ShieldAlert, accent: 'bg-red-100 text-red-600',       bar: 'bg-red-400'     },
-  { path: '/scam-quiz',      key: 'scamQuiz',      Icon: Brain,       accent: 'bg-purple-100 text-purple-600', bar: 'bg-purple-400'  },
-  { path: '/emergency-fund', key: 'emergencyFund', Icon: Calculator,  accent: 'bg-teal-100 text-teal-600',     bar: 'bg-teal-400'    },
-  { path: '/banking-guide',  key: 'bankingGuide',  Icon: BookOpen,    accent: 'bg-sky-100 text-sky-600',       bar: 'bg-sky-400'     },
-  { path: '/loanshark',      key: 'loanshark',     Icon: Scale,       accent: 'bg-amber-100 text-amber-700',   bar: 'bg-amber-400'   },
-  { path: '/emergency',      key: 'emergency',     Icon: Phone,       accent: 'bg-rose-100 text-rose-600',     bar: 'bg-rose-400'    },
+  { path: '/salary',         key: 'salary',        Icon: Banknote,    grad: 'from-blue-500 to-blue-400',       glow: 'shadow-blue-100'    },
+  { path: '/loans',          key: 'loans',         Icon: CreditCard,  grad: 'from-violet-500 to-violet-400',   glow: 'shadow-violet-100'  },
+  { path: '/scams',          key: 'scams',         Icon: ShieldAlert, grad: 'from-red-500 to-rose-400',        glow: 'shadow-red-100'     },
+  { path: '/scam-quiz',      key: 'scamQuiz',      Icon: Brain,       grad: 'from-purple-500 to-purple-400',   glow: 'shadow-purple-100'  },
+  { path: '/emergency-fund', key: 'emergencyFund', Icon: Calculator,  grad: 'from-teal-500 to-emerald-400',    glow: 'shadow-teal-100'    },
+  { path: '/banking-guide',  key: 'bankingGuide',  Icon: BookOpen,    grad: 'from-sky-500 to-sky-400',         glow: 'shadow-sky-100'     },
+  { path: '/loanshark',      key: 'loanshark',     Icon: Scale,       grad: 'from-amber-500 to-amber-400',     glow: 'shadow-amber-100'   },
+  { path: '/emergency',      key: 'emergency',     Icon: Phone,       grad: 'from-rose-500 to-pink-400',       glow: 'shadow-rose-100'    },
 ]
 
 const EMERGENCY_CONTACTS = [
@@ -90,39 +90,57 @@ function BottomTabBar() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  // Consider /more and all more-sub-pages as "more" tab active
   const MORE_SUB_PATHS = MORE_ITEMS.map((m) => m.path)
   const onMoreSection = location.pathname === '/more' || MORE_SUB_PATHS.includes(location.pathname)
 
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40 bg-white/98 backdrop-blur-sm border-t border-gray-100 shadow-[0_-1px_12px_rgba(0,0,0,0.06)]">
-      <div className="flex items-center px-1">
-        {TABS.map(({ path, key, Icon }) => {
-          const active = key === 'more' ? onMoreSection : location.pathname === path
-          return (
-            <button
-              key={path}
-              onClick={() => navigate(path)}
-              className="flex-1 flex flex-col items-center pt-3 pb-2 gap-1 transition-all"
-            >
-              <div className={`flex items-center justify-center w-12 h-8 rounded-full transition-all duration-200 ${
-                active ? 'bg-orange-100' : ''
-              }`}>
-                <Icon
-                  className={`w-[22px] h-[22px] transition-all duration-200 ${active ? 'text-orange-500' : 'text-gray-400'}`}
-                  strokeWidth={active ? 2.4 : 1.8}
-                />
-              </div>
-              <span className={`text-[11px] leading-none transition-all duration-200 ${active ? 'font-bold text-orange-500' : 'font-medium text-gray-400'}`}>
-                {t(`nav.${key}`)}
-              </span>
-            </button>
-          )
-        })}
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40">
+      <div
+        className="bg-white/98 backdrop-blur-xl"
+        style={{
+          borderTop: '1px solid rgba(240, 237, 232, 0.8)',
+          boxShadow: '0 -8px 40px rgba(0,0,0,0.08)',
+        }}
+      >
+        <div className="flex items-center px-1 pt-2">
+          {TABS.map(({ path, key, Icon }) => {
+            const active = key === 'more' ? onMoreSection : location.pathname === path
+            return (
+              <button
+                key={path}
+                onClick={() => navigate(path)}
+                className="flex-1 flex flex-col items-center gap-1 pb-1 transition-all"
+              >
+                {/* Pill indicator */}
+                <div
+                  className="flex items-center justify-center transition-all duration-300"
+                  style={{
+                    width: active ? 52 : 40,
+                    height: 28,
+                    borderRadius: 14,
+                    background: active ? 'linear-gradient(135deg, #F97316, #EA580C)' : 'transparent',
+                    boxShadow: active ? '0 4px 14px rgba(249,115,22,0.35)' : 'none',
+                  }}
+                >
+                  <Icon
+                    style={{ width: 19, height: 19 }}
+                    className={`transition-all duration-300 ${active ? 'text-white' : 'text-gray-400'}`}
+                    strokeWidth={active ? 2.5 : 1.8}
+                  />
+                </div>
+                <span
+                  className="text-[10px] leading-none font-semibold transition-all duration-300"
+                  style={{ color: active ? '#F97316' : '#9CA3AF' }}
+                >
+                  {t(`nav.${key}`)}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+        {/* Safe area */}
+        <div className="h-[max(env(safe-area-inset-bottom,0px),6px)]" />
       </div>
-
-      {/* Extra clearance + iPhone home indicator */}
-      <div className="h-[max(env(safe-area-inset-bottom,0px),8px)]" />
     </div>
   )
 }
@@ -153,24 +171,31 @@ function MorePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50" onClick={() => setLangOpen(false)}>
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }} onClick={() => setLangOpen(false)}>
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Heading */}
-        <h1 className="text-2xl font-bold text-gray-900 mb-0.5">{t('nav.moreHeading')}</h1>
-        <p className="text-sm text-gray-500 mb-7">{t('nav.moreDesc')}</p>
+        <div className="mb-7">
+          <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('nav.moreHeading')}</h1>
+          <p className="text-sm text-gray-500 mt-1">{t('nav.moreDesc')}</p>
+        </div>
 
         {/* Page links */}
-        <div className="space-y-2 mb-6">
-          {MORE_ITEMS.map(({ path, key, Icon, accent, bar }) => (
+        <div className="space-y-2.5 mb-6">
+          {MORE_ITEMS.map(({ path, key, Icon, grad, glow }) => (
             <button
               key={path}
               onClick={() => navigate(path)}
-              className="relative w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-white border border-gray-100 shadow-sm hover:bg-gray-50 active:scale-[0.98] transition-all overflow-hidden"
+              className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-white active:scale-[0.98] transition-all"
+              style={{
+                boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+                border: '1px solid #F0EDE8',
+              }}
             >
-              <div className={`absolute left-0 top-0 bottom-0 w-1 ${bar}`} />
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${accent}`}>
-                <Icon className="w-5 h-5" />
+              <div
+                className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${grad} flex items-center justify-center flex-shrink-0 shadow-lg ${glow}`}
+              >
+                <Icon className="w-5 h-5 text-white" strokeWidth={2} />
               </div>
               <div className="flex-1 text-left min-w-0">
                 <p className="text-sm font-bold text-gray-900">{t(`moreItems.${key}.label`)}</p>
@@ -183,27 +208,32 @@ function MorePage() {
 
         {/* Language selector */}
         <div
-          className="mb-6 px-4 py-3.5 rounded-2xl bg-white border border-gray-100 shadow-sm"
+          className="mb-4 px-4 py-3.5 rounded-2xl bg-white"
+          style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between">
-            <p className="text-sm font-semibold text-gray-900">{t('nav.language')}</p>
+            <p className="text-sm font-bold text-gray-900">{t('nav.language')}</p>
             <div className="relative">
               <button
                 onClick={() => setLangOpen((o) => !o)}
-                className="flex items-center gap-1.5 border border-gray-200 rounded-xl px-3 py-1.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-semibold text-gray-700 transition-colors"
+                style={{ background: '#F8F6F2', border: '1px solid #E8E4DE' }}
               >
                 {currentLang.label}
-                <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
               </button>
               {langOpen && (
-                <div className="absolute right-0 mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-10 max-h-60 overflow-y-auto">
+                <div
+                  className="absolute right-0 mt-1.5 w-44 bg-white rounded-2xl py-1.5 z-10 max-h-60 overflow-y-auto"
+                  style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.14)', border: '1px solid #F0EDE8' }}
+                >
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
                       onClick={() => switchLang(l.code)}
-                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-gray-50 ${
-                        l.code === i18n.language ? 'font-semibold text-orange-600' : 'text-gray-700'
+                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-orange-50 ${
+                        l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'
                       }`}
                     >
                       {l.label}
@@ -218,29 +248,38 @@ function MorePage() {
         {/* Sign out */}
         <button
           onClick={handleSignOut}
-          className="w-full mb-6 px-4 py-3.5 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center justify-between hover:bg-gray-50 active:scale-[0.98] transition-all"
+          className="w-full mb-6 px-4 py-3.5 rounded-2xl bg-white flex items-center justify-between active:scale-[0.98] transition-all"
+          style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
         >
-          <span className="text-sm font-semibold text-red-500">
+          <span className="text-sm font-bold text-red-500">
             {isGuest ? t('nav.endGuestSession') : t('nav.signOut')}
           </span>
-          <span className="text-gray-300 text-sm">→</span>
+          <svg className="w-4 h-4 text-red-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
         </button>
 
         {/* Emergency contacts */}
-        <div className="bg-red-50 border border-red-100 rounded-2xl overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-3.5 border-b border-red-100">
-            <Phone className="w-4 h-4 text-red-600 flex-shrink-0" />
+        <div
+          className="overflow-hidden rounded-2xl"
+          style={{ background: '#FFF5F5', border: '1px solid #FECACA' }}
+        >
+          <div className="flex items-center gap-2.5 px-4 py-3.5" style={{ borderBottom: '1px solid #FECACA' }}>
+            <div className="w-8 h-8 rounded-xl bg-red-500 flex items-center justify-center flex-shrink-0">
+              <Phone className="w-4 h-4 text-white" />
+            </div>
             <p className="text-sm font-bold text-red-800">{t('nav.emergencySection')}</p>
           </div>
-          <div className="divide-y divide-red-100">
+          <div>
             {EMERGENCY_CONTACTS.map(({ label, number }) => (
               <a
                 key={number}
                 href={`tel:${number.replace(/[^0-9]/g, '')}`}
-                className="flex items-center justify-between px-4 py-3 hover:bg-red-100/40 transition-colors active:bg-red-100"
+                className="flex items-center justify-between px-4 py-3.5 transition-colors active:bg-red-100"
+                style={{ borderBottom: '1px solid #FEE2E2' }}
               >
                 <span className="text-sm text-gray-700">{label}</span>
-                <span className="text-sm font-bold text-red-600">{number}</span>
+                <span className="text-sm font-extrabold text-red-600 tabular-nums">{number}</span>
               </a>
             ))}
           </div>
@@ -256,7 +295,7 @@ function MorePage() {
           >
             Privacy Policy
           </button>
-          <span className="text-gray-200 text-xs">·</span>
+          <span className="text-gray-300 text-xs">·</span>
           <button
             onClick={() => navigate('/terms')}
             className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors"
@@ -288,20 +327,25 @@ function GuestBanner() {
   }
 
   return (
-    <div className="bg-amber-50 border-b border-amber-100 px-4 py-2.5 flex items-center gap-3">
-      <p className="text-xs text-amber-700 leading-snug flex-1">
+    <div
+      className="px-4 py-2.5 flex items-center gap-3"
+      style={{ background: '#FFFBEB', borderBottom: '1px solid #FDE68A' }}
+    >
+      <div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0" />
+      <p className="text-xs text-amber-800 leading-snug flex-1 font-medium">
         {t('guestBanner.message')}
       </p>
       <button
         onClick={() => navigate('/login')}
-        className="text-xs font-semibold text-amber-700 bg-amber-100 px-3 py-1.5 rounded-xl hover:bg-amber-200 transition-colors flex-shrink-0"
+        className="text-xs font-bold text-amber-800 px-3 py-1.5 rounded-xl transition-colors flex-shrink-0"
+        style={{ background: '#FDE68A' }}
       >
         {t('guestBanner.signUp')}
       </button>
       <button
         onClick={dismiss}
         aria-label="Dismiss"
-        className="text-amber-400 hover:text-amber-600 transition-colors flex-shrink-0 text-base leading-none"
+        className="text-amber-400 hover:text-amber-600 transition-colors flex-shrink-0 text-lg leading-none"
       >
         ×
       </button>
@@ -337,8 +381,14 @@ function AuthGuard({ children }) {
 
   if (!ready) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+        <div className="flex flex-col items-center gap-4">
+          <div
+            className="w-10 h-10 rounded-full border-[3px] border-t-transparent animate-spin"
+            style={{ borderColor: '#F97316', borderTopColor: 'transparent' }}
+          />
+          <p className="text-xs font-semibold text-gray-400">Loading…</p>
+        </div>
       </div>
     )
   }
@@ -350,42 +400,37 @@ function AuthGuard({ children }) {
 
 function AppShell() {
   return (
-    // Outer wrapper: full screen, centers the 430px app column
-    <div className="bg-zinc-300 min-h-screen flex justify-center">
-
-      {/* App column: clips horizontal overflow, scrolls vertically */}
-      <div className="relative w-full max-w-[430px] min-h-screen bg-gray-50 shadow-[0_0_60px_rgba(0,0,0,0.25)]">
-
-        {/* Scrollable content area — bottom padding clears the fixed tab bar */}
-        <div className="overflow-x-hidden pb-[80px]">
+    <div className="min-h-screen flex justify-center" style={{ background: '#1C1917' }}>
+      <div
+        className="relative w-full max-w-[430px] min-h-screen overflow-x-hidden"
+        style={{ background: '#FAF8F5', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
+      >
+        <div className="overflow-x-hidden pb-[84px]">
           <GuestBanner />
           <AuthGuard>
-          <Routes>
-            <Route path="/"           element={<Home />}       />
-            <Route path="/savings"    element={<Savings />}    />
-            <Route path="/budget"     element={<Budget />}     />
-            <Route path="/remittance" element={<Remittance />} />
-            <Route path="/more"       element={<MorePage />}   />
-            <Route path="/salary"     element={<Salary />}     />
-            <Route path="/loans"      element={<Loans />}      />
-            <Route path="/scams"      element={<Scams />}      />
-            <Route path="/loanshark"  element={<LoanShark />}  />
-            <Route path="/emergency"  element={<Emergency />}  />
-            <Route path="/chat"       element={<Chat />}       />
-            <Route path="/scam-quiz"      element={<ScamQuiz />}      />
-            <Route path="/emergency-fund" element={<EmergencyFund />}  />
-            <Route path="/banking-guide"  element={<BankingGuide />}  />
-            <Route path="/privacy"    element={<PrivacyPolicy />}   />
-            <Route path="/terms"      element={<TermsOfService />}  />
-            <Route path="/login"      element={<Login />}      />
-          </Routes>
+            <Routes>
+              <Route path="/"           element={<Home />}       />
+              <Route path="/savings"    element={<Savings />}    />
+              <Route path="/budget"     element={<Budget />}     />
+              <Route path="/remittance" element={<Remittance />} />
+              <Route path="/more"       element={<MorePage />}   />
+              <Route path="/salary"     element={<Salary />}     />
+              <Route path="/loans"      element={<Loans />}      />
+              <Route path="/scams"      element={<Scams />}      />
+              <Route path="/loanshark"  element={<LoanShark />}  />
+              <Route path="/emergency"  element={<Emergency />}  />
+              <Route path="/chat"       element={<Chat />}       />
+              <Route path="/scam-quiz"      element={<ScamQuiz />}      />
+              <Route path="/emergency-fund" element={<EmergencyFund />}  />
+              <Route path="/banking-guide"  element={<BankingGuide />}  />
+              <Route path="/privacy"    element={<PrivacyPolicy />}   />
+              <Route path="/terms"      element={<TermsOfService />}  />
+              <Route path="/login"      element={<Login />}      />
+            </Routes>
           </AuthGuard>
         </div>
-
-        {/* Tab bar: fixed to viewport, always on top of content */}
         <BottomTabBar />
       </div>
-
     </div>
   )
 }
@@ -404,8 +449,11 @@ export default function App() {
 
   if (!onboarded) {
     return (
-      <div className="bg-zinc-300 min-h-screen flex justify-center">
-        <div className="w-full max-w-[430px] min-h-screen bg-gray-50 shadow-[0_0_60px_rgba(0,0,0,0.25)] overflow-x-hidden">
+      <div className="min-h-screen flex justify-center" style={{ background: '#1C1917' }}>
+        <div
+          className="w-full max-w-[430px] min-h-screen overflow-x-hidden"
+          style={{ background: '#FAF8F5', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
+        >
           <Onboarding onComplete={() => setOnboarded(true)} />
         </div>
       </div>

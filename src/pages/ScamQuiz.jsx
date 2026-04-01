@@ -68,7 +68,7 @@ export default function ScamQuiz() {
   if (done) {
     const rating = getRating(score)
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
         <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
           <button
             onClick={() => navigate('/more')}
@@ -135,7 +135,7 @@ export default function ScamQuiz() {
   const progress = (current / questions.length) * 100
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
       <div className="max-w-lg mx-auto px-4 pt-6 pb-8">
 
         <div className="mb-5">
@@ -169,7 +169,7 @@ export default function ScamQuiz() {
           </span>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-4">
+        <div className="rounded-3xl p-5 mb-4" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
           <p className="text-[11px] font-semibold text-blue-600 uppercase tracking-wide mb-2">
             {t('scamQuiz.scenarioLabel')}
           </p>

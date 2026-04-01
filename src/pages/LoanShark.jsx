@@ -82,19 +82,19 @@ export default function LoanShark() {
   const visibleFlags = showAll ? flags : flags.slice(0, VISIBLE_LIMIT)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t('loanshark.pageTitle')}</h1>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('loanshark.pageTitle')}</h1>
             <p className="text-sm text-gray-500 mt-0.5">{t('loanshark.pageSubtitle')}</p>
           </div>
         </div>
@@ -207,7 +207,7 @@ export default function LoanShark() {
         <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">
           {t('loanshark.legalTitle')}
         </p>
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-6">
+        <div className="rounded-3xl p-5 mb-6" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
           <p className="text-sm text-gray-600 mb-4 leading-relaxed">{t('loanshark.legalDesc')}</p>
           <div className="space-y-3">
             {legalFacts.map((fact, i) => (

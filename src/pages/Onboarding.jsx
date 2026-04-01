@@ -35,44 +35,97 @@ const LANGUAGES = [
 
 function WelcomeScreen({ onNext }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-violet-700 flex flex-col items-center justify-between px-6 py-14 select-none">
-      <div />
+    <div
+      className="min-h-screen flex flex-col items-center justify-between px-6 py-14 select-none"
+      style={{
+        background: 'linear-gradient(160deg, #C2410C 0%, #F97316 45%, #F59E0B 100%)',
+      }}
+    >
+      {/* Top decorative elements */}
+      <div className="w-full flex justify-end">
+        <div className="flex gap-1.5">
+          {[1,2,3].map(i => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/30" />
+          ))}
+        </div>
+      </div>
 
+      {/* Center illustration + text */}
       <div className="text-center">
-        {/* Clean geometric illustration — no emojis */}
-        <div className="mx-auto mb-10 w-36 h-36 relative flex items-center justify-center">
-          {/* Concentric rings */}
-          <div className="absolute inset-0 rounded-full bg-white/10" />
-          <div className="absolute inset-5 rounded-full bg-white/10" />
-          {/* Center card */}
-          <div className="w-20 h-20 bg-white/20 rounded-2xl backdrop-blur-sm flex items-center justify-center shadow-xl">
-            <svg viewBox="0 0 40 40" className="w-10 h-10" fill="none">
-              {/* Stylised currency / growth icon */}
-              <circle cx="20" cy="20" r="14" stroke="white" strokeWidth="2" strokeOpacity="0.9" />
-              <path d="M14 20h12M14 15.5h12M14 24.5h8" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
-              <path d="M28 11l3-3M28 29l3 3" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeOpacity="0.55" />
+        {/* Layered geometric illustration */}
+        <div className="mx-auto mb-10 relative" style={{ width: 160, height: 160 }}>
+          {/* Outer ring */}
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.08)' }}
+          />
+          {/* Mid ring */}
+          <div
+            className="absolute rounded-full"
+            style={{ inset: 20, background: 'rgba(255,255,255,0.10)' }}
+          />
+          {/* Card */}
+          <div
+            className="absolute rounded-3xl flex items-center justify-center float-anim"
+            style={{
+              inset: 38,
+              background: 'rgba(255,255,255,0.22)',
+              backdropFilter: 'blur(12px)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+            }}
+          >
+            <svg viewBox="0 0 48 48" className="w-11 h-11" fill="none">
+              {/* Stylised coin/wallet mark */}
+              <circle cx="24" cy="24" r="16" stroke="white" strokeWidth="2.5" strokeOpacity="0.95" />
+              <path d="M18 24h12M18 19h12M18 29h9" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+              <path d="M34 13l3-3M34 35l3 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.5" />
             </svg>
           </div>
           {/* Accent dots */}
-          <div className="absolute top-2 right-6 w-3 h-3 rounded-full bg-white/25" />
-          <div className="absolute bottom-5 left-4 w-2 h-2 rounded-full bg-white/20" />
-          <div className="absolute top-9 left-3 w-1.5 h-1.5 rounded-full bg-white/15" />
+          <div className="absolute top-3 right-8 w-3.5 h-3.5 rounded-full bg-white/30" />
+          <div className="absolute bottom-6 left-5 w-2.5 h-2.5 rounded-full bg-white/20" />
+          <div className="absolute top-10 left-3 w-2 h-2 rounded-full bg-white/15" />
+          <div className="absolute bottom-3 right-4 w-1.5 h-1.5 rounded-full bg-white/25" />
         </div>
 
-        <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">Welcome to Remlo</h1>
-        <p className="text-white/75 text-base leading-relaxed max-w-[270px] mx-auto">
+        <h1
+          className="text-white mb-3 tracking-tight"
+          style={{ fontSize: 40, fontWeight: 800, lineHeight: 1.1 }}
+        >
+          Welcome to Remlo
+        </h1>
+        <p className="text-white/75 text-base leading-relaxed max-w-[260px] mx-auto">
           Smart financial tools built for migrant workers in Singapore
         </p>
+
+        {/* Feature pills */}
+        <div className="flex items-center justify-center gap-2 mt-6 flex-wrap">
+          {['Save smarter', 'Send home', 'Stay safe'].map((item) => (
+            <span
+              key={item}
+              className="text-xs font-semibold text-white/90 px-3 py-1.5 rounded-full"
+              style={{ background: 'rgba(255,255,255,0.15)' }}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
 
+      {/* CTA */}
       <div className="w-full">
         <button
           onClick={onNext}
-          className="w-full bg-white text-blue-700 rounded-2xl py-4 text-base font-bold hover:bg-blue-50 active:scale-95 transition-all shadow-lg"
+          className="w-full rounded-2xl py-4 text-base font-extrabold transition-all active:scale-95"
+          style={{
+            background: 'white',
+            color: '#C2410C',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+          }}
         >
           Get Started
         </button>
-        <p className="text-white/35 text-xs text-center mt-4">Free · No credit card required</p>
+        <p className="text-white/40 text-xs text-center mt-4 font-medium">Free · No credit card required</p>
       </div>
     </div>
   )
@@ -82,54 +135,78 @@ function WelcomeScreen({ onNext }) {
 
 function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish }) {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: '#FAF8F5' }}>
       {/* Scrollable body */}
-      <div className="flex-1 overflow-y-auto px-6 pt-10 pb-4">
+      <div className="flex-1 overflow-y-auto px-5 pt-10 pb-4">
 
-        <h2 className="text-xl font-bold text-gray-900 mb-1">Set up your account</h2>
-        <p className="text-sm text-gray-500 mb-7">
-          Choose your home country and preferred language.
-        </p>
+        {/* Header with brand accent */}
+        <div className="mb-7">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3"
+            style={{ background: '#FEF3C7' }}
+          >
+            <div className="w-2 h-2 rounded-full bg-amber-500" />
+            <span className="text-xs font-bold text-amber-800">Step 2 of 2</span>
+          </div>
+          <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight mb-1">Set up your account</h2>
+          <p className="text-sm text-gray-500">
+            Choose your home country and preferred language.
+          </p>
+        </div>
 
-        {/* Country grid — 2 columns × 5 rows */}
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Home country</p>
-        <div className="grid grid-cols-2 gap-2 mb-8">
+        {/* Country grid */}
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Home country</p>
+        <div className="grid grid-cols-2 gap-2.5 mb-8">
           {COUNTRIES.map((c) => {
             const selected = country === c.code
             return (
               <button
                 key={c.code}
                 onClick={() => onSelectCountry(c)}
-                className={`flex items-center gap-2.5 px-3 py-3 rounded-xl border-2 transition-all active:scale-95 text-left ${
+                className={`flex items-center gap-3 px-3.5 py-3.5 rounded-2xl border-2 transition-all active:scale-95 text-left ${
                   c.code === 'OTHER' ? 'col-span-2' : ''
-                } ${
-                  selected
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-100 bg-gray-50 hover:border-gray-200'
                 }`}
+                style={{
+                  borderColor: selected ? '#F97316' : '#EDE8E0',
+                  background: selected ? '#FFF7ED' : 'white',
+                  boxShadow: selected ? '0 0 0 3px rgba(249,115,22,0.12)' : '0 1px 4px rgba(0,0,0,0.04)',
+                }}
               >
                 <span className="text-xl flex-shrink-0">{c.flag}</span>
-                <span className={`text-sm font-medium truncate ${selected ? 'text-blue-700' : 'text-gray-700'}`}>
+                <span
+                  className="text-sm font-semibold truncate"
+                  style={{ color: selected ? '#C2410C' : '#374151' }}
+                >
                   {c.name}
                 </span>
-                {selected && <span className="ml-auto text-blue-500 text-xs flex-shrink-0">✓</span>}
+                {selected && (
+                  <div
+                    className="ml-auto w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ background: '#F97316' }}
+                  >
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                )}
               </button>
             )
           })}
         </div>
 
         {/* Language picker */}
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Language</p>
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Language</p>
         <div className="flex gap-2 flex-wrap pb-4">
           {LANGUAGES.map((l) => (
             <button
               key={l.code}
               onClick={() => onSelectLang(l.code)}
-              className={`px-4 py-2.5 rounded-xl text-sm font-medium border-2 transition-all ${
-                lang === l.code
-                  ? 'bg-gray-900 text-white border-gray-900'
-                  : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-              }`}
+              className="px-4 py-2.5 rounded-xl text-sm font-semibold border-2 transition-all active:scale-95"
+              style={{
+                borderColor: lang === l.code ? '#111016' : '#EDE8E0',
+                background: lang === l.code ? '#111016' : 'white',
+                color: lang === l.code ? 'white' : '#374151',
+              }}
             >
               {l.label}
             </button>
@@ -138,11 +215,19 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
       </div>
 
       {/* Sticky footer button */}
-      <div className="flex-shrink-0 px-6 py-5 bg-white border-t border-gray-100">
+      <div
+        className="flex-shrink-0 px-5 py-5"
+        style={{ background: 'white', borderTop: '1px solid #F0EDE8' }}
+      >
         <button
           onClick={onFinish}
           disabled={!country}
-          className="w-full bg-orange-500 text-white rounded-2xl py-4 text-base font-bold hover:bg-orange-600 active:scale-95 transition-all disabled:opacity-40 shadow-sm"
+          className="w-full rounded-2xl py-4 text-base font-extrabold transition-all disabled:opacity-40 active:scale-95"
+          style={{
+            background: country ? 'linear-gradient(135deg, #F97316, #EA580C)' : '#D1CFC9',
+            color: 'white',
+            boxShadow: country ? '0 8px 24px rgba(249,115,22,0.3)' : 'none',
+          }}
         >
           Start using Remlo
         </button>
