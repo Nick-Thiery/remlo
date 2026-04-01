@@ -10,7 +10,6 @@ import {
   Coins,
   Wallet,
   ArrowUpRight,
-  ChevronRight,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 
@@ -37,7 +36,6 @@ const LANGUAGES = [
   { code: 'ur',  label: 'اردو'      },
   { code: 'ne',  label: 'नेपाली'    },
 ]
-
 
 export default function Home() {
   const { t, i18n } = useTranslation()
@@ -121,42 +119,47 @@ export default function Home() {
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
+  // Feature card definitions — wide cards span 2 cols in the 3-col grid
   const FEATURES = [
     {
       to: '/savings',
       icon: Coins,
       title: t('features.savings.title'),
       description: t('features.savings.description'),
-      grad: 'linear-gradient(135deg, #F59E0B, #D97706)',
+      bg: '#FFFBEB',            // warm amber tint
+      iconBg: '#FDE68A',        // deeper amber for icon
       iconColor: '#92400E',
-      bgLight: '#FFFBEB',
+      wide: true,               // spans 2 cols
     },
     {
       to: '/budget',
       icon: LayoutGrid,
       title: t('features.budget.title'),
       description: t('features.budget.description'),
-      grad: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
-      iconColor: '#4C1D95',
-      bgLight: '#F5F3FF',
+      bg: '#F5F3FF',            // soft violet tint
+      iconBg: '#DDD6FE',
+      iconColor: '#5B21B6',
+      wide: false,
     },
     {
       to: '/remittance',
       icon: SendHorizonal,
       title: t('features.remittance.title'),
       description: t('features.remittance.description'),
-      grad: 'linear-gradient(135deg, #0EA5E9, #0284C7)',
-      iconColor: '#0C4A6E',
-      bgLight: '#F0F9FF',
+      bg: '#F0F9FF',            // soft sky tint
+      iconBg: '#BAE6FD',
+      iconColor: '#0369A1',
+      wide: false,
     },
     {
       to: '/chat',
       icon: Sparkles,
       title: t('features.ai.title'),
       description: t('features.ai.description'),
-      grad: 'linear-gradient(135deg, #F97316, #EA580C)',
-      iconColor: '#7C2D12',
-      bgLight: '#FFF7ED',
+      bg: '#FFF7ED',            // warm orange tint
+      iconBg: '#FED7AA',
+      iconColor: '#C2410C',
+      wide: true,               // spans 2 cols
     },
   ]
 
@@ -165,38 +168,34 @@ export default function Home() {
       label: t('stats.totalSaved'),
       value: statsLoading ? '—' : formatSGD(totalSaved),
       icon: Coins,
-      grad: 'linear-gradient(135deg, #F59E0B, #D97706)',
-      numColor: '#92400E',
+      iconColor: '#D97706',
+      dotColor: '#F59E0B',
     },
     {
       label: t('stats.budgetLeft'),
       value: statsLoading ? '—' : formatSGD(budgetLeft),
       icon: Wallet,
-      grad: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
-      numColor: '#4C1D95',
+      iconColor: '#7C3AED',
+      dotColor: '#8B5CF6',
     },
     {
       label: t('stats.dayStreak'),
       value: statsLoading ? '—' : String(streak),
       icon: Flame,
-      grad: 'linear-gradient(135deg, #F97316, #EA580C)',
-      numColor: '#7C2D12',
+      iconColor: '#EA580C',
+      dotColor: '#F97316',
     },
   ]
 
   return (
     <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
 
-      {/* ── Header bar ────────────────────────────────────────────────── */}
+      {/* ── Header ────────────────────────────────────────────────── */}
       <div className="bg-white" style={{ borderBottom: '1px solid #F0EDE8' }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
 
-            {/* App name */}
-            <h1
-              className="tracking-tight"
-              style={{ fontSize: 22, fontWeight: 800, color: '#111016' }}
-            >
+            <h1 className="tracking-tight" style={{ fontSize: 22, fontWeight: 800, color: '#111016' }}>
               {t('appName')}
             </h1>
 
@@ -248,71 +247,39 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-5 pb-12">
+      <div className="max-w-lg mx-auto px-4 pt-6 pb-14">
 
-        {/* ── Hero card ─────────────────────────────────────────────────── */}
+        {/* ── Hero card ─────────────────────────────────────────────── */}
         <div
-          className="relative rounded-3xl overflow-hidden mb-6 fade-in-up"
+          className="relative rounded-3xl overflow-hidden mb-8 fade-in-up"
           style={{
             background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #F97316 75%, #F59E0B 100%)',
             boxShadow: '0 12px 40px rgba(194,65,12,0.35)',
           }}
         >
-          {/* Decorative circles */}
-          <div
-            className="absolute -top-12 -right-12 w-48 h-48 rounded-full"
-            style={{ background: 'rgba(255,255,255,0.07)' }}
-          />
-          <div
-            className="absolute top-5 right-20 w-16 h-16 rounded-full"
-            style={{ background: 'rgba(255,255,255,0.05)' }}
-          />
-          <div
-            className="absolute -bottom-14 -left-10 w-40 h-40 rounded-full"
-            style={{ background: 'rgba(0,0,0,0.07)' }}
-          />
-          <div
-            className="absolute bottom-6 right-8 w-5 h-5 rounded-full"
-            style={{ background: 'rgba(255,255,255,0.2)' }}
-          />
-          {/* Grid texture */}
+          <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="absolute top-5 right-20 w-16 h-16 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
+          <div className="absolute -bottom-14 -left-10 w-40 h-40 rounded-full" style={{ background: 'rgba(0,0,0,0.07)' }} />
+          <div className="absolute bottom-6 right-8 w-5 h-5 rounded-full" style={{ background: 'rgba(255,255,255,0.2)' }} />
           <div
             className="absolute inset-0"
             style={{
               backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px)',
             }}
           />
-
           <div className="relative px-6 pt-7 pb-8">
-            {/* Eyebrow badge */}
-            <div
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-4"
-              style={{ background: 'rgba(255,255,255,0.18)' }}
-            >
+            <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-4" style={{ background: 'rgba(255,255,255,0.18)' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse" />
-              <span className="text-white/90 text-[10px] font-bold uppercase tracking-[0.14em]">
-                {t('hero.eyebrow')}
-              </span>
+              <span className="text-white/90 text-[10px] font-bold uppercase tracking-[0.14em]">{t('hero.eyebrow')}</span>
             </div>
-
-            <h2
-              className="text-white font-extrabold leading-tight mb-2.5 whitespace-pre-line"
-              style={{ fontSize: '1.6rem', letterSpacing: '-0.02em' }}
-            >
+            <h2 className="text-white font-extrabold leading-tight mb-2.5 whitespace-pre-line" style={{ fontSize: '1.6rem', letterSpacing: '-0.02em' }}>
               {t('hero.headline')}
             </h2>
-            <p className="text-white/65 text-xs leading-relaxed max-w-[200px] mb-6">
-              {t('hero.tagline')}
-            </p>
-
+            <p className="text-white/65 text-xs leading-relaxed max-w-[200px] mb-6">{t('hero.tagline')}</p>
             <Link
               to="/savings"
               className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-extrabold transition-all active:scale-95"
-              style={{
-                background: 'white',
-                color: '#C2410C',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-              }}
+              style={{ background: 'white', color: '#C2410C', boxShadow: '0 4px 16px rgba(0,0,0,0.15)' }}
             >
               {t('hero.cta')}
               <ArrowUpRight className="w-4 h-4" />
@@ -320,85 +287,103 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Quick stats ───────────────────────────────────────────────── */}
+        {/* ── Quick stats ───────────────────────────────────────────── */}
         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           {t('stats.heading')}
         </p>
-        <div className="grid grid-cols-3 gap-3 mb-7">
+        <div className="grid grid-cols-3 gap-3 mb-9">
           {QUICK_STATS.map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl px-3.5 pt-4 pb-4 overflow-hidden fade-in-up"
+              className="rounded-2xl px-4 pt-4 pb-4 fade-in-up"
               style={{
                 background: 'white',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                boxShadow: '0 1px 8px rgba(0,0,0,0.05)',
                 border: '1px solid #F0EDE8',
               }}
             >
-              {/* Icon */}
-              <div
-                className="w-8 h-8 rounded-xl flex items-center justify-center mb-2.5"
-                style={{ background: stat.grad }}
-              >
-                <stat.icon className="w-4 h-4 text-white" strokeWidth={2} />
-              </div>
+              {/* Big number */}
               <p
-                className="text-base font-extrabold leading-none tabular-nums"
-                style={{
-                  color: statsLoading ? '#D1CFC9' : stat.numColor,
-                  animation: statsLoading ? 'pulse 1.5s infinite' : 'none',
-                }}
+                className="text-lg font-extrabold leading-none tabular-nums mb-2.5"
+                style={{ color: statsLoading ? '#E0DDD8' : '#111016' }}
               >
                 {stat.value}
               </p>
-              <p className="text-[10px] text-gray-400 mt-1.5 font-semibold leading-tight">
-                {stat.label}
-              </p>
+              {/* Icon + label row */}
+              <div className="flex items-center gap-1.5">
+                <div
+                  className="w-3.5 h-3.5 rounded-full flex-shrink-0"
+                  style={{ background: stat.dotColor }}
+                />
+                <p className="text-[10px] text-gray-400 font-semibold leading-tight truncate">
+                  {stat.label}
+                </p>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* ── Feature cards ─────────────────────────────────────────────── */}
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+        {/* ── Feature cards ─────────────────────────────────────────── */}
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
           {t('features.heading')}
         </p>
-        <div className="grid grid-cols-2 gap-3">
+
+        {/*
+          3-col grid: wide cards span 2 cols, narrow cards span 1 col.
+          Layout:
+            [ Savings (2/3) ] [ Budget (1/3) ]
+            [ Remit  (1/3) ] [ AI Chat (2/3) ]
+        */}
+        <div className="grid grid-cols-3 gap-3">
           {FEATURES.map((f, i) => (
-            <Link key={f.to} to={f.to} className="block fade-in-up" style={{ animationDelay: `${i * 60}ms`, opacity: 0 }}>
+            <Link
+              key={f.to}
+              to={f.to}
+              className={`block fade-in-up ${f.wide ? 'col-span-2' : 'col-span-1'}`}
+              style={{ animationDelay: `${i * 60}ms`, opacity: 0 }}
+            >
               <div
-                className="rounded-2xl overflow-hidden h-full transition-all active:scale-[0.97]"
+                className="rounded-2xl h-full transition-all active:scale-[0.97] overflow-hidden"
                 style={{
-                  background: 'white',
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                  border: '1px solid #F0EDE8',
+                  background: f.bg,
+                  border: `1px solid ${f.iconBg}`,
+                  minHeight: f.wide ? 140 : 140,
                 }}
               >
-                {/* Gradient top strip */}
-                <div
-                  className="h-[3px] w-full"
-                  style={{ background: f.grad }}
-                />
-
-                <div className="p-5">
+                <div className={`p-4 flex flex-col h-full ${f.wide ? 'p-5' : 'p-4'}`}>
                   {/* Icon */}
                   <div
-                    className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4"
-                    style={{ background: f.grad, boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
+                    className="rounded-xl flex items-center justify-center mb-3 flex-shrink-0"
+                    style={{
+                      width: f.wide ? 44 : 38,
+                      height: f.wide ? 44 : 38,
+                      background: f.iconBg,
+                    }}
                   >
-                    <f.icon className="w-5 h-5 text-white" strokeWidth={2} />
+                    <f.icon
+                      style={{ width: f.wide ? 22 : 18, height: f.wide ? 22 : 18, color: f.iconColor }}
+                      strokeWidth={2}
+                    />
                   </div>
 
-                  {/* Text */}
-                  <p className="text-sm font-bold text-gray-900 leading-tight mb-1.5">{f.title}</p>
-                  <p className="text-[11px] text-gray-500 leading-relaxed mb-4">{f.description}</p>
-
-                  {/* Arrow */}
-                  <div
-                    className="w-6 h-6 rounded-full flex items-center justify-center"
-                    style={{ background: '#F5F2EC' }}
+                  {/* Title */}
+                  <p
+                    className="font-extrabold leading-tight tracking-tight"
+                    style={{
+                      fontSize: f.wide ? 15 : 13,
+                      color: '#111016',
+                      marginBottom: f.wide ? 6 : 4,
+                    }}
                   >
-                    <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
-                  </div>
+                    {f.title}
+                  </p>
+
+                  {/* Description — only on wide cards */}
+                  {f.wide && (
+                    <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
+                      {f.description}
+                    </p>
+                  )}
                 </div>
               </div>
             </Link>
@@ -406,7 +391,7 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <p className="text-[10px] text-gray-300 text-center mt-10">{t('footer')}</p>
+        <p className="text-[10px] text-gray-300 text-center mt-12">{t('footer')}</p>
         <p className="text-[10px] text-gray-300 text-center mt-1">Built by FinanceForward</p>
       </div>
 

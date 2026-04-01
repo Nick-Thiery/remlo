@@ -57,12 +57,12 @@ const LANGUAGES = [
 ]
 
 const TABS = [
-  { path: '/',           key: 'home',    Icon: HomeIcon       },
-  { path: '/savings',    key: 'savings', Icon: Coins          },
-  { path: '/budget',     key: 'budget',  Icon: Wallet         },
-  { path: '/remittance', key: 'send',    Icon: ArrowLeftRight },
-  { path: '/chat',       key: 'chat',    Icon: MessageCircle  },
-  { path: '/more',       key: 'more',    Icon: Menu           },
+  { path: '/',           key: 'home',    Icon: HomeIcon,       hasFill: true  },
+  { path: '/savings',    key: 'savings', Icon: Coins,          hasFill: true  },
+  { path: '/budget',     key: 'budget',  Icon: Wallet,         hasFill: true  },
+  { path: '/remittance', key: 'send',    Icon: ArrowLeftRight, hasFill: false },
+  { path: '/chat',       key: 'chat',    Icon: MessageCircle,  hasFill: true  },
+  { path: '/more',       key: 'more',    Icon: Menu,           hasFill: false },
 ]
 
 const MORE_ITEMS = [
@@ -103,7 +103,7 @@ function BottomTabBar() {
         }}
       >
         <div className="flex items-center px-1 pt-2">
-          {TABS.map(({ path, key, Icon }) => {
+          {TABS.map(({ path, key, Icon, hasFill }) => {
             const active = key === 'more' ? onMoreSection : location.pathname === path
             return (
               <button
@@ -125,7 +125,8 @@ function BottomTabBar() {
                   <Icon
                     style={{ width: 19, height: 19 }}
                     className={`transition-all duration-300 ${active ? 'text-white' : 'text-gray-400'}`}
-                    strokeWidth={active ? 2.5 : 1.8}
+                    fill={active && hasFill ? 'currentColor' : 'none'}
+                    strokeWidth={active ? (hasFill ? 0 : 2.5) : 1.8}
                   />
                 </div>
                 <span
