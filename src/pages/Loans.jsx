@@ -372,17 +372,17 @@ export default function Loans() {
                   {isExpanded && (
                     <div className="border-t border-gray-50 px-5 py-4 space-y-4">
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
+                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.originalAmount')}</p>
                           <p className="text-sm font-semibold text-gray-900">{formatSGD(loan.principal)}</p>
                         </div>
-                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
+                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.paymentsMade')}</p>
                           <p className="text-sm font-semibold text-gray-900">
                             {t('loans.paymentsMade', { count: loan.made })}
                           </p>
                         </div>
-                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
+                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.projectedPayoff')}</p>
                           <p className="text-sm font-semibold text-gray-900">
                             {loan.paidOff
@@ -392,7 +392,7 @@ export default function Loans() {
                               : formatMonthYear(loan.payoffDate)}
                           </p>
                         </div>
-                        <div className="rounded-xl" style={{ background: '#F5F2EC' }} className="p-3">
+                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.totalInterest')}</p>
                           <p className={`text-sm font-semibold ${isIllegal ? 'text-red-600' : 'text-gray-900'}`}>
                             {loan.neverPaidOff || loan.totalInterestPaid == null

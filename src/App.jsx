@@ -109,28 +109,20 @@ function BottomTabBar() {
               <button
                 key={path}
                 onClick={() => navigate(path)}
-                className="flex-1 flex flex-col items-center gap-1 pb-1 transition-all"
+                className="flex-1 flex flex-col items-center gap-1.5 pb-1 transition-all"
               >
-                {/* Pill indicator */}
-                <div
-                  className="flex items-center justify-center transition-all duration-300"
+                <Icon
                   style={{
-                    width: active ? 52 : 40,
-                    height: 28,
-                    borderRadius: 14,
-                    background: active ? 'linear-gradient(135deg, #F97316, #EA580C)' : 'transparent',
-                    boxShadow: active ? '0 4px 14px rgba(249,115,22,0.35)' : 'none',
+                    width: 22,
+                    height: 22,
+                    color: active ? '#F97316' : '#9CA3AF',
+                    transition: 'color 0.2s',
                   }}
-                >
-                  <Icon
-                    style={{ width: 19, height: 19 }}
-                    className={`transition-all duration-300 ${active ? 'text-white' : 'text-gray-400'}`}
-                    fill={active && hasFill ? 'currentColor' : 'none'}
-                    strokeWidth={active ? (hasFill ? 0 : 2.5) : 1.8}
-                  />
-                </div>
+                  fill={active && hasFill ? 'currentColor' : 'none'}
+                  strokeWidth={active ? (hasFill ? 0 : 2.5) : 1.8}
+                />
                 <span
-                  className="text-[10px] leading-none font-semibold transition-all duration-300"
+                  className="text-[10px] leading-none font-semibold transition-colors duration-200"
                   style={{ color: active ? '#F97316' : '#9CA3AF' }}
                 >
                   {t(`nav.${key}`)}
