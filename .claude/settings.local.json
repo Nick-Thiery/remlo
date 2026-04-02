@@ -22,7 +22,16 @@
       "Bash(git checkout:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(npx --yes acorn --ecma2020 --module src/pages/Budget.jsx)",
+      "Bash(pkill -f \"vite --port 3099\")",
+      "Bash(npx --yes @babel/core@latest --version)",
+      "Bash(npx vite:*)",
+      "Bash(do python3:*)",
+      "Bash(echo \"OK: $f\")",
+      "Bash(echo \"ERROR: $f\")",
+      "Bash(npx --yes playwright --version)",
+      "Bash(playwright --version)"
     ]
   }
 }
