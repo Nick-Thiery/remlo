@@ -111,10 +111,9 @@ function Login() {
 
       {/* Form section — curves up over the hero */}
       <div
-        className="flex-1 flex flex-col rounded-t-[40px]"
+        className="flex-1 flex flex-col rounded-t-[40px] -mt-6 relative z-10"
         style={{
           background: 'white',
-          marginTop: -20,
           boxShadow: '0 -4px 24px rgba(0,0,0,0.10)',
         }}
       >
