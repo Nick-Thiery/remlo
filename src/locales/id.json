@@ -310,7 +310,8 @@
       "loanScam": "Penipuan Pinjaman",
       "phishing": "Phishing",
       "impersonation": "Penyamaran",
-      "paymentScam": "Penipuan Pembayaran"
+      "paymentScam": "Penipuan Pembayaran",
+      "investmentScam": "Penipuan Investasi"
     },
     "report": {
       "title": "Laporkan Penipuan",

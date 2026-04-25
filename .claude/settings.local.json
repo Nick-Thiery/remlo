@@ -34,7 +34,13 @@
       "Bash(playwright --version)",
       "Bash(pkill -f \"node.*3098\\\\|node.*3099\")",
       "Bash(xargs sed:*)",
-      "Bash(xargs ls:*)"
+      "Bash(xargs ls:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:data.gov.sg)",
+      "WebFetch(domain:www.scamshield.gov.sg)",
+      "WebFetch(domain:api.scamshield.gov.sg)",
+      "WebSearch",
+      "WebFetch(domain:guide.data.gov.sg)"
     ]
   }
 }

@@ -310,7 +310,8 @@
       "loanScam": "贷款诈骗",
       "phishing": "网络钓鱼",
       "impersonation": "冒充诈骗",
-      "paymentScam": "付款诈骗"
+      "paymentScam": "付款诈骗",
+      "investmentScam": "投资诈骗"
     },
     "report": {
       "title": "举报诈骗",

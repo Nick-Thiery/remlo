@@ -310,7 +310,8 @@
       "loanScam": "Scam sa Utang",
       "phishing": "Phishing",
       "impersonation": "Pagpapanggap",
-      "paymentScam": "Scam sa Bayad"
+      "paymentScam": "Scam sa Bayad",
+      "investmentScam": "Investment Scam"
     },
     "report": {
       "title": "Mag-ulat ng Scam",

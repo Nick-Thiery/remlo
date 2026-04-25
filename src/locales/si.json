@@ -310,7 +310,8 @@
       "loanScam": "ණය වංචාව",
       "phishing": "තතු බැහැරීම",
       "impersonation": "අනන්‍යතා වංචාව",
-      "paymentScam": "ගෙවීම් වංචාව"
+      "paymentScam": "ගෙවීම් වංචාව",
+      "investmentScam": "ආයෝජන වංචාව"
     },
     "report": {
       "title": "වංචාවක් වාර්තා කරන්න",

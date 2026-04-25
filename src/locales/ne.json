@@ -310,7 +310,8 @@
       "loanScam": "ऋण ठगी",
       "phishing": "फिसिङ",
       "impersonation": "नक्कली परिचय",
-      "paymentScam": "भुक्तानी ठगी"
+      "paymentScam": "भुक्तानी ठगी",
+      "investmentScam": "लगानी ठगी"
     },
     "report": {
       "title": "ठगी रिपोर्ट गर्नुहोस्",

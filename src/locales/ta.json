@@ -310,7 +310,8 @@
       "loanScam": "கடன் மோசடி",
       "phishing": "ஃபிஷிங்",
       "impersonation": "ஆட்போல் போல் நடிப்பு",
-      "paymentScam": "கட்டண மோசடி"
+      "paymentScam": "கட்டண மோசடி",
+      "investmentScam": "முதலீட்டு மோசடி"
     },
     "report": {
       "title": "மோசடியை புகார் செய்",

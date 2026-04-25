@@ -310,7 +310,8 @@
       "loanScam": "ऋण घोटाला",
       "phishing": "फिशिंग",
       "impersonation": "प्रतिरूपण",
-      "paymentScam": "भुगतान घोटाला"
+      "paymentScam": "भुगतान घोटाला",
+      "investmentScam": "निवेश घोटाला"
     },
     "report": {
       "title": "घोटाला रिपोर्ट करें",

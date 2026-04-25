@@ -310,7 +310,8 @@
       "loanScam": "กลโกงเงินกู้",
       "phishing": "ฟิชชิ่ง",
       "impersonation": "แอบอ้างบุคคล",
-      "paymentScam": "กลโกงการชำระเงิน"
+      "paymentScam": "กลโกงการชำระเงิน",
+      "investmentScam": "กลโกงการลงทุน"
     },
     "report": {
       "title": "รายงานการหลอกลวง",

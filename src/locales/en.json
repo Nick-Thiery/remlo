@@ -314,7 +314,8 @@
       "loanScam": "Loan Scam",
       "phishing": "Phishing",
       "impersonation": "Impersonation",
-      "paymentScam": "Payment Scam"
+      "paymentScam": "Payment Scam",
+      "investmentScam": "Investment Scam"
     },
     "report": {
       "title": "Report a Scam",

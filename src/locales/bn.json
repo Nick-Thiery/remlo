@@ -310,7 +310,8 @@
       "loanScam": "ঋণ প্রতারণা",
       "phishing": "ফিশিং",
       "impersonation": "ছদ্মবেশ",
-      "paymentScam": "পেমেন্ট প্রতারণা"
+      "paymentScam": "পেমেন্ট প্রতারণা",
+      "investmentScam": "বিনিয়োগ কেলেঙ্কারি"
     },
     "report": {
       "title": "প্রতারণা রিপোর্ট করুন",
