@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Send, Sparkles, Mic, MicOff } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { track } from '../lib/analytics.js'
+import { supabase } from '../lib/supabase.js'
 
 const SYSTEM_PROMPT =
   'You are a friendly financial assistant for migrant workers in Singapore. You were created by Remlo, an app helping workers manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. If someone describes a loan shark or scam situation, provide the MOM helpline 1800-333-1313 and tell them to contact police if in danger.'
@@ -42,8 +43,6 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
-
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY
 
   const [isRecording, setIsRecording] = useState(false)
   const recognitionRef = useRef(null)
@@ -94,28 +93,12 @@ export default function Chat() {
     setIsLoading(true)
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true',
-        },
-        body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 1024,
-          system: SYSTEM_PROMPT,
-          messages: history,
-        }),
+      const { data, error } = await supabase.functions.invoke('chat', {
+        body: { messages: history, system: SYSTEM_PROMPT },
       })
 
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}))
-        throw new Error(err?.error?.message ?? `HTTP ${res.status}`)
-      }
+      if (error) throw new Error(error.message)
 
-      const data = await res.json()
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: data.content[0].text },
@@ -180,16 +163,6 @@ export default function Chat() {
         </div>
       </div>
 
-      {/* ── No API key banner ──────────────────────────────────────── */}
-      {!apiKey && (
-        <div
-          className="flex-shrink-0 px-4 py-3"
-          style={{ background: '#FFFBEB', borderBottom: '1px solid #FDE68A' }}
-        >
-          <p className="text-xs text-amber-800 font-bold text-center">{t('chat.noApiKey')}</p>
-        </div>
-      )}
-
       {/* ── Messages area ─────────────────────────────────────────── */}
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
         {!hasMessages ? (
@@ -214,7 +187,7 @@ export default function Chat() {
                 <button
                   key={i}
                   onClick={() => send(q)}
-                  disabled={!apiKey || isLoading}
+                  disabled={isLoading}
                   className="text-left text-sm rounded-2xl px-4 py-3.5 font-medium transition-all active:scale-[0.98] disabled:opacity-40"
                   style={{
                     background: 'white',
@@ -322,7 +295,7 @@ export default function Chat() {
               <button
                 key={i}
                 onClick={() => send(q)}
-                disabled={!apiKey || isLoading}
+                disabled={isLoading}
                 className="flex-shrink-0 text-xs rounded-full px-3.5 py-1.5 font-semibold transition-colors disabled:opacity-40"
                 style={{ background: '#FFF7ED', color: '#C2410C', border: '1px solid #FED7AA' }}
               >
@@ -345,7 +318,7 @@ export default function Chat() {
                 send(input)
               }
             }}
-            disabled={isLoading || !apiKey}
+            disabled={isLoading}
             className="flex-1 rounded-2xl px-4 py-3 text-sm font-medium transition-all disabled:opacity-50"
             style={{
               border: isRecording ? '2px solid #FCA5A5' : '2px solid #EDE8E0',
@@ -358,7 +331,7 @@ export default function Chat() {
           {SpeechRecognition && (
             <button
               onClick={isRecording ? stopRecording : startRecording}
-              disabled={isLoading || !apiKey}
+              disabled={isLoading}
               aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
               className="rounded-2xl px-3 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"
               style={{
@@ -380,7 +353,7 @@ export default function Chat() {
 
           <button
             onClick={() => send(input)}
-            disabled={!input.trim() || isLoading || !apiKey}
+            disabled={!input.trim() || isLoading}
             className="rounded-2xl px-4 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"
             style={{
               background: 'linear-gradient(135deg, #E8640C, #CC5708)',

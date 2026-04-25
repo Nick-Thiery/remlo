@@ -33,7 +33,8 @@
       "Bash(npx --yes playwright --version)",
       "Bash(playwright --version)",
       "Bash(pkill -f \"node.*3098\\\\|node.*3099\")",
-      "Bash(xargs sed:*)"
+      "Bash(xargs sed:*)",
+      "Bash(xargs ls:*)"
     ]
   }
 }
