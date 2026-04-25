@@ -138,7 +138,7 @@ export default function Chat() {
   return (
     <div
       className="flex flex-col"
-      style={{ height: 'calc(100dvh - 65px)', background: '#FAF8F5' }}
+      style={{ height: 'calc(100dvh - 65px)', background: '#FAFAF8' }}
     >
       {/* ── Header ────────────────────────────────────────────────── */}
       <div
@@ -148,7 +148,7 @@ export default function Chat() {
         <div className="flex items-center gap-3">
           <div
             className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)', boxShadow: '0 4px 12px rgba(249,115,22,0.3)' }}
+            style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', boxShadow: '0 4px 12px rgba(232,100,12,0.3)' }}
           >
             <Sparkles className="w-5 h-5 text-white" />
           </div>
@@ -170,7 +170,7 @@ export default function Chat() {
               className="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all"
               style={{
                 background: i18n.language === l.code ? 'white' : 'transparent',
-                color: i18n.language === l.code ? '#F97316' : '#9CA3AF',
+                color: i18n.language === l.code ? '#E8640C' : '#9CA3AF',
                 boxShadow: i18n.language === l.code ? '0 1px 4px rgba(0,0,0,0.08)' : 'none',
               }}
             >
@@ -198,8 +198,8 @@ export default function Chat() {
             <div
               className="w-20 h-20 rounded-3xl flex items-center justify-center mb-5 float-anim"
               style={{
-                background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                boxShadow: '0 8px 24px rgba(249,115,22,0.3)',
+                background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                boxShadow: '0 8px 24px rgba(232,100,12,0.3)',
               }}
             >
               <Sparkles className="w-10 h-10 text-white" />
@@ -223,7 +223,7 @@ export default function Chat() {
                     boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                   }}
                 >
-                  <span style={{ color: '#F97316' }} className="mr-2 font-bold">→</span>{q}
+                  <span style={{ color: '#E8640C' }} className="mr-2 font-bold">→</span>{q}
                 </button>
               ))}
             </div>
@@ -239,7 +239,7 @@ export default function Chat() {
                 {msg.role === 'assistant' && (
                   <div
                     className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mb-0.5"
-                    style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)' }}
+                    style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)' }}
                   >
                     <span className="text-[10px] text-white font-extrabold">AI</span>
                   </div>
@@ -251,14 +251,14 @@ export default function Chat() {
                   style={
                     msg.role === 'user'
                       ? {
-                          background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                          background: 'linear-gradient(135deg, #E8640C, #CC5708)',
                           color: 'white',
                           borderBottomRightRadius: 4,
-                          boxShadow: '0 4px 12px rgba(249,115,22,0.25)',
+                          boxShadow: '0 4px 12px rgba(232,100,12,0.25)',
                         }
                       : msg.isError
                       ? { background: '#FEF2F2', color: '#DC2626', border: '1px solid #FECACA', borderBottomLeftRadius: 4 }
-                      : { background: 'white', color: '#111016', border: '1px solid #F0EDE8', borderBottomLeftRadius: 4, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }
+                      : { background: 'white', color: '#1A1A1A', border: '1px solid #F0EDE8', borderBottomLeftRadius: 4, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }
                   }
                 >
                   {msg.role === 'user' ? (
@@ -287,7 +287,7 @@ export default function Chat() {
               <div className="flex items-end gap-2 justify-start">
                 <div
                   className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mb-0.5"
-                  style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)' }}
+                  style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)' }}
                 >
                   <span className="text-[10px] text-white font-extrabold">AI</span>
                 </div>
@@ -349,9 +349,9 @@ export default function Chat() {
             className="flex-1 rounded-2xl px-4 py-3 text-sm font-medium transition-all disabled:opacity-50"
             style={{
               border: isRecording ? '2px solid #FCA5A5' : '2px solid #EDE8E0',
-              background: isRecording ? '#FFF5F5' : '#FAFAF9',
+              background: isRecording ? '#FFF5F5' : '#FAFAF8',
               outline: 'none',
-              color: '#111016',
+              color: '#1A1A1A',
             }}
           />
 
@@ -383,9 +383,9 @@ export default function Chat() {
             disabled={!input.trim() || isLoading || !apiKey}
             className="rounded-2xl px-4 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #EA580C)',
+              background: 'linear-gradient(135deg, #E8640C, #CC5708)',
               color: 'white',
-              boxShadow: input.trim() ? '0 4px 14px rgba(249,115,22,0.3)' : 'none',
+              boxShadow: input.trim() ? '0 4px 14px rgba(232,100,12,0.3)' : 'none',
             }}
           >
             <Send className="w-4 h-4" />

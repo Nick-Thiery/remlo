@@ -115,7 +115,7 @@ function BottomTabBar() {
                   style={{
                     width: 22,
                     height: 22,
-                    color: active ? '#F97316' : '#9CA3AF',
+                    color: active ? '#E8640C' : '#9CA3AF',
                     transition: 'color 0.2s',
                   }}
                   fill={active && hasFill ? 'currentColor' : 'none'}
@@ -123,7 +123,7 @@ function BottomTabBar() {
                 />
                 <span
                   className="text-[10px] leading-none font-semibold transition-colors duration-200"
-                  style={{ color: active ? '#F97316' : '#9CA3AF' }}
+                  style={{ color: active ? '#E8640C' : '#9CA3AF' }}
                 >
                   {t(`nav.${key}`)}
                 </span>
@@ -164,7 +164,7 @@ function MorePage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }} onClick={() => setLangOpen(false)}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }} onClick={() => setLangOpen(false)}>
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Heading */}
@@ -374,11 +374,11 @@ function AuthGuard({ children }) {
 
   if (!ready) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
         <div className="flex flex-col items-center gap-4">
           <div
             className="w-10 h-10 rounded-full border-[3px] border-t-transparent animate-spin"
-            style={{ borderColor: '#F97316', borderTopColor: 'transparent' }}
+            style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
           />
           <p className="text-xs font-semibold text-gray-400">Loading…</p>
         </div>
@@ -396,7 +396,7 @@ function AppShell() {
     <div className="min-h-screen flex justify-center" style={{ background: '#1C1917' }}>
       <div
         className="relative w-full max-w-[430px] min-h-screen overflow-x-hidden"
-        style={{ background: '#FAF8F5', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
+        style={{ background: '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
       >
         <div className="overflow-x-hidden pb-[84px]">
           <GuestBanner />
@@ -445,7 +445,7 @@ export default function App() {
       <div className="min-h-screen flex justify-center" style={{ background: '#1C1917' }}>
         <div
           className="w-full max-w-[430px] min-h-screen overflow-x-hidden"
-          style={{ background: '#FAF8F5', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
+          style={{ background: '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
         >
           <Onboarding onComplete={() => setOnboarded(true)} />
         </div>

@@ -82,7 +82,7 @@ export default function LoanShark() {
   const visibleFlags = showAll ? flags : flags.slice(0, VISIBLE_LIMIT)
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}

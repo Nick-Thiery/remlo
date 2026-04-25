@@ -190,17 +190,17 @@ export default function Salary() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
         <div
           className="w-10 h-10 rounded-full border-[3px] animate-spin"
-          style={{ borderColor: '#F97316', borderTopColor: 'transparent' }}
+          style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
         />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 py-7">
 
         {/* Header */}
@@ -220,8 +220,8 @@ export default function Salary() {
             onClick={openForm}
             className="flex items-center gap-1.5 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-white transition-all active:scale-95 flex-shrink-0"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #EA580C)',
-              boxShadow: '0 6px 18px rgba(249,115,22,0.3)',
+              background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+              boxShadow: '0 6px 18px rgba(232,100,12,0.3)',
             }}
           >
             <Plus className="w-4 h-4" />
@@ -296,7 +296,7 @@ export default function Salary() {
                 value={payday}
                 onChange={(e) => handlePaydayChange(Number(e.target.value))}
                 className="rounded-xl pl-3 pr-8 py-2.5 text-sm font-bold appearance-none"
-                style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none', color: '#111016' }}
+                style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none', color: '#1A1A1A' }}
               >
                 {Array.from({ length: 28 }, (_, i) => i + 1).map((d) => (
                   <option key={d} value={d}>{d}</option>
@@ -331,8 +331,8 @@ export default function Salary() {
               onClick={openForm}
               className="rounded-2xl px-6 py-3 text-sm font-extrabold text-white transition-all active:scale-95"
               style={{
-                background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                boxShadow: '0 6px 18px rgba(249,115,22,0.3)',
+                background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                boxShadow: '0 6px 18px rgba(232,100,12,0.3)',
               }}
             >
               {t('salary.emptyBtn')}
@@ -443,7 +443,7 @@ export default function Salary() {
                   max={today}
                   onChange={(e) => setFDate(e.target.value)}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
-                  style={{ border: `2px solid ${errors.date ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF9', outline: 'none' }}
+                  style={{ border: `2px solid ${errors.date ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF8', outline: 'none' }}
                 />
                 {errors.date && <p className="text-xs text-red-500 mt-1 font-medium">{errors.date}</p>}
               </div>
@@ -460,7 +460,7 @@ export default function Salary() {
                     value={fAmount}
                     onChange={(e) => setFAmount(e.target.value)}
                     className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-                    style={{ border: `2px solid ${errors.amount ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF9', outline: 'none' }}
+                    style={{ border: `2px solid ${errors.amount ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF8', outline: 'none' }}
                   />
                 </div>
                 {errors.amount && <p className="text-xs text-red-500 mt-1 font-medium">{errors.amount}</p>}
@@ -474,7 +474,7 @@ export default function Salary() {
                   value={fEmployer}
                   onChange={(e) => setFEmployer(e.target.value)}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
-                  style={{ border: `2px solid ${errors.employer ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF9', outline: 'none' }}
+                  style={{ border: `2px solid ${errors.employer ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF8', outline: 'none' }}
                 />
                 {errors.employer && <p className="text-xs text-red-500 mt-1 font-medium">{errors.employer}</p>}
               </div>
@@ -489,7 +489,7 @@ export default function Salary() {
                   onChange={(e) => setFNote(e.target.value)}
                   rows={2}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium resize-none"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
+                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
                 />
               </div>
             </div>
@@ -506,8 +506,8 @@ export default function Salary() {
                 onClick={handleAdd}
                 className="flex-1 rounded-2xl py-3 text-sm font-extrabold text-white transition-all active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                  boxShadow: '0 4px 14px rgba(249,115,22,0.3)',
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 4px 14px rgba(232,100,12,0.3)',
                 }}
               >
                 {t('salary.saveBtn')}

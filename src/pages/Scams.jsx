@@ -62,7 +62,7 @@ export default function Scams() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
 
       {/* Emergency banner — sticky */}
       <div className="sticky top-0 z-30 bg-red-600 px-4 py-3">

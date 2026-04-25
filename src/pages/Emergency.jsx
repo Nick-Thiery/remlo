@@ -63,7 +63,7 @@ export default function Emergency() {
   const { t } = useTranslation()
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
 
       {/* Emergency call bar — always at top */}
       <div className="bg-red-600 px-4 py-4">

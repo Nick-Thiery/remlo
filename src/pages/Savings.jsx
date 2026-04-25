@@ -19,7 +19,7 @@ const GOAL_COLORS = [
   { grad: 'linear-gradient(135deg, #F59E0B, #D97706)', light: '#FFFBEB', text: '#92400E', bar: '#F59E0B' },
   { grad: 'linear-gradient(135deg, #F43F5E, #E11D48)', light: '#FFF1F2', text: '#BE123C', bar: '#F43F5E' },
   { grad: 'linear-gradient(135deg, #06B6D4, #0891B2)', light: '#ECFEFF', text: '#155E75', bar: '#06B6D4' },
-  { grad: 'linear-gradient(135deg, #F97316, #EA580C)', light: '#FFF7ED', text: '#C2410C', bar: '#F97316' },
+  { grad: 'linear-gradient(135deg, #E8640C, #CC5708)', light: '#FFF7ED', text: '#C2410C', bar: '#E8640C' },
 ]
 
 export default function Savings() {
@@ -155,17 +155,17 @@ export default function Savings() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
         <div
           className="w-10 h-10 rounded-full border-[3px] animate-spin"
-          style={{ borderColor: '#F97316', borderTopColor: 'transparent' }}
+          style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
         />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 py-7">
 
         {/* Error banner */}
@@ -191,8 +191,8 @@ export default function Savings() {
             onClick={openNewGoal}
             className="flex items-center gap-1.5 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-white transition-all active:scale-95"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #EA580C)',
-              boxShadow: '0 6px 18px rgba(249,115,22,0.3)',
+              background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+              boxShadow: '0 6px 18px rgba(232,100,12,0.3)',
             }}
           >
             <Plus className="w-4 h-4" />
@@ -205,7 +205,7 @@ export default function Savings() {
           <div
             className="rounded-3xl p-6 mb-6 overflow-hidden relative"
             style={{
-              background: 'linear-gradient(135deg, #F97316, #C2410C)',
+              background: 'linear-gradient(135deg, #E8640C, #C2410C)',
               boxShadow: '0 8px 32px rgba(194,65,12,0.3)',
             }}
           >
@@ -261,8 +261,8 @@ export default function Savings() {
                 onClick={openNewGoal}
                 className="rounded-2xl px-6 py-3 text-sm font-extrabold text-white transition-all active:scale-95"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                  boxShadow: '0 6px 18px rgba(249,115,22,0.3)',
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 6px 18px rgba(232,100,12,0.3)',
                 }}
               >
                 {t('savings.emptyBtn')}
@@ -353,7 +353,7 @@ export default function Savings() {
                       <p className="text-xs text-gray-400 mb-0.5 font-medium">{t('savings.remainingLabel')}</p>
                       <p
                         className="text-sm font-extrabold tabular-nums"
-                        style={{ color: isComplete ? '#059669' : '#111016' }}
+                        style={{ color: isComplete ? '#059669' : '#1A1A1A' }}
                       >
                         {isComplete ? t('savings.goalReached') : formatSGD(remaining)}
                       </p>
@@ -383,8 +383,8 @@ export default function Savings() {
           aria-label="Add new goal"
           className="fixed bottom-[88px] right-4 w-14 h-14 text-white rounded-full flex items-center justify-center text-2xl font-light active:scale-90 transition-all z-30"
           style={{
-            background: 'linear-gradient(135deg, #F97316, #EA580C)',
-            boxShadow: '0 8px 24px rgba(249,115,22,0.45)',
+            background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+            boxShadow: '0 8px 24px rgba(232,100,12,0.45)',
           }}
         >
           +
@@ -429,7 +429,7 @@ export default function Savings() {
                   onChange={(e) => setNewGoalName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
+                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
                 />
               </div>
               <div>
@@ -445,7 +445,7 @@ export default function Savings() {
                     onChange={(e) => setNewGoalTarget(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
                     className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-                    style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
+                    style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
                   />
                 </div>
               </div>
@@ -463,8 +463,8 @@ export default function Savings() {
                 onClick={handleAddGoal}
                 className="flex-1 rounded-2xl py-3 text-sm font-extrabold text-white transition-all active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                  boxShadow: '0 4px 14px rgba(249,115,22,0.3)',
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 4px 14px rgba(232,100,12,0.3)',
                 }}
               >
                 {t('savings.createGoalBtn')}
@@ -520,7 +520,7 @@ export default function Savings() {
                   onChange={(e) => setDepositAmount(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddDeposit()}
                   className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
+                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
                 />
               </div>
             </div>
@@ -537,8 +537,8 @@ export default function Savings() {
                 onClick={handleAddDeposit}
                 className="flex-1 rounded-2xl py-3 text-sm font-extrabold text-white transition-all active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                  boxShadow: '0 4px 14px rgba(249,115,22,0.3)',
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 4px 14px rgba(232,100,12,0.3)',
                 }}
               >
                 {t('common.confirm')}

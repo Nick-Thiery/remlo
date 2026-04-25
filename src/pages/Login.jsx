@@ -58,13 +58,13 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: '#FAFAF8' }}>
 
       {/* Brand hero */}
       <div
         className="relative px-6 pt-10 pb-16 flex flex-col items-center text-center overflow-hidden"
         style={{
-          background: 'linear-gradient(160deg, #C2410C 0%, #F97316 50%, #F59E0B 100%)',
+          background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 50%, #F59E0B 100%)',
         }}
       >
         {/* Background texture */}
@@ -134,10 +134,10 @@ function Login() {
               className="w-full rounded-2xl px-4 py-3.5 text-sm font-medium transition-all"
               style={{
                 border: '2px solid #EDE8E0',
-                background: '#FAFAF9',
+                background: '#FAFAF8',
                 outline: 'none',
               }}
-              onFocus={e => e.target.style.borderColor = '#F97316'}
+              onFocus={e => e.target.style.borderColor = '#E8640C'}
               onBlur={e => e.target.style.borderColor = '#EDE8E0'}
             />
             <input
@@ -149,10 +149,10 @@ function Login() {
               className="w-full rounded-2xl px-4 py-3.5 text-sm font-medium transition-all"
               style={{
                 border: '2px solid #EDE8E0',
-                background: '#FAFAF9',
+                background: '#FAFAF8',
                 outline: 'none',
               }}
-              onFocus={e => e.target.style.borderColor = '#F97316'}
+              onFocus={e => e.target.style.borderColor = '#E8640C'}
               onBlur={e => e.target.style.borderColor = '#EDE8E0'}
             />
 
@@ -161,9 +161,9 @@ function Login() {
               disabled={loading}
               className="w-full rounded-2xl py-3.5 text-sm font-extrabold transition-all active:scale-[0.98] disabled:opacity-60"
               style={{
-                background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                background: 'linear-gradient(135deg, #E8640C, #CC5708)',
                 color: 'white',
-                boxShadow: '0 6px 20px rgba(249,115,22,0.35)',
+                boxShadow: '0 6px 20px rgba(232,100,12,0.35)',
               }}
             >
               {loading ? 'Signing in…' : 'Sign In'}
@@ -194,7 +194,7 @@ function Login() {
               className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-60"
               style={{
                 border: '2px dashed #D4CFC8',
-                background: '#FAFAF9',
+                background: '#FAFAF8',
                 color: '#6B7280',
               }}
             >

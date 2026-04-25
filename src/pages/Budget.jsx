@@ -246,17 +246,17 @@ export default function Budget() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
         <div
           className="w-10 h-10 rounded-full border-[3px] animate-spin"
-          style={{ borderColor: '#F97316', borderTopColor: 'transparent' }}
+          style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
         />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 py-7">
 
         {/* Header */}
@@ -292,7 +292,7 @@ export default function Budget() {
               onChange={(e) => setIncome(e.target.value)}
               onBlur={() => saveBudget(income, expenses)}
               className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-              style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
+              style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
               placeholder="0"
             />
           </div>
@@ -315,7 +315,7 @@ export default function Budget() {
               <p className="text-xs text-gray-400 mb-1 font-semibold">{t('budget.summaryExpenses')}</p>
               <p
                 className="text-base font-extrabold tabular-nums"
-                style={{ color: isOverBudget ? '#DC2626' : '#111016' }}
+                style={{ color: isOverBudget ? '#DC2626' : '#1A1A1A' }}
               >
                 {formatSGD(totalExpenses)}
               </p>
@@ -435,7 +435,7 @@ export default function Budget() {
                               if (ev.key === 'Escape') { setEditingKey(null); setEditingValue('') }
                             }}
                             className="w-24 rounded-xl pl-6 pr-2 py-1 text-sm font-bold"
-                            style={{ border: '2px solid #F97316', outline: 'none' }}
+                            style={{ border: '2px solid #E8640C', outline: 'none' }}
                           />
                         </div>
                       ) : (
@@ -486,7 +486,7 @@ export default function Budget() {
                   className="w-full rounded-xl px-3 py-2.5 text-sm font-medium"
                   style={{
                     border: `2px solid ${nameError ? '#FCA5A5' : '#EDE8E0'}`,
-                    background: '#FAFAF9',
+                    background: '#FAFAF8',
                     outline: 'none',
                   }}
                 />
@@ -504,7 +504,7 @@ export default function Budget() {
                   className="w-full rounded-xl pl-7 pr-2 py-2.5 text-sm font-medium"
                   style={{
                     border: `2px solid ${amountError ? '#FCA5A5' : '#EDE8E0'}`,
-                    background: '#FAFAF9',
+                    background: '#FAFAF8',
                     outline: 'none',
                   }}
                 />
@@ -513,8 +513,8 @@ export default function Budget() {
                 onClick={handleAddExpense}
                 className="rounded-xl px-4 py-2.5 text-sm font-extrabold text-white flex-shrink-0 transition-all active:scale-95"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                  boxShadow: '0 3px 10px rgba(249,115,22,0.25)',
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 3px 10px rgba(232,100,12,0.25)',
                 }}
               >
                 {t('budget.addBtn')}

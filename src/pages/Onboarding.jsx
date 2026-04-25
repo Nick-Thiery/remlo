@@ -38,7 +38,7 @@ function WelcomeScreen({ onNext }) {
     <div
       className="min-h-screen flex flex-col items-center justify-between px-6 py-14 select-none"
       style={{
-        background: 'linear-gradient(160deg, #C2410C 0%, #F97316 45%, #F59E0B 100%)',
+        background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 45%, #F59E0B 100%)',
       }}
     >
       {/* Top decorative elements */}
@@ -135,7 +135,7 @@ function WelcomeScreen({ onNext }) {
 
 function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish }) {
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: '#FAFAF8' }}>
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto px-5 pt-10 pb-4">
 
@@ -167,9 +167,9 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
                   c.code === 'OTHER' ? 'col-span-2' : ''
                 }`}
                 style={{
-                  borderColor: selected ? '#F97316' : '#EDE8E0',
+                  borderColor: selected ? '#E8640C' : '#EDE8E0',
                   background: selected ? '#FFF7ED' : 'white',
-                  boxShadow: selected ? '0 0 0 3px rgba(249,115,22,0.12)' : '0 1px 4px rgba(0,0,0,0.04)',
+                  boxShadow: selected ? '0 0 0 3px rgba(232,100,12,0.12)' : '0 1px 4px rgba(0,0,0,0.04)',
                 }}
               >
                 <span className="text-xl flex-shrink-0">{c.flag}</span>
@@ -182,7 +182,7 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
                 {selected && (
                   <div
                     className="ml-auto w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{ background: '#F97316' }}
+                    style={{ background: '#E8640C' }}
                   >
                     <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -203,8 +203,8 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
               onClick={() => onSelectLang(l.code)}
               className="px-4 py-2.5 rounded-xl text-sm font-semibold border-2 transition-all active:scale-95"
               style={{
-                borderColor: lang === l.code ? '#111016' : '#EDE8E0',
-                background: lang === l.code ? '#111016' : 'white',
+                borderColor: lang === l.code ? '#1A1A1A' : '#EDE8E0',
+                background: lang === l.code ? '#1A1A1A' : 'white',
                 color: lang === l.code ? 'white' : '#374151',
               }}
             >
@@ -224,9 +224,9 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
           disabled={!country}
           className="w-full rounded-2xl py-4 text-base font-extrabold transition-all disabled:opacity-40 active:scale-95"
           style={{
-            background: country ? 'linear-gradient(135deg, #F97316, #EA580C)' : '#D1CFC9',
+            background: country ? 'linear-gradient(135deg, #E8640C, #CC5708)' : '#D1CFC9',
             color: 'white',
-            boxShadow: country ? '0 8px 24px rgba(249,115,22,0.3)' : 'none',
+            boxShadow: country ? '0 8px 24px rgba(232,100,12,0.3)' : 'none',
           }}
         >
           Start using Remlo

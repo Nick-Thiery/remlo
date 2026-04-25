@@ -45,7 +45,7 @@ export default function EmergencyFund() {
   const tips = t('emergencyFund.tips', { returnObjects: true })
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Header */}

@@ -84,7 +84,7 @@ export default function BankingGuide() {
   const helplines = t('bankingGuide.helplines', { returnObjects: true })
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
 
         {/* Header */}

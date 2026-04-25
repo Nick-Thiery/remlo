@@ -128,7 +128,7 @@ export default function Remittance() {
   const bestId = results[0]?.id
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 py-7">
 
         {/* Header */}
@@ -183,7 +183,7 @@ export default function Remittance() {
                   onChange={(e) => setSendAmount(e.target.value)}
                   onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { amount: parseFloat(sendAmount), destination_country: country }) }}
                   className="w-full rounded-2xl pl-10 pr-4 py-3.5 text-sm font-bold"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none' }}
+                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
                   placeholder="0"
                 />
               </div>
@@ -198,7 +198,7 @@ export default function Remittance() {
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                   className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-bold appearance-none"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF9', outline: 'none', color: '#111016' }}
+                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none', color: '#1A1A1A' }}
                 >
                   {Object.entries(COUNTRIES).map(([code, c]) => (
                     <option key={code} value={code}>
@@ -279,8 +279,8 @@ export default function Remittance() {
                       className="rounded-3xl overflow-hidden transition-all"
                       style={{
                         background: 'white',
-                        border: isBest ? '2px solid #F97316' : '1px solid #F0EDE8',
-                        boxShadow: isBest ? '0 4px 20px rgba(249,115,22,0.15)' : '0 2px 12px rgba(0,0,0,0.05)',
+                        border: isBest ? '2px solid #E8640C' : '1px solid #F0EDE8',
+                        boxShadow: isBest ? '0 4px 20px rgba(232,100,12,0.15)' : '0 2px 12px rgba(0,0,0,0.05)',
                       }}
                     >
                       {/* Card header */}
@@ -308,7 +308,7 @@ export default function Remittance() {
                           {isBest && (
                             <span
                               className="inline-block text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full mb-1.5 uppercase tracking-wide"
-                              style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)' }}
+                              style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)' }}
                             >
                               {t('remittance.bestValue')}
                             </span>
@@ -343,7 +343,7 @@ export default function Remittance() {
                           <p className="text-xs text-gray-400 mb-0.5 font-semibold">{t('remittance.feeLabel')}</p>
                           <p
                             className="text-sm font-extrabold tabular-nums"
-                            style={{ color: p.fee === 0 ? '#059669' : '#111016' }}
+                            style={{ color: p.fee === 0 ? '#059669' : '#1A1A1A' }}
                           >
                             {p.fee === 0 ? t('common.noFee') : formatSGD(p.fee)}
                           </p>

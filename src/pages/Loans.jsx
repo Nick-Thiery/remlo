@@ -211,14 +211,14 @@ export default function Loans() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAF8F5' }}>
-        <div className="w-10 h-10 rounded-full border-[3px] animate-spin" style={{ borderColor: '#F97316', borderTopColor: 'transparent' }} />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
+        <div className="w-10 h-10 rounded-full border-[3px] animate-spin" style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }} />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
       <div className="max-w-lg mx-auto px-4 py-8">
 
         {/* Header */}
@@ -237,7 +237,7 @@ export default function Loans() {
           </div>
           <button
             onClick={openForm}
-            className="flex items-center gap-1.5 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-white transition-all active:scale-95 flex-shrink-0" style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)', boxShadow: '0 6px 18px rgba(249,115,22,0.3)' }}
+            className="flex items-center gap-1.5 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-white transition-all active:scale-95 flex-shrink-0" style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', boxShadow: '0 6px 18px rgba(232,100,12,0.3)' }}
           >
             {t('loans.addBtn')}
           </button>
@@ -293,7 +293,7 @@ export default function Loans() {
             <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('loans.emptyDesc')}</p>
             <button
               onClick={openForm}
-              className="rounded-2xl px-6 py-3 text-sm font-extrabold text-white transition-all active:scale-95" style={{ background: 'linear-gradient(135deg, #F97316, #EA580C)', boxShadow: '0 6px 18px rgba(249,115,22,0.3)' }}
+              className="rounded-2xl px-6 py-3 text-sm font-extrabold text-white transition-all active:scale-95" style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', boxShadow: '0 6px 18px rgba(232,100,12,0.3)' }}
             >
               {t('loans.emptyBtn')}
             </button>
