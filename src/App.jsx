@@ -57,12 +57,12 @@ const LANGUAGES = [
 ]
 
 const TABS = [
-  { path: '/',           key: 'home',    Icon: HomeIcon,       hasFill: true  },
-  { path: '/savings',    key: 'savings', Icon: Coins,          hasFill: true  },
-  { path: '/budget',     key: 'budget',  Icon: Wallet,         hasFill: true  },
-  { path: '/remittance', key: 'send',    Icon: ArrowLeftRight, hasFill: false },
-  { path: '/chat',       key: 'chat',    Icon: MessageCircle,  hasFill: true  },
-  { path: '/more',       key: 'more',    Icon: Menu,           hasFill: false },
+  { path: '/',           key: 'home',    Icon: HomeIcon       },
+  { path: '/savings',    key: 'savings', Icon: Coins          },
+  { path: '/budget',     key: 'budget',  Icon: Wallet         },
+  { path: '/remittance', key: 'send',    Icon: ArrowLeftRight },
+  { path: '/chat',       key: 'chat',    Icon: MessageCircle  },
+  { path: '/more',       key: 'more',    Icon: Menu           },
 ]
 
 const MORE_ITEMS = [
@@ -96,33 +96,34 @@ function BottomTabBar() {
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40">
       <div
-        className="bg-white/98 backdrop-blur-xl"
+        className="bg-white backdrop-blur-xl"
         style={{
           borderTop: '1px solid rgba(240, 237, 232, 0.8)',
-          boxShadow: '0 -8px 40px rgba(0,0,0,0.08)',
+          boxShadow: '0 -4px 24px rgba(0,0,0,0.07)',
         }}
       >
-        <div className="flex items-center px-1 pt-2">
-          {TABS.map(({ path, key, Icon, hasFill }) => {
+        <div className="flex items-stretch px-1">
+          {TABS.map(({ path, key, Icon }) => {
             const active = key === 'more' ? onMoreSection : location.pathname === path
             return (
               <button
                 key={path}
                 onClick={() => navigate(path)}
-                className="flex-1 flex flex-col items-center gap-1.5 pb-1 transition-all"
+                className="flex-1 flex flex-col items-center justify-center gap-1 transition-colors"
+                style={{ minHeight: 60, paddingTop: 10, paddingBottom: 8 }}
               >
                 <Icon
                   style={{
-                    width: 22,
-                    height: 22,
+                    width: 26,
+                    height: 26,
                     color: active ? '#E8640C' : '#9CA3AF',
-                    transition: 'color 0.2s',
+                    transition: 'color 0.15s',
                   }}
-                  fill={active && hasFill ? 'currentColor' : 'none'}
-                  strokeWidth={active ? (hasFill ? 0 : 2.5) : 1.8}
+                  fill="none"
+                  strokeWidth={active ? 2.2 : 1.8}
                 />
                 <span
-                  className="text-[10px] leading-none font-semibold transition-colors duration-200"
+                  className="text-[10px] leading-none font-semibold transition-colors"
                   style={{ color: active ? '#E8640C' : '#9CA3AF' }}
                 >
                   {t(`nav.${key}`)}

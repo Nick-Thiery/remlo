@@ -52,40 +52,14 @@ function WelcomeScreen({ onNext }) {
 
       {/* Center illustration + text */}
       <div className="text-center">
-        {/* Layered geometric illustration */}
-        <div className="mx-auto mb-10 relative" style={{ width: 160, height: 160 }}>
-          {/* Outer ring */}
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
+        {/* App icon */}
+        <div className="mx-auto mb-10 float-anim" style={{ width: 120, height: 120 }}>
+          <img
+            src="/pwa-192x192.png"
+            alt="Remlo"
+            className="w-full h-full rounded-3xl"
+            style={{ boxShadow: '0 12px 40px rgba(0,0,0,0.20)' }}
           />
-          {/* Mid ring */}
-          <div
-            className="absolute rounded-full"
-            style={{ inset: 20, background: 'rgba(255,255,255,0.10)' }}
-          />
-          {/* Card */}
-          <div
-            className="absolute rounded-3xl flex items-center justify-center float-anim"
-            style={{
-              inset: 38,
-              background: 'rgba(255,255,255,0.22)',
-              backdropFilter: 'blur(12px)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
-            }}
-          >
-            <svg viewBox="0 0 48 48" className="w-11 h-11" fill="none">
-              {/* Stylised coin/wallet mark */}
-              <circle cx="24" cy="24" r="16" stroke="white" strokeWidth="2.5" strokeOpacity="0.95" />
-              <path d="M18 24h12M18 19h12M18 29h9" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-              <path d="M34 13l3-3M34 35l3 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeOpacity="0.5" />
-            </svg>
-          </div>
-          {/* Accent dots */}
-          <div className="absolute top-3 right-8 w-3.5 h-3.5 rounded-full bg-white/30" />
-          <div className="absolute bottom-6 left-5 w-2.5 h-2.5 rounded-full bg-white/20" />
-          <div className="absolute top-10 left-3 w-2 h-2 rounded-full bg-white/15" />
-          <div className="absolute bottom-3 right-4 w-1.5 h-1.5 rounded-full bg-white/25" />
         </div>
 
         <h1
@@ -95,7 +69,7 @@ function WelcomeScreen({ onNext }) {
           Welcome to Remlo
         </h1>
         <p className="text-white/75 text-base leading-relaxed max-w-[260px] mx-auto">
-          Smart financial tools built for migrant workers in Singapore
+          Smart finance for everyone, everywhere
         </p>
 
         {/* Feature pills */}
