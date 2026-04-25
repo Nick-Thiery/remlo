@@ -24,7 +24,11 @@ const SEVERITY_STYLES = {
 const ALL_TYPE_IDS = ['all', 'jobScam', 'loanScam', 'phishing', 'impersonation', 'paymentScam', 'investmentScam']
 
 function formatDate(iso) {
-  return new Date(iso).toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' })
+  if (!iso) return ''
+  // Supabase/PostgreSQL returns "2025-11-01 00:00:00+00" — normalize to ISO 8601
+  const d = new Date(iso.replace(' ', 'T'))
+  if (isNaN(d.getTime())) return ''
+  return d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
 function formatNumber(n) {
@@ -216,37 +220,38 @@ export default function Scams() {
 
                   {/* Tappable header */}
                   <button
-                    className="w-full text-left px-5 pt-4 pb-4"
+                    className="w-full text-left px-4 pt-4 pb-4"
                     onClick={() => setExpandedId(isExpanded ? null : alert.id)}
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        {/* Type badge + severity + date row */}
-                        <div className="flex items-center gap-2 flex-wrap mb-2">
-                          <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full ${badge.bg} ${badge.text}`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${badge.dot}`} />
-                            {t(`scams.types.${alert.type}`)}
-                          </span>
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide ${severity.bg} ${severity.text}`}>
-                            {severity.label}
-                          </span>
-                          <span className="text-xs text-gray-400">{formatDate(alert.published_at)}</span>
-                        </div>
-                        <p className="text-sm font-semibold text-gray-900 leading-snug">{alert.title}</p>
-                      </div>
-                      <span className={`text-xs flex-shrink-0 mt-1 transition-colors ${isExpanded ? 'text-blue-500' : 'text-gray-300'}`}>
+                    {/* Row 1: badges + chevron */}
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full flex-shrink-0 ${badge.bg} ${badge.text}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${badge.dot}`} />
+                        {t(`scams.types.${alert.type}`)}
+                      </span>
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0 ${severity.bg} ${severity.text}`}>
+                        {severity.label}
+                      </span>
+                      <span className="ml-auto text-xs flex-shrink-0 text-gray-300">
                         {isExpanded ? '▲' : '▼'}
                       </span>
                     </div>
 
-                    <p className={`text-sm text-gray-600 mt-2 leading-relaxed ${isExpanded ? '' : 'line-clamp-2'}`}>
+                    {/* Row 2: title */}
+                    <p className="text-sm font-semibold text-gray-900 leading-snug mb-1.5">{alert.title}</p>
+
+                    {/* Row 3: date */}
+                    <p className="text-[11px] text-gray-400 mb-2">{formatDate(alert.published_at)}</p>
+
+                    {/* Row 4: description */}
+                    <p className={`text-sm text-gray-600 leading-relaxed ${isExpanded ? '' : 'line-clamp-2'}`}>
                       {alert.description}
                     </p>
                   </button>
 
                   {/* Expanded: what to do + source */}
                   {isExpanded && (
-                    <div className="border-t border-gray-50 px-5 py-4">
+                    <div className="border-t border-gray-50 px-4 py-4">
                       <p className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-3">
                         {t('scams.whatToDoHeading')}
                       </p>
