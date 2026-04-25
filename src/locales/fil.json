@@ -394,7 +394,16 @@
           "Kung nao-scam, mag-file ng ulat sa Pulisya sa anumang Neighbourhood Police Centre o sa police.gov.sg/e-services/make-e-report."
         ]
       }
-    ]
+    ],
+    "loadError": "Hindi ma-load ang mga alerto",
+    "tryAgain": "Subukan ulit",
+    "sourceLabel": "Pinagmulan",
+    "severity": {
+      "critical": "KRITIKAL",
+      "high": "MATAAS",
+      "medium": "KATAMTAMAN",
+      "low": "PAYO"
+    }
   },
   "loanshark": {
     "pageTitle": "Identifier ng Loan Shark",

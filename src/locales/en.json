@@ -309,6 +309,15 @@
     "whatToDoHeading": "What to do",
     "noAlerts": "No alerts for this category.",
     "sourceNote": "Alerts are based on reports from MOM, SPF, and the Scam Alert Singapore feed. Always verify via official channels.",
+    "loadError": "Could not load alerts",
+    "tryAgain": "Try again",
+    "sourceLabel": "Source",
+    "severity": {
+      "critical": "CRITICAL",
+      "high": "HIGH",
+      "medium": "MEDIUM",
+      "low": "ADVISORY"
+    },
     "types": {
       "jobScam": "Job Scam",
       "loanScam": "Loan Scam",

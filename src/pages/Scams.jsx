@@ -15,10 +15,10 @@ const BADGE_STYLES = {
 }
 
 const SEVERITY_STYLES = {
-  critical: { bg: 'bg-red-600',    text: 'text-white',        label: 'CRITICAL' },
-  high:     { bg: 'bg-orange-500', text: 'text-white',        label: 'HIGH'     },
-  medium:   { bg: 'bg-yellow-100', text: 'text-yellow-800',   label: 'MEDIUM'   },
-  low:      { bg: 'bg-gray-100',   text: 'text-gray-500',     label: 'ADVISORY' },
+  critical: { bg: 'bg-red-600',    text: 'text-white'      },
+  high:     { bg: 'bg-orange-500', text: 'text-white'      },
+  medium:   { bg: 'bg-yellow-100', text: 'text-yellow-800' },
+  low:      { bg: 'bg-gray-100',   text: 'text-gray-500'   },
 }
 
 const ALL_TYPE_IDS = ['all', 'jobScam', 'loanScam', 'phishing', 'impersonation', 'paymentScam', 'investmentScam']
@@ -65,7 +65,7 @@ export default function Scams() {
       const { data, error: fnErr } = await supabase.functions.invoke('fetch-scam-alerts')
       if (fnErr) throw fnErr
       setAlerts(data.alerts ?? [])
-      setStats(data.stats ?? null)
+      setStats(null)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -190,13 +190,13 @@ export default function Scams() {
         {/* Error state */}
         {!loading && error && (
           <div className="rounded-2xl px-5 py-4 mb-4" style={{ background: '#FEF2F2', border: '1px solid #FECACA' }}>
-            <p className="text-sm text-red-700 font-semibold mb-1">Could not load alerts</p>
+            <p className="text-sm text-red-700 font-semibold mb-1">{t('scams.loadError')}</p>
             <p className="text-xs text-red-500 mb-3">{error}</p>
             <button
               onClick={loadAlerts}
               className="flex items-center gap-1.5 text-xs font-bold text-red-700"
             >
-              <RefreshCw className="w-3.5 h-3.5" /> Try again
+              <RefreshCw className="w-3.5 h-3.5" /> {t('scams.tryAgain')}
             </button>
           </div>
         )}
@@ -230,7 +230,7 @@ export default function Scams() {
                         {t(`scams.types.${alert.type}`)}
                       </span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0 ${severity.bg} ${severity.text}`}>
-                        {severity.label}
+                        {t(`scams.severity.${alert.severity}`)}
                       </span>
                       <span className="ml-auto text-xs flex-shrink-0 text-gray-300">
                         {isExpanded ? '▲' : '▼'}
@@ -268,7 +268,7 @@ export default function Scams() {
 
                       {/* Source attribution */}
                       <div className="flex items-center gap-2 pt-3 border-t border-gray-50">
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Source</span>
+                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">{t('scams.sourceLabel')}</span>
                         {alert.source_url ? (
                           <a
                             href={alert.source_url}

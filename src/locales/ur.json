@@ -394,7 +394,16 @@
           "اگر فراڈ ہوا ہے تو کسی بھی نیبر ہڈ پولیس سینٹر میں یا police.gov.sg/e-services/make-e-report پر پولیس رپورٹ درج کریں۔"
         ]
       }
-    ]
+    ],
+    "loadError": "الرٹ لوڈ نہیں ہو سکے",
+    "tryAgain": "دوبارہ کوشش کریں",
+    "sourceLabel": "ماخذ",
+    "severity": {
+      "critical": "انتہائی",
+      "high": "اعلیٰ",
+      "medium": "درمیانہ",
+      "low": "مشورہ"
+    }
   },
   "loanshark": {
     "pageTitle": "قرض خور شناخت کار",

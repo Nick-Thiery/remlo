@@ -394,7 +394,16 @@
           "如被骗，请前往任何邻里警察中心报案。"
         ]
       }
-    ]
+    ],
+    "loadError": "无法加载警报",
+    "tryAgain": "重试",
+    "sourceLabel": "来源",
+    "severity": {
+      "critical": "严重",
+      "high": "高",
+      "medium": "中等",
+      "low": "提示"
+    }
   },
   "loanshark": {
     "pageTitle": "非法放贷识别",

@@ -394,7 +394,16 @@
           "Jika ditipu, buat laporan Polisi di Neighbourhood Police Centre mana saja atau di police.gov.sg/e-services/make-e-report."
         ]
       }
-    ]
+    ],
+    "loadError": "Tidak dapat memuat peringatan",
+    "tryAgain": "Coba lagi",
+    "sourceLabel": "Sumber",
+    "severity": {
+      "critical": "KRITIS",
+      "high": "TINGGI",
+      "medium": "SEDANG",
+      "low": "SARAN"
+    }
   },
   "loanshark": {
     "pageTitle": "Pengidentifikasi Rentenir",
