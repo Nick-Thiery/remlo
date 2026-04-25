@@ -62,7 +62,7 @@ function Login() {
 
       {/* Brand hero */}
       <div
-        className="relative px-6 pt-16 pb-20 flex flex-col items-center text-center overflow-hidden rounded-b-[40px]"
+        className="relative px-6 pt-10 pb-16 flex flex-col items-center text-center overflow-hidden"
         style={{
           background: 'linear-gradient(160deg, #C2410C 0%, #F97316 50%, #F59E0B 100%)',
         }}
@@ -107,16 +107,9 @@ function Login() {
         </div>
       </div>
 
-      {/* Form card — overlaps hero */}
-      <div className="flex-1 flex flex-col px-5 -mt-6">
-        <div
-          className="w-full max-w-sm mx-auto rounded-3xl p-6 mb-4"
-          style={{
-            background: 'white',
-            boxShadow: '0 8px 40px rgba(0,0,0,0.12)',
-            border: '1px solid #F0EDE8',
-          }}
-        >
+      {/* Form section — curves up over the hero */}
+      <div className="flex-1 flex flex-col -mt-8" style={{ background: 'white', borderRadius: '40px 40px 0 0' }}>
+        <div className="px-5 pt-8 pb-2">
           <h2 className="text-xl font-extrabold text-gray-900 mb-0.5 tracking-tight">Welcome back</h2>
           <p className="text-sm text-gray-500 mb-6">Sign in or create a new account</p>
 
@@ -226,7 +219,7 @@ function Login() {
         </div>
       </div>
 
-      <div className="pb-10" />
+      <div className="pb-10" style={{ background: 'white' }} />
     </div>
   )
 }
