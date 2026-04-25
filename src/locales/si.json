@@ -533,7 +533,8 @@
     ],
     "errorMsg": "සමාවෙන්න, දෝෂයක් සිදු විය. නැවත උත්සාහ කරන්න.",
     "disclaimer": "මාර්ගෝපදේශනය සඳහා පමණි. හදිසි ඇත්නම් 999 ඇමතුම් ලබා දෙන්න.",
-    "noApiKey": "API යතුර වින්‍යාස කර නොමැත. ඔබේ .env ගොනුවට VITE_ANTHROPIC_API_KEY එකතු කරන්න."
+    "noApiKey": "API යතුර වින්‍යාස කර නොමැත. ඔබේ .env ගොනුවට VITE_ANTHROPIC_API_KEY එකතු කරන්න.",
+    "listeningPlaceholder": "සවන් දෙමින්…"
   },
   "emergency": {
     "dangerText": "ක්ෂණික අන්තරායකද?",
@@ -864,5 +865,30 @@
   "guestBanner": {
     "message": "උපකරණ හරහා ඔබේ දත්ත සමමුහුර්ත කිරීමට ගිනුමක් සාදන්න",
     "signUp": "ලියාපදිංචි වන්න"
+  },
+  "home": {
+    "greetingMorning": "සුබ උදෑසනක්",
+    "greetingAfternoon": "සුබ දහවලක්",
+    "greetingEvening": "සුබ සන්ධ්‍යාවක්",
+    "financeGlance": "ඔබේ මූල්‍ය එකවර දෙස",
+    "streakLabel": "{{count}} දින ලකුණු",
+    "welcomeBack": "නැවත සාදරයෙන් පිළිගනිමු 👋"
+  },
+  "login": {
+    "tagline": "සංක්‍රමණ කම්කරුවන් සඳහා දක්ෂ මූල්‍ය",
+    "welcomeBack": "නැවත සාදරයෙන් පිළිගනිමු",
+    "signInDesc": "ඇතුල් වන්න හෝ නව ගිණුමක් සාදන්න",
+    "emailPlaceholder": "විද්‍යුත් ලිපිනය",
+    "passwordPlaceholder": "මුරපදය",
+    "signingIn": "ඇතුල් වෙමින්…",
+    "signIn": "ඇතුල් වන්න",
+    "createAccount": "ගිණුමක් සාදන්න",
+    "or": "හෝ",
+    "continueGuest": "අමුත්තකු ලෙස ඉදිරියට යන්න",
+    "guestNote": "අමුත්තන් දත්ත මෙම උපකරණයේ පමණක් සුරකිනු ලැබේ.",
+    "guestSyncNote": "උපකරණ හරහා සමමුහුර්ත කිරීමට ගිණුමක් සාදන්න.",
+    "privacyPolicy": "රහස්‍යතා ප්‍රතිපත්තිය",
+    "termsOfService": "සේවා නියම",
+    "confirmEmail": "ගිණුම තහවුරු කිරීමට විද්‍යුත් තැපෑල පරීක්ෂා කරන්න. ඇතුල් වූ විට අමුත්තන් දත්ත ගෙනයනු ලැබේ."
   }
 }

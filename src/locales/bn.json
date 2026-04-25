@@ -533,7 +533,8 @@
     ],
     "errorMsg": "দুঃখিত, কিছু ভুল হয়েছে। আবার চেষ্টা করুন।",
     "disclaimer": "শুধুমাত্র নির্দেশিকার জন্য। জরুরি অবস্থায় ৯৯৯ কল করুন।",
-    "noApiKey": "API key কনফিগার করা হয়নি।"
+    "noApiKey": "API key কনফিগার করা হয়নি।",
+    "listeningPlaceholder": "শুনছি…"
   },
   "emergency": {
     "dangerText": "তাৎক্ষণিক বিপদে আছেন?",
@@ -864,5 +865,30 @@
   "guestBanner": {
     "message": "ডিভাইস জুড়ে আপনার ডেটা সিঙ্ক করতে একটি অ্যাকাউন্ট তৈরি করুন",
     "signUp": "সাইন আপ"
+  },
+  "home": {
+    "greetingMorning": "শুভ সকাল",
+    "greetingAfternoon": "শুভ দুপুর",
+    "greetingEvening": "শুভ সন্ধ্যা",
+    "financeGlance": "এক নজরে আপনার আর্থিক অবস্থা",
+    "streakLabel": "{{count}} দিনের স্ট্রিক",
+    "welcomeBack": "আবার স্বাগতম 👋"
+  },
+  "login": {
+    "tagline": "প্রবাসী শ্রমিকদের জন্য স্মার্ট ফিনান্স",
+    "welcomeBack": "আবার স্বাগতম",
+    "signInDesc": "সাইন ইন করুন বা নতুন অ্যাকাউন্ট তৈরি করুন",
+    "emailPlaceholder": "ইমেইল ঠিকানা",
+    "passwordPlaceholder": "পাসওয়ার্ড",
+    "signingIn": "সাইন ইন হচ্ছে…",
+    "signIn": "সাইন ইন",
+    "createAccount": "অ্যাকাউন্ট তৈরি করুন",
+    "or": "অথবা",
+    "continueGuest": "অতিথি হিসেবে চালিয়ে যান",
+    "guestNote": "অতিথি ডেটা শুধুমাত্র এই ডিভাইসে সংরক্ষিত।",
+    "guestSyncNote": "ডিভাইস জুড়ে সিঙ্ক করতে অ্যাকাউন্ট তৈরি করুন।",
+    "privacyPolicy": "গোপনীয়তা নীতি",
+    "termsOfService": "সেবার শর্তাবলী",
+    "confirmEmail": "অ্যাকাউন্ট নিশ্চিত করতে ইমেইল দেখুন। সাইন ইন করলে অতিথি ডেটা স্থানান্তরিত হবে।"
   }
 }

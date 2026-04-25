@@ -533,7 +533,8 @@
     ],
     "errorMsg": "माफ़ करें, कुछ गड़बड़ हो गई। कृपया दोबारा कोशिश करें।",
     "disclaimer": "केवल मार्गदर्शन के लिए। आपात स्थिति में 999 पर कॉल करें।",
-    "noApiKey": "API key कॉन्फ़िगर नहीं है।"
+    "noApiKey": "API key कॉन्फ़िगर नहीं है।",
+    "listeningPlaceholder": "सुन रहे हैं…"
   },
   "emergency": {
     "dangerText": "तत्काल खतरे में हैं?",
@@ -864,5 +865,30 @@
   "guestBanner": {
     "message": "अपने डेटा को डिवाइस में सिंक करने के लिए अकाउंट बनाएं",
     "signUp": "साइन अप"
+  },
+  "home": {
+    "greetingMorning": "सुप्रभात",
+    "greetingAfternoon": "नमस्ते",
+    "greetingEvening": "शुभ संध्या",
+    "financeGlance": "आपका वित्त एक नज़र में",
+    "streakLabel": "{{count}} दिन की स्ट्रीक",
+    "welcomeBack": "वापस स्वागत है 👋"
+  },
+  "login": {
+    "tagline": "प्रवासी श्रमिकों के लिए स्मार्ट वित्त",
+    "welcomeBack": "वापस स्वागत है",
+    "signInDesc": "साइन इन करें या नया खाता बनाएं",
+    "emailPlaceholder": "ईमेल पता",
+    "passwordPlaceholder": "पासवर्ड",
+    "signingIn": "साइन इन हो रहा है…",
+    "signIn": "साइन इन",
+    "createAccount": "खाता बनाएं",
+    "or": "या",
+    "continueGuest": "अतिथि के रूप में जारी रखें",
+    "guestNote": "अतिथि डेटा केवल इस डिवाइस पर सहेजा जाता है।",
+    "guestSyncNote": "डिवाइस पर सिंक करने के लिए खाता बनाएं।",
+    "privacyPolicy": "गोपनीयता नीति",
+    "termsOfService": "सेवा की शर्तें",
+    "confirmEmail": "अपना खाता पुष्टि करने के लिए ईमेल देखें। साइन इन करने पर अतिथि डेटा माइग्रेट होगा।"
   }
 }

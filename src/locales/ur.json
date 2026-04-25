@@ -533,7 +533,8 @@
     ],
     "errorMsg": "معذرت، کچھ غلط ہو گیا۔ براہ کرم دوبارہ کوشش کریں۔",
     "disclaimer": "صرف رہنمائی کے لیے۔ ہنگامی صورتحال میں 999 پر کال کریں۔",
-    "noApiKey": "API کلید ترتیب نہیں ہے۔ اپنی .env فائل میں VITE_ANTHROPIC_API_KEY شامل کریں۔"
+    "noApiKey": "API کلید ترتیب نہیں ہے۔ اپنی .env فائل میں VITE_ANTHROPIC_API_KEY شامل کریں۔",
+    "listeningPlaceholder": "سن رہا ہے…"
   },
   "emergency": {
     "dangerText": "فوری خطرے میں ہیں؟",
@@ -864,5 +865,30 @@
   "guestBanner": {
     "message": "اپنا ڈیٹا تمام آلات میں ہم آہنگ کرنے کے لیے اکاؤنٹ بنائیں",
     "signUp": "سائن اپ"
+  },
+  "home": {
+    "greetingMorning": "صبح بخیر",
+    "greetingAfternoon": "دوپہر بخیر",
+    "greetingEvening": "شام بخیر",
+    "financeGlance": "آپ کی مالیات ایک نظر میں",
+    "streakLabel": "{{count}} دن کی لگاتار",
+    "welcomeBack": "خوش آمدید 👋"
+  },
+  "login": {
+    "tagline": "مہاجر مزدوروں کے لیے ذہین مالیات",
+    "welcomeBack": "خوش آمدید",
+    "signInDesc": "سائن ان کریں یا نیا اکاؤنٹ بنائیں",
+    "emailPlaceholder": "ای میل پتہ",
+    "passwordPlaceholder": "پاس ورڈ",
+    "signingIn": "سائن ان ہو رہا ہے…",
+    "signIn": "سائن ان",
+    "createAccount": "اکاؤنٹ بنائیں",
+    "or": "یا",
+    "continueGuest": "مہمان کے طور پر جاری رکھیں",
+    "guestNote": "مہمان ڈیٹا صرف اس ڈیوائس پر محفوظ ہے۔",
+    "guestSyncNote": "ڈیوائسز میں ہم آہنگی کے لیے اکاؤنٹ بنائیں۔",
+    "privacyPolicy": "رازداری کی پالیسی",
+    "termsOfService": "خدمت کی شرائط",
+    "confirmEmail": "اکاؤنٹ تصدیق کرنے کے لیے ای میل چیک کریں۔ سائن ان کے بعد مہمان ڈیٹا منتقل ہوگا۔"
   }
 }

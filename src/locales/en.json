@@ -537,7 +537,8 @@
     ],
     "errorMsg": "Sorry, something went wrong. Please try again.",
     "disclaimer": "For guidance only. Call 999 in emergencies.",
-    "noApiKey": "API key not configured. Add VITE_ANTHROPIC_API_KEY to your .env file."
+    "noApiKey": "API key not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.",
+    "listeningPlaceholder": "Listening…"
   },
   "scamQuiz": {
     "pageTitle": "Scam Awareness Quiz",
@@ -864,5 +865,30 @@
       "antiscam": "Report scam incidents, freeze transactions, recover lost funds",
       "momtaskforce": "Report fake job offers, illegal placement fees, work permit fraud"
     }
+  },
+  "home": {
+    "greetingMorning": "Good morning",
+    "greetingAfternoon": "Good afternoon",
+    "greetingEvening": "Good evening",
+    "financeGlance": "Your finances at a glance",
+    "streakLabel": "{{count}}-day streak",
+    "welcomeBack": "Welcome back 👋"
+  },
+  "login": {
+    "tagline": "Smart finance for migrant workers",
+    "welcomeBack": "Welcome back",
+    "signInDesc": "Sign in or create a new account",
+    "emailPlaceholder": "Email address",
+    "passwordPlaceholder": "Password",
+    "signingIn": "Signing in…",
+    "signIn": "Sign In",
+    "createAccount": "Create Account",
+    "or": "or",
+    "continueGuest": "Continue as Guest",
+    "guestNote": "Guest data is saved on this device only.",
+    "guestSyncNote": "Create an account to sync across devices.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "confirmEmail": "Check your email to confirm your account. Your guest data will be migrated when you sign in."
   }
 }

@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { supabase } from '../lib/supabase.js'
 import { migrateGuestData } from '../lib/migrateGuestData.js'
 import { track, identifyUser } from '../lib/analytics.js'
 
 function Login() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -46,7 +48,7 @@ function Login() {
       navigate('/', { replace: true })
     } else {
       track('signup', { method: 'email', awaiting_confirmation: true })
-      alert('Check your email to confirm your account. Your guest data will be migrated when you sign in.')
+      alert(t('login.confirmEmail'))
       setLoading(false)
     }
   }
@@ -62,7 +64,7 @@ function Login() {
 
       {/* Brand hero */}
       <div
-        className="relative px-6 pt-10 pb-16 flex flex-col items-center text-center overflow-hidden"
+        className="relative px-6 pt-8 pb-12 flex flex-col items-center text-center overflow-hidden"
         style={{
           background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 50%, #F59E0B 100%)',
         }}
@@ -102,16 +104,23 @@ function Login() {
               <path d="M18 24h12M18 19h12M18 29h9" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
             </svg>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">Remlo</h1>
-          <p className="text-white/70 text-sm mt-1.5 font-medium">Smart finance for migrant workers</p>
+          <h1 className="text-3xl font-extrabold text-white tracking-tight">{t('appName')}</h1>
+          <p className="text-white/70 text-sm mt-1.5 font-medium">{t('login.tagline')}</p>
         </div>
       </div>
 
       {/* Form section — curves up over the hero */}
-      <div className="flex-1 flex flex-col -mt-8" style={{ background: 'white', borderRadius: '40px 40px 0 0' }}>
+      <div
+        className="flex-1 flex flex-col rounded-t-[40px]"
+        style={{
+          background: 'white',
+          marginTop: -20,
+          boxShadow: '0 -4px 24px rgba(0,0,0,0.10)',
+        }}
+      >
         <div className="px-5 pt-8 pb-2">
-          <h2 className="text-xl font-extrabold text-gray-900 mb-0.5 tracking-tight">Welcome back</h2>
-          <p className="text-sm text-gray-500 mb-6">Sign in or create a new account</p>
+          <h2 className="text-xl font-extrabold text-gray-900 mb-0.5 tracking-tight">{t('login.welcomeBack')}</h2>
+          <p className="text-sm text-gray-500 mb-6">{t('login.signInDesc')}</p>
 
           {error && (
             <div
@@ -128,7 +137,7 @@ function Login() {
           <div className="space-y-3">
             <input
               type="email"
-              placeholder="Email address"
+              placeholder={t('login.emailPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-2xl px-4 py-3.5 text-sm font-medium transition-all"
@@ -142,7 +151,7 @@ function Login() {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t('login.passwordPlaceholder')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleLogin(e)}
@@ -166,7 +175,7 @@ function Login() {
                 boxShadow: '0 6px 20px rgba(232,100,12,0.35)',
               }}
             >
-              {loading ? 'Signing in…' : 'Sign In'}
+              {loading ? t('login.signingIn') : t('login.signIn')}
             </button>
 
             <button
@@ -179,12 +188,12 @@ function Login() {
                 color: '#374151',
               }}
             >
-              Create Account
+              {t('login.createAccount')}
             </button>
 
             <div className="relative flex items-center gap-3 py-1">
               <div className="flex-1 h-px" style={{ background: '#EDE8E0' }} />
-              <span className="text-xs text-gray-400 font-semibold">or</span>
+              <span className="text-xs text-gray-400 font-semibold">{t('login.or')}</span>
               <div className="flex-1 h-px" style={{ background: '#EDE8E0' }} />
             </div>
 
@@ -198,22 +207,22 @@ function Login() {
                 color: '#6B7280',
               }}
             >
-              Continue as Guest
+              {t('login.continueGuest')}
             </button>
           </div>
 
           <p className="text-xs text-gray-400 text-center mt-5 leading-relaxed">
-            Guest data is saved on this device only.
-            <br />Create an account to sync across devices.
+            {t('login.guestNote')}
+            <br />{t('login.guestSyncNote')}
           </p>
 
           <div className="flex items-center justify-center gap-4 mt-4">
             <Link to="/privacy" className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors">
-              Privacy Policy
+              {t('login.privacyPolicy')}
             </Link>
             <span className="text-gray-200 text-xs">·</span>
             <Link to="/terms" className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors">
-              Terms of Service
+              {t('login.termsOfService')}
             </Link>
           </div>
         </div>

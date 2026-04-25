@@ -533,7 +533,8 @@
     ],
     "errorMsg": "Maaf, terjadi kesalahan. Silakan coba lagi.",
     "disclaimer": "Hanya untuk panduan. Hubungi 999 dalam keadaan darurat.",
-    "noApiKey": "Kunci API belum dikonfigurasi. Tambahkan VITE_ANTHROPIC_API_KEY ke file .env Anda."
+    "noApiKey": "Kunci API belum dikonfigurasi. Tambahkan VITE_ANTHROPIC_API_KEY ke file .env Anda.",
+    "listeningPlaceholder": "Mendengarkan…"
   },
   "emergency": {
     "dangerText": "Dalam bahaya langsung?",
@@ -864,5 +865,30 @@
   "guestBanner": {
     "message": "Buat akun untuk menyinkronkan data Anda di semua perangkat",
     "signUp": "Daftar"
+  },
+  "home": {
+    "greetingMorning": "Selamat pagi",
+    "greetingAfternoon": "Selamat siang",
+    "greetingEvening": "Selamat malam",
+    "financeGlance": "Keuangan Anda sekilas",
+    "streakLabel": "{{count}} hari berturut-turut",
+    "welcomeBack": "Selamat datang kembali 👋"
+  },
+  "login": {
+    "tagline": "Keuangan cerdas untuk pekerja migran",
+    "welcomeBack": "Selamat datang kembali",
+    "signInDesc": "Masuk atau buat akun baru",
+    "emailPlaceholder": "Alamat email",
+    "passwordPlaceholder": "Kata sandi",
+    "signingIn": "Sedang masuk…",
+    "signIn": "Masuk",
+    "createAccount": "Buat Akun",
+    "or": "atau",
+    "continueGuest": "Lanjutkan sebagai Tamu",
+    "guestNote": "Data tamu hanya disimpan di perangkat ini.",
+    "guestSyncNote": "Buat akun untuk sinkronisasi di semua perangkat.",
+    "privacyPolicy": "Kebijakan Privasi",
+    "termsOfService": "Ketentuan Layanan",
+    "confirmEmail": "Periksa email Anda untuk mengonfirmasi akun. Data tamu akan dipindahkan setelah masuk."
   }
 }

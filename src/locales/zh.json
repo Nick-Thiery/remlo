@@ -533,7 +533,8 @@
     ],
     "errorMsg": "抱歉，出现错误，请重试。",
     "disclaimer": "仅供参考。紧急情况请拨打 999。",
-    "noApiKey": "API 密钥未配置。请在 .env 文件中添加 VITE_ANTHROPIC_API_KEY。"
+    "noApiKey": "API 密钥未配置。请在 .env 文件中添加 VITE_ANTHROPIC_API_KEY。",
+    "listeningPlaceholder": "正在聆听…"
   },
   "emergency": {
     "dangerText": "身处紧急危险？",
@@ -864,5 +865,30 @@
   "guestBanner": {
     "message": "创建账户以在设备间同步您的数据",
     "signUp": "注册"
+  },
+  "home": {
+    "greetingMorning": "早上好",
+    "greetingAfternoon": "下午好",
+    "greetingEvening": "晚上好",
+    "financeGlance": "一览您的财务状况",
+    "streakLabel": "连续{{count}}天",
+    "welcomeBack": "欢迎回来 👋"
+  },
+  "login": {
+    "tagline": "为外籍劳工提供的智能金融",
+    "welcomeBack": "欢迎回来",
+    "signInDesc": "登录或创建新账户",
+    "emailPlaceholder": "电子邮件地址",
+    "passwordPlaceholder": "密码",
+    "signingIn": "登录中…",
+    "signIn": "登录",
+    "createAccount": "创建账户",
+    "or": "或",
+    "continueGuest": "以访客身份继续",
+    "guestNote": "访客数据仅保存在此设备上。",
+    "guestSyncNote": "创建账户以在设备间同步。",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "confirmEmail": "请查看邮件以确认您的账户。登录后访客数据将迁移。"
   }
 }

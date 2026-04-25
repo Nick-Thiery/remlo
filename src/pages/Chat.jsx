@@ -336,7 +336,7 @@ export default function Chat() {
           <input
             ref={inputRef}
             type="text"
-            placeholder={isRecording ? 'Listening…' : t('chat.inputPlaceholder')}
+            placeholder={isRecording ? t('chat.listeningPlaceholder') : t('chat.inputPlaceholder')}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {

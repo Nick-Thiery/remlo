@@ -533,7 +533,8 @@
     ],
     "errorMsg": "माफ गर्नुहोस्, केही गलत भयो। कृपया फेरि प्रयास गर्नुहोस्।",
     "disclaimer": "केवल मार्गदर्शनका लागि। आपतकालमा 999 मा कल गर्नुहोस्।",
-    "noApiKey": "API कुञ्जी कन्फिगर गरिएको छैन। आफ्नो .env फाइलमा VITE_ANTHROPIC_API_KEY थप्नुहोस्।"
+    "noApiKey": "API कुञ्जी कन्फिगर गरिएको छैन। आफ्नो .env फाइलमा VITE_ANTHROPIC_API_KEY थप्नुहोस्।",
+    "listeningPlaceholder": "सुन्दैछ…"
   },
   "emergency": {
     "dangerText": "तत्काल खतरामा हुनुहुन्छ?",
@@ -864,5 +865,30 @@
   "guestBanner": {
     "message": "यन्त्रहरूमा आफ्नो डेटा सिङ्क गर्न खाता बनाउनुहोस्",
     "signUp": "साइन अप"
+  },
+  "home": {
+    "greetingMorning": "शुभ बिहान",
+    "greetingAfternoon": "शुभ दिउँसो",
+    "greetingEvening": "शुभ साँझ",
+    "financeGlance": "तपाईंको वित्त एक नजरमा",
+    "streakLabel": "{{count}} दिनको लगातार",
+    "welcomeBack": "फिर्ता स्वागत छ 👋"
+  },
+  "login": {
+    "tagline": "प्रवासी कामदारहरूको लागि स्मार्ट वित्त",
+    "welcomeBack": "फिर्ता स्वागत छ",
+    "signInDesc": "साइन इन गर्नुहोस् वा नयाँ खाता सिर्जना गर्नुहोस्",
+    "emailPlaceholder": "इमेल ठेगाना",
+    "passwordPlaceholder": "पासवर्ड",
+    "signingIn": "साइन इन हुँदैछ…",
+    "signIn": "साइन इन",
+    "createAccount": "खाता सिर्जना गर्नुहोस्",
+    "or": "वा",
+    "continueGuest": "अतिथिको रूपमा जारी राख्नुहोस्",
+    "guestNote": "अतिथि डेटा यस यन्त्रमा मात्र बचत गरिन्छ।",
+    "guestSyncNote": "यन्त्रहरूमा सिंक गर्न खाता सिर्जना गर्नुहोस्।",
+    "privacyPolicy": "गोपनीयता नीति",
+    "termsOfService": "सेवाका सर्तहरू",
+    "confirmEmail": "खाता पुष्टि गर्न इमेल जाँच गर्नुहोस्। साइन इन गरेपछि अतिथि डेटा स्थानान्तरण हुनेछ।"
   }
 }
