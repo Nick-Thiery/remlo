@@ -62,7 +62,7 @@ function Login() {
 
       {/* Brand hero */}
       <div
-        className="relative px-6 pt-16 pb-20 flex flex-col items-center text-center overflow-hidden"
+        className="relative px-6 pt-16 pb-20 flex flex-col items-center text-center overflow-hidden rounded-b-[40px]"
         style={{
           background: 'linear-gradient(160deg, #C2410C 0%, #F97316 50%, #F59E0B 100%)',
         }}
@@ -108,7 +108,7 @@ function Login() {
       </div>
 
       {/* Form card — overlaps hero */}
-      <div className="flex-1 flex flex-col px-5 -mt-8">
+      <div className="flex-1 flex flex-col px-5 -mt-6">
         <div
           className="w-full max-w-sm mx-auto rounded-3xl p-6 mb-4"
           style={{
