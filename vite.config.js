@@ -14,7 +14,7 @@ export default defineConfig({
         name: 'Remlo',
         short_name: 'Remlo',
         description: 'Financial tools for migrant workers in Singapore',
-        theme_color: '#ea580c',
+        theme_color: '#E8640C',
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
