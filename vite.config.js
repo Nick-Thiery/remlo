@@ -39,6 +39,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Changing cacheId invalidates all existing SW caches on next deploy.
+        // Increment (v2, v3, ...) whenever a SW update is not being picked up.
+        cacheId: 'remlo-v2',
         // Cache app shell and all static assets
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // Runtime caching for API calls — network first, fall back to cache
