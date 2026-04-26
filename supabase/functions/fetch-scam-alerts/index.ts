@@ -11,6 +11,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
@@ -74,53 +75,68 @@ const ALERTS = [
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: CORS })
+    return new Response(null, { status: 204, headers: CORS })
   }
 
-  const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-  )
+  try {
+    // Validate env vars explicitly so a missing secret gives a clear error
+    // instead of crashing the process with an unhandled exception
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')
+    const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
 
-  // ── Step 1: upsert ───────────────────────────────────────────────────────────
-  const { error: upsertError } = await supabase
-    .from('scam_alerts')
-    .upsert(ALERTS, { onConflict: 'id' })
+    if (!supabaseUrl || !serviceRoleKey) {
+      throw new Error('Missing required environment variables: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+    }
 
-  if (upsertError) {
+    const supabase = createClient(supabaseUrl, serviceRoleKey)
+
+    // ── Step 1: upsert ─────────────────────────────────────────────────────────
+    const { error: upsertError } = await supabase
+      .from('scam_alerts')
+      .upsert(ALERTS, { onConflict: 'id' })
+
+    if (upsertError) {
+      return new Response(
+        JSON.stringify({
+          step: 'upsert',
+          error: upsertError.message,
+          code: upsertError.code,
+          details: upsertError.details,
+          hint: upsertError.hint,
+        }),
+        { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
+      )
+    }
+
+    // ── Step 2: read back ──────────────────────────────────────────────────────
+    const { data: alerts, error: selectError } = await supabase
+      .from('scam_alerts')
+      .select('*')
+      .eq('is_active', true)
+
+    if (selectError) {
+      return new Response(
+        JSON.stringify({
+          step: 'select',
+          error: selectError.message,
+          code: selectError.code,
+          details: selectError.details,
+          hint: selectError.hint,
+        }),
+        { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
+      )
+    }
+
     return new Response(
-      JSON.stringify({
-        step: 'upsert',
-        error: upsertError.message,
-        code: upsertError.code,
-        details: upsertError.details,
-        hint: upsertError.hint,
-      }),
+      JSON.stringify({ alerts: alerts ?? [], count: alerts?.length ?? 0 }),
+      { headers: { ...CORS, 'Content-Type': 'application/json' } },
+    )
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    console.error('fetch-scam-alerts fatal:', message)
+    return new Response(
+      JSON.stringify({ step: 'init', error: message }),
       { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
     )
   }
-
-  // ── Step 2: read back ────────────────────────────────────────────────────────
-  const { data: alerts, error: selectError } = await supabase
-    .from('scam_alerts')
-    .select('*')
-    .eq('is_active', true)
-
-  if (selectError) {
-    return new Response(
-      JSON.stringify({
-        step: 'select',
-        error: selectError.message,
-        code: selectError.code,
-        details: selectError.details,
-        hint: selectError.hint,
-      }),
-      { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
-    )
-  }
-
-  return new Response(
-    JSON.stringify({ alerts: alerts ?? [], count: alerts?.length ?? 0 }),
-    { headers: { ...CORS, 'Content-Type': 'application/json' } },
-  )
 })

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ShieldCheck, RefreshCw } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { supabase } from '../lib/supabase.js'
+const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-scam-alerts`
+const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 import { ChevronLeft } from 'lucide-react'
 
 const BADGE_STYLES = {
@@ -62,8 +63,20 @@ export default function Scams() {
     setLoading(true)
     setError(null)
     try {
-      const { data, error: fnErr } = await supabase.functions.invoke('fetch-scam-alerts')
-      if (fnErr) throw fnErr
+      const res = await fetch(FUNCTIONS_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': ANON_KEY,
+          'Authorization': `Bearer ${ANON_KEY}`,
+        },
+        body: JSON.stringify({}),
+      })
+      if (!res.ok) {
+        const text = await res.text()
+        throw new Error(`${res.status}: ${text}`)
+      }
+      const data = await res.json()
       setAlerts(data.alerts ?? [])
       setStats(null)
     } catch (err) {
