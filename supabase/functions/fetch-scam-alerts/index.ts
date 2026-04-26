@@ -79,10 +79,13 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // Validate env vars explicitly so a missing secret gives a clear error
-    // instead of crashing the process with an unhandled exception
     const supabaseUrl = Deno.env.get('SUPABASE_URL')
     const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+
+    // Log masked values so we can confirm secrets are injected without exposing them
+    console.log('ENV CHECK — SUPABASE_URL:', supabaseUrl ? `${supabaseUrl.slice(0, 30)}…` : 'MISSING')
+    console.log('ENV CHECK — SERVICE_ROLE_KEY:', serviceRoleKey ? `${serviceRoleKey.slice(0, 10)}…` : 'MISSING')
+    console.log('ENV CHECK — method:', req.method, '| origin:', req.headers.get('origin') ?? 'none')
 
     if (!supabaseUrl || !serviceRoleKey) {
       throw new Error('Missing required environment variables: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')

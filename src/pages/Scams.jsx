@@ -72,11 +72,14 @@ export default function Scams() {
         },
         body: JSON.stringify({}),
       })
+      const text = await res.text()
       if (!res.ok) {
-        const text = await res.text()
-        throw new Error(`${res.status}: ${text}`)
+        const keyPreview = ANON_KEY ? `${ANON_KEY.slice(0, 12)}…` : 'MISSING'
+        throw new Error(
+          `Status: ${res.status}\nURL: ${FUNCTIONS_URL}\nKey: ${keyPreview}\nBody: ${text}`
+        )
       }
-      const data = await res.json()
+      const data = JSON.parse(text)
       setAlerts(data.alerts ?? [])
       setStats(null)
     } catch (err) {
@@ -203,8 +206,10 @@ export default function Scams() {
         {/* Error state */}
         {!loading && error && (
           <div className="rounded-2xl px-5 py-4 mb-4" style={{ background: '#FEF2F2', border: '1px solid #FECACA' }}>
-            <p className="text-sm text-red-700 font-semibold mb-1">{t('scams.loadError')}</p>
-            <p className="text-xs text-red-500 mb-3">{error}</p>
+            <p className="text-sm text-red-700 font-semibold mb-2">{t('scams.loadError')}</p>
+            <pre className="text-[11px] text-red-600 mb-3 whitespace-pre-wrap break-all leading-relaxed font-mono">
+              {error}
+            </pre>
             <button
               onClick={loadAlerts}
               className="flex items-center gap-1.5 text-xs font-bold text-red-700"
