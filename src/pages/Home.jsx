@@ -138,42 +138,10 @@ export default function Home() {
   }
 
   const FEATURES = [
-    {
-      to: '/savings',
-      icon: Coins,
-      title: t('features.savings.title'),
-      description: t('features.savings.description'),
-      bg: '#FFFBEB',
-      iconBg: '#FDE68A',
-      iconColor: '#92400E',
-    },
-    {
-      to: '/budget',
-      icon: LayoutGrid,
-      title: t('features.budget.title'),
-      description: t('features.budget.description'),
-      bg: '#F5F3FF',
-      iconBg: '#DDD6FE',
-      iconColor: '#5B21B6',
-    },
-    {
-      to: '/remittance',
-      icon: SendHorizonal,
-      title: t('features.remittance.title'),
-      description: t('features.remittance.description'),
-      bg: '#F0F9FF',
-      iconBg: '#BAE6FD',
-      iconColor: '#0369A1',
-    },
-    {
-      to: '/chat',
-      icon: Sparkles,
-      title: t('features.ai.title'),
-      description: t('features.ai.description'),
-      bg: '#FFF7ED',
-      iconBg: '#FED7AA',
-      iconColor: '#C2410C',
-    },
+    { to: '/savings',    icon: Coins,         title: t('features.savings.title'),    description: t('features.savings.description')    },
+    { to: '/budget',     icon: LayoutGrid,    title: t('features.budget.title'),     description: t('features.budget.description')     },
+    { to: '/remittance', icon: SendHorizonal, title: t('features.remittance.title'), description: t('features.remittance.description') },
+    { to: '/chat',       icon: Sparkles,      title: t('features.ai.title'),         description: t('features.ai.description')         },
   ]
 
   return (
@@ -316,22 +284,22 @@ export default function Home() {
               <div
                 className="rounded-2xl p-4 transition-all active:scale-[0.97]"
                 style={{
-                  background: f.bg,
-                  border: `1px solid ${f.iconBg}`,
-                  minHeight: 138,
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                  background: 'white',
+                  border: '1px solid #F0EDE8',
+                  borderLeft: '3px solid #E8640C',
+                  minHeight: 120,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                 }}
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background: f.iconBg }}
-                >
-                  <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
-                </div>
+                <f.icon
+                  className="w-5 h-5 mb-3"
+                  style={{ color: '#E8640C' }}
+                  strokeWidth={2}
+                />
                 <p className="font-extrabold text-sm mb-1" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
                   {f.title}
                 </p>
-                <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
+                <p className="text-xs" style={{ color: '#9CA3AF' }}>
                   {f.description}
                 </p>
               </div>

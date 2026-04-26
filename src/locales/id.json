@@ -23,19 +23,19 @@
     "heading": "Fitur",
     "savings": {
       "title": "Tujuan Tabungan",
-      "description": "Pantau target Anda — dana darurat, perjalanan, keluarga."
+      "description": "Tetapkan tujuan, pantau kemajuan."
     },
     "budget": {
       "title": "Perencana Anggaran",
-      "description": "Rencanakan pengeluaran bulanan dan lihat berapa yang bisa Anda hemat."
+      "description": "Lacak pendapatan dan pengeluaran."
     },
     "remittance": {
       "title": "Kirim Uang",
-      "description": "Bandingkan Wise, Remitly, dan lainnya untuk mendapatkan nilai tukar terbaik."
+      "description": "Bandingkan nilai transfer."
     },
     "ai": {
       "title": "Asisten AI",
-      "description": "Dapatkan tips keuangan yang dipersonalisasi berdasarkan profil Anda.",
+      "description": "Tanyakan apa saja tentang uang.",
       "badge": "Segera Hadir"
     }
   },
@@ -108,7 +108,7 @@
     "pageTitle": "Tujuan Tabungan",
     "pageSubtitle_one": "{{count}} tujuan aktif",
     "pageSubtitle_other": "{{count}} tujuan aktif",
-    "newGoalBtn": "+ Tujuan Baru",
+    "newGoalBtn": "Tujuan Baru",
     "overallProgress": "Kemajuan Keseluruhan",
     "savedOf": "ditabung dari {{amount}}",
     "emptyTitle": "Belum ada tujuan",
