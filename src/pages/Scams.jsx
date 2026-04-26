@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ShieldCheck, RefreshCw } from 'lucide-react'
+import { ShieldCheck, RefreshCw, ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-scam-alerts`
 const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-import { ChevronLeft } from 'lucide-react'
 
 const BADGE_STYLES = {
   jobScam:       { bg: 'bg-orange-100', text: 'text-orange-700', dot: 'bg-orange-500'  },
@@ -26,14 +26,9 @@ const ALL_TYPE_IDS = ['all', 'jobScam', 'loanScam', 'phishing', 'impersonation',
 
 function formatDate(iso) {
   if (!iso) return ''
-  // Supabase/PostgreSQL returns "2025-11-01 00:00:00+00" — normalize to ISO 8601
   const d = new Date(iso.replace(' ', 'T'))
   if (isNaN(d.getTime())) return ''
   return d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' })
-}
-
-function formatNumber(n) {
-  return new Intl.NumberFormat('en-SG').format(n)
 }
 
 const today = new Date().toISOString().slice(0, 10)
@@ -43,7 +38,6 @@ export default function Scams() {
   const { t } = useTranslation()
 
   const [alerts, setAlerts] = useState([])
-  const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -81,7 +75,6 @@ export default function Scams() {
       }
       const data = JSON.parse(text)
       setAlerts(data.alerts ?? [])
-      setStats(null)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -145,29 +138,6 @@ export default function Scams() {
             {t('scams.reportBtn')}
           </button>
         </div>
-
-        {/* Live stats card from data.gov.sg */}
-        {stats && (
-          <div
-            className="rounded-2xl px-5 py-4 mb-5 flex items-center gap-4"
-            style={{ background: '#FFF7ED', border: '1px solid #FED7AA' }}
-          >
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: '#E8640C' }}
-            >
-              <span className="text-white text-base font-extrabold">📊</span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-extrabold text-gray-900">
-                {formatNumber(stats.cases)} scam cases in Singapore ({stats.year})
-              </p>
-              <p className="text-xs text-gray-500 mt-0.5">
-                Live data · Singapore Police Force via data.gov.sg
-              </p>
-            </div>
-          </div>
-        )}
 
         {/* Type filter */}
         <div className="flex gap-2 overflow-x-auto pb-1 mb-5 scrollbar-none">
@@ -307,7 +277,7 @@ export default function Scams() {
               )
             })}
 
-            {visible.length === 0 && !loading && (
+            {visible.length === 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 px-8 py-10 text-center">
                 <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <ShieldCheck className="w-8 h-8 text-emerald-400" strokeWidth={1.5} />
@@ -318,7 +288,7 @@ export default function Scams() {
           </div>
         )}
 
-        {/* Source note */}
+        {/* Disclaimer */}
         {!loading && (
           <p className="text-xs text-gray-400 text-center mt-8 leading-relaxed">
             {t('scams.sourceNote')}
@@ -326,7 +296,7 @@ export default function Scams() {
         )}
       </div>
 
-      {/* Report a Scam Modal */}
+      {/* Report a Scam modal */}
       {showReport && (
         <div
           className="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 p-4"
