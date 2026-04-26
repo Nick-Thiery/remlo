@@ -138,10 +138,10 @@ export default function Home() {
   }
 
   const FEATURES = [
-    { to: '/savings',    icon: Coins,         title: t('features.savings.title'),    description: t('features.savings.description')    },
-    { to: '/budget',     icon: LayoutGrid,    title: t('features.budget.title'),     description: t('features.budget.description')     },
-    { to: '/remittance', icon: SendHorizonal, title: t('features.remittance.title'), description: t('features.remittance.description') },
-    { to: '/chat',       icon: Sparkles,      title: t('features.ai.title'),         description: t('features.ai.description')         },
+    { to: '/savings',    icon: Coins,         title: t('features.savings.title'),    description: t('features.savings.description'),    color: '#0D9488', glow: 'rgba(13,148,136,0.35)'  },
+    { to: '/budget',     icon: LayoutGrid,    title: t('features.budget.title'),     description: t('features.budget.description'),     color: '#7C3AED', glow: 'rgba(124,58,237,0.35)' },
+    { to: '/remittance', icon: SendHorizonal, title: t('features.remittance.title'), description: t('features.remittance.description'), color: '#1D4ED8', glow: 'rgba(29,78,216,0.35)'  },
+    { to: '/chat',       icon: Sparkles,      title: t('features.ai.title'),         description: t('features.ai.description'),         color: '#E8640C', glow: 'rgba(232,100,12,0.35)' },
   ]
 
   return (
@@ -203,27 +203,24 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-5 pb-14">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-20">
 
         {/* ── Hero card ── */}
         <div
-          className="relative rounded-3xl overflow-hidden mb-5"
+          className="relative rounded-3xl overflow-hidden mb-4"
           style={{
-            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #E8640C 78%, #F59E0B 100%)',
-            boxShadow: '0 12px 40px rgba(194,65,12,0.32)',
+            background: 'linear-gradient(160deg, #E8640C 0%, #F97316 60%, #FB923C 100%)',
+            boxShadow: '0 16px 48px rgba(232,100,12,0.38)',
           }}
         >
-          {/* Decorative orbs */}
-          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full" style={{ background: 'rgba(255,255,255,0.07)' }} />
-          <div className="absolute top-4 right-24 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
-          <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full" style={{ background: 'rgba(0,0,0,0.07)' }} />
-          {/* Subtle grid texture */}
+          {/* Radial glow in centre */}
           <div
             className="absolute inset-0"
-            style={{
-              backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px)',
-            }}
+            style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255,200,100,0.18) 0%, transparent 70%)' }}
           />
+          {/* Decorative orbs */}
+          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }} />
+          <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full" style={{ background: 'rgba(0,0,0,0.06)' }} />
 
           <div className="relative px-6 pt-6 pb-7">
             {/* Streak badge */}
@@ -274,32 +271,33 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Feature grid — uniform 2×2 ── */}
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-          {t('features.heading')}
-        </p>
+        {/* ── Feature grid — 2×2 ── */}
         <div className="grid grid-cols-2 gap-3">
           {FEATURES.map((f) => (
             <Link key={f.to} to={f.to} className="block">
               <div
-                className="rounded-2xl p-4 transition-all active:scale-[0.97]"
+                className="relative rounded-2xl overflow-hidden transition-all active:scale-[0.97]"
                 style={{
-                  background: 'white',
-                  border: '1px solid #F0EDE8',
-                  borderLeft: '3px solid #E8640C',
-                  minHeight: 120,
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                  background: f.color,
+                  boxShadow: `0 8px 24px ${f.glow}`,
+                  padding: '20px 18px 22px',
+                  minHeight: 148,
                 }}
               >
+                {/* Subtle inner highlight */}
+                <div
+                  className="absolute top-0 left-0 right-0"
+                  style={{ height: 1, background: 'rgba(255,255,255,0.2)' }}
+                />
                 <f.icon
-                  className="w-5 h-5 mb-3"
-                  style={{ color: '#E8640C' }}
+                  className="w-6 h-6 mb-4"
+                  style={{ color: 'rgba(255,255,255,0.95)' }}
                   strokeWidth={2}
                 />
-                <p className="font-extrabold text-sm mb-1" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
+                <p className="font-extrabold text-sm mb-1 text-white leading-snug" style={{ letterSpacing: '-0.01em' }}>
                   {f.title}
                 </p>
-                <p className="text-xs" style={{ color: '#9CA3AF' }}>
+                <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>
                   {f.description}
                 </p>
               </div>
