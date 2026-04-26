@@ -138,20 +138,52 @@ export default function Home() {
   }
 
   const FEATURES = [
-    { to: '/savings',    icon: Coins,         title: t('features.savings.title'),    description: t('features.savings.description'),    iconBg: '#ECFDF5', iconColor: '#059669' },
-    { to: '/budget',     icon: LayoutGrid,    title: t('features.budget.title'),     description: t('features.budget.description'),     iconBg: '#F5F3FF', iconColor: '#7C3AED' },
-    { to: '/remittance', icon: SendHorizonal, title: t('features.remittance.title'), description: t('features.remittance.description'), iconBg: '#EFF6FF', iconColor: '#2563EB' },
-    { to: '/chat',       icon: Sparkles,      title: t('features.ai.title'),         description: t('features.ai.description'),         iconBg: '#FFF7ED', iconColor: '#EA580C' },
+    {
+      to: '/savings',
+      icon: Coins,
+      title: t('features.savings.title'),
+      description: t('features.savings.description'),
+      bg: '#FFFBEB',
+      iconBg: '#FDE68A',
+      iconColor: '#92400E',
+    },
+    {
+      to: '/budget',
+      icon: LayoutGrid,
+      title: t('features.budget.title'),
+      description: t('features.budget.description'),
+      bg: '#F5F3FF',
+      iconBg: '#DDD6FE',
+      iconColor: '#5B21B6',
+    },
+    {
+      to: '/remittance',
+      icon: SendHorizonal,
+      title: t('features.remittance.title'),
+      description: t('features.remittance.description'),
+      bg: '#F0F9FF',
+      iconBg: '#BAE6FD',
+      iconColor: '#0369A1',
+    },
+    {
+      to: '/chat',
+      icon: Sparkles,
+      title: t('features.ai.title'),
+      description: t('features.ai.description'),
+      bg: '#FFF7ED',
+      iconBg: '#FED7AA',
+      iconColor: '#C2410C',
+    },
   ]
 
   return (
-    <div className="min-h-screen" style={{ background: '#F7F8FA' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
 
       {/* ── Header ── */}
       <div className="bg-white" style={{ borderBottom: '1px solid #ECEEF1' }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
-            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#111827', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#1A1A1A', letterSpacing: '-0.02em' }}>
               {t('appName')}
             </h1>
 
@@ -161,7 +193,7 @@ export default function Home() {
                 <button
                   onClick={() => setLangOpen((o) => !o)}
                   className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 transition-colors"
-                  style={{ background: '#F3F4F6', border: '1px solid #E5E7EB' }}
+                  style={{ background: '#FAFAF8', border: '1px solid #E8EAED' }}
                 >
                   <span className="text-xs font-bold text-gray-500">{currentLang.label.slice(0, 2).toUpperCase()}</span>
                   <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
@@ -169,14 +201,14 @@ export default function Home() {
                 {langOpen && (
                   <div
                     className="absolute right-0 mt-2 w-44 bg-white rounded-2xl py-1.5 z-50 max-h-72 overflow-y-auto"
-                    style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #E5E7EB' }}
+                    style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #ECEEF1' }}
                   >
                     {LANGUAGES.map((l) => (
                       <button
                         key={l.code}
                         onClick={() => switchLang(l.code)}
-                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-gray-50 ${
-                          l.code === i18n.language ? 'font-bold text-gray-900' : 'text-gray-600'
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-orange-50 ${
+                          l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'
                         }`}
                       >
                         {l.label}
@@ -189,7 +221,10 @@ export default function Home() {
               {/* Avatar */}
               <div
                 className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{ background: '#111827' }}
+                style={{
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 3px 10px rgba(232,100,12,0.35)',
+                }}
               >
                 <span className="text-white text-sm font-extrabold select-none">
                   {userInitial || '·'}
@@ -200,63 +235,69 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-5 pb-20">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-14">
 
         {/* ── Hero card ── */}
         <div
-          className="relative rounded-3xl overflow-hidden mb-4"
+          className="relative rounded-3xl overflow-hidden mb-5"
           style={{
-            background: 'linear-gradient(160deg, #111827 0%, #1E2938 55%, #243044 100%)',
-            boxShadow: '0 12px 40px rgba(0,0,0,0.22)',
+            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #E8640C 78%, #F59E0B 100%)',
+            boxShadow: '0 12px 40px rgba(194,65,12,0.32)',
           }}
         >
-          {/* Subtle noise texture overlay */}
+          {/* Decorative orbs */}
+          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="absolute top-4 right-24 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
+          <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full" style={{ background: 'rgba(0,0,0,0.07)' }} />
+          {/* Subtle grid texture */}
           <div
             className="absolute inset-0"
-            style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 70%)' }}
+            style={{
+              backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px)',
+            }}
           />
 
           <div className="relative px-6 pt-6 pb-7">
             {/* Streak badge */}
             <div
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-5"
-              style={{ background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.12)' }}
+              style={{ background: 'rgba(255,255,255,0.18)' }}
             >
-              <Flame className="w-3 h-3 text-orange-400" strokeWidth={2.5} />
-              <span className="text-white/80 text-[11px] font-semibold tracking-wide">
+              <Flame className="w-3 h-3 text-white/90" strokeWidth={2.5} />
+              <span className="text-white/90 text-[11px] font-bold tracking-wide">
                 {t('home.streakLabel', { count: streak })}
               </span>
             </div>
 
             {/* Greeting */}
-            <p className="text-white/50 text-sm font-medium mb-0.5">{getGreeting()}</p>
+            <p className="text-white/65 text-sm font-medium mb-0.5">{getGreeting()}</p>
             <h2 className="text-white font-extrabold text-2xl tracking-tight mb-1" style={{ letterSpacing: '-0.02em' }}>
               {userName ? `${userName} 👋` : t('home.welcomeBack')}
             </h2>
-            <p className="text-white/40 text-xs mb-7">{t('home.financeGlance')}</p>
+            <p className="text-white/55 text-xs mb-7">{t('home.financeGlance')}</p>
 
             {/* Stats row */}
             <div className="flex items-end gap-8">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5">
-                  <Coins className="w-3.5 h-3.5 text-white/35" strokeWidth={2} />
-                  <p className="text-white/40 text-xs font-medium">{t('stats.totalSaved')}</p>
+                  <Coins className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
+                  <p className="text-white/55 text-xs font-medium">{t('stats.totalSaved')}</p>
                 </div>
                 <p
                   className="text-white font-extrabold tabular-nums tracking-tight"
-                  style={{ fontSize: '1.75rem', lineHeight: 1, opacity: statsLoading ? 0.3 : 1 }}
+                  style={{ fontSize: '1.75rem', lineHeight: 1, opacity: statsLoading ? 0.4 : 1 }}
                 >
                   {statsLoading ? 'SGD —' : formatSGD(totalSaved)}
                 </p>
               </div>
               <div className="pb-0.5">
                 <div className="flex items-center gap-1.5 mb-1.5">
-                  <Wallet className="w-3.5 h-3.5 text-white/35" strokeWidth={2} />
-                  <p className="text-white/40 text-xs font-medium">{t('stats.budgetLeft')}</p>
+                  <Wallet className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
+                  <p className="text-white/55 text-xs font-medium">{t('stats.budgetLeft')}</p>
                 </div>
                 <p
-                  className="text-white/85 font-extrabold text-xl tabular-nums tracking-tight"
-                  style={{ lineHeight: 1, opacity: statsLoading ? 0.3 : 1 }}
+                  className="text-white/90 font-extrabold text-xl tabular-nums tracking-tight"
+                  style={{ lineHeight: 1, opacity: statsLoading ? 0.4 : 1 }}
                 >
                   {statsLoading ? '—' : formatSGD(budgetLeft)}
                 </p>
@@ -265,30 +306,32 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Feature grid — 2×2 ── */}
+        {/* ── Feature grid — uniform 2×2 ── */}
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+          {t('features.heading')}
+        </p>
         <div className="grid grid-cols-2 gap-3">
           {FEATURES.map((f) => (
             <Link key={f.to} to={f.to} className="block">
               <div
-                className="bg-white rounded-2xl transition-all active:scale-[0.97]"
+                className="rounded-2xl p-4 transition-all active:scale-[0.97]"
                 style={{
-                  border: '1px solid #E5E7EB',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                  padding: '18px 16px 20px',
-                  minHeight: 140,
+                  background: f.bg,
+                  border: `1px solid ${f.iconBg}`,
+                  minHeight: 138,
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
                 }}
               >
-                {/* Icon container */}
                 <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center mb-4"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
                   style={{ background: f.iconBg }}
                 >
-                  <f.icon className="w-4.5 h-4.5" style={{ color: f.iconColor, width: 18, height: 18 }} strokeWidth={2} />
+                  <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
                 </div>
-                <p className="font-bold text-sm mb-1 leading-snug" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
+                <p className="font-extrabold text-sm mb-1" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
                   {f.title}
                 </p>
-                <p className="text-xs leading-relaxed" style={{ color: '#6B7280' }}>
+                <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
                   {f.description}
                 </p>
               </div>

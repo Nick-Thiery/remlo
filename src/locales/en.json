@@ -27,19 +27,19 @@
     "heading": "Features",
     "savings": {
       "title": "Savings Goals",
-      "description": "Set goals, track progress."
+      "description": "Track your targets — emergency fund, travel, family."
     },
     "budget": {
       "title": "Budget Planner",
-      "description": "Track income and expenses."
+      "description": "Plan your monthly spend and see what you can save."
     },
     "remittance": {
       "title": "Send Money",
-      "description": "Compare transfer rates."
+      "description": "Compare Wise, Remitly, and more to get the best rate."
     },
     "ai": {
       "title": "AI Assistant",
-      "description": "Ask anything about money.",
+      "description": "Get personalised money tips based on your profile.",
       "badge": "Coming Soon"
     }
   },
@@ -112,7 +112,7 @@
     "pageTitle": "Savings Goals",
     "pageSubtitle_one": "{{count}} active goal",
     "pageSubtitle_other": "{{count}} active goals",
-    "newGoalBtn": "New Goal",
+    "newGoalBtn": "+ New Goal",
     "overallProgress": "Overall Progress",
     "savedOf": "saved of {{amount}}",
     "emptyTitle": "No goals yet",

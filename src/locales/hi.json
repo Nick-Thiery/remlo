@@ -23,19 +23,19 @@
     "heading": "सुविधाएं",
     "savings": {
       "title": "बचत लक्ष्य",
-      "description": "लक्ष्य बनाएं, प्रगति देखें."
+      "description": "अपने लक्ष्यों को ट्रैक करें — आपातकालीन निधि, यात्रा, परिवार।"
     },
     "budget": {
       "title": "बजट योजनाकार",
-      "description": "आय और खर्च ट्रैक करें."
+      "description": "मासिक खर्च की योजना बनाएं और देखें कि आप कितना बचा सकते हैं।"
     },
     "remittance": {
       "title": "पैसे भेजें",
-      "description": "ट्रांसफर रेट की तुलना करें."
+      "description": "Wise, Remitly और अन्य की तुलना करें और सबसे अच्छी दर पाएं।"
     },
     "ai": {
       "title": "AI सहायक",
-      "description": "पैसे के बारे में पूछें.",
+      "description": "अपनी प्रोफ़ाइल के आधार पर व्यक्तिगत वित्तीय सुझाव पाएं।",
       "badge": "जल्द आ रहा है"
     }
   },
@@ -108,7 +108,7 @@
     "pageTitle": "बचत लक्ष्य",
     "pageSubtitle_one": "{{count}} सक्रिय लक्ष्य",
     "pageSubtitle_other": "{{count}} सक्रिय लक्ष्य",
-    "newGoalBtn": "नया लक्ष्य",
+    "newGoalBtn": "+ नया लक्ष्य",
     "overallProgress": "समग्र प्रगति",
     "savedOf": "{{amount}} में से बचाया",
     "emptyTitle": "अभी कोई लक्ष्य नहीं",

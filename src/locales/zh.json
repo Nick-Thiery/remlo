@@ -23,19 +23,19 @@
     "heading": "功能",
     "savings": {
       "title": "储蓄目标",
-      "description": "设定目标，追踪进度。"
+      "description": "追踪您的目标 — 应急资金、旅行、家庭。"
     },
     "budget": {
       "title": "预算规划",
-      "description": "记录收入与支出。"
+      "description": "规划每月支出，了解您能储蓄多少。"
     },
     "remittance": {
       "title": "汇款",
-      "description": "比较汇款汇率。"
+      "description": "比较 Wise、Remitly 等平台，获取最优汇率。"
     },
     "ai": {
       "title": "AI 助手",
-      "description": "随时提问理财问题。",
+      "description": "根据您的情况获取个性化理财建议。",
       "badge": "即将推出"
     }
   },
@@ -108,7 +108,7 @@
     "pageTitle": "储蓄目标",
     "pageSubtitle_one": "{{count}} 个进行中目标",
     "pageSubtitle_other": "{{count}} 个进行中目标",
-    "newGoalBtn": "新建目标",
+    "newGoalBtn": "+ 新建目标",
     "overallProgress": "整体进度",
     "savedOf": "已存 {{amount}}",
     "emptyTitle": "暂无目标",

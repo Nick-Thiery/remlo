@@ -23,19 +23,19 @@
     "heading": "خصوصیات",
     "savings": {
       "title": "بچت کے اہداف",
-      "description": "اہداف طے کریں، پیشرفت دیکھیں."
+      "description": "اپنے اہداف ٹریک کریں — ہنگامی فنڈ، سفر، خاندان۔"
     },
     "budget": {
       "title": "بجٹ پلانر",
-      "description": "آمدن اور اخراجات ٹریک کریں."
+      "description": "اپنے ماہانہ اخراجات کا منصوبہ بنائیں اور دیکھیں کیا بچا سکتے ہیں۔"
     },
     "remittance": {
       "title": "پیسے بھیجیں",
-      "description": "ٹرانسفر ریٹ موازنہ کریں."
+      "description": "بہترین شرح پانے کے لیے Wise، Remitly اور دیگر کا موازنہ کریں۔"
     },
     "ai": {
       "title": "AI معاون",
-      "description": "پیسے کے بارے میں پوچھیں.",
+      "description": "اپنے پروفائل کی بنیاد پر ذاتی مالی مشورے حاصل کریں۔",
       "badge": "جلد آ رہا ہے"
     }
   },
@@ -108,7 +108,7 @@
     "pageTitle": "بچت کے اہداف",
     "pageSubtitle_one": "{{count}} فعال ہدف",
     "pageSubtitle_other": "{{count}} فعال اہداف",
-    "newGoalBtn": "نیا ہدف",
+    "newGoalBtn": "+ نیا ہدف",
     "overallProgress": "مجموعی پیشرفت",
     "savedOf": "{{amount}} میں سے بچائے",
     "emptyTitle": "ابھی کوئی ہدف نہیں",

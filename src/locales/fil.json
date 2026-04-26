@@ -23,19 +23,19 @@
     "heading": "Mga Tampok",
     "savings": {
       "title": "Mga Layunin sa Ipon",
-      "description": "Magtakda ng layunin, subaybayan."
+      "description": "Subaybayan ang iyong mga target — emergency fund, paglalakbay, pamilya."
     },
     "budget": {
       "title": "Tagaplano ng Badyet",
-      "description": "Subaybayan ang kita at gastos."
+      "description": "Planuhin ang iyong buwanang gastusin at tingnan kung magkano ang matitipid mo."
     },
     "remittance": {
       "title": "Magpadala ng Pera",
-      "description": "Ikumpara ang mga rate."
+      "description": "Ikumpara ang Wise, Remitly, at iba pa para makuha ang pinakamahusay na rate."
     },
     "ai": {
       "title": "AI Assistant",
-      "description": "Magtanong tungkol sa pera.",
+      "description": "Makakuha ng mga personalisadong payo sa pera batay sa iyong profile.",
       "badge": "Malapit na"
     }
   },
@@ -108,7 +108,7 @@
     "pageTitle": "Mga Layunin sa Ipon",
     "pageSubtitle_one": "{{count}} aktibong layunin",
     "pageSubtitle_other": "{{count}} aktibong mga layunin",
-    "newGoalBtn": "Bagong Layunin",
+    "newGoalBtn": "+ Bagong Layunin",
     "overallProgress": "Kabuuang Progreso",
     "savedOf": "naipong {{amount}}",
     "emptyTitle": "Wala pang mga layunin",
