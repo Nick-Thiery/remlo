@@ -72,9 +72,10 @@ function SplashScreen({ onDone }) {
         src="/pwa-192x192.png"
         alt="Remlo"
         style={{
-          width: 140,
-          height: 140,
-          mixBlendMode: 'screen',
+          width: 120,
+          height: 120,
+          borderRadius: 28,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
         }}
       />
     </div>

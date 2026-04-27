@@ -106,25 +106,36 @@ function Login() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'white', overflowY: 'auto' }} onClick={() => setLangOpen(false)}>
 
-      {/* Brand header — clean white */}
-      <div className="flex flex-col items-center text-center px-6 pt-14 pb-8 flex-shrink-0">
-        <img
-          src="/pwa-192x192.png"
-          alt="Remlo"
-          style={{ width: 64, height: 64, borderRadius: 16, boxShadow: '0 4px 16px rgba(0,0,0,0.12)', marginBottom: 14 }}
-        />
-        <h1 style={{ fontSize: 26, fontWeight: 800, color: '#111827', letterSpacing: '-0.03em', marginBottom: 4 }}>
-          {t('appName')}
-        </h1>
-        <p style={{ fontSize: 14, color: '#6B7280', fontWeight: 500 }}>{t('login.tagline')}</p>
+      {/* Orange gradient hero */}
+      <div
+        className="relative px-6 pb-12 flex flex-col items-center text-center overflow-hidden flex-shrink-0"
+        style={{
+          background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 50%, #F59E0B 100%)',
+          paddingTop: 'max(env(safe-area-inset-top, 0px) + 28px, 36px)',
+        }}
+      >
+        {/* Decorative orbs */}
+        <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }} />
+        <div className="absolute -bottom-8 -left-8 w-40 h-40 rounded-full" style={{ background: 'rgba(0,0,0,0.05)' }} />
+
+        <div className="relative">
+          <img
+            src="/pwa-192x192.png"
+            alt="Remlo"
+            className="mb-4 mx-auto"
+            style={{ width: 72, height: 72, borderRadius: 20, boxShadow: '0 8px 28px rgba(0,0,0,0.22)' }}
+          />
+          <h1 className="text-3xl font-extrabold text-white tracking-tight" style={{ letterSpacing: '-0.02em' }}>{t('appName')}</h1>
+          <p className="text-white/70 text-sm mt-1.5 font-medium">{t('login.tagline')}</p>
+        </div>
       </div>
 
-      {/* Form section */}
-      <div className="flex-1 flex flex-col" style={{ borderTop: '1px solid #F3F4F6' }}>
-        <div className="px-5 pt-5 pb-10">
+      {/* White form card curves up over the hero */}
+      <div className="flex-1 flex flex-col rounded-t-[40px] -mt-6 relative z-10" style={{ background: 'white', boxShadow: '0 -4px 24px rgba(0,0,0,0.10)' }}>
+        <div className="px-5 pt-6 pb-10">
 
           {/* Language selector — compact row */}
-          <div className="flex justify-end mb-5" onClick={e => e.stopPropagation()}>
+          <div className="flex justify-end mb-4" onClick={e => e.stopPropagation()}>
             <div className="relative">
               <button
                 onClick={() => setLangOpen(o => !o)}
@@ -143,7 +154,7 @@ function Login() {
                     <button
                       key={l.code}
                       onClick={() => switchLang(l.code)}
-                      className={`w-full text-left px-4 py-2 text-sm transition-colors hover:bg-gray-50 ${l.code === i18n.language ? 'font-bold text-gray-900' : 'text-gray-600'}`}
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors hover:bg-orange-50 ${l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'}`}
                     >
                       {l.label}
                     </button>
