@@ -221,10 +221,7 @@ export default function Home() {
               {/* Avatar */}
               <div
                 className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{
-                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
-                  boxShadow: '0 3px 10px rgba(232,100,12,0.35)',
-                }}
+                style={{ background: '#111827' }}
               >
                 <span className="text-white text-sm font-extrabold select-none">
                   {userInitial || '·'}

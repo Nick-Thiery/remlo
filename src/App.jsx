@@ -74,7 +74,7 @@ function SplashScreen({ onDone }) {
         style={{
           width: 140,
           height: 140,
-          filter: 'drop-shadow(0 6px 28px rgba(0,0,0,0.5)) drop-shadow(0 2px 6px rgba(0,0,0,0.3))',
+          mixBlendMode: 'screen',
         }}
       />
     </div>
