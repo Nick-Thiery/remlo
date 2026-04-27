@@ -887,7 +887,9 @@
   "login": {
     "tagline": "Matalinong pananalapi para sa mga manggagawang migrante",
     "welcomeBack": "Maligayang pagbabalik",
-    "signInDesc": "Mag-sign in o lumikha ng bagong account",
+    "signInDesc": "Mag-sign in sa iyong account",
+    "createAccountTitle": "Gumawa ng account",
+    "createAccountDesc": "Sumali sa Remlo — libre",
     "emailPlaceholder": "Email address",
     "passwordPlaceholder": "Password",
     "signingIn": "Nagsa-sign in…",
@@ -899,6 +901,10 @@
     "guestSyncNote": "Lumikha ng account para mag-sync sa iba pang devices.",
     "privacyPolicy": "Patakaran sa Privacy",
     "termsOfService": "Mga Tuntunin ng Serbisyo",
-    "confirmEmail": "Suriin ang inyong email para kumpirmahin ang account. Ang data ng bisita ay ililipat pagkatapos mag-sign in."
+    "confirmEmail": "Suriin ang inyong email para kumpirmahin ang account. Ang data ng bisita ay ililipat pagkatapos mag-sign in.",
+    "namePlaceholder": "Ano ang tawag namin sa iyo?",
+    "creating": "Ginagawa ang account…",
+    "switchToSignup": "Bago ka ba? Gumawa ng account",
+    "switchToLogin": "May account na? Mag-sign in"
   }
 }

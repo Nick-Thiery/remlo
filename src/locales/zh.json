@@ -887,7 +887,9 @@
   "login": {
     "tagline": "为外籍劳工提供的智能金融",
     "welcomeBack": "欢迎回来",
-    "signInDesc": "登录或创建新账户",
+    "signInDesc": "登录您的账户",
+    "createAccountTitle": "创建您的账户",
+    "createAccountDesc": "加入 Remlo — 免费",
     "emailPlaceholder": "电子邮件地址",
     "passwordPlaceholder": "密码",
     "signingIn": "登录中…",
@@ -899,6 +901,10 @@
     "guestSyncNote": "创建账户以在设备间同步。",
     "privacyPolicy": "隐私政策",
     "termsOfService": "服务条款",
-    "confirmEmail": "请查看邮件以确认您的账户。登录后访客数据将迁移。"
+    "confirmEmail": "请查看邮件以确认您的账户。登录后访客数据将迁移。",
+    "namePlaceholder": "我们该怎么称呼您？",
+    "creating": "正在创建账户…",
+    "switchToSignup": "新用户？创建账户",
+    "switchToLogin": "已有账户？立即登录"
   }
 }

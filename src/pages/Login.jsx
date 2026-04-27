@@ -8,12 +8,20 @@ import { track, identifyUser } from '../lib/analytics.js'
 function Login() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const [mode, setMode] = useState('login') // 'login' | 'signup'
+  const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
   const wasGuest = localStorage.getItem('remlo_guest') === 'true'
+
+  const inputStyle = {
+    border: '2px solid #EDE8E0',
+    background: '#FAFAF8',
+    outline: 'none',
+  }
 
   async function handleLogin(e) {
     e.preventDefault()
@@ -37,7 +45,11 @@ function Login() {
     setLoading(true)
     setError(null)
 
-    const { data, error: err } = await supabase.auth.signUp({ email, password })
+    const opts = displayName.trim()
+      ? { data: { display_name: displayName.trim() } }
+      : {}
+
+    const { data, error: err } = await supabase.auth.signUp({ email, password, options: opts })
     if (err) {
       setError(err.message)
       setLoading(false)
@@ -59,6 +71,14 @@ function Login() {
     navigate('/', { replace: true })
   }
 
+  function switchMode(next) {
+    setMode(next)
+    setError(null)
+    setDisplayName('')
+  }
+
+  const isSignup = mode === 'signup'
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: '#FAFAF8' }}>
 
@@ -69,35 +89,14 @@ function Login() {
           background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 50%, #F59E0B 100%)',
         }}
       >
-        {/* Background texture */}
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-          }}
-        />
-        {/* Decorative circles */}
-        <div
-          className="absolute -top-16 -right-16 w-64 h-64 rounded-full"
-          style={{ background: 'rgba(255,255,255,0.06)' }}
-        />
-        <div
-          className="absolute -bottom-8 -left-8 w-40 h-40 rounded-full"
-          style={{ background: 'rgba(0,0,0,0.05)' }}
-        />
+        <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }} />
+        <div className="absolute -bottom-8 -left-8 w-40 h-40 rounded-full" style={{ background: 'rgba(0,0,0,0.05)' }} />
 
         <div className="relative">
-          {/* Logo mark */}
           <div
-            className="w-18 h-18 rounded-3xl flex items-center justify-center mb-4 mx-auto"
-            style={{
-              width: 72,
-              height: 72,
-              background: 'rgba(255,255,255,0.2)',
-              backdropFilter: 'blur(10px)',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3)',
-            }}
+            className="rounded-3xl flex items-center justify-center mb-4 mx-auto"
+            style={{ width: 72, height: 72, background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)', boxShadow: '0 8px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3)' }}
           >
             <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none">
               <circle cx="24" cy="24" r="16" stroke="white" strokeWidth="2.5" strokeOpacity="0.95" />
@@ -109,23 +108,18 @@ function Login() {
         </div>
       </div>
 
-      {/* Form section — curves up over the hero */}
-      <div
-        className="flex-1 flex flex-col rounded-t-[40px] -mt-6 relative z-10"
-        style={{
-          background: 'white',
-          boxShadow: '0 -4px 24px rgba(0,0,0,0.10)',
-        }}
-      >
+      {/* Form section */}
+      <div className="flex-1 flex flex-col rounded-t-[40px] -mt-6 relative z-10" style={{ background: 'white', boxShadow: '0 -4px 24px rgba(0,0,0,0.10)' }}>
         <div className="px-5 pt-8 pb-2">
-          <h2 className="text-xl font-extrabold text-gray-900 mb-0.5 tracking-tight">{t('login.welcomeBack')}</h2>
-          <p className="text-sm text-gray-500 mb-6">{t('login.signInDesc')}</p>
+          <h2 className="text-xl font-extrabold text-gray-900 mb-0.5 tracking-tight">
+            {isSignup ? t('login.createAccountTitle') : t('login.welcomeBack')}
+          </h2>
+          <p className="text-sm text-gray-500 mb-6">
+            {isSignup ? t('login.createAccountDesc') : t('login.signInDesc')}
+          </p>
 
           {error && (
-            <div
-              className="text-sm rounded-2xl px-4 py-3 mb-5 flex items-start gap-2"
-              style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626' }}
-            >
+            <div className="text-sm rounded-2xl px-4 py-3 mb-5 flex items-start gap-2" style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626' }}>
               <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" />
               </svg>
@@ -134,17 +128,25 @@ function Login() {
           )}
 
           <div className="space-y-3">
+            {isSignup && (
+              <input
+                type="text"
+                placeholder={t('login.namePlaceholder')}
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                className="w-full rounded-2xl px-4 py-3.5 text-sm font-medium transition-all"
+                style={inputStyle}
+                onFocus={e => e.target.style.borderColor = '#E8640C'}
+                onBlur={e => e.target.style.borderColor = '#EDE8E0'}
+              />
+            )}
             <input
               type="email"
               placeholder={t('login.emailPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-2xl px-4 py-3.5 text-sm font-medium transition-all"
-              style={{
-                border: '2px solid #EDE8E0',
-                background: '#FAFAF8',
-                outline: 'none',
-              }}
+              style={inputStyle}
               onFocus={e => e.target.style.borderColor = '#E8640C'}
               onBlur={e => e.target.style.borderColor = '#EDE8E0'}
             />
@@ -153,41 +155,39 @@ function Login() {
               placeholder={t('login.passwordPlaceholder')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleLogin(e)}
+              onKeyDown={(e) => e.key === 'Enter' && (isSignup ? handleSignup(e) : handleLogin(e))}
               className="w-full rounded-2xl px-4 py-3.5 text-sm font-medium transition-all"
-              style={{
-                border: '2px solid #EDE8E0',
-                background: '#FAFAF8',
-                outline: 'none',
-              }}
+              style={inputStyle}
               onFocus={e => e.target.style.borderColor = '#E8640C'}
               onBlur={e => e.target.style.borderColor = '#EDE8E0'}
             />
 
-            <button
-              onClick={handleLogin}
-              disabled={loading}
-              className="w-full rounded-2xl py-3.5 text-sm font-extrabold transition-all active:scale-[0.98] disabled:opacity-60"
-              style={{
-                background: 'linear-gradient(135deg, #E8640C, #CC5708)',
-                color: 'white',
-                boxShadow: '0 6px 20px rgba(232,100,12,0.35)',
-              }}
-            >
-              {loading ? t('login.signingIn') : t('login.signIn')}
-            </button>
+            {isSignup ? (
+              <button
+                onClick={handleSignup}
+                disabled={loading}
+                className="w-full rounded-2xl py-3.5 text-sm font-extrabold transition-all active:scale-[0.98] disabled:opacity-60"
+                style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', color: 'white', boxShadow: '0 6px 20px rgba(232,100,12,0.35)' }}
+              >
+                {loading ? t('login.creating') : t('login.createAccount')}
+              </button>
+            ) : (
+              <button
+                onClick={handleLogin}
+                disabled={loading}
+                className="w-full rounded-2xl py-3.5 text-sm font-extrabold transition-all active:scale-[0.98] disabled:opacity-60"
+                style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', color: 'white', boxShadow: '0 6px 20px rgba(232,100,12,0.35)' }}
+              >
+                {loading ? t('login.signingIn') : t('login.signIn')}
+              </button>
+            )}
 
             <button
-              onClick={handleSignup}
-              disabled={loading}
-              className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-60"
-              style={{
-                border: '2px solid #EDE8E0',
-                background: 'white',
-                color: '#374151',
-              }}
+              onClick={() => switchMode(isSignup ? 'login' : 'signup')}
+              className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98]"
+              style={{ border: '2px solid #EDE8E0', background: 'white', color: '#374151' }}
             >
-              {t('login.createAccount')}
+              {isSignup ? t('login.switchToLogin') : t('login.switchToSignup')}
             </button>
 
             <div className="relative flex items-center gap-3 py-1">
@@ -200,11 +200,7 @@ function Login() {
               onClick={handleGuest}
               disabled={loading}
               className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-60"
-              style={{
-                border: '2px dashed #D4CFC8',
-                background: '#FAFAF8',
-                color: '#6B7280',
-              }}
+              style={{ border: '2px dashed #D4CFC8', background: '#FAFAF8', color: '#6B7280' }}
             >
               {t('login.continueGuest')}
             </button>

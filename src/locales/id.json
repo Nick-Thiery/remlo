@@ -887,7 +887,9 @@
   "login": {
     "tagline": "Keuangan cerdas untuk pekerja migran",
     "welcomeBack": "Selamat datang kembali",
-    "signInDesc": "Masuk atau buat akun baru",
+    "signInDesc": "Masuk ke akun Anda",
+    "createAccountTitle": "Buat akun Anda",
+    "createAccountDesc": "Bergabung dengan Remlo — gratis",
     "emailPlaceholder": "Alamat email",
     "passwordPlaceholder": "Kata sandi",
     "signingIn": "Sedang masuk…",
@@ -899,6 +901,10 @@
     "guestSyncNote": "Buat akun untuk sinkronisasi di semua perangkat.",
     "privacyPolicy": "Kebijakan Privasi",
     "termsOfService": "Ketentuan Layanan",
-    "confirmEmail": "Periksa email Anda untuk mengonfirmasi akun. Data tamu akan dipindahkan setelah masuk."
+    "confirmEmail": "Periksa email Anda untuk mengonfirmasi akun. Data tamu akan dipindahkan setelah masuk.",
+    "namePlaceholder": "Apa yang harus kami panggil Anda?",
+    "creating": "Membuat akun…",
+    "switchToSignup": "Baru di sini? Buat akun",
+    "switchToLogin": "Sudah punya akun? Masuk"
   }
 }

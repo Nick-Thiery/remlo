@@ -39,6 +39,43 @@ import BankingGuide from './pages/BankingGuide.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import TermsOfService from './pages/TermsOfService.jsx'
 
+// ─── Splash Screen ───────────────────────────────────────────────────────────
+
+function SplashScreen({ onDone }) {
+  const [fading, setFading] = useState(false)
+
+  useEffect(() => {
+    const fadeTimer = setTimeout(() => setFading(true), 1500)
+    const doneTimer = setTimeout(() => onDone(), 1800)
+    return () => { clearTimeout(fadeTimer); clearTimeout(doneTimer) }
+  }, [onDone])
+
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 55%, #F59E0B 100%)',
+        opacity: fading ? 0 : 1,
+        transition: 'opacity 0.3s ease',
+        pointerEvents: fading ? 'none' : 'auto',
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+        <img
+          src="/pwa-192x192.png"
+          alt="Remlo"
+          style={{ width: 88, height: 88, borderRadius: 24, boxShadow: '0 12px 40px rgba(0,0,0,0.25)' }}
+        />
+      </div>
+    </div>
+  )
+}
+
 // ─── Config ──────────────────────────────────────────────────────────────────
 
 const LANGUAGES = [
@@ -435,11 +472,21 @@ const RTL_LANGS = new Set(['ur'])
 
 export default function App() {
   const [onboarded, setOnboarded] = useState(() => !!localStorage.getItem('remlo_onboarded'))
+  const [splashDone, setSplashDone] = useState(() => !!sessionStorage.getItem('remlo_splashed'))
   const { i18n } = useTranslation()
 
   useEffect(() => {
     document.documentElement.dir = RTL_LANGS.has(i18n.language) ? 'rtl' : 'ltr'
   }, [i18n.language])
+
+  function handleSplashDone() {
+    sessionStorage.setItem('remlo_splashed', 'true')
+    setSplashDone(true)
+  }
+
+  if (!splashDone) {
+    return <SplashScreen onDone={handleSplashDone} />
+  }
 
   if (!onboarded) {
     return (

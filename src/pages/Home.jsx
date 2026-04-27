@@ -94,7 +94,7 @@ export default function Home() {
         const initial = session.user.email[0].toUpperCase()
         setUserInitial(initial)
         // Prefer display name from metadata, fall back to email username
-        const metaName = session.user.user_metadata?.full_name || session.user.user_metadata?.name
+        const metaName = session.user.user_metadata?.display_name || session.user.user_metadata?.full_name || session.user.user_metadata?.name
         if (metaName) {
           setUserName(metaName.split(' ')[0])
         } else {
