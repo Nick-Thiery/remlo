@@ -1,8 +1,9 @@
 /**
  * fetch-scam-alerts
  *
- * Upserts hardcoded alerts, reads them back, and optionally translates them
- * via Claude Haiku when a non-English language code is supplied.
+ * Upserts hardcoded alerts, reads them back, and returns them translated into
+ * the requested language. Translations are cached in scam_alert_translations —
+ * the Anthropic API is only called once per (alert_id, language) combination.
  *
  * Deploy: supabase functions deploy fetch-scam-alerts
  */
@@ -79,16 +80,18 @@ const ALERTS = [
   },
 ]
 
-async function translateAlerts(alerts: typeof ALERTS, language: string, apiKey: string) {
-  const langName = LANG_NAMES[language]
-  if (!langName) {
-    console.log(`[fetch-scam-alerts] No language name for code "${language}", skipping translation`)
-    return alerts
-  }
+type Alert = typeof ALERTS[number]
 
-  console.log(`[fetch-scam-alerts] Translating ${alerts.length} alerts to ${langName} (${language})`)
+type CachedTranslation = {
+  alert_id: string
+  translated_title: string
+  translated_description: string
+  translated_what_to_do: string[]
+}
 
-  // Extract only the fields that need translation
+// ── Translation helpers ────────────────────────────────────────────────────────
+
+async function callAnthropic(alerts: Alert[], langName: string, apiKey: string): Promise<Map<string, { title: string; description: string; what_to_do: string[] }>> {
   const toTranslate = alerts.map(a => ({
     id: a.id,
     title: a.title,
@@ -117,29 +120,16 @@ ${JSON.stringify(toTranslate)}`
   })
 
   if (!res.ok) {
-    const err = await res.text()
-    console.error('[fetch-scam-alerts] Anthropic error:', res.status, err)
-    return alerts // fall back to English
+    throw new Error(`Anthropic ${res.status}: ${await res.text()}`)
   }
 
   const data = await res.json()
   const raw = data?.content?.[0]?.text ?? ''
-  console.log('[fetch-scam-alerts] Anthropic raw response length:', raw.length)
-
-  try {
-    const translated: Array<{ id: string; title: string; description: string; what_to_do: string[] }> = JSON.parse(raw)
-    const translatedMap = new Map(translated.map(t => [t.id, t]))
-
-    return alerts.map(alert => {
-      const tx = translatedMap.get(alert.id)
-      if (!tx) return alert
-      return { ...alert, title: tx.title, description: tx.description, what_to_do: tx.what_to_do }
-    })
-  } catch (e) {
-    console.error('[fetch-scam-alerts] Failed to parse translation JSON:', e)
-    return alerts // fall back to English
-  }
+  const parsed: Array<{ id: string; title: string; description: string; what_to_do: string[] }> = JSON.parse(raw)
+  return new Map(parsed.map(t => [t.id, { title: t.title, description: t.description, what_to_do: t.what_to_do }]))
 }
+
+// ── Main handler ───────────────────────────────────────────────────────────────
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -151,39 +141,34 @@ Deno.serve(async (req) => {
     const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
     const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY')
 
-    console.log('ENV CHECK — SUPABASE_URL:', supabaseUrl ? `${supabaseUrl.slice(0, 30)}…` : 'MISSING')
-    console.log('ENV CHECK — SERVICE_ROLE_KEY:', serviceRoleKey ? `${serviceRoleKey.slice(0, 10)}…` : 'MISSING')
-    console.log('ENV CHECK — ANTHROPIC_API_KEY:', anthropicKey ? 'SET' : 'MISSING')
-
     if (!supabaseUrl || !serviceRoleKey) {
-      throw new Error('Missing required environment variables: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+      throw new Error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
     }
 
-    // Parse language from request body (default to 'en')
+    // Parse language from request body
     let language = 'en'
     try {
       const body = await req.json()
       language = body?.language ?? 'en'
-    } catch (_) {
-      // no body or invalid JSON — keep 'en'
-    }
-    console.log(`[fetch-scam-alerts] Requested language: "${language}"`)
+    } catch (_) { /* keep 'en' */ }
+
+    console.log(`[fetch-scam-alerts] language: "${language}"`)
 
     const supabase = createClient(supabaseUrl, serviceRoleKey)
 
-    // ── Step 1: upsert ─────────────────────────────────────────────────────────
+    // ── Step 1: upsert hardcoded alerts ────────────────────────────────────────
     const { error: upsertError } = await supabase
       .from('scam_alerts')
       .upsert(ALERTS, { onConflict: 'id' })
 
     if (upsertError) {
       return new Response(
-        JSON.stringify({ step: 'upsert', error: upsertError.message, code: upsertError.code }),
+        JSON.stringify({ step: 'upsert', error: upsertError.message }),
         { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
       )
     }
 
-    // ── Step 2: read back ──────────────────────────────────────────────────────
+    // ── Step 2: read back active alerts ────────────────────────────────────────
     const { data: alerts, error: selectError } = await supabase
       .from('scam_alerts')
       .select('*')
@@ -191,20 +176,104 @@ Deno.serve(async (req) => {
 
     if (selectError) {
       return new Response(
-        JSON.stringify({ step: 'select', error: selectError.message, code: selectError.code }),
+        JSON.stringify({ step: 'select', error: selectError.message }),
         { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
       )
     }
 
-    const englishAlerts = alerts ?? []
+    const englishAlerts: Alert[] = alerts ?? []
 
-    // ── Step 3: translate if needed ────────────────────────────────────────────
-    let finalAlerts = englishAlerts
-    if (language !== 'en' && anthropicKey) {
-      finalAlerts = await translateAlerts(englishAlerts, language, anthropicKey)
-    } else if (language !== 'en' && !anthropicKey) {
-      console.warn('[fetch-scam-alerts] ANTHROPIC_API_KEY not set — returning English alerts')
+    // ── Step 3: return English immediately ─────────────────────────────────────
+    if (language === 'en' || !LANG_NAMES[language]) {
+      return new Response(
+        JSON.stringify({ alerts: englishAlerts, count: englishAlerts.length }),
+        { headers: { ...CORS, 'Content-Type': 'application/json' } },
+      )
     }
+
+    // ── Step 4: load cached translations for this language ─────────────────────
+    const alertIds = englishAlerts.map(a => a.id)
+
+    const { data: cached } = await supabase
+      .from('scam_alert_translations')
+      .select('alert_id, translated_title, translated_description, translated_what_to_do')
+      .eq('language', language)
+      .in('alert_id', alertIds)
+
+    const cacheMap = new Map<string, CachedTranslation>(
+      (cached ?? []).map((row: CachedTranslation) => [row.alert_id, row])
+    )
+
+    console.log(`[fetch-scam-alerts] Cache hits: ${cacheMap.size}/${englishAlerts.length} for "${language}"`)
+
+    // ── Step 5: identify alerts that need fresh translation ────────────────────
+    const uncached = englishAlerts.filter(a => !cacheMap.has(a.id))
+
+    if (uncached.length > 0 && anthropicKey) {
+      console.log(`[fetch-scam-alerts] Calling Anthropic for ${uncached.length} uncached alerts`)
+      const langName = LANG_NAMES[language]
+
+      try {
+        const txMap = await callAnthropic(uncached, langName, anthropicKey)
+
+        // Persist new translations to the cache table
+        const rows = uncached
+          .map(a => {
+            const tx = txMap.get(a.id)
+            if (!tx) return null
+            return {
+              alert_id: a.id,
+              language,
+              translated_title: tx.title,
+              translated_description: tx.description,
+              translated_what_to_do: tx.what_to_do,
+            }
+          })
+          .filter(Boolean)
+
+        if (rows.length > 0) {
+          const { error: insertError } = await supabase
+            .from('scam_alert_translations')
+            .upsert(rows, { onConflict: 'alert_id,language' })
+
+          if (insertError) {
+            console.error('[fetch-scam-alerts] Failed to cache translations:', insertError.message)
+          } else {
+            console.log(`[fetch-scam-alerts] Cached ${rows.length} new translations for "${language}"`)
+          }
+        }
+
+        // Merge fresh translations into the cache map for this response
+        for (const a of uncached) {
+          const tx = txMap.get(a.id)
+          if (tx) {
+            cacheMap.set(a.id, {
+              alert_id: a.id,
+              translated_title: tx.title,
+              translated_description: tx.description,
+              translated_what_to_do: tx.what_to_do,
+            })
+          }
+        }
+      } catch (err) {
+        console.error('[fetch-scam-alerts] Anthropic translation failed:', err)
+        // Fall through — alerts without a cache entry will use English below
+      }
+    } else if (uncached.length > 0 && !anthropicKey) {
+      console.warn('[fetch-scam-alerts] ANTHROPIC_API_KEY not set — returning English for uncached alerts')
+    }
+
+    // ── Step 6: merge translations onto alerts ─────────────────────────────────
+    const finalAlerts = englishAlerts.map(a => {
+      const tx = cacheMap.get(a.id)
+      if (!tx) return a // no translation available, serve English
+      return {
+        ...a,
+        title: tx.translated_title,
+        description: tx.translated_description,
+        what_to_do: tx.translated_what_to_do,
+      }
+    })
 
     return new Response(
       JSON.stringify({ alerts: finalAlerts, count: finalAlerts.length }),
