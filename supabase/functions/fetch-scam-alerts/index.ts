@@ -125,7 +125,8 @@ ${JSON.stringify(toTranslate)}`
 
   const data = await res.json()
   const raw = data?.content?.[0]?.text ?? ''
-  const parsed: Array<{ id: string; title: string; description: string; what_to_do: string[] }> = JSON.parse(raw)
+  const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim()
+  const parsed: Array<{ id: string; title: string; description: string; what_to_do: string[] }> = JSON.parse(cleaned)
   return new Map(parsed.map(t => [t.id, { title: t.title, description: t.description, what_to_do: t.what_to_do }]))
 }
 
