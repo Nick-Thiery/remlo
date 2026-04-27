@@ -108,7 +108,7 @@
     "pageTitle": "बचत लक्ष्यहरू",
     "pageSubtitle_one": "{{count}} सक्रिय लक्ष्य",
     "pageSubtitle_other": "{{count}} सक्रिय लक्ष्यहरू",
-    "newGoalBtn": "+ नयाँ लक्ष्य",
+    "newGoalBtn": "नयाँ लक्ष्य",
     "overallProgress": "समग्र प्रगति",
     "savedOf": "{{amount}} मध्ये बचत गरिएको",
     "emptyTitle": "अहिले कुनै लक्ष्य छैन",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "तलब ट्र्याकर",
     "pageSubtitle": "{{count}} भुक्तानीहरू लग गरिएका",
-    "logBtn": "+ भुक्तानी लग गर्नुहोस्",
+    "logBtn": "भुक्तानी लग गर्नुहोस्",
     "monthEarnings": "{{month}} आम्दानी",
     "thisMonth": "यो महिना",
     "yearEarnings": "{{year}} आम्दानी",

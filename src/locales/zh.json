@@ -108,7 +108,7 @@
     "pageTitle": "储蓄目标",
     "pageSubtitle_one": "{{count}} 个进行中目标",
     "pageSubtitle_other": "{{count}} 个进行中目标",
-    "newGoalBtn": "+ 新建目标",
+    "newGoalBtn": "新建目标",
     "overallProgress": "整体进度",
     "savedOf": "已存 {{amount}}",
     "emptyTitle": "暂无目标",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "工资记录",
     "pageSubtitle": "已记录 {{count}} 笔工资",
-    "logBtn": "+ 记录工资",
+    "logBtn": "记录工资",
     "monthEarnings": "{{month}} 收入",
     "thisMonth": "本月",
     "yearEarnings": "{{year}} 收入",

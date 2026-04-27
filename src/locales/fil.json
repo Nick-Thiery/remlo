@@ -108,7 +108,7 @@
     "pageTitle": "Mga Layunin sa Ipon",
     "pageSubtitle_one": "{{count}} aktibong layunin",
     "pageSubtitle_other": "{{count}} aktibong mga layunin",
-    "newGoalBtn": "+ Bagong Layunin",
+    "newGoalBtn": "Bagong Layunin",
     "overallProgress": "Kabuuang Progreso",
     "savedOf": "naipong {{amount}}",
     "emptyTitle": "Wala pang mga layunin",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "Tracker ng Sahod",
     "pageSubtitle": "{{count}} na bayad ang naka-log",
-    "logBtn": "+ I-log ang Bayad",
+    "logBtn": "I-log ang Bayad",
     "monthEarnings": "Kita noong {{month}}",
     "thisMonth": "ngayong buwan",
     "yearEarnings": "Kita noong {{year}}",

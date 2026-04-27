@@ -108,7 +108,7 @@
     "pageTitle": "সঞ্চয় লক্ষ্য",
     "pageSubtitle_one": "{{count}}টি সক্রিয় লক্ষ্য",
     "pageSubtitle_other": "{{count}}টি সক্রিয় লক্ষ্য",
-    "newGoalBtn": "+ নতুন লক্ষ্য",
+    "newGoalBtn": "নতুন লক্ষ্য",
     "overallProgress": "সামগ্রিক অগ্রগতি",
     "savedOf": "{{amount}} এর মধ্যে সঞ্চয় করা হয়েছে",
     "emptyTitle": "এখনো কোনো লক্ষ্য নেই",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "বেতন ট্র্যাকার",
     "pageSubtitle": "{{count}}টি পেমেন্ট লগ করা হয়েছে",
-    "logBtn": "+ পেমেন্ট লগ করুন",
+    "logBtn": "পেমেন্ট লগ করুন",
     "monthEarnings": "{{month}} আয়",
     "thisMonth": "এই মাসে",
     "yearEarnings": "{{year}} আয়",

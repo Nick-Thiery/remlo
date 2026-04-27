@@ -108,7 +108,7 @@
     "pageTitle": "بچت کے اہداف",
     "pageSubtitle_one": "{{count}} فعال ہدف",
     "pageSubtitle_other": "{{count}} فعال اہداف",
-    "newGoalBtn": "+ نیا ہدف",
+    "newGoalBtn": "نیا ہدف",
     "overallProgress": "مجموعی پیشرفت",
     "savedOf": "{{amount}} میں سے بچائے",
     "emptyTitle": "ابھی کوئی ہدف نہیں",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "تنخواہ ٹریکر",
     "pageSubtitle": "{{count}} ادائیگیاں درج ہیں",
-    "logBtn": "+ ادائیگی درج کریں",
+    "logBtn": "ادائیگی درج کریں",
     "monthEarnings": "{{month}} کمائی",
     "thisMonth": "اس ماہ",
     "yearEarnings": "{{year}} کمائی",

@@ -35,7 +35,7 @@ const today = new Date().toISOString().slice(0, 10)
 
 export default function Scams() {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const [alerts, setAlerts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -53,7 +53,8 @@ export default function Scams() {
   const [rErrors, setRErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
-  async function loadAlerts() {
+  async function loadAlerts(lang = i18n.language) {
+    console.log('[Scams] loadAlerts called — language:', lang)
     setLoading(true)
     setError(null)
     try {
@@ -64,7 +65,7 @@ export default function Scams() {
           'apikey': ANON_KEY,
           'Authorization': `Bearer ${ANON_KEY}`,
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ language: lang }),
       })
       const text = await res.text()
       if (!res.ok) {
@@ -74,6 +75,7 @@ export default function Scams() {
         )
       }
       const data = JSON.parse(text)
+      console.log('[Scams] Received', data.alerts?.length ?? 0, 'alerts for language:', lang)
       setAlerts(data.alerts ?? [])
     } catch (err) {
       setError(err.message)
@@ -82,7 +84,7 @@ export default function Scams() {
     }
   }
 
-  useEffect(() => { loadAlerts() }, [])
+  useEffect(() => { loadAlerts(i18n.language) }, [i18n.language])
 
   const visible = filter === 'all' ? alerts : alerts.filter((a) => a.type === filter)
 
@@ -181,7 +183,7 @@ export default function Scams() {
               {error}
             </pre>
             <button
-              onClick={loadAlerts}
+              onClick={() => loadAlerts(i18n.language)}
               className="flex items-center gap-1.5 text-xs font-bold text-red-700"
             >
               <RefreshCw className="w-3.5 h-3.5" /> {t('scams.tryAgain')}

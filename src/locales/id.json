@@ -108,7 +108,7 @@
     "pageTitle": "Tujuan Tabungan",
     "pageSubtitle_one": "{{count}} tujuan aktif",
     "pageSubtitle_other": "{{count}} tujuan aktif",
-    "newGoalBtn": "+ Tujuan Baru",
+    "newGoalBtn": "Tujuan Baru",
     "overallProgress": "Kemajuan Keseluruhan",
     "savedOf": "ditabung dari {{amount}}",
     "emptyTitle": "Belum ada tujuan",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "Pelacak Gaji",
     "pageSubtitle": "{{count}} pembayaran tercatat",
-    "logBtn": "+ Catat Pembayaran",
+    "logBtn": "Catat Pembayaran",
     "monthEarnings": "Penghasilan {{month}}",
     "thisMonth": "bulan ini",
     "yearEarnings": "Penghasilan {{year}}",

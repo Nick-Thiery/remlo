@@ -1,8 +1,8 @@
 /**
- * fetch-scam-alerts — minimal diagnostic version
+ * fetch-scam-alerts
  *
- * Upserts 5 hardcoded alerts via the Supabase client, then reads them back.
- * Returns detailed error info at each step so we can see exactly what fails.
+ * Upserts hardcoded alerts, reads them back, and optionally translates them
+ * via Claude Haiku when a non-English language code is supplied.
  *
  * Deploy: supabase functions deploy fetch-scam-alerts
  */
@@ -13,6 +13,12 @@ const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
+
+const LANG_NAMES: Record<string, string> = {
+  ta: 'Tamil', hi: 'Hindi', bn: 'Bengali', my: 'Burmese (Myanmar)',
+  si: 'Sinhala', fil: 'Filipino (Tagalog)', id: 'Indonesian',
+  zh: 'Chinese (Simplified)', th: 'Thai', ur: 'Urdu', ne: 'Nepali',
 }
 
 const ALERTS = [
@@ -73,6 +79,68 @@ const ALERTS = [
   },
 ]
 
+async function translateAlerts(alerts: typeof ALERTS, language: string, apiKey: string) {
+  const langName = LANG_NAMES[language]
+  if (!langName) {
+    console.log(`[fetch-scam-alerts] No language name for code "${language}", skipping translation`)
+    return alerts
+  }
+
+  console.log(`[fetch-scam-alerts] Translating ${alerts.length} alerts to ${langName} (${language})`)
+
+  // Extract only the fields that need translation
+  const toTranslate = alerts.map(a => ({
+    id: a.id,
+    title: a.title,
+    description: a.description,
+    what_to_do: a.what_to_do,
+  }))
+
+  const prompt = `Translate the following JSON array of scam alert objects from English to ${langName}.
+Only translate the "title", "description", and "what_to_do" fields. Keep phone numbers, URLs, dollar amounts, and proper nouns (DBS, MOM, PayNow, SPF, MAS, WhatsApp, Telegram, Facebook) unchanged.
+Return ONLY valid JSON — no explanation, no markdown, no code fences.
+
+${JSON.stringify(toTranslate)}`
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 2048,
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  })
+
+  if (!res.ok) {
+    const err = await res.text()
+    console.error('[fetch-scam-alerts] Anthropic error:', res.status, err)
+    return alerts // fall back to English
+  }
+
+  const data = await res.json()
+  const raw = data?.content?.[0]?.text ?? ''
+  console.log('[fetch-scam-alerts] Anthropic raw response length:', raw.length)
+
+  try {
+    const translated: Array<{ id: string; title: string; description: string; what_to_do: string[] }> = JSON.parse(raw)
+    const translatedMap = new Map(translated.map(t => [t.id, t]))
+
+    return alerts.map(alert => {
+      const tx = translatedMap.get(alert.id)
+      if (!tx) return alert
+      return { ...alert, title: tx.title, description: tx.description, what_to_do: tx.what_to_do }
+    })
+  } catch (e) {
+    console.error('[fetch-scam-alerts] Failed to parse translation JSON:', e)
+    return alerts // fall back to English
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: CORS })
@@ -81,15 +149,25 @@ Deno.serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')
     const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+    const anthropicKey = Deno.env.get('ANTHROPIC_API_KEY')
 
-    // Log masked values so we can confirm secrets are injected without exposing them
     console.log('ENV CHECK — SUPABASE_URL:', supabaseUrl ? `${supabaseUrl.slice(0, 30)}…` : 'MISSING')
     console.log('ENV CHECK — SERVICE_ROLE_KEY:', serviceRoleKey ? `${serviceRoleKey.slice(0, 10)}…` : 'MISSING')
-    console.log('ENV CHECK — method:', req.method, '| origin:', req.headers.get('origin') ?? 'none')
+    console.log('ENV CHECK — ANTHROPIC_API_KEY:', anthropicKey ? 'SET' : 'MISSING')
 
     if (!supabaseUrl || !serviceRoleKey) {
       throw new Error('Missing required environment variables: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
     }
+
+    // Parse language from request body (default to 'en')
+    let language = 'en'
+    try {
+      const body = await req.json()
+      language = body?.language ?? 'en'
+    } catch (_) {
+      // no body or invalid JSON — keep 'en'
+    }
+    console.log(`[fetch-scam-alerts] Requested language: "${language}"`)
 
     const supabase = createClient(supabaseUrl, serviceRoleKey)
 
@@ -100,13 +178,7 @@ Deno.serve(async (req) => {
 
     if (upsertError) {
       return new Response(
-        JSON.stringify({
-          step: 'upsert',
-          error: upsertError.message,
-          code: upsertError.code,
-          details: upsertError.details,
-          hint: upsertError.hint,
-        }),
+        JSON.stringify({ step: 'upsert', error: upsertError.message, code: upsertError.code }),
         { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
       )
     }
@@ -119,19 +191,23 @@ Deno.serve(async (req) => {
 
     if (selectError) {
       return new Response(
-        JSON.stringify({
-          step: 'select',
-          error: selectError.message,
-          code: selectError.code,
-          details: selectError.details,
-          hint: selectError.hint,
-        }),
+        JSON.stringify({ step: 'select', error: selectError.message, code: selectError.code }),
         { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
       )
     }
 
+    const englishAlerts = alerts ?? []
+
+    // ── Step 3: translate if needed ────────────────────────────────────────────
+    let finalAlerts = englishAlerts
+    if (language !== 'en' && anthropicKey) {
+      finalAlerts = await translateAlerts(englishAlerts, language, anthropicKey)
+    } else if (language !== 'en' && !anthropicKey) {
+      console.warn('[fetch-scam-alerts] ANTHROPIC_API_KEY not set — returning English alerts')
+    }
+
     return new Response(
-      JSON.stringify({ alerts: alerts ?? [], count: alerts?.length ?? 0 }),
+      JSON.stringify({ alerts: finalAlerts, count: finalAlerts.length }),
       { headers: { ...CORS, 'Content-Type': 'application/json' } },
     )
   } catch (err) {

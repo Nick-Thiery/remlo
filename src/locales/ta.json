@@ -108,7 +108,7 @@
     "pageTitle": "சேமிப்பு இலக்குகள்",
     "pageSubtitle_one": "{{count}} செயலில் உள்ள இலக்கு",
     "pageSubtitle_other": "{{count}} செயலில் உள்ள இலக்குகள்",
-    "newGoalBtn": "+ புதிய இலக்கு",
+    "newGoalBtn": "புதிய இலக்கு",
     "overallProgress": "ஒட்டுமொத்த முன்னேற்றம்",
     "savedOf": "{{amount}} இலக்கில் சேமித்தது",
     "emptyTitle": "இலக்குகள் எதுவும் இல்லை",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "சம்பள கண்காணிப்பு",
     "pageSubtitle": "{{count}} கட்டணங்கள் பதிவு செய்யப்பட்டன",
-    "logBtn": "+ கட்டணம் பதிவு செய்",
+    "logBtn": "கட்டணம் பதிவு செய்",
     "monthEarnings": "{{month}} வருமானம்",
     "thisMonth": "இந்த மாதம்",
     "yearEarnings": "{{year}} வருமானம்",

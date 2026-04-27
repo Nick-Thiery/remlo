@@ -108,7 +108,7 @@
     "pageTitle": "เป้าหมายการออม",
     "pageSubtitle_one": "{{count}} เป้าหมายที่กำลังดำเนินการ",
     "pageSubtitle_other": "{{count}} เป้าหมายที่กำลังดำเนินการ",
-    "newGoalBtn": "+ เป้าหมายใหม่",
+    "newGoalBtn": "เป้าหมายใหม่",
     "overallProgress": "ความคืบหน้าโดยรวม",
     "savedOf": "ออมแล้ว {{amount}}",
     "emptyTitle": "ยังไม่มีเป้าหมาย",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "ติดตามเงินเดือน",
     "pageSubtitle": "บันทึกแล้ว {{count}} รายการ",
-    "logBtn": "+ บันทึกการชำระเงิน",
+    "logBtn": "บันทึกการชำระเงิน",
     "monthEarnings": "รายได้เดือน {{month}}",
     "thisMonth": "เดือนนี้",
     "yearEarnings": "รายได้ปี {{year}}",

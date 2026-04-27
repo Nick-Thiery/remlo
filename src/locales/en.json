@@ -112,7 +112,7 @@
     "pageTitle": "Savings Goals",
     "pageSubtitle_one": "{{count}} active goal",
     "pageSubtitle_other": "{{count}} active goals",
-    "newGoalBtn": "+ New Goal",
+    "newGoalBtn": "New Goal",
     "overallProgress": "Overall Progress",
     "savedOf": "saved of {{amount}}",
     "emptyTitle": "No goals yet",
@@ -215,7 +215,7 @@
   "salary": {
     "pageTitle": "Salary Tracker",
     "pageSubtitle": "{{count}} payments logged",
-    "logBtn": "+ Log Payment",
+    "logBtn": "Log Payment",
     "monthEarnings": "{{month}} Earnings",
     "thisMonth": "this month",
     "yearEarnings": "{{year}} Earnings",

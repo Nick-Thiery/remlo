@@ -108,7 +108,7 @@
     "pageTitle": "ငွေစုရည်မှန်းချက်",
     "pageSubtitle_one": "တက်ကြွသောပန်းတိုင် {{count}} ခု",
     "pageSubtitle_other": "တက်ကြွသောပန်းတိုင် {{count}} ခု",
-    "newGoalBtn": "+ ပန်းတိုင်အသစ်",
+    "newGoalBtn": "ပန်းတိုင်အသစ်",
     "overallProgress": "စုစုပေါင်းတိုးတက်မှု",
     "savedOf": "{{amount}} မှ စုဆောင်းပြီး",
     "emptyTitle": "ပန်းတိုင်မရှိသေးပါ",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "လစာမှတ်တမ်း",
     "pageSubtitle": "ငွေပေးချေမှု {{count}} ခု မှတ်တမ်းတင်ပြီး",
-    "logBtn": "+ ငွေပေးချေမှုမှတ်တမ်းတင်မည်",
+    "logBtn": "ငွေပေးချေမှုမှတ်တမ်းတင်မည်",
     "monthEarnings": "{{month}} ဝင်ငွေ",
     "thisMonth": "ဤလ",
     "yearEarnings": "{{year}} ဝင်ငွေ",

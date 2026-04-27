@@ -108,7 +108,7 @@
     "pageTitle": "बचत लक्ष्य",
     "pageSubtitle_one": "{{count}} सक्रिय लक्ष्य",
     "pageSubtitle_other": "{{count}} सक्रिय लक्ष्य",
-    "newGoalBtn": "+ नया लक्ष्य",
+    "newGoalBtn": "नया लक्ष्य",
     "overallProgress": "समग्र प्रगति",
     "savedOf": "{{amount}} में से बचाया",
     "emptyTitle": "अभी कोई लक्ष्य नहीं",
@@ -211,7 +211,7 @@
   "salary": {
     "pageTitle": "वेतन ट्रैकर",
     "pageSubtitle": "{{count}} भुगतान लॉग किए गए",
-    "logBtn": "+ भुगतान लॉग करें",
+    "logBtn": "भुगतान लॉग करें",
     "monthEarnings": "{{month}} की कमाई",
     "thisMonth": "इस महीने",
     "yearEarnings": "{{year}} की कमाई",
