@@ -166,7 +166,7 @@ export default function Savings() {
 
   return (
     <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
-      <div className="max-w-lg mx-auto px-4 py-7">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Error banner */}
         {error && (

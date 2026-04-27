@@ -136,7 +136,7 @@ export default function ScamQuiz() {
 
   return (
     <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
-      <div className="max-w-lg mx-auto px-4 pt-6 pb-8">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         <div className="mb-5">
           <button

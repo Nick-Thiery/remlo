@@ -235,7 +235,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-5 pb-14">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* ── Hero card ── */}
         <div

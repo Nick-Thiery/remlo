@@ -1,21 +1,45 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { ChevronDown } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { migrateGuestData } from '../lib/migrateGuestData.js'
 import { track, identifyUser } from '../lib/analytics.js'
 
+const LANGUAGES = [
+  { code: 'en',  label: 'English'   },
+  { code: 'ta',  label: 'தமிழ்'     },
+  { code: 'hi',  label: 'हिंदी'     },
+  { code: 'bn',  label: 'বাংলা'     },
+  { code: 'my',  label: 'မြန်မာ'    },
+  { code: 'si',  label: 'සිංහල'     },
+  { code: 'fil', label: 'Filipino'  },
+  { code: 'id',  label: 'Indonesia' },
+  { code: 'zh',  label: '中文'       },
+  { code: 'th',  label: 'ภาษาไทย'  },
+  { code: 'ur',  label: 'اردو'      },
+  { code: 'ne',  label: 'नेपाली'    },
+]
+
 function Login() {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [mode, setMode] = useState('login') // 'login' | 'signup'
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [langOpen, setLangOpen] = useState(false)
 
   const wasGuest = localStorage.getItem('remlo_guest') === 'true'
+  const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
+
+  function switchLang(code) {
+    i18n.changeLanguage(code)
+    localStorage.setItem('remlo_lang', code)
+    setLangOpen(false)
+  }
 
   const inputStyle = {
     border: '2px solid #EDE8E0',
@@ -80,29 +104,55 @@ function Login() {
   const isSignup = mode === 'signup'
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: 'white' }} onClick={() => setLangOpen(false)}>
 
-      {/* Brand hero */}
+      {/* Brand hero — extends to top of screen */}
       <div
-        className="relative px-6 pt-8 pb-12 flex flex-col items-center text-center overflow-hidden"
+        className="relative px-6 pb-12 flex flex-col items-center text-center overflow-hidden"
         style={{
           background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 50%, #F59E0B 100%)',
+          paddingTop: 'max(env(safe-area-inset-top, 0px) + 28px, 36px)',
         }}
       >
         <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }} />
         <div className="absolute -bottom-8 -left-8 w-40 h-40 rounded-full" style={{ background: 'rgba(0,0,0,0.05)' }} />
 
-        <div className="relative">
-          <div
-            className="rounded-3xl flex items-center justify-center mb-4 mx-auto"
-            style={{ width: 72, height: 72, background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(10px)', boxShadow: '0 8px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3)' }}
+        {/* Language selector — top right */}
+        <div className="absolute top-3 right-4 z-10" style={{ top: 'max(env(safe-area-inset-top, 0px) + 10px, 14px)' }} onClick={e => e.stopPropagation()}>
+          <button
+            onClick={() => setLangOpen(o => !o)}
+            className="flex items-center gap-1 rounded-xl px-2.5 py-1.5"
+            style={{ background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)' }}
           >
-            <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none">
-              <circle cx="24" cy="24" r="16" stroke="white" strokeWidth="2.5" strokeOpacity="0.95" />
-              <path d="M18 24h12M18 19h12M18 29h9" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
-          </div>
+            <span className="text-white text-xs font-bold">{currentLang.label.slice(0, 2).toUpperCase()}</span>
+            <ChevronDown className={`w-3 h-3 text-white/80 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+          </button>
+          {langOpen && (
+            <div
+              className="absolute right-0 mt-1.5 w-40 bg-white rounded-2xl py-1.5 max-h-64 overflow-y-auto"
+              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.18)', border: '1px solid #E5E7EB' }}
+            >
+              {LANGUAGES.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => switchLang(l.code)}
+                  className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-orange-50 ${l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'}`}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="relative">
+          <img
+            src="/pwa-192x192.png"
+            alt="Remlo"
+            className="mb-4 mx-auto"
+            style={{ width: 72, height: 72, borderRadius: 20, boxShadow: '0 8px 28px rgba(0,0,0,0.22)' }}
+          />
           <h1 className="text-3xl font-extrabold text-white tracking-tight">{t('appName')}</h1>
           <p className="text-white/70 text-sm mt-1.5 font-medium">{t('login.tagline')}</p>
         </div>
@@ -222,8 +272,6 @@ function Login() {
           </div>
         </div>
       </div>
-
-      <div className="pb-10" style={{ background: 'white' }} />
     </div>
   )
 }

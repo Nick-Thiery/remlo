@@ -81,7 +81,7 @@ export default function Emergency() {
         </a>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 py-6">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">

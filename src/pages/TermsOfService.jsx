@@ -64,7 +64,7 @@ export default function TermsOfService() {
 
   return (
     <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
-      <div className="max-w-lg mx-auto px-4 pt-8 pb-12">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-6">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
