@@ -51,10 +51,10 @@
     "chat": "Chat",
     "more": "More",
     "moreHeading": "More",
-    "moreDesc": "Tools and resources for migrant workers",
+    "moreDesc": "Tools and resources for workers in Singapore",
     "language": "Language",
     "emergencySection": "Emergency Contacts",
-    "drawerFooter": "Remlo · Made for migrant workers in Singapore",
+    "drawerFooter": "Remlo · Smart finance for everyone",
     "signOut": "Sign Out",
     "endGuestSession": "End Guest Session"
   },
@@ -155,7 +155,7 @@
     "errorName": "Enter an expense name.",
     "errorAmount": "Enter a valid amount.",
     "guideTitle": "50 / 30 / 20 Guide",
-    "guideBadge": "Migrant Workers",
+    "guideBadge": "Workers in Singapore",
     "guideDesc": "A practical budget split tailored to sending money home.",
     "needsLabel": "Needs",
     "needsPct": "50%",
@@ -298,7 +298,8 @@
     "errorRequired": "Required",
     "errorAmount": "Enter a valid amount",
     "errorRate": "Enter a valid rate (0 or above)",
-    "errorPayment": "Enter a valid payment amount"
+    "errorPayment": "Enter a valid payment amount",
+    "whyTitle": "Why workers need more"
   },
   "scams": {
     "emergencyBanner": "🚨 If you are in danger call 999  ·  MOM Helpline: 1800-333-1313",
@@ -565,7 +566,7 @@
     "ratings": [
       {
         "label": "You need to be careful",
-        "desc": "Scammers specifically target migrant workers. Learn the warning signs below and stay safe."
+        "desc": "Scammers often target workers. Learn the warning signs below and stay safe."
       },
       {
         "label": "Good awareness",
@@ -665,7 +666,7 @@
     "enterSavingsHint": "Enter your monthly savings to see how long this will take.",
     "reachInOneMonth": "You could reach this in 1 month!",
     "savingToReach": "Saving {{amount}}/mo → reach in {{time}}",
-    "whyTitle": "Why migrant workers need more",
+    "whyTitle": "Why workers need more",
     "whyDesc": "If you lose your job in Singapore, your work pass is cancelled and you may need to leave within 30 days. A 6-month emergency fund gives you time to find a new employer, pay for flights, or support your family while you sort things out — without borrowing from loan sharks.",
     "emptyTitle": "Enter your expenses above",
     "emptyDesc": "We'll calculate how much you need and how long it will take.",
@@ -843,13 +844,14 @@
       {
         "label": "TWC2 (Transient Workers Count Too)"
       }
-    ]
+    ],
+    "guideBadge": "Workers in Singapore"
   },
   "emergency": {
     "dangerText": "In immediate danger?",
     "callPolice": "Call 999 — Police Emergency",
     "pageTitle": "Emergency Contacts",
-    "pageSubtitle": "Help lines for migrant workers in Singapore",
+    "pageSubtitle": "Helplines for workers in Singapore",
     "footer": "All numbers are correct as of 2026. If a number is unavailable, call MOM on 1800-333-1313 for referral.",
     "badge247": "24 / 7",
     "byAppt": "By appointment",
@@ -866,7 +868,7 @@
       "comcare": "Social assistance, crisis support, family difficulties",
       "twc2": "Unpaid wages, work injury, employer abuse, meal assistance for stranded workers",
       "irr": "Support for domestic workers — emergency shelter, legal aid, counselling",
-      "home": "Shelter, legal support, and advocacy for migrant workers and domestic workers",
+      "home": "Shelter, legal support, and advocacy for workers and domestic workers",
       "fast": "Helpline for domestic workers — disputes, abuse, housing",
       "ccs": "Free debt counselling, repayment plans, protection from loan sharks",
       "xahlong": "Report loan shark harassment — anonymous, no repercussions for callers",

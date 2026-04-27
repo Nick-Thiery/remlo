@@ -13,7 +13,7 @@ export default defineConfig({
       manifest: {
         name: 'Remlo',
         short_name: 'Remlo',
-        description: 'Financial tools for migrant workers in Singapore',
+        description: 'Smart financial tools for everyone in Singapore',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',

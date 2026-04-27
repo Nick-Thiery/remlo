@@ -47,10 +47,10 @@
     "chat": "Usap",
     "more": "Higit pa",
     "moreHeading": "Higit pa",
-    "moreDesc": "Mga kagamitan at mapagkukunan para sa mga migranteng manggagawa",
+    "moreDesc": "Mga kagamitan at mapagkukunan para sa mga manggagawa sa Singapore",
     "language": "Wika",
     "emergencySection": "Emergency Contacts",
-    "drawerFooter": "Remlo · Para sa mga migranteng manggagawa sa Singapore",
+    "drawerFooter": "Remlo · Matalinong pananalapi para sa lahat",
     "signOut": "Mag-sign Out",
     "endGuestSession": "Tapusin ang Guest Session"
   },
@@ -151,7 +151,7 @@
     "errorName": "Maglagay ng pangalan ng gastusin.",
     "errorAmount": "Maglagay ng wastong halaga.",
     "guideTitle": "Gabay na 50 / 30 / 20",
-    "guideBadge": "Mga Migranteng Manggagawa",
+    "guideBadge": "Mga Manggagawa sa Singapore",
     "guideDesc": "Praktikal na paghati ng badyet na akma para sa pagpapadala ng pera sa bahay.",
     "needsLabel": "Pangangailangan",
     "needsPct": "50%",
@@ -550,7 +550,7 @@
     "dangerText": "Nasa agarang panganib?",
     "callPolice": "Tumawag sa 999 — Emergency ng Pulisya",
     "pageTitle": "Emergency Contacts",
-    "pageSubtitle": "Mga helpline para sa mga migranteng manggagawa sa Singapore",
+    "pageSubtitle": "Mga helpline para sa mga manggagawa sa Singapore",
     "footer": "Lahat ng mga numero ay tama simula 2026. Kung ang isang numero ay hindi available, tumawag sa MOM sa 1800-333-1313 para sa referral.",
     "badge247": "24 / 7",
     "byAppt": "Sa pamamagitan ng appointment",
@@ -567,7 +567,7 @@
       "comcare": "Social assistance, suporta sa krisis, mga kahirapan sa pamilya",
       "twc2": "Hindi bayad na sahod, pinsala sa trabaho, pang-aabuso ng employer, tulong sa pagkain para sa mga naiipit na manggagawa",
       "irr": "Suporta para sa mga domestic worker — emergency shelter, legal na tulong, pagpapayo",
-      "home": "Tirahan, legal na suporta, at adbokasiya para sa mga migranteng manggagawa at domestic worker",
+      "home": "Tirahan, legal na suporta, at adbokasiya para sa mga manggagawa at domestic worker",
       "fast": "Helpline para sa mga domestic worker — mga alitan, pang-aabuso, tirahan",
       "ccs": "Libreng pagpapayo sa utang, mga plano sa pagbabayad, proteksyon mula sa mga loan shark",
       "xahlong": "Mag-report ng panliligalig ng loan shark — anonymous, walang konsekwensya para sa mga tumatawag",
@@ -592,7 +592,7 @@
     "ratings": [
       {
         "label": "Kailangan kang mag-ingat",
-        "desc": "Ang mga scammer ay espesyal na nagta-target sa mga migranteng manggagawa. Alamin ang mga babala sa ibaba at manatiling ligtas."
+        "desc": "Ang mga scammer ay madalas na nagta-target sa mga manggagawa. Alamin ang mga babala sa ibaba at manatiling ligtas."
       },
       {
         "label": "Magandang kamalayan",
@@ -692,7 +692,7 @@
     "enterSavingsHint": "Ilagay ang iyong buwanang ipon para makita kung gaano katagal ito maaabot.",
     "reachInOneMonth": "Maaabot mo ito sa loob ng 1 buwan!",
     "savingToReach": "Nag-iipon ng {{amount}}/buwan → maaabot sa {{time}}",
-    "whyTitle": "Bakit kailangan ng mas marami ng mga migranteng manggagawa",
+    "whyTitle": "Bakit kailangan ng mas marami ng mga manggagawa",
     "whyDesc": "Kung mawalan ka ng trabaho sa Singapore, kakanselin ang iyong work pass at maaaring kailangang umalis ka sa loob ng 30 araw. Ang 6-buwang emergency fund ay nagbibigay sa iyo ng oras para makahanap ng bagong employer, magbayad ng tiket, o suportahan ang iyong pamilya habang inaayos mo ang mga bagay — nang hindi humiram sa mga loan shark.",
     "emptyTitle": "Ilagay ang iyong mga gastusin sa itaas",
     "emptyDesc": "Kalkulahin namin kung magkano ang kailangan mo at kung gaano katagal.",
@@ -885,7 +885,7 @@
     "welcomeBack": "Maligayang pagbabalik 👋"
   },
   "login": {
-    "tagline": "Matalinong pananalapi para sa mga manggagawang migrante",
+    "tagline": "Matalinong pananalapi para sa lahat",
     "welcomeBack": "Maligayang pagbabalik",
     "signInDesc": "Mag-sign in sa iyong account",
     "createAccountTitle": "Gumawa ng account",
