@@ -54,41 +54,29 @@ function SplashScreen({ onDone }) {
     <div
       style={{
         position: 'fixed',
-        inset: 0,
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
         zIndex: 9999,
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 55%, #F59E0B 100%)',
         opacity: fading ? 0 : 1,
         transition: 'opacity 0.3s ease',
         pointerEvents: fading ? 'none' : 'auto',
-        margin: 0,
-        padding: 0,
       }}
     >
       <img
         src="/pwa-192x192.png"
         alt="Remlo"
         style={{
-          width: 148,
-          height: 148,
-          borderRadius: 0,
-          filter: 'drop-shadow(0 8px 32px rgba(0,0,0,0.45)) drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
+          width: 140,
+          height: 140,
+          filter: 'drop-shadow(0 6px 28px rgba(0,0,0,0.5)) drop-shadow(0 2px 6px rgba(0,0,0,0.3))',
         }}
       />
-      <p style={{
-        marginTop: 20,
-        color: 'white',
-        fontSize: 28,
-        fontWeight: 800,
-        letterSpacing: '-0.03em',
-        textShadow: '0 2px 12px rgba(0,0,0,0.25)',
-        fontFamily: 'inherit',
-      }}>
-        Remlo
-      </p>
     </div>
   )
 }

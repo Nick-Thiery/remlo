@@ -104,11 +104,11 @@ function Login() {
   const isSignup = mode === 'signup'
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'white' }} onClick={() => setLangOpen(false)}>
+    <div className="min-h-screen flex flex-col" style={{ background: 'white', overflowY: 'auto' }} onClick={() => setLangOpen(false)}>
 
       {/* Brand hero — extends to top of screen */}
       <div
-        className="relative px-6 pb-12 flex flex-col items-center text-center overflow-hidden"
+        className="relative px-6 pb-12 flex flex-col items-center text-center overflow-hidden flex-shrink-0"
         style={{
           background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 50%, #F59E0B 100%)',
           paddingTop: 'max(env(safe-area-inset-top, 0px) + 28px, 36px)',
@@ -117,34 +117,6 @@ function Login() {
         <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, white 1px, transparent 1px), radial-gradient(circle at 75% 75%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }} />
         <div className="absolute -bottom-8 -left-8 w-40 h-40 rounded-full" style={{ background: 'rgba(0,0,0,0.05)' }} />
-
-        {/* Language selector — top right */}
-        <div className="absolute top-3 right-4 z-10" style={{ top: 'max(env(safe-area-inset-top, 0px) + 10px, 14px)' }} onClick={e => e.stopPropagation()}>
-          <button
-            onClick={() => setLangOpen(o => !o)}
-            className="flex items-center gap-1 rounded-xl px-2.5 py-1.5"
-            style={{ background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(8px)' }}
-          >
-            <span className="text-white text-xs font-bold">{currentLang.label.slice(0, 2).toUpperCase()}</span>
-            <ChevronDown className={`w-3 h-3 text-white/80 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
-          </button>
-          {langOpen && (
-            <div
-              className="absolute right-0 mt-1.5 w-40 bg-white rounded-2xl py-1.5 max-h-64 overflow-y-auto"
-              style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.18)', border: '1px solid #E5E7EB' }}
-            >
-              {LANGUAGES.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => switchLang(l.code)}
-                  className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-orange-50 ${l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'}`}
-                >
-                  {l.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
 
         <div className="relative">
           <img
@@ -160,7 +132,38 @@ function Login() {
 
       {/* Form section */}
       <div className="flex-1 flex flex-col rounded-t-[40px] -mt-6 relative z-10" style={{ background: 'white', boxShadow: '0 -4px 24px rgba(0,0,0,0.10)' }}>
-        <div className="px-5 pt-8 pb-2">
+        <div className="px-5 pt-6 pb-10">
+
+          {/* Language selector — compact row */}
+          <div className="flex justify-end mb-5" onClick={e => e.stopPropagation()}>
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen(o => !o)}
+                className="flex items-center gap-1 rounded-xl px-2.5 py-1.5 transition-colors"
+                style={{ background: '#F3F4F6', border: '1px solid #E5E7EB' }}
+              >
+                <span className="text-xs font-bold text-gray-500">{currentLang.label.slice(0, 2).toUpperCase()}</span>
+                <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {langOpen && (
+                <div
+                  className="absolute right-0 mt-1.5 w-40 bg-white rounded-2xl py-1.5 z-20 max-h-52 overflow-y-auto"
+                  style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.14)', border: '1px solid #E5E7EB' }}
+                >
+                  {LANGUAGES.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => switchLang(l.code)}
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors hover:bg-orange-50 ${l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'}`}
+                    >
+                      {l.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
           <h2 className="text-xl font-extrabold text-gray-900 mb-0.5 tracking-tight">
             {isSignup ? t('login.createAccountTitle') : t('login.welcomeBack')}
           </h2>
