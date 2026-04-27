@@ -121,21 +121,22 @@ export default function Scams() {
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-5">
+        <div className="flex items-start gap-3 mb-5">
           <button
             onClick={() => navigate('/more')}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0 mt-0.5"
             style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('scams.pageTitle')}</h1>
-            <p className="text-sm text-gray-500 mt-0.5">{t('scams.pageSubtitle')}</p>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight leading-tight">{t('scams.pageTitle')}</h1>
+            <p className="text-sm text-gray-500 mt-1 leading-snug">{t('scams.pageSubtitle')}</p>
           </div>
           <button
             onClick={openReport}
-            className="flex-shrink-0 bg-red-600 text-white rounded-xl px-4 py-3 text-sm font-semibold active:scale-95 transition-all"
+            className="flex-shrink-0 bg-red-600 text-white rounded-xl px-3 py-2.5 text-xs font-semibold active:scale-95 transition-all text-center leading-snug"
+            style={{ maxWidth: 88 }}
           >
             {t('scams.reportBtn')}
           </button>

@@ -40,7 +40,9 @@
       "WebFetch(domain:www.scamshield.gov.sg)",
       "WebFetch(domain:api.scamshield.gov.sg)",
       "WebSearch",
-      "WebFetch(domain:guide.data.gov.sg)"
+      "WebFetch(domain:guide.data.gov.sg)",
+      "Bash(ls /Users/nick/forwardwallet/.env*)",
+      "Bash(ls /Users/nick/forwardwallet/supabase/.env*)"
     ]
   }
 }
