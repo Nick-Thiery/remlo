@@ -52,7 +52,9 @@
     "emergencySection": "Emergency Contacts",
     "drawerFooter": "Remlo · Matalinong pananalapi para sa lahat",
     "signOut": "Mag-sign Out",
-    "endGuestSession": "Tapusin ang Guest Session"
+    "endGuestSession": "Tapusin ang Guest Session",
+    "aiChat": "AI Chat",
+    "salary": "Sahod"
   },
   "moreItems": {
     "salary": {

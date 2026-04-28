@@ -9,6 +9,11 @@ import {
   Flame,
   Coins,
   Wallet,
+  PiggyBank,
+  ShieldAlert,
+  Landmark,
+  Banknote,
+  MoreHorizontal,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 
@@ -137,43 +142,15 @@ export default function Home() {
     return t('home.greetingEvening')
   }
 
-  const FEATURES = [
-    {
-      to: '/savings',
-      icon: Coins,
-      title: t('features.savings.title'),
-      description: t('features.savings.description'),
-      bg: '#FFFBEB',
-      iconBg: '#FDE68A',
-      iconColor: '#92400E',
-    },
-    {
-      to: '/budget',
-      icon: LayoutGrid,
-      title: t('features.budget.title'),
-      description: t('features.budget.description'),
-      bg: '#F5F3FF',
-      iconBg: '#DDD6FE',
-      iconColor: '#5B21B6',
-    },
-    {
-      to: '/remittance',
-      icon: SendHorizonal,
-      title: t('features.remittance.title'),
-      description: t('features.remittance.description'),
-      bg: '#F0F9FF',
-      iconBg: '#BAE6FD',
-      iconColor: '#0369A1',
-    },
-    {
-      to: '/chat',
-      icon: Sparkles,
-      title: t('features.ai.title'),
-      description: t('features.ai.description'),
-      bg: '#FFF7ED',
-      iconBg: '#FED7AA',
-      iconColor: '#C2410C',
-    },
+  const QUICK_ACTIONS = [
+    { to: '/savings',    icon: PiggyBank,      label: t('nav.savings')                   },
+    { to: '/budget',     icon: LayoutGrid,     label: t('nav.budget')                    },
+    { to: '/remittance', icon: SendHorizonal,  label: t('features.remittance.title')     },
+    { to: '/chat',       icon: Sparkles,       label: t('nav.aiChat')                    },
+    { to: '/scams',      icon: ShieldAlert,    label: t('scams.pageTitle')               },
+    { to: '/loans',      icon: Landmark,       label: t('loans.pageTitle')               },
+    { to: '/salary',     icon: Banknote,       label: t('nav.salary')                    },
+    { to: '/more',       icon: MoreHorizontal, label: t('nav.more')                      },
   ]
 
   return (
@@ -303,35 +280,23 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Feature grid — uniform 2×2 ── */}
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-          {t('features.heading')}
-        </p>
-        <div className="grid grid-cols-2 gap-3">
-          {FEATURES.map((f) => (
-            <Link key={f.to} to={f.to} className="block">
+        {/* ── Quick actions 4×2 grid ── */}
+        <div className="grid grid-cols-4 gap-y-5 gap-x-1">
+          {QUICK_ACTIONS.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className="flex flex-col items-center gap-2 active:opacity-70 transition-opacity"
+            >
               <div
-                className="rounded-2xl p-4 transition-all active:scale-[0.97]"
-                style={{
-                  background: f.bg,
-                  border: `1px solid ${f.iconBg}`,
-                  minHeight: 138,
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-                }}
+                className="w-12 h-12 rounded-2xl flex items-center justify-center"
+                style={{ background: '#E8640C', boxShadow: '0 4px 12px rgba(232,100,12,0.25)' }}
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background: f.iconBg }}
-                >
-                  <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
-                </div>
-                <p className="font-extrabold text-sm mb-1" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
-                  {f.title}
-                </p>
-                <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
-                  {f.description}
-                </p>
+                <item.icon className="w-5 h-5 text-white" strokeWidth={2} />
               </div>
+              <span className="text-[11px] font-semibold text-gray-700 text-center leading-tight w-full px-0.5">
+                {item.label}
+              </span>
             </Link>
           ))}
         </div>

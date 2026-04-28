@@ -52,7 +52,9 @@
     "emergencySection": "ผู้ติดต่อฉุกเฉิน",
     "drawerFooter": "Remlo · การเงินอัจฉริยะสำหรับทุกคน",
     "signOut": "ออกจากระบบ",
-    "endGuestSession": "สิ้นสุดการใช้งานแบบแขก"
+    "endGuestSession": "สิ้นสุดการใช้งานแบบแขก",
+    "aiChat": "AI Chat",
+    "salary": "เงินเดือน"
   },
   "moreItems": {
     "salary": {

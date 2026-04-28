@@ -52,7 +52,9 @@
     "emergencySection": "紧急联系方式",
     "drawerFooter": "Remlo · 为所有人提供的智能金融",
     "signOut": "退出登录",
-    "endGuestSession": "结束访客模式"
+    "endGuestSession": "结束访客模式",
+    "aiChat": "AI 助手",
+    "salary": "薪资"
   },
   "moreItems": {
     "salary": {

@@ -52,7 +52,9 @@
     "emergencySection": "জরুরি যোগাযোগ",
     "drawerFooter": "Remlo · সবার জন্য স্মার্ট ফিনান্স",
     "signOut": "সাইন আউট",
-    "endGuestSession": "গেস্ট সেশন শেষ করুন"
+    "endGuestSession": "গেস্ট সেশন শেষ করুন",
+    "aiChat": "AI চ্যাট",
+    "salary": "বেতন"
   },
   "moreItems": {
     "salary": {

@@ -52,7 +52,9 @@
     "emergencySection": "Kontak Darurat",
     "drawerFooter": "Remlo · Keuangan cerdas untuk semua",
     "signOut": "Keluar",
-    "endGuestSession": "Akhiri Sesi Tamu"
+    "endGuestSession": "Akhiri Sesi Tamu",
+    "aiChat": "AI Chat",
+    "salary": "Gaji"
   },
   "moreItems": {
     "salary": {

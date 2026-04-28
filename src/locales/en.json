@@ -56,7 +56,9 @@
     "emergencySection": "Emergency Contacts",
     "drawerFooter": "Remlo · Smart finance for everyone",
     "signOut": "Sign Out",
-    "endGuestSession": "End Guest Session"
+    "endGuestSession": "End Guest Session",
+    "aiChat": "AI Chat",
+    "salary": "Salary"
   },
   "moreItems": {
     "salary": {
