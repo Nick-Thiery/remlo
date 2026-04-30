@@ -6,6 +6,7 @@ import {
   SendHorizonal,
   Sparkles,
   ChevronDown,
+  ChevronRight,
   Flame,
   Coins,
   Wallet,
@@ -142,19 +143,19 @@ export default function Home() {
     return t('home.greetingEvening')
   }
 
-  const QUICK_ACTIONS = [
-    { to: '/savings',    icon: PiggyBank,      label: t('nav.savings')                   },
-    { to: '/budget',     icon: LayoutGrid,     label: t('nav.budget')                    },
-    { to: '/remittance', icon: SendHorizonal,  label: t('features.remittance.title')     },
-    { to: '/chat',       icon: Sparkles,       label: t('nav.aiChat')                    },
-    { to: '/scams',      icon: ShieldAlert,    label: t('scams.pageTitle')               },
-    { to: '/loans',      icon: Landmark,       label: t('loans.pageTitle')               },
-    { to: '/salary',     icon: Banknote,       label: t('nav.salary')                    },
-    { to: '/more',       icon: MoreHorizontal, label: t('nav.more')                      },
+  const FEATURES = [
+    { to: '/savings',    icon: PiggyBank,      label: t('features.savings.title'),    iconBg: '#FEF3C7', iconColor: '#D97706' },
+    { to: '/budget',     icon: LayoutGrid,     label: t('features.budget.title'),     iconBg: '#EDE9FE', iconColor: '#7C3AED' },
+    { to: '/remittance', icon: SendHorizonal,  label: t('features.remittance.title'), iconBg: '#DBEAFE', iconColor: '#2563EB' },
+    { to: '/chat',       icon: Sparkles,       label: t('features.ai.title'),         iconBg: '#FFEDD5', iconColor: '#EA580C' },
+    { to: '/scams',      icon: ShieldAlert,    label: t('scams.pageTitle'),           iconBg: '#FEE2E2', iconColor: '#DC2626' },
+    { to: '/loans',      icon: Landmark,       label: t('loans.pageTitle'),           iconBg: '#CCFBF1', iconColor: '#0D9488' },
+    { to: '/salary',     icon: Banknote,       label: t('salary.pageTitle'),          iconBg: '#D1FAE5', iconColor: '#059669' },
+    { to: '/more',       icon: MoreHorizontal, label: t('nav.more'),                  iconBg: '#F1F5F9', iconColor: '#475569' },
   ]
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: '#F5F5F5' }}>
 
       {/* ── Header ── */}
       <div className="bg-white" style={{ borderBottom: '1px solid #ECEEF1' }}>
@@ -280,23 +281,34 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Quick actions 4×2 grid ── */}
-        <div className="grid grid-cols-4 gap-y-5 gap-x-1">
-          {QUICK_ACTIONS.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="flex flex-col items-center gap-2 active:opacity-70 transition-opacity"
-            >
+        {/* ── Feature cards 3-col grid ── */}
+        <div className="grid grid-cols-3 gap-3">
+          {FEATURES.map((f) => (
+            <Link key={f.to} to={f.to} className="block active:scale-[0.97] transition-transform">
               <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                style={{ background: '#E8640C', boxShadow: '0 4px 12px rgba(232,100,12,0.25)' }}
+                className="rounded-2xl p-3.5 flex flex-col justify-between"
+                style={{
+                  background: 'white',
+                  border: '1px solid #EBEBEB',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  minHeight: 118,
+                }}
               >
-                <item.icon className="w-5 h-5 text-white" strokeWidth={2} />
+                {/* Top row: icon + chevron */}
+                <div className="flex items-start justify-between mb-3">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{ background: f.iconBg }}
+                  >
+                    <f.icon className="w-4.5 h-4.5" style={{ color: f.iconColor, width: 18, height: 18 }} strokeWidth={2} />
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: '#D1D5DB' }} />
+                </div>
+                {/* Label */}
+                <p className="text-xs font-bold leading-tight" style={{ color: '#111827' }}>
+                  {f.label}
+                </p>
               </div>
-              <span className="text-[11px] font-semibold text-gray-700 text-center leading-tight w-full px-0.5">
-                {item.label}
-              </span>
             </Link>
           ))}
         </div>
