@@ -6,13 +6,9 @@ import {
   SendHorizonal,
   Sparkles,
   ChevronDown,
-  ChevronRight,
-  PiggyBank,
-  ShieldAlert,
-  Landmark,
-  Banknote,
-  MoreHorizontal,
+  Flame,
   Coins,
+  Wallet,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 
@@ -23,6 +19,13 @@ function formatSGD(amount) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount)
+}
+
+function getGreeting() {
+  const hour = new Date().getHours()
+  if (hour < 12) return 'Good morning'
+  if (hour < 17) return 'Good afternoon'
+  return 'Good evening'
 }
 
 const LANGUAGES = [
@@ -40,22 +43,6 @@ const LANGUAGES = [
   { code: 'ne',  label: 'नेपाली'    },
 ]
 
-const QUICK_ACTIONS = [
-  { to: '/savings',    icon: PiggyBank,     label: 'Savings' },
-  { to: '/budget',     icon: LayoutGrid,    label: 'Budget'  },
-  { to: '/remittance', icon: SendHorizonal, label: 'Send'    },
-  { to: '/chat',       icon: Sparkles,      label: 'Chat'    },
-]
-
-const FEATURE_LIST = [
-  { to: '/chat',          icon: Sparkles,       title: 'AI Assistant',   subtitle: 'Smart financial guidance'  },
-  { to: '/scams',         icon: ShieldAlert,    title: 'Scam Alerts',    subtitle: 'Stay protected & informed' },
-  { to: '/loans',         icon: Landmark,       title: 'Loan Tracker',   subtitle: 'Manage your borrowings'    },
-  { to: '/salary',        icon: Banknote,       title: 'Salary Tracker', subtitle: 'Track income & growth'     },
-  { to: '/emergency-fund',icon: Coins,          title: 'Emergency Fund', subtitle: 'Build your safety net'     },
-  { to: '/more',          icon: MoreHorizontal, title: 'More',           subtitle: 'Explore all features'      },
-]
-
 export default function Home() {
   const { t, i18n } = useTranslation()
   const [langOpen, setLangOpen] = useState(false)
@@ -63,6 +50,30 @@ export default function Home() {
   const [totalSaved, setTotalSaved] = useState(0)
   const [budgetLeft, setBudgetLeft] = useState(0)
   const [userInitial, setUserInitial] = useState('')
+  const [userName, setUserName] = useState('')
+  const [streak, setStreak] = useState(1)
+
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10)
+    const lastDate = localStorage.getItem('remlo_streak_date')
+    const lastCount = parseInt(localStorage.getItem('remlo_streak_count') || '0', 10)
+
+    let newCount
+    if (!lastDate) {
+      newCount = 1
+    } else if (lastDate === today) {
+      newCount = lastCount || 1
+    } else {
+      const yesterday = new Date()
+      yesterday.setDate(yesterday.getDate() - 1)
+      const yesterdayStr = yesterday.toISOString().slice(0, 10)
+      newCount = lastDate === yesterdayStr ? lastCount + 1 : 1
+    }
+
+    localStorage.setItem('remlo_streak_date', today)
+    localStorage.setItem('remlo_streak_count', String(newCount))
+    setStreak(newCount)
+  }, [])
 
   useEffect(() => {
     async function loadData() {
@@ -70,6 +81,7 @@ export default function Home() {
 
       if (isGuest) {
         setUserInitial('G')
+        setUserName('Guest')
         const savings = JSON.parse(localStorage.getItem('remlo_guest_savings') || '[]')
         setTotalSaved(savings.reduce((sum, g) => sum + g.saved, 0))
         const budget = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
@@ -85,7 +97,16 @@ export default function Home() {
       if (!session) { setStatsLoading(false); return }
 
       if (session.user.email) {
-        setUserInitial(session.user.email[0].toUpperCase())
+        const initial = session.user.email[0].toUpperCase()
+        setUserInitial(initial)
+        // Prefer display name from metadata, fall back to email username
+        const metaName = session.user.user_metadata?.full_name || session.user.user_metadata?.name
+        if (metaName) {
+          setUserName(metaName.split(' ')[0])
+        } else {
+          const emailUser = session.user.email.split('@')[0]
+          setUserName(emailUser.charAt(0).toUpperCase() + emailUser.slice(1))
+        }
       }
 
       const userId = session.user.id
@@ -115,23 +136,63 @@ export default function Home() {
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
+  const FEATURES = [
+    {
+      to: '/savings',
+      icon: Coins,
+      title: t('features.savings.title'),
+      description: t('features.savings.description'),
+      bg: '#FFFBEB',
+      iconBg: '#FDE68A',
+      iconColor: '#92400E',
+    },
+    {
+      to: '/budget',
+      icon: LayoutGrid,
+      title: t('features.budget.title'),
+      description: t('features.budget.description'),
+      bg: '#F5F3FF',
+      iconBg: '#DDD6FE',
+      iconColor: '#5B21B6',
+    },
+    {
+      to: '/remittance',
+      icon: SendHorizonal,
+      title: t('features.remittance.title'),
+      description: t('features.remittance.description'),
+      bg: '#F0F9FF',
+      iconBg: '#BAE6FD',
+      iconColor: '#0369A1',
+    },
+    {
+      to: '/chat',
+      icon: Sparkles,
+      title: t('features.ai.title'),
+      description: t('features.ai.description'),
+      bg: '#FFF7ED',
+      iconBg: '#FED7AA',
+      iconColor: '#C2410C',
+    },
+  ]
+
   return (
-    <div className="min-h-screen" style={{ background: '#F5F5F5' }}>
+    <div className="min-h-screen" style={{ background: '#F4F5F7' }}>
 
       {/* ── Header ── */}
       <div className="bg-white" style={{ borderBottom: '1px solid #ECEEF1' }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
-            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#1A1A1A', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#111016', letterSpacing: '-0.02em' }}>
               {t('appName')}
             </h1>
 
             <div className="flex items-center gap-2">
+              {/* Language pill */}
               <div className="relative">
                 <button
                   onClick={() => setLangOpen((o) => !o)}
                   className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 transition-colors"
-                  style={{ background: '#FAFAF8', border: '1px solid #E8EAED' }}
+                  style={{ background: '#F4F5F7', border: '1px solid #E8EAED' }}
                 >
                   <span className="text-xs font-bold text-gray-500">{currentLang.label.slice(0, 2).toUpperCase()}</span>
                   <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
@@ -156,9 +217,13 @@ export default function Home() {
                 )}
               </div>
 
+              {/* Avatar */}
               <div
                 className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{ background: '#111827' }}
+                style={{
+                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                  boxShadow: '0 3px 10px rgba(249,115,22,0.35)',
+                }}
               >
                 <span className="text-white text-sm font-extrabold select-none">
                   {userInitial || '·'}
@@ -169,63 +234,69 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-5 pb-8">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-14">
 
-        {/* ── Hero Card ── */}
+        {/* ── Hero card ── */}
         <div
-          className="relative rounded-2xl overflow-hidden mb-5"
+          className="relative rounded-3xl overflow-hidden mb-5"
           style={{
-            background: 'linear-gradient(135deg, #E8640C 0%, #F97316 100%)',
-            boxShadow: '0 8px 32px rgba(232,100,12,0.30)',
+            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #F97316 78%, #F59E0B 100%)',
+            boxShadow: '0 12px 40px rgba(194,65,12,0.32)',
           }}
         >
-          {/* Dot grid pattern */}
+          {/* Decorative orbs */}
+          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="absolute top-4 right-24 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
+          <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full" style={{ background: 'rgba(0,0,0,0.07)' }} />
+          {/* Subtle grid texture */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0"
             style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.13) 1.5px, transparent 1.5px)',
-              backgroundSize: '22px 22px',
-            }}
-          />
-          {/* Diagonal line overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 20px)',
+              backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px)',
             }}
           />
 
-          <div className="relative px-6 py-7">
-            <div className="flex items-center justify-between">
+          <div className="relative px-6 pt-6 pb-7">
+            {/* Streak badge */}
+            <div
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-5"
+              style={{ background: 'rgba(255,255,255,0.18)' }}
+            >
+              <Flame className="w-3 h-3 text-white/90" strokeWidth={2.5} />
+              <span className="text-white/90 text-[11px] font-bold tracking-wide">
+                {streak}-day streak
+              </span>
+            </div>
+
+            {/* Greeting */}
+            <p className="text-white/65 text-sm font-medium mb-0.5">{getGreeting()}</p>
+            <h2 className="text-white font-extrabold text-2xl tracking-tight mb-1" style={{ letterSpacing: '-0.02em' }}>
+              {userName ? `${userName} 👋` : 'Welcome back 👋'}
+            </h2>
+            <p className="text-white/55 text-xs mb-7">Your finances at a glance</p>
+
+            {/* Stats row */}
+            <div className="flex items-end gap-8">
               <div>
-                <p className="text-white/65 text-[11px] font-bold uppercase tracking-[0.12em] mb-2">
-                  {t('stats.totalSaved')}
-                </p>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <Coins className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
+                  <p className="text-white/55 text-xs font-medium">Total Saved</p>
+                </div>
                 <p
-                  className="text-white font-extrabold tabular-nums"
-                  style={{
-                    fontSize: '2.75rem',
-                    lineHeight: 1,
-                    letterSpacing: '-0.03em',
-                    opacity: statsLoading ? 0.35 : 1,
-                  }}
+                  className="text-white font-extrabold tabular-nums tracking-tight"
+                  style={{ fontSize: '1.75rem', lineHeight: 1, opacity: statsLoading ? 0.4 : 1 }}
                 >
-                  {statsLoading ? '—' : formatSGD(totalSaved)}
+                  {statsLoading ? 'SGD —' : formatSGD(totalSaved)}
                 </p>
               </div>
-
-              <div className="text-right">
-                <p className="text-white/65 text-[11px] font-bold uppercase tracking-[0.12em] mb-2">
-                  {t('stats.budgetLeft')}
-                </p>
+              <div className="pb-0.5">
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <Wallet className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
+                  <p className="text-white/55 text-xs font-medium">Budget Left</p>
+                </div>
                 <p
-                  className="text-white/90 font-bold tabular-nums"
-                  style={{
-                    fontSize: '1.75rem',
-                    lineHeight: 1,
-                    letterSpacing: '-0.02em',
-                    opacity: statsLoading ? 0.35 : 1,
-                  }}
+                  className="text-white/90 font-extrabold text-xl tabular-nums tracking-tight"
+                  style={{ lineHeight: 1, opacity: statsLoading ? 0.4 : 1 }}
                 >
                   {statsLoading ? '—' : formatSGD(budgetLeft)}
                 </p>
@@ -234,53 +305,41 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Quick Actions ── */}
-        <div className="flex items-start justify-between mb-5 px-2">
-          {QUICK_ACTIONS.map((a) => (
-            <Link
-              key={a.to}
-              to={a.to}
-              className="flex flex-col items-center gap-2 active:scale-95 transition-transform"
-            >
+        {/* ── Feature grid — uniform 2×2 ── */}
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+          {t('features.heading')}
+        </p>
+        <div className="grid grid-cols-2 gap-3">
+          {FEATURES.map((f) => (
+            <Link key={f.to} to={f.to} className="block">
               <div
-                className="w-14 h-14 rounded-full flex items-center justify-center"
-                style={{ background: '#E8640C' }}
+                className="rounded-2xl p-4 transition-all active:scale-[0.97]"
+                style={{
+                  background: f.bg,
+                  border: `1px solid ${f.iconBg}`,
+                  minHeight: 138,
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                }}
               >
-                <a.icon className="w-6 h-6 text-white" strokeWidth={2} />
-              </div>
-              <span className="text-[11px] font-semibold" style={{ color: '#1A1A1A' }}>{a.label}</span>
-            </Link>
-          ))}
-        </div>
-
-        {/* ── Features List ── */}
-        <div
-          className="rounded-2xl overflow-hidden"
-          style={{ background: 'white', border: '1px solid #EBEBEB', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}
-        >
-          {FEATURE_LIST.map((f, i) => (
-            <Link key={f.to} to={f.to} className="block active:bg-gray-50 transition-colors">
-              <div className="flex items-center gap-3.5 px-4 py-3.5">
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: '#FFF1E6' }}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
+                  style={{ background: f.iconBg }}
                 >
-                  <f.icon style={{ width: 18, height: 18, color: '#E8640C' }} strokeWidth={2} />
+                  <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold leading-tight" style={{ color: '#111827' }}>{f.title}</p>
-                  <p className="text-xs mt-0.5" style={{ color: '#9CA3AF' }}>{f.subtitle}</p>
-                </div>
-                <ChevronRight style={{ width: 16, height: 16, color: '#D1D5DB', flexShrink: 0 }} />
+                <p className="font-extrabold text-sm mb-1" style={{ color: '#111016', letterSpacing: '-0.01em' }}>
+                  {f.title}
+                </p>
+                <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
+                  {f.description}
+                </p>
               </div>
-              {i < FEATURE_LIST.length - 1 && (
-                <div style={{ height: 1, background: '#F3F4F6', marginLeft: 58 }} />
-              )}
             </Link>
           ))}
         </div>
       </div>
 
+      {/* Tap outside to close language dropdown */}
       {langOpen && (
         <div className="fixed inset-0 z-40" onClick={() => setLangOpen(false)} />
       )}
