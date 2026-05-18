@@ -9,7 +9,6 @@ import {
   Flame,
   Coins,
   Wallet,
-  ArrowUpRight,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 
@@ -21,6 +20,7 @@ function formatSGD(amount) {
     maximumFractionDigits: 0,
   }).format(amount)
 }
+
 
 const LANGUAGES = [
   { code: 'en',  label: 'English'   },
@@ -44,6 +44,7 @@ export default function Home() {
   const [totalSaved, setTotalSaved] = useState(0)
   const [budgetLeft, setBudgetLeft] = useState(0)
   const [userInitial, setUserInitial] = useState('')
+  const [userName, setUserName] = useState('')
   const [streak, setStreak] = useState(1)
 
   useEffect(() => {
@@ -74,6 +75,7 @@ export default function Home() {
 
       if (isGuest) {
         setUserInitial('G')
+        setUserName('Guest')
         const savings = JSON.parse(localStorage.getItem('remlo_guest_savings') || '[]')
         setTotalSaved(savings.reduce((sum, g) => sum + g.saved, 0))
         const budget = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
@@ -89,7 +91,16 @@ export default function Home() {
       if (!session) { setStatsLoading(false); return }
 
       if (session.user.email) {
-        setUserInitial(session.user.email[0].toUpperCase())
+        const initial = session.user.email[0].toUpperCase()
+        setUserInitial(initial)
+        // Prefer display name from metadata, fall back to email username
+        const metaName = session.user.user_metadata?.full_name || session.user.user_metadata?.name
+        if (metaName) {
+          setUserName(metaName.split(' ')[0])
+        } else {
+          const emailUser = session.user.email.split('@')[0]
+          setUserName(emailUser.charAt(0).toUpperCase() + emailUser.slice(1))
+        }
       }
 
       const userId = session.user.id
@@ -119,83 +130,60 @@ export default function Home() {
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
-  // Feature card definitions — wide cards span 2 cols in the 3-col grid
+  function getGreeting() {
+    const hour = new Date().getHours()
+    if (hour < 12) return t('home.greetingMorning')
+    if (hour < 17) return t('home.greetingAfternoon')
+    return t('home.greetingEvening')
+  }
+
   const FEATURES = [
     {
       to: '/savings',
       icon: Coins,
       title: t('features.savings.title'),
       description: t('features.savings.description'),
-      bg: '#FFFBEB',            // warm amber tint
-      iconBg: '#FDE68A',        // deeper amber for icon
+      bg: '#FFFBEB',
+      iconBg: '#FDE68A',
       iconColor: '#92400E',
-      wide: true,               // spans 2 cols
     },
     {
       to: '/budget',
       icon: LayoutGrid,
       title: t('features.budget.title'),
       description: t('features.budget.description'),
-      bg: '#F5F3FF',            // soft violet tint
+      bg: '#F5F3FF',
       iconBg: '#DDD6FE',
       iconColor: '#5B21B6',
-      wide: false,
     },
     {
       to: '/remittance',
       icon: SendHorizonal,
       title: t('features.remittance.title'),
       description: t('features.remittance.description'),
-      bg: '#F0F9FF',            // soft sky tint
+      bg: '#F0F9FF',
       iconBg: '#BAE6FD',
       iconColor: '#0369A1',
-      wide: false,
     },
     {
       to: '/chat',
       icon: Sparkles,
       title: t('features.ai.title'),
       description: t('features.ai.description'),
-      bg: '#FFF7ED',            // warm orange tint
+      bg: '#FFF7ED',
       iconBg: '#FED7AA',
       iconColor: '#C2410C',
-      wide: true,               // spans 2 cols
-    },
-  ]
-
-  const QUICK_STATS = [
-    {
-      label: t('stats.totalSaved'),
-      value: statsLoading ? '—' : formatSGD(totalSaved),
-      icon: Coins,
-      iconColor: '#D97706',
-      dotColor: '#F59E0B',
-    },
-    {
-      label: t('stats.budgetLeft'),
-      value: statsLoading ? '—' : formatSGD(budgetLeft),
-      icon: Wallet,
-      iconColor: '#7C3AED',
-      dotColor: '#8B5CF6',
-    },
-    {
-      label: t('stats.dayStreak'),
-      value: statsLoading ? '—' : String(streak),
-      icon: Flame,
-      iconColor: '#EA580C',
-      dotColor: '#F97316',
     },
   ]
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAF8F5' }}>
+    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
 
-      {/* ── Header ────────────────────────────────────────────────── */}
-      <div className="bg-white" style={{ borderBottom: '1px solid #F0EDE8' }}>
+      {/* ── Header ── */}
+      <div className="bg-white" style={{ borderBottom: '1px solid #ECEEF1' }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
-
-            <h1 className="tracking-tight" style={{ fontSize: 22, fontWeight: 800, color: '#111016' }}>
+            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#1A1A1A', letterSpacing: '-0.02em' }}>
               {t('appName')}
             </h1>
 
@@ -205,15 +193,15 @@ export default function Home() {
                 <button
                   onClick={() => setLangOpen((o) => !o)}
                   className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 transition-colors"
-                  style={{ background: '#F5F2EC', border: '1px solid #EDE8E0' }}
+                  style={{ background: '#FAFAF8', border: '1px solid #E8EAED' }}
                 >
-                  <span className="text-xs font-bold text-gray-600">{currentLang.label.slice(0, 2).toUpperCase()}</span>
+                  <span className="text-xs font-bold text-gray-500">{currentLang.label.slice(0, 2).toUpperCase()}</span>
                   <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {langOpen && (
                   <div
                     className="absolute right-0 mt-2 w-44 bg-white rounded-2xl py-1.5 z-50 max-h-72 overflow-y-auto"
-                    style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.14)', border: '1px solid #F0EDE8' }}
+                    style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #ECEEF1' }}
                   >
                     {LANGUAGES.map((l) => (
                       <button
@@ -234,8 +222,8 @@ export default function Home() {
               <div
                 className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
                 style={{
-                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
-                  boxShadow: '0 3px 10px rgba(249,115,22,0.35)',
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 3px 10px rgba(232,100,12,0.35)',
                 }}
               >
                 <span className="text-white text-sm font-extrabold select-none">
@@ -247,152 +235,109 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-lg mx-auto px-4 pt-6 pb-14">
+      <div className="max-w-lg mx-auto px-4 pt-5 pb-14">
 
-        {/* ── Hero card ─────────────────────────────────────────────── */}
+        {/* ── Hero card ── */}
         <div
-          className="relative rounded-3xl overflow-hidden mb-8 fade-in-up"
+          className="relative rounded-3xl overflow-hidden mb-5"
           style={{
-            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #F97316 75%, #F59E0B 100%)',
-            boxShadow: '0 12px 40px rgba(194,65,12,0.35)',
+            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #E8640C 78%, #F59E0B 100%)',
+            boxShadow: '0 12px 40px rgba(194,65,12,0.32)',
           }}
         >
-          <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full" style={{ background: 'rgba(255,255,255,0.07)' }} />
-          <div className="absolute top-5 right-20 w-16 h-16 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
-          <div className="absolute -bottom-14 -left-10 w-40 h-40 rounded-full" style={{ background: 'rgba(0,0,0,0.07)' }} />
-          <div className="absolute bottom-6 right-8 w-5 h-5 rounded-full" style={{ background: 'rgba(255,255,255,0.2)' }} />
+          {/* Decorative orbs */}
+          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="absolute top-4 right-24 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
+          <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full" style={{ background: 'rgba(0,0,0,0.07)' }} />
+          {/* Subtle grid texture */}
           <div
             className="absolute inset-0"
             style={{
               backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px),repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(255,255,255,0.03) 28px,rgba(255,255,255,0.03) 29px)',
             }}
           />
-          <div className="relative px-6 pt-7 pb-8">
-            <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-4" style={{ background: 'rgba(255,255,255,0.18)' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-white/90 animate-pulse" />
-              <span className="text-white/90 text-[10px] font-bold uppercase tracking-[0.14em]">{t('hero.eyebrow')}</span>
-            </div>
-            <h2 className="text-white font-extrabold leading-tight mb-2.5 whitespace-pre-line" style={{ fontSize: '1.6rem', letterSpacing: '-0.02em' }}>
-              {t('hero.headline')}
-            </h2>
-            <p className="text-white/65 text-xs leading-relaxed max-w-[200px] mb-6">{t('hero.tagline')}</p>
-            <Link
-              to="/savings"
-              className="inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-extrabold transition-all active:scale-95"
-              style={{ background: 'white', color: '#C2410C', boxShadow: '0 4px 16px rgba(0,0,0,0.15)' }}
-            >
-              {t('hero.cta')}
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
 
-        {/* ── Quick stats ───────────────────────────────────────────── */}
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-          {t('stats.heading')}
-        </p>
-        <div className="grid grid-cols-3 gap-3 mb-9">
-          {QUICK_STATS.map((stat) => (
+          <div className="relative px-6 pt-6 pb-7">
+            {/* Streak badge */}
             <div
-              key={stat.label}
-              className="rounded-2xl px-4 pt-4 pb-4 fade-in-up"
-              style={{
-                background: 'white',
-                boxShadow: '0 1px 8px rgba(0,0,0,0.05)',
-                border: '1px solid #F0EDE8',
-              }}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-5"
+              style={{ background: 'rgba(255,255,255,0.18)' }}
             >
-              {/* Big number */}
-              <p
-                className="text-lg font-extrabold leading-none tabular-nums mb-2.5"
-                style={{ color: statsLoading ? '#E0DDD8' : '#111016' }}
-              >
-                {stat.value}
-              </p>
-              {/* Icon + label row */}
-              <div className="flex items-center gap-1.5">
-                <div
-                  className="w-3.5 h-3.5 rounded-full flex-shrink-0"
-                  style={{ background: stat.dotColor }}
-                />
-                <p className="text-[10px] text-gray-400 font-semibold leading-tight truncate">
-                  {stat.label}
+              <Flame className="w-3 h-3 text-white/90" strokeWidth={2.5} />
+              <span className="text-white/90 text-[11px] font-bold tracking-wide">
+                {t('home.streakLabel', { count: streak })}
+              </span>
+            </div>
+
+            {/* Greeting */}
+            <p className="text-white/65 text-sm font-medium mb-0.5">{getGreeting()}</p>
+            <h2 className="text-white font-extrabold text-2xl tracking-tight mb-1" style={{ letterSpacing: '-0.02em' }}>
+              {userName ? `${userName} 👋` : t('home.welcomeBack')}
+            </h2>
+            <p className="text-white/55 text-xs mb-7">{t('home.financeGlance')}</p>
+
+            {/* Stats row */}
+            <div className="flex items-end gap-8">
+              <div>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <Coins className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
+                  <p className="text-white/55 text-xs font-medium">{t('stats.totalSaved')}</p>
+                </div>
+                <p
+                  className="text-white font-extrabold tabular-nums tracking-tight"
+                  style={{ fontSize: '1.75rem', lineHeight: 1, opacity: statsLoading ? 0.4 : 1 }}
+                >
+                  {statsLoading ? 'SGD —' : formatSGD(totalSaved)}
+                </p>
+              </div>
+              <div className="pb-0.5">
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <Wallet className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
+                  <p className="text-white/55 text-xs font-medium">{t('stats.budgetLeft')}</p>
+                </div>
+                <p
+                  className="text-white/90 font-extrabold text-xl tabular-nums tracking-tight"
+                  style={{ lineHeight: 1, opacity: statsLoading ? 0.4 : 1 }}
+                >
+                  {statsLoading ? '—' : formatSGD(budgetLeft)}
                 </p>
               </div>
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* ── Feature cards ─────────────────────────────────────────── */}
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+        {/* ── Feature grid — uniform 2×2 ── */}
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
           {t('features.heading')}
         </p>
-
-        {/*
-          3-col grid: wide cards span 2 cols, narrow cards span 1 col.
-          Layout:
-            [ Savings (2/3) ] [ Budget (1/3) ]
-            [ Remit  (1/3) ] [ AI Chat (2/3) ]
-        */}
-        <div className="grid grid-cols-3 gap-3">
-          {FEATURES.map((f, i) => (
-            <Link
-              key={f.to}
-              to={f.to}
-              className={`block fade-in-up ${f.wide ? 'col-span-2' : 'col-span-1'}`}
-              style={{ animationDelay: `${i * 60}ms`, opacity: 0 }}
-            >
+        <div className="grid grid-cols-2 gap-3">
+          {FEATURES.map((f) => (
+            <Link key={f.to} to={f.to} className="block">
               <div
-                className="rounded-2xl h-full transition-all active:scale-[0.97] overflow-hidden"
+                className="rounded-2xl p-4 transition-all active:scale-[0.97]"
                 style={{
                   background: f.bg,
                   border: `1px solid ${f.iconBg}`,
-                  minHeight: f.wide ? 140 : 140,
+                  minHeight: 138,
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
                 }}
               >
-                <div className={`p-4 flex flex-col h-full ${f.wide ? 'p-5' : 'p-4'}`}>
-                  {/* Icon */}
-                  <div
-                    className="rounded-xl flex items-center justify-center mb-3 flex-shrink-0"
-                    style={{
-                      width: f.wide ? 44 : 38,
-                      height: f.wide ? 44 : 38,
-                      background: f.iconBg,
-                    }}
-                  >
-                    <f.icon
-                      style={{ width: f.wide ? 22 : 18, height: f.wide ? 22 : 18, color: f.iconColor }}
-                      strokeWidth={2}
-                    />
-                  </div>
-
-                  {/* Title */}
-                  <p
-                    className="font-extrabold leading-tight tracking-tight"
-                    style={{
-                      fontSize: f.wide ? 15 : 13,
-                      color: '#111016',
-                      marginBottom: f.wide ? 6 : 4,
-                    }}
-                  >
-                    {f.title}
-                  </p>
-
-                  {/* Description — only on wide cards */}
-                  {f.wide && (
-                    <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
-                      {f.description}
-                    </p>
-                  )}
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
+                  style={{ background: f.iconBg }}
+                >
+                  <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
                 </div>
+                <p className="font-extrabold text-sm mb-1" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
+                  {f.title}
+                </p>
+                <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
+                  {f.description}
+                </p>
               </div>
             </Link>
           ))}
         </div>
-
-        {/* Footer */}
-        <p className="text-[10px] text-gray-300 text-center mt-12">{t('footer')}</p>
-        <p className="text-[10px] text-gray-300 text-center mt-1">Built by FinanceForward</p>
       </div>
 
       {/* Tap outside to close language dropdown */}
