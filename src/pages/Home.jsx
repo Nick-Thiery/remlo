@@ -21,6 +21,12 @@ function formatSGD(amount) {
   }).format(amount)
 }
 
+function getGreeting() {
+  const hour = new Date().getHours()
+  if (hour < 12) return 'Good morning'
+  if (hour < 17) return 'Good afternoon'
+  return 'Good evening'
+}
 
 const LANGUAGES = [
   { code: 'en',  label: 'English'   },
@@ -130,13 +136,6 @@ export default function Home() {
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
-  function getGreeting() {
-    const hour = new Date().getHours()
-    if (hour < 12) return t('home.greetingMorning')
-    if (hour < 17) return t('home.greetingAfternoon')
-    return t('home.greetingEvening')
-  }
-
   const FEATURES = [
     {
       to: '/savings',
@@ -177,13 +176,13 @@ export default function Home() {
   ]
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: '#F4F5F7' }}>
 
       {/* ── Header ── */}
       <div className="bg-white" style={{ borderBottom: '1px solid #ECEEF1' }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
-            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#1A1A1A', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#111016', letterSpacing: '-0.02em' }}>
               {t('appName')}
             </h1>
 
@@ -193,7 +192,7 @@ export default function Home() {
                 <button
                   onClick={() => setLangOpen((o) => !o)}
                   className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 transition-colors"
-                  style={{ background: '#FAFAF8', border: '1px solid #E8EAED' }}
+                  style={{ background: '#F4F5F7', border: '1px solid #E8EAED' }}
                 >
                   <span className="text-xs font-bold text-gray-500">{currentLang.label.slice(0, 2).toUpperCase()}</span>
                   <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
@@ -222,8 +221,8 @@ export default function Home() {
               <div
                 className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
                 style={{
-                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
-                  boxShadow: '0 3px 10px rgba(232,100,12,0.35)',
+                  background: 'linear-gradient(135deg, #F97316, #EA580C)',
+                  boxShadow: '0 3px 10px rgba(249,115,22,0.35)',
                 }}
               >
                 <span className="text-white text-sm font-extrabold select-none">
@@ -241,7 +240,7 @@ export default function Home() {
         <div
           className="relative rounded-3xl overflow-hidden mb-5"
           style={{
-            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #E8640C 78%, #F59E0B 100%)',
+            background: 'linear-gradient(140deg, #92400E 0%, #C2410C 40%, #F97316 78%, #F59E0B 100%)',
             boxShadow: '0 12px 40px rgba(194,65,12,0.32)',
           }}
         >
@@ -265,23 +264,23 @@ export default function Home() {
             >
               <Flame className="w-3 h-3 text-white/90" strokeWidth={2.5} />
               <span className="text-white/90 text-[11px] font-bold tracking-wide">
-                {t('home.streakLabel', { count: streak })}
+                {streak}-day streak
               </span>
             </div>
 
             {/* Greeting */}
             <p className="text-white/65 text-sm font-medium mb-0.5">{getGreeting()}</p>
             <h2 className="text-white font-extrabold text-2xl tracking-tight mb-1" style={{ letterSpacing: '-0.02em' }}>
-              {userName ? `${userName} 👋` : t('home.welcomeBack')}
+              {userName ? `${userName} 👋` : 'Welcome back 👋'}
             </h2>
-            <p className="text-white/55 text-xs mb-7">{t('home.financeGlance')}</p>
+            <p className="text-white/55 text-xs mb-7">Your finances at a glance</p>
 
             {/* Stats row */}
             <div className="flex items-end gap-8">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <Coins className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
-                  <p className="text-white/55 text-xs font-medium">{t('stats.totalSaved')}</p>
+                  <p className="text-white/55 text-xs font-medium">Total Saved</p>
                 </div>
                 <p
                   className="text-white font-extrabold tabular-nums tracking-tight"
@@ -293,7 +292,7 @@ export default function Home() {
               <div className="pb-0.5">
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <Wallet className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
-                  <p className="text-white/55 text-xs font-medium">{t('stats.budgetLeft')}</p>
+                  <p className="text-white/55 text-xs font-medium">Budget Left</p>
                 </div>
                 <p
                   className="text-white/90 font-extrabold text-xl tabular-nums tracking-tight"
@@ -328,7 +327,7 @@ export default function Home() {
                 >
                   <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
                 </div>
-                <p className="font-extrabold text-sm mb-1" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
+                <p className="font-extrabold text-sm mb-1" style={{ color: '#111016', letterSpacing: '-0.01em' }}>
                   {f.title}
                 </p>
                 <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
