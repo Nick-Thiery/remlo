@@ -142,36 +142,36 @@ export default function Home() {
       icon: Coins,
       title: t('features.savings.title'),
       description: t('features.savings.description'),
-      bg: '#FFFBEB',
-      iconBg: '#FDE68A',
-      iconColor: '#92400E',
+      accent: '#F97316',
+      iconBg: '#FFF4EC',
+      iconColor: '#EA580C',
     },
     {
       to: '/budget',
       icon: LayoutGrid,
       title: t('features.budget.title'),
       description: t('features.budget.description'),
-      bg: '#F5F3FF',
-      iconBg: '#DDD6FE',
-      iconColor: '#5B21B6',
+      accent: '#7C3AED',
+      iconBg: '#F3F0FF',
+      iconColor: '#7C3AED',
     },
     {
       to: '/remittance',
       icon: SendHorizonal,
       title: t('features.remittance.title'),
       description: t('features.remittance.description'),
-      bg: '#F0F9FF',
-      iconBg: '#BAE6FD',
-      iconColor: '#0369A1',
+      accent: '#2563EB',
+      iconBg: '#EFF5FF',
+      iconColor: '#2563EB',
     },
     {
       to: '/chat',
       icon: Sparkles,
       title: t('features.ai.title'),
       description: t('features.ai.description'),
-      bg: '#FFF7ED',
-      iconBg: '#FED7AA',
-      iconColor: '#C2410C',
+      accent: '#0D9488',
+      iconBg: '#F0FDFB',
+      iconColor: '#0D9488',
     },
   ]
 
@@ -305,34 +305,43 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Feature grid — uniform 2×2 ── */}
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-          {t('features.heading')}
-        </p>
+        {/* ── Feature grid ── */}
         <div className="grid grid-cols-2 gap-3">
           {FEATURES.map((f) => (
             <Link key={f.to} to={f.to} className="block">
               <div
-                className="rounded-2xl p-4 transition-all active:scale-[0.97]"
+                className="rounded-2xl p-4 transition-all active:scale-[0.97] relative overflow-hidden"
                 style={{
-                  background: f.bg,
-                  border: `1px solid ${f.iconBg}`,
+                  background: 'linear-gradient(150deg, #ffffff 0%, #f9fafb 100%)',
+                  border: '1px solid rgba(0,0,0,0.06)',
+                  borderTopColor: f.accent,
+                  borderTopWidth: 3,
                   minHeight: 138,
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04)',
                 }}
               >
+                {/* Glass shimmer */}
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background: f.iconBg }}
-                >
-                  <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
+                  className="absolute top-0 left-0 right-0 pointer-events-none"
+                  style={{
+                    height: '55%',
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0) 100%)',
+                  }}
+                />
+                <div className="relative">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
+                    style={{ background: f.iconBg }}
+                  >
+                    <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
+                  </div>
+                  <p className="font-extrabold text-sm mb-1" style={{ color: '#111016', letterSpacing: '-0.01em' }}>
+                    {f.title}
+                  </p>
+                  <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
+                    {f.description}
+                  </p>
                 </div>
-                <p className="font-extrabold text-sm mb-1" style={{ color: '#111016', letterSpacing: '-0.01em' }}>
-                  {f.title}
-                </p>
-                <p className="text-xs leading-relaxed" style={{ color: '#9CA3AF' }}>
-                  {f.description}
-                </p>
               </div>
             </Link>
           ))}
