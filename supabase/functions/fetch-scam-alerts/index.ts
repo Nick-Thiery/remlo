@@ -78,6 +78,17 @@ const ALERTS = [
     source_url: 'https://www.mas.gov.sg/investor-alert-list',
     published_at: '2026-02-10T00:00:00Z',
   },
+  {
+    id: 'alert_payment_001',
+    title: 'Fake PayNow QR Codes at Hawker Stalls and Markets',
+    type: 'paymentScam',
+    severity: 'medium',
+    description: 'Scammers paste fraudulent PayNow QR codes over legitimate ones at hawker centres and markets. Payments go directly to the scammer instead of the vendor. Victims only discover the fraud when the stallholder says they received nothing.',
+    what_to_do: ['Always verify the payee name shown after scanning before confirming.', 'If the name does not match the stall or shop, do not proceed.', 'Report suspicious QR codes to SPF at 1800-255-0000.'],
+    source: 'SPF',
+    source_url: 'https://www.police.gov.sg/media-room/news',
+    published_at: '2026-03-15T00:00:00Z',
+  },
 ]
 
 type Alert = typeof ALERTS[number]
