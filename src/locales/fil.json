@@ -885,7 +885,8 @@
     "financeGlance": "Ang inyong pananalapi sa isang tingin",
     "streakLabel": "{{count}}-araw na streak",
     "welcomeBack": "Maligayang pagbabalik 👋",
-    "guest": "Bisita"
+    "guest": "Bisita",
+    "nameFallback": "ka"
   },
   "login": {
     "tagline": "Matalinong pananalapi para sa lahat",

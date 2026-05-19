@@ -885,7 +885,8 @@
     "financeGlance": "ඔබේ මූල්‍ය එකවර දෙස",
     "streakLabel": "{{count}} දින ලකුණු",
     "welcomeBack": "නැවත සාදරයෙන් පිළිගනිමු 👋",
-    "guest": "අමුත්තා"
+    "guest": "අමුත්තා",
+    "nameFallback": "යාළුවා"
   },
   "login": {
     "tagline": "සියලු දෙනා සඳහා දක්ෂ මූල්‍ය",

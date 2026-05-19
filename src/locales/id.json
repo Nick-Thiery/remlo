@@ -885,7 +885,8 @@
     "financeGlance": "Keuangan Anda sekilas",
     "streakLabel": "{{count}} hari berturut-turut",
     "welcomeBack": "Selamat datang kembali 👋",
-    "guest": "Tamu"
+    "guest": "Tamu",
+    "nameFallback": "kawan"
   },
   "login": {
     "tagline": "Keuangan cerdas untuk semua",

@@ -885,7 +885,8 @@
     "financeGlance": "آپ کی مالیات ایک نظر میں",
     "streakLabel": "{{count}} دن کی لگاتار",
     "welcomeBack": "خوش آمدید 👋",
-    "guest": "مہمان"
+    "guest": "مہمان",
+    "nameFallback": "دوست"
   },
   "login": {
     "tagline": "سب کے لیے ذہین مالیات",

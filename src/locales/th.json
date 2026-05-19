@@ -885,7 +885,8 @@
     "financeGlance": "ภาพรวมการเงินของคุณ",
     "streakLabel": "{{count}} วันติดต่อกัน",
     "welcomeBack": "ยินดีต้อนรับกลับมา 👋",
-    "guest": "แขก"
+    "guest": "แขก",
+    "nameFallback": "เพื่อน"
   },
   "login": {
     "tagline": "การเงินอัจฉริยะสำหรับทุกคน",

@@ -78,6 +78,9 @@ function Login() {
       setError(err.message)
       setLoading(false)
     } else if (data.session) {
+      if (data.user && displayName.trim()) {
+        await supabase.from('profiles').upsert({ id: data.user.id, preferred_name: displayName.trim() })
+      }
       if (wasGuest && data.user) await migrateGuestData(data.user.id)
       identifyUser(data.user.id)
       track('signup', { method: 'email' })

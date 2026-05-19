@@ -97,24 +97,26 @@ export default function Home() {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) { setStatsLoading(false); return }
 
-      if (session.user.email) {
-        const initial = session.user.email[0].toUpperCase()
-        setUserInitial(initial)
-        // Prefer display name from metadata, fall back to email username
-        const metaName = session.user.user_metadata?.full_name || session.user.user_metadata?.name
-        if (metaName) {
-          setUserName(metaName.split(' ')[0])
-        } else {
-          const emailUser = session.user.email.split('@')[0]
-          setUserName(emailUser.charAt(0).toUpperCase() + emailUser.slice(1))
-        }
-      }
-
       const userId = session.user.id
-      const [savingsRes, budgetRes] = await Promise.all([
+      const [savingsRes, budgetRes, profileRes] = await Promise.all([
         supabase.from('savings_goals').select('current_amount').eq('user_id', userId),
         supabase.from('budgets').select('income, expenses').eq('user_id', userId).maybeSingle(),
+        supabase.from('profiles').select('preferred_name').eq('id', userId).maybeSingle(),
       ])
+
+      const preferredName =
+        profileRes.data?.preferred_name ||
+        session.user.user_metadata?.display_name ||
+        session.user.user_metadata?.full_name ||
+        session.user.user_metadata?.name ||
+        null
+
+      if (preferredName) {
+        setUserInitial(preferredName[0].toUpperCase())
+        setUserName(preferredName.split(' ')[0])
+      } else if (session.user.email) {
+        setUserInitial(session.user.email[0].toUpperCase())
+      }
 
       if (savingsRes.data) {
         setTotalSaved(savingsRes.data.reduce((sum, r) => sum + r.current_amount, 0))
@@ -272,7 +274,7 @@ export default function Home() {
             {/* Greeting */}
             <p className="text-white/65 text-sm font-medium mb-0.5">{getGreeting()}</p>
             <h2 className="text-white font-extrabold text-2xl tracking-tight mb-1" style={{ letterSpacing: '-0.02em' }}>
-              {isGuest ? `${t('home.guest')} 👋` : userName ? `${userName} 👋` : t('home.welcomeBack')}
+              {isGuest ? `${t('home.guest')} 👋` : userName ? `${userName} 👋` : `${t('home.nameFallback')} 👋`}
             </h2>
             <p className="text-white/55 text-xs mb-7">{t('home.financeGlance')}</p>
 

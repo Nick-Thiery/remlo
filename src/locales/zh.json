@@ -885,7 +885,8 @@
     "financeGlance": "一览您的财务状况",
     "streakLabel": "连续{{count}}天",
     "welcomeBack": "欢迎回来 👋",
-    "guest": "访客"
+    "guest": "访客",
+    "nameFallback": "朋友"
   },
   "login": {
     "tagline": "为所有人提供的智能金融",

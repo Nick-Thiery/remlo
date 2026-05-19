@@ -887,7 +887,8 @@
     "financeGlance": "Your finances at a glance",
     "streakLabel": "{{count}}-day streak",
     "welcomeBack": "Welcome back 👋",
-    "guest": "Guest"
+    "guest": "Guest",
+    "nameFallback": "there"
   },
   "login": {
     "tagline": "Smart finance for everyone",

@@ -885,7 +885,8 @@
     "financeGlance": "तपाईंको वित्त एक नजरमा",
     "streakLabel": "{{count}} दिनको लगातार",
     "welcomeBack": "फिर्ता स्वागत छ 👋",
-    "guest": "पाहुना"
+    "guest": "पाहुना",
+    "nameFallback": "साथी"
   },
   "login": {
     "tagline": "सबैका लागि स्मार्ट वित्त",

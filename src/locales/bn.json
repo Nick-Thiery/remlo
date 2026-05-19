@@ -885,7 +885,8 @@
     "financeGlance": "এক নজরে আপনার আর্থিক অবস্থা",
     "streakLabel": "{{count}} দিনের স্ট্রিক",
     "welcomeBack": "আবার স্বাগতম 👋",
-    "guest": "অতিথি"
+    "guest": "অতিথি",
+    "nameFallback": "বন্ধু"
   },
   "login": {
     "tagline": "সবার জন্য স্মার্ট ফিনান্স",
