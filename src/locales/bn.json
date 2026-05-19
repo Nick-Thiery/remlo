@@ -884,7 +884,8 @@
     "greetingEvening": "শুভ সন্ধ্যা",
     "financeGlance": "এক নজরে আপনার আর্থিক অবস্থা",
     "streakLabel": "{{count}} দিনের স্ট্রিক",
-    "welcomeBack": "আবার স্বাগতম 👋"
+    "welcomeBack": "আবার স্বাগতম 👋",
+    "guest": "অতিথি"
   },
   "login": {
     "tagline": "সবার জন্য স্মার্ট ফিনান্স",

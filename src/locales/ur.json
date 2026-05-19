@@ -884,7 +884,8 @@
     "greetingEvening": "شام بخیر",
     "financeGlance": "آپ کی مالیات ایک نظر میں",
     "streakLabel": "{{count}} دن کی لگاتار",
-    "welcomeBack": "خوش آمدید 👋"
+    "welcomeBack": "خوش آمدید 👋",
+    "guest": "مہمان"
   },
   "login": {
     "tagline": "سب کے لیے ذہین مالیات",

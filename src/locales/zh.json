@@ -884,7 +884,8 @@
     "greetingEvening": "晚上好",
     "financeGlance": "一览您的财务状况",
     "streakLabel": "连续{{count}}天",
-    "welcomeBack": "欢迎回来 👋"
+    "welcomeBack": "欢迎回来 👋",
+    "guest": "访客"
   },
   "login": {
     "tagline": "为所有人提供的智能金融",

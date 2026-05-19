@@ -884,7 +884,8 @@
     "greetingEvening": "மாலை வணக்கம்",
     "financeGlance": "உங்கள் நிதி ஒரு பார்வையில்",
     "streakLabel": "{{count}} நாள் தொடர்",
-    "welcomeBack": "மீண்டும் வரவேற்கிறோம் 👋"
+    "welcomeBack": "மீண்டும் வரவேற்கிறோம் 👋",
+    "guest": "விருந்தினர்"
   },
   "login": {
     "tagline": "அனைவருக்கும் ஸ்மார்ட் நிதி",

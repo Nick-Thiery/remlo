@@ -884,7 +884,8 @@
     "greetingEvening": "Magandang gabi",
     "financeGlance": "Ang inyong pananalapi sa isang tingin",
     "streakLabel": "{{count}}-araw na streak",
-    "welcomeBack": "Maligayang pagbabalik 👋"
+    "welcomeBack": "Maligayang pagbabalik 👋",
+    "guest": "Bisita"
   },
   "login": {
     "tagline": "Matalinong pananalapi para sa lahat",

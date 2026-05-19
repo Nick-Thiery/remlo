@@ -886,7 +886,8 @@
     "greetingEvening": "Good evening",
     "financeGlance": "Your finances at a glance",
     "streakLabel": "{{count}}-day streak",
-    "welcomeBack": "Welcome back 👋"
+    "welcomeBack": "Welcome back 👋",
+    "guest": "Guest"
   },
   "login": {
     "tagline": "Smart finance for everyone",

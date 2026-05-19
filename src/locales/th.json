@@ -884,7 +884,8 @@
     "greetingEvening": "สวัสดีตอนเย็น",
     "financeGlance": "ภาพรวมการเงินของคุณ",
     "streakLabel": "{{count}} วันติดต่อกัน",
-    "welcomeBack": "ยินดีต้อนรับกลับมา 👋"
+    "welcomeBack": "ยินดีต้อนรับกลับมา 👋",
+    "guest": "แขก"
   },
   "login": {
     "tagline": "การเงินอัจฉริยะสำหรับทุกคน",

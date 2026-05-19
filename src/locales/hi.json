@@ -884,7 +884,8 @@
     "greetingEvening": "शुभ संध्या",
     "financeGlance": "आपका वित्त एक नज़र में",
     "streakLabel": "{{count}} दिन की स्ट्रीक",
-    "welcomeBack": "वापस स्वागत है 👋"
+    "welcomeBack": "वापस स्वागत है 👋",
+    "guest": "अतिथि"
   },
   "login": {
     "tagline": "सभी के लिए स्मार्ट वित्त",

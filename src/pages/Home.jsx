@@ -21,13 +21,6 @@ function formatSGD(amount) {
   }).format(amount)
 }
 
-function getGreeting() {
-  const hour = new Date().getHours()
-  if (hour < 12) return 'Good morning'
-  if (hour < 17) return 'Good afternoon'
-  return 'Good evening'
-}
-
 const LANGUAGES = [
   { code: 'en',  label: 'English'   },
   { code: 'ta',  label: 'தமிழ்'     },
@@ -51,7 +44,15 @@ export default function Home() {
   const [budgetLeft, setBudgetLeft] = useState(0)
   const [userInitial, setUserInitial] = useState('')
   const [userName, setUserName] = useState('')
+  const [isGuest, setIsGuest] = useState(false)
   const [streak, setStreak] = useState(1)
+
+  function getGreeting() {
+    const hour = new Date().getHours()
+    if (hour < 12) return t('home.greetingMorning')
+    if (hour < 17) return t('home.greetingAfternoon')
+    return t('home.greetingEvening')
+  }
 
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10)
@@ -80,8 +81,8 @@ export default function Home() {
       const isGuest = localStorage.getItem('remlo_guest') === 'true'
 
       if (isGuest) {
+        setIsGuest(true)
         setUserInitial('G')
-        setUserName('Guest')
         const savings = JSON.parse(localStorage.getItem('remlo_guest_savings') || '[]')
         setTotalSaved(savings.reduce((sum, g) => sum + g.saved, 0))
         const budget = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
@@ -264,35 +265,35 @@ export default function Home() {
             >
               <Flame className="w-3 h-3 text-white/90" strokeWidth={2.5} />
               <span className="text-white/90 text-[11px] font-bold tracking-wide">
-                {streak}-day streak
+                {t('home.streakLabel', { count: streak })}
               </span>
             </div>
 
             {/* Greeting */}
             <p className="text-white/65 text-sm font-medium mb-0.5">{getGreeting()}</p>
             <h2 className="text-white font-extrabold text-2xl tracking-tight mb-1" style={{ letterSpacing: '-0.02em' }}>
-              {userName ? `${userName} 👋` : 'Welcome back 👋'}
+              {isGuest ? `${t('home.guest')} 👋` : userName ? `${userName} 👋` : t('home.welcomeBack')}
             </h2>
-            <p className="text-white/55 text-xs mb-7">Your finances at a glance</p>
+            <p className="text-white/55 text-xs mb-7">{t('home.financeGlance')}</p>
 
             {/* Stats row */}
             <div className="flex items-end gap-8">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <Coins className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
-                  <p className="text-white/55 text-xs font-medium">Total Saved</p>
+                  <p className="text-white/55 text-xs font-medium">{t('stats.totalSaved')}</p>
                 </div>
                 <p
                   className="text-white font-extrabold tabular-nums tracking-tight"
                   style={{ fontSize: '1.75rem', lineHeight: 1, opacity: statsLoading ? 0.4 : 1 }}
                 >
-                  {statsLoading ? 'SGD —' : formatSGD(totalSaved)}
+                  {statsLoading ? '—' : formatSGD(totalSaved)}
                 </p>
               </div>
               <div className="pb-0.5">
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <Wallet className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
-                  <p className="text-white/55 text-xs font-medium">Budget Left</p>
+                  <p className="text-white/55 text-xs font-medium">{t('stats.budgetLeft')}</p>
                 </div>
                 <p
                   className="text-white/90 font-extrabold text-xl tabular-nums tracking-tight"
