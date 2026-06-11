@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import i18n from '../i18n.js'
 import { track } from '../lib/analytics.js'
+import safeStorage from '../lib/safeStorage.js'
 
 const COUNTRIES = [
   { code: 'IN', flag: '🇮🇳', name: 'India',        lang: 'hi'  },
@@ -224,9 +225,9 @@ export default function Onboarding({ onComplete }) {
 
   function finish() {
     i18n.changeLanguage(lang)
-    localStorage.setItem('remlo_lang', lang)
-    localStorage.setItem('remlo_country', (country === 'OTHER' || !country) ? '' : country)
-    localStorage.setItem('remlo_onboarded', 'true')
+    safeStorage.setItem('remlo_lang', lang)
+    safeStorage.setItem('remlo_country', (country === 'OTHER' || !country) ? '' : country)
+    safeStorage.setItem('remlo_onboarded', 'true')
     track('onboarding_completed', { country, language: lang })
     onComplete()
   }

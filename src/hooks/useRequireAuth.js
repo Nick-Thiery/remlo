@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
+import safeStorage from '../lib/safeStorage.js'
 
 export function useRequireAuth() {
   const navigate = useNavigate()
   const [user, setUser]           = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
-  const isGuest = localStorage.getItem('remlo_guest') === 'true'
+  const isGuest = safeStorage.getItem('remlo_guest') === 'true'
 
   useEffect(() => {
     if (isGuest) {

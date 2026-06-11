@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Banknote, ChevronLeft, Plus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
+import safeStorage from '../lib/safeStorage.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -59,7 +60,7 @@ export default function Salary() {
 
   const [payments, setPayments] = useState([])
   const [payday, setPayday] = useState(() => {
-    const saved = localStorage.getItem('remlo_payday')
+    const saved = safeStorage.getItem('remlo_payday')
     return saved ? parseInt(saved, 10) : 1
   })
   const [showForm, setShowForm] = useState(false)
@@ -75,7 +76,7 @@ export default function Salary() {
 
   useEffect(() => {
     if (isGuest) {
-      const stored = JSON.parse(localStorage.getItem('remlo_guest_salary') || '[]')
+      const stored = JSON.parse(safeStorage.getItem('remlo_guest_salary') || '[]')
       setPayments(stored)
       setLoading(false)
       return
@@ -131,7 +132,7 @@ export default function Salary() {
 
   function handlePaydayChange(val) {
     setPayday(val)
-    localStorage.setItem('remlo_payday', String(val))
+    safeStorage.setItem('remlo_payday', String(val))
   }
 
   function openForm() {
@@ -153,7 +154,7 @@ export default function Salary() {
       const newPayment = { id: Date.now(), date: fDate, amount: amt, employer: fEmployer.trim(), note: fNote.trim() }
       const updated = [newPayment, ...payments]
       setPayments(updated)
-      localStorage.setItem('remlo_guest_salary', JSON.stringify(updated))
+      safeStorage.setItem('remlo_guest_salary', JSON.stringify(updated))
       closeForm()
       return
     }
@@ -176,7 +177,7 @@ export default function Salary() {
     if (isGuest) {
       const updated = payments.filter((p) => p.id !== id)
       setPayments(updated)
-      localStorage.setItem('remlo_guest_salary', JSON.stringify(updated))
+      safeStorage.setItem('remlo_guest_salary', JSON.stringify(updated))
       if (expandedId === id) setExpandedId(null)
       return
     }

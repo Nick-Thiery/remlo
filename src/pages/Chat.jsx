@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Send, Sparkles, Mic, MicOff } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { track } from '../lib/analytics.js'
-import { supabase } from '../lib/supabase.js'
+import safeStorage from '../lib/safeStorage.js'
 
 const SYSTEM_PROMPT =
   'You are a friendly financial assistant built by Remlo, an app helping workers in Singapore manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. If someone describes a loan shark or scam situation, provide the MOM helpline 1800-333-1313 and tell them to contact police if in danger.'
@@ -43,6 +43,8 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
+  const isMounted = useRef(true)
+  useEffect(() => () => { isMounted.current = false }, [])
 
   const [isRecording, setIsRecording] = useState(false)
   const recognitionRef = useRef(null)
@@ -78,7 +80,7 @@ export default function Chat() {
 
   function switchLang(code) {
     i18n.changeLanguage(code)
-    localStorage.setItem('remlo_lang', code)
+    safeStorage.setItem('remlo_lang', code)
   }
 
   async function send(text) {
@@ -93,7 +95,7 @@ export default function Chat() {
     setIsLoading(true)
 
     try {
-      const res = await fetch('https://clxkokkavwclduvxqubl.supabase.co/functions/v1/chat', {
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT }),
@@ -102,19 +104,25 @@ export default function Chat() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
 
-      setMessages((prev) => [
-        ...prev,
-        { role: 'assistant', content: data.content[0].text },
-      ])
+      if (isMounted.current) {
+        setMessages((prev) => [
+          ...prev,
+          { role: 'assistant', content: data.content[0].text },
+        ])
+      }
     } catch (err) {
       console.error('Chat API error:', err)
-      setMessages((prev) => [
-        ...prev,
-        { role: 'assistant', content: t('chat.errorMsg'), isError: true },
-      ])
+      if (isMounted.current) {
+        setMessages((prev) => [
+          ...prev,
+          { role: 'assistant', content: t('chat.errorMsg'), isError: true },
+        ])
+      }
     } finally {
-      setIsLoading(false)
-      inputRef.current?.focus()
+      if (isMounted.current) {
+        setIsLoading(false)
+        inputRef.current?.focus()
+      }
     }
   }
 

@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { ArrowLeftRight, RefreshCw, WifiOff, Zap } from 'lucide-react'
 import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
+import safeStorage from '../lib/safeStorage.js'
 
 const COUNTRIES = {
   IN: { currency: 'INR', flag: '🇮🇳', symbol: '₹',   nameKey: 'countryIndia'       },
@@ -72,7 +73,7 @@ export default function Remittance() {
   const { t } = useTranslation()
   const [sendAmount, setSendAmount] = useState('500')
   const defaultCountry = (() => {
-    const saved = localStorage.getItem('remlo_country') || 'IN'
+    const saved = safeStorage.getItem('remlo_country') || 'IN'
     return Object.keys(COUNTRIES).includes(saved) ? saved : 'IN'
   })()
   const [country, setCountry] = useState(defaultCountry)

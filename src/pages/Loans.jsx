@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Receipt, ChevronLeft } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
+import safeStorage from '../lib/safeStorage.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -98,7 +99,7 @@ export default function Loans() {
 
   useEffect(() => {
     if (isGuest) {
-      const stored = JSON.parse(localStorage.getItem('remlo_guest_loans') || '[]')
+      const stored = JSON.parse(safeStorage.getItem('remlo_guest_loans') || '[]')
       setLoans(stored)
       setLoading(false)
       return
@@ -165,7 +166,7 @@ export default function Loans() {
       const newLoan = { id: Date.now(), lender: fLender.trim(), principal, rate, monthlyPayment: payment, startDate: fStart }
       const updated = [...loans, newLoan]
       setLoans(updated)
-      localStorage.setItem('remlo_guest_loans', JSON.stringify(updated))
+      safeStorage.setItem('remlo_guest_loans', JSON.stringify(updated))
       closeForm()
       return
     }
@@ -199,7 +200,7 @@ export default function Loans() {
     if (isGuest) {
       const updated = loans.filter((l) => l.id !== id)
       setLoans(updated)
-      localStorage.setItem('remlo_guest_loans', JSON.stringify(updated))
+      safeStorage.setItem('remlo_guest_loans', JSON.stringify(updated))
       if (expandedId === id) setExpandedId(null)
       return
     }

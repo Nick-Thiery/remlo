@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Onboarding from './pages/Onboarding.jsx'
 import { useTranslation } from 'react-i18next'
 import { supabase } from './lib/supabase.js'
+import safeStorage, { safeSession } from './lib/safeStorage.js'
 import {
   Home as HomeIcon,
   Coins,
@@ -188,19 +189,19 @@ function MorePage() {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const [langOpen, setLangOpen] = useState(false)
-  const isGuest = localStorage.getItem('remlo_guest') === 'true'
+  const isGuest = safeStorage.getItem('remlo_guest') === 'true'
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
   function switchLang(code) {
     i18n.changeLanguage(code)
-    localStorage.setItem('remlo_lang', code)
+    safeStorage.setItem('remlo_lang', code)
     setLangOpen(false)
   }
 
   async function handleSignOut() {
     if (isGuest) {
-      localStorage.removeItem('remlo_guest')
+      safeStorage.removeItem('remlo_guest')
       navigate('/login', { replace: true })
     } else {
       await supabase.auth.signOut()
@@ -351,15 +352,15 @@ function GuestBanner() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
-  const isGuest = localStorage.getItem('remlo_guest') === 'true'
+  const isGuest = safeStorage.getItem('remlo_guest') === 'true'
   const [dismissed, setDismissed] = useState(
-    () => sessionStorage.getItem('remlo_guest_banner_dismissed') === 'true'
+    () => safeSession.getItem('remlo_guest_banner_dismissed') === 'true'
   )
 
   if (!isGuest || location.pathname === '/login' || dismissed) return null
 
   function dismiss() {
-    sessionStorage.setItem('remlo_guest_banner_dismissed', 'true')
+    safeSession.setItem('remlo_guest_banner_dismissed', 'true')
     setDismissed(true)
   }
 
@@ -396,12 +397,17 @@ function AuthGuard({ children }) {
   const [ready, setReady] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const locationRef = useRef(location.pathname)
 
   useEffect(() => {
-    const isGuest = localStorage.getItem('remlo_guest') === 'true'
+    locationRef.current = location.pathname
+  }, [location.pathname])
+
+  useEffect(() => {
+    const isGuest = safeStorage.getItem('remlo_guest') === 'true'
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
-        if (!session && !isGuest && location.pathname !== '/login') {
+        if (!session && !isGuest && locationRef.current !== '/login') {
           navigate('/login', { replace: true })
         }
         setReady(true)
@@ -409,12 +415,12 @@ function AuthGuard({ children }) {
       .catch(() => setReady(true))
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      const stillGuest = localStorage.getItem('remlo_guest') === 'true'
+      const stillGuest = safeStorage.getItem('remlo_guest') === 'true'
       if (!session && !stillGuest) navigate('/login', { replace: true })
     })
 
     return () => subscription.unsubscribe()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [navigate])
 
   if (!ready) {
     return (
@@ -477,8 +483,8 @@ function AppShell() {
 const RTL_LANGS = new Set(['ur'])
 
 export default function App() {
-  const [onboarded, setOnboarded] = useState(() => !!localStorage.getItem('remlo_onboarded'))
-  const [splashDone, setSplashDone] = useState(() => !!sessionStorage.getItem('remlo_splashed'))
+  const [onboarded, setOnboarded] = useState(() => !!safeStorage.getItem('remlo_onboarded'))
+  const [splashDone, setSplashDone] = useState(() => !!safeSession.getItem('remlo_splashed'))
   const { i18n } = useTranslation()
 
   useEffect(() => {
@@ -486,7 +492,7 @@ export default function App() {
   }, [i18n.language])
 
   function handleSplashDone() {
-    sessionStorage.setItem('remlo_splashed', 'true')
+    safeSession.setItem('remlo_splashed', 'true')
     setSplashDone(true)
   }
 

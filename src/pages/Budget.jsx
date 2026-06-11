@@ -4,6 +4,7 @@ import { ListPlus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
+import safeStorage from '../lib/safeStorage.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -105,7 +106,7 @@ export default function Budget() {
 
   useEffect(() => {
     if (isGuest) {
-      const stored = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
+      const stored = JSON.parse(safeStorage.getItem('remlo_guest_budget') || 'null')
       if (stored) {
         setIncome(stored.income > 0 ? String(stored.income) : '')
         setExpenses(Array.isArray(stored.expenses) && stored.expenses.length > 0
@@ -140,7 +141,7 @@ export default function Budget() {
     const cleanExpenses = expensesVal.map(({ _key, ...rest }) => rest)
     track('budget_updated', { income: parseFloat(incomeVal) || 0, expense_count: cleanExpenses.length })
     if (isGuest) {
-      localStorage.setItem('remlo_guest_budget', JSON.stringify({
+      safeStorage.setItem('remlo_guest_budget', JSON.stringify({
         income: parseFloat(incomeVal) || 0,
         expenses: cleanExpenses,
       }))

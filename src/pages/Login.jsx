@@ -5,6 +5,7 @@ import { ChevronDown } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { migrateGuestData } from '../lib/migrateGuestData.js'
 import { track, identifyUser } from '../lib/analytics.js'
+import safeStorage from '../lib/safeStorage.js'
 
 const LANGUAGES = [
   { code: 'en',  label: 'English'   },
@@ -32,12 +33,12 @@ function Login() {
   const [error, setError] = useState(null)
   const [langOpen, setLangOpen] = useState(false)
 
-  const wasGuest = localStorage.getItem('remlo_guest') === 'true'
+  const wasGuest = safeStorage.getItem('remlo_guest') === 'true'
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
   function switchLang(code) {
     i18n.changeLanguage(code)
-    localStorage.setItem('remlo_lang', code)
+    safeStorage.setItem('remlo_lang', code)
     setLangOpen(false)
   }
 
@@ -93,7 +94,7 @@ function Login() {
   }
 
   function handleGuest() {
-    localStorage.setItem('remlo_guest', 'true')
+    safeStorage.setItem('remlo_guest', 'true')
     track('guest_mode_selected')
     navigate('/', { replace: true })
   }

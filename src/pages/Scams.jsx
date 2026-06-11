@@ -54,7 +54,6 @@ export default function Scams() {
   const [submitted, setSubmitted] = useState(false)
 
   async function loadAlerts(lang = i18n.language) {
-    console.log('[Scams] loadAlerts called — language:', lang)
     setLoading(true)
     setError(null)
     try {
@@ -74,9 +73,13 @@ export default function Scams() {
           `Status: ${res.status}\nURL: ${FUNCTIONS_URL}\nKey: ${keyPreview}\nBody: ${text}`
         )
       }
-      const data = JSON.parse(text)
-      console.log('[Scams] Received', data.alerts?.length ?? 0, 'alerts for language:', lang)
-      setAlerts(data.alerts ?? [])
+      let data
+      try {
+        data = JSON.parse(text)
+      } catch {
+        throw new Error(`Invalid JSON response: ${text.slice(0, 120)}`)
+      }
+      setAlerts(data?.alerts ?? [])
     } catch (err) {
       setError(err.message)
     } finally {

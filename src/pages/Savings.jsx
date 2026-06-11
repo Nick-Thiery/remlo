@@ -4,6 +4,7 @@ import { Coins, Plus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
+import safeStorage from '../lib/safeStorage.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -46,7 +47,7 @@ export default function Savings() {
 
   useEffect(() => {
     if (isGuest) {
-      const stored = JSON.parse(localStorage.getItem('remlo_guest_savings') || '[]')
+      const stored = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
       setGoals(stored)
       setLoading(false)
       return
@@ -93,7 +94,7 @@ export default function Savings() {
       const newGoal = { id: Date.now(), name: newGoalName.trim(), target, saved: 0 }
       const updated = [...goals, newGoal]
       setGoals(updated)
-      localStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
       closeNewGoal()
       return
     }
@@ -123,7 +124,7 @@ export default function Savings() {
     if (isGuest) {
       const updated = goals.map(g => g.id === depositGoalId ? { ...g, saved: newSaved } : g)
       setGoals(updated)
-      localStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
       closeDeposit()
       return
     }
@@ -143,7 +144,7 @@ export default function Savings() {
     if (isGuest) {
       const updated = goals.filter(g => g.id !== id)
       setGoals(updated)
-      localStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
       return
     }
     const { error: err } = await supabase.from('savings_goals').delete().eq('id', id)

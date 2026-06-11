@@ -11,6 +11,7 @@ import {
   Wallet,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
+import safeStorage from '../lib/safeStorage.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -56,8 +57,8 @@ export default function Home() {
 
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10)
-    const lastDate = localStorage.getItem('remlo_streak_date')
-    const lastCount = parseInt(localStorage.getItem('remlo_streak_count') || '0', 10)
+    const lastDate = safeStorage.getItem('remlo_streak_date')
+    const lastCount = parseInt(safeStorage.getItem('remlo_streak_count') || '0', 10)
 
     let newCount
     if (!lastDate) {
@@ -71,21 +72,21 @@ export default function Home() {
       newCount = lastDate === yesterdayStr ? lastCount + 1 : 1
     }
 
-    localStorage.setItem('remlo_streak_date', today)
-    localStorage.setItem('remlo_streak_count', String(newCount))
+    safeStorage.setItem('remlo_streak_date', today)
+    safeStorage.setItem('remlo_streak_count', String(newCount))
     setStreak(newCount)
   }, [])
 
   useEffect(() => {
     async function loadData() {
-      const isGuest = localStorage.getItem('remlo_guest') === 'true'
+      const isGuest = safeStorage.getItem('remlo_guest') === 'true'
 
       if (isGuest) {
         setIsGuest(true)
         setUserInitial('G')
-        const savings = JSON.parse(localStorage.getItem('remlo_guest_savings') || '[]')
+        const savings = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
         setTotalSaved(savings.reduce((sum, g) => sum + g.saved, 0))
-        const budget = JSON.parse(localStorage.getItem('remlo_guest_budget') || 'null')
+        const budget = JSON.parse(safeStorage.getItem('remlo_guest_budget') || 'null')
         if (budget) {
           const totalExp = (budget.expenses || []).reduce((sum, e) => sum + e.amount, 0)
           setBudgetLeft(Math.max((budget.income || 0) - totalExp, 0))
@@ -133,7 +134,7 @@ export default function Home() {
 
   function switchLang(code) {
     i18n.changeLanguage(code)
-    localStorage.setItem('remlo_lang', code)
+    safeStorage.setItem('remlo_lang', code)
     setLangOpen(false)
   }
 
