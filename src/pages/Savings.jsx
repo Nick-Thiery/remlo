@@ -360,7 +360,7 @@ export default function Savings() {
                       <p className="text-xs text-gray-400 mb-0.5 font-medium">{t('savings.remainingLabel')}</p>
                       <p
                         className="text-sm font-extrabold tabular-nums"
-                        style={{ color: isComplete ? '#059669' : '#1A1A1A' }}
+                        style={{ color: isComplete ? '#059669' : (isDark ? '#F5F2EE' : '#1A1A1A') }}
                       >
                         {isComplete ? t('savings.goalReached') : formatSGD(remaining)}
                       </p>

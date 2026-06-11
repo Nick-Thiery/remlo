@@ -350,7 +350,7 @@ export default function Remittance() {
                           <p className="text-xs text-gray-400 mb-0.5 font-semibold">{t('remittance.feeLabel')}</p>
                           <p
                             className="text-sm font-extrabold tabular-nums"
-                            style={{ color: p.fee === 0 ? '#059669' : '#1A1A1A' }}
+                            style={{ color: p.fee === 0 ? '#059669' : (isDark ? '#F5F2EE' : '#1A1A1A') }}
                           >
                             {p.fee === 0 ? t('common.noFee') : formatSGD(p.fee)}
                           </p>

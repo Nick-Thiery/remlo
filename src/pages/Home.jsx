@@ -191,7 +191,7 @@ export default function Home() {
       <div style={{ background: header, borderBottom: `1px solid ${border}` }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
-            <h1 style={{ fontSize: 22, fontWeight: 800, color: '#1A1A1A', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: 22, fontWeight: 800, color: textPrimary, letterSpacing: '-0.02em' }}>
               {t('appName')}
             </h1>
 
