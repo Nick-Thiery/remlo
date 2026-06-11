@@ -39,6 +39,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         // Changing cacheId invalidates all existing SW caches on next deploy.
         // Increment (v2, v3, ...) whenever a SW update is not being picked up.
         cacheId: 'remlo-v2',
