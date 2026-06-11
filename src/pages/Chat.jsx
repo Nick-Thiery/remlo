@@ -93,11 +93,14 @@ export default function Chat() {
     setIsLoading(true)
 
     try {
-      const { data, error } = await supabase.functions.invoke('chat', {
-        body: { messages: history, system: SYSTEM_PROMPT },
+      const res = await fetch('https://clxkokkavwclduvxqubl.supabase.co/functions/v1/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT }),
       })
 
-      if (error) throw new Error(error.message)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json()
 
       setMessages((prev) => [
         ...prev,
