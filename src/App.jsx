@@ -22,6 +22,7 @@ import {
   Phone,
   ChevronRight,
   ChevronDown,
+  Trash2,
 } from 'lucide-react'
 
 import Home from './pages/Home.jsx'
@@ -40,6 +41,7 @@ import EmergencyFund from './pages/EmergencyFund.jsx'
 import BankingGuide from './pages/BankingGuide.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import TermsOfService from './pages/TermsOfService.jsx'
+import DeleteAccount from './pages/DeleteAccount.jsx'
 
 // ─── Splash Screen ───────────────────────────────────────────────────────────
 
@@ -301,7 +303,7 @@ function MorePage() {
         {/* Sign out */}
         <button
           onClick={handleSignOut}
-          className="w-full mb-6 px-4 py-3.5 rounded-2xl flex items-center justify-between active:scale-[0.98] transition-all"
+          className="w-full mb-3 px-4 py-3.5 rounded-2xl flex items-center justify-between active:scale-[0.98] transition-all"
           style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
         >
           <span className="text-sm font-bold text-red-500">
@@ -311,6 +313,23 @@ function MorePage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
+
+        {/* Delete account — only for authenticated users */}
+        {!isGuest && (
+          <button
+            onClick={() => navigate('/delete-account')}
+            className="w-full mb-6 px-4 py-3.5 rounded-2xl flex items-center justify-between active:scale-[0.98] transition-all"
+            style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
+          >
+            <div className="flex items-center gap-2.5">
+              <Trash2 className="w-4 h-4 text-red-400" />
+              <span className="text-sm font-semibold text-red-400">Delete Account</span>
+            </div>
+            <svg className="w-4 h-4 text-red-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        )}
 
         {/* Emergency contacts */}
         <div
@@ -485,9 +504,10 @@ function AppShell() {
               <Route path="/scam-quiz"      element={<ScamQuiz />}      />
               <Route path="/emergency-fund" element={<EmergencyFund />}  />
               <Route path="/banking-guide"  element={<BankingGuide />}  />
-              <Route path="/privacy"    element={<PrivacyPolicy />}   />
-              <Route path="/terms"      element={<TermsOfService />}  />
-              <Route path="/login"      element={<Login />}      />
+              <Route path="/privacy"         element={<PrivacyPolicy />}   />
+              <Route path="/terms"           element={<TermsOfService />}  />
+              <Route path="/delete-account"  element={<DeleteAccount />}   />
+              <Route path="/login"           element={<Login />}      />
             </Routes>
           </AuthGuard>
         </div>
