@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ShieldCheck, ShieldAlert, ChevronRight, ChevronLeft, RotateCcw, Trophy } from 'lucide-react'
 import { track } from '../lib/analytics.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 // Correct answer index for each question (option B = index 1 for all 8)
 const CORRECT_IDX = [1, 1, 1, 1, 1, 1, 1, 1]
@@ -17,6 +18,10 @@ const RATING_STYLE = [
 export default function ScamQuiz() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg   = isDark ? '#121110' : '#FAFAF8'
+  const card = isDark ? '#1E1C1A' : 'white'
+  const border  = isDark ? '#2C2926' : '#F0EDE8'
 
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
@@ -68,7 +73,7 @@ export default function ScamQuiz() {
   if (done) {
     const rating = getRating(score)
     return (
-      <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+      <div className="min-h-screen" style={{ background: bg }}>
         <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
           <button
             onClick={() => navigate('/more')}
@@ -135,7 +140,7 @@ export default function ScamQuiz() {
   const progress = (current / questions.length) * 100
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         <div className="mb-5">
@@ -169,7 +174,7 @@ export default function ScamQuiz() {
           </span>
         </div>
 
-        <div className="rounded-3xl p-5 mb-4" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+        <div className="rounded-3xl p-5 mb-4" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
           <p className="text-[11px] font-semibold text-blue-600 uppercase tracking-wide mb-2">
             {t('scamQuiz.scenarioLabel')}
           </p>

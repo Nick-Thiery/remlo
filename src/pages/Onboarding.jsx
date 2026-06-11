@@ -2,6 +2,7 @@ import { useState } from 'react'
 import i18n from '../i18n.js'
 import { track } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const COUNTRIES = [
   { code: 'IN', flag: '🇮🇳', name: 'India',        lang: 'hi'  },
@@ -109,8 +110,13 @@ function WelcomeScreen({ onNext }) {
 // ── Screen 1: Country + Language ──────────────────────────────────────────────
 
 function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish }) {
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#EDE8E0'
+  const textPrimary = isDark ? '#F5F2EE' : '#374151'
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: bg }}>
       {/* Scrollable body */}
       <div className="flex-1 overflow-y-auto px-5 pt-10 pb-4">
 
@@ -142,15 +148,15 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
                   c.code === 'OTHER' ? 'col-span-2' : ''
                 }`}
                 style={{
-                  borderColor: selected ? '#E8640C' : '#EDE8E0',
-                  background: selected ? '#FFF7ED' : 'white',
+                  borderColor: selected ? '#E8640C' : border,
+                  background: selected ? '#FFF7ED' : card,
                   boxShadow: selected ? '0 0 0 3px rgba(232,100,12,0.12)' : '0 1px 4px rgba(0,0,0,0.04)',
                 }}
               >
                 <span className="text-xl flex-shrink-0">{c.flag}</span>
                 <span
                   className="text-sm font-semibold truncate"
-                  style={{ color: selected ? '#C2410C' : '#374151' }}
+                  style={{ color: selected ? '#C2410C' : textPrimary }}
                 >
                   {c.name}
                 </span>
@@ -178,9 +184,9 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
               onClick={() => onSelectLang(l.code)}
               className="px-4 py-2.5 rounded-xl text-sm font-semibold border-2 transition-all active:scale-95"
               style={{
-                borderColor: lang === l.code ? '#1A1A1A' : '#EDE8E0',
-                background: lang === l.code ? '#1A1A1A' : 'white',
-                color: lang === l.code ? 'white' : '#374151',
+                borderColor: lang === l.code ? (isDark ? '#F5F2EE' : '#1A1A1A') : border,
+                background:  lang === l.code ? (isDark ? '#F5F2EE' : '#1A1A1A') : card,
+                color:       lang === l.code ? (isDark ? '#121110'  : 'white')   : textPrimary,
               }}
             >
               {l.label}
@@ -192,7 +198,7 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish })
       {/* Sticky footer button */}
       <div
         className="flex-shrink-0 px-5 py-5"
-        style={{ background: 'white', borderTop: '1px solid #F0EDE8' }}
+        style={{ background: card, borderTop: `1px solid ${border}` }}
       >
         <button
           onClick={onFinish}

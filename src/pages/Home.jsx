@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -39,6 +40,14 @@ const LANGUAGES = [
 
 export default function Home() {
   const { t, i18n } = useTranslation()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const header = isDark ? '#1E1C1A' : 'white'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
+  const textPrimary   = isDark ? '#F5F2EE' : '#1A1A1A'
+  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
   const [langOpen, setLangOpen] = useState(false)
   const [statsLoading, setStatsLoading] = useState(true)
   const [totalSaved, setTotalSaved] = useState(0)
@@ -176,10 +185,10 @@ export default function Home() {
   ]
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
 
       {/* ── Header ── */}
-      <div className="bg-white" style={{ borderBottom: '1px solid #F0EDE8' }}>
+      <div style={{ background: header, borderBottom: `1px solid ${border}` }}>
         <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
           <div className="flex items-center justify-between relative z-50">
             <h1 style={{ fontSize: 22, fontWeight: 800, color: '#1A1A1A', letterSpacing: '-0.02em' }}>
@@ -192,28 +201,27 @@ export default function Home() {
                 <button
                   onClick={() => setLangOpen((o) => !o)}
                   className="flex items-center gap-1.5 rounded-full px-3 py-2 transition-transform active:scale-[0.98]"
-                  style={{ background: '#F5F2EC' }}
+                  style={{ background: isDark ? '#2A2724' : '#F5F2EC' }}
                 >
-                  <span className="text-xs font-semibold" style={{ color: '#6B7280' }}>
+                  <span className="text-xs font-semibold" style={{ color: textSecondary }}>
                     {currentLang.label.slice(0, 2).toUpperCase()}
                   </span>
                   <ChevronDown
                     className={`w-3 h-3 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`}
-                    style={{ color: '#6B7280' }}
+                    style={{ color: textSecondary }}
                   />
                 </button>
                 {langOpen && (
                   <div
-                    className="absolute right-0 mt-2 w-44 bg-white rounded-2xl py-1.5 z-50 max-h-72 overflow-y-auto"
-                    style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)', border: '1px solid #F0EDE8' }}
+                    className="absolute right-0 mt-2 w-44 rounded-2xl py-1.5 z-50 max-h-72 overflow-y-auto"
+                    style={{ background: card, boxShadow: '0 8px 32px rgba(0,0,0,0.2)', border: `1px solid ${border}` }}
                   >
                     {LANGUAGES.map((l) => (
                       <button
                         key={l.code}
                         onClick={() => switchLang(l.code)}
-                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-orange-50 ${
-                          l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'
-                        }`}
+                        className="w-full text-left px-4 py-2.5 text-sm transition-colors"
+                        style={{ color: l.code === i18n.language ? '#E8640C' : textSecondary, fontWeight: l.code === i18n.language ? 700 : 400 }}
                       >
                         {l.label}
                       </button>
@@ -345,23 +353,24 @@ export default function Home() {
                 className={`block ${f.wide ? 'col-span-2' : ''}`}
               >
                 <div
-                  className="rounded-3xl p-4 bg-white transition-transform active:scale-[0.98]"
+                  className="rounded-3xl p-4 transition-transform active:scale-[0.98]"
                   style={{
-                    border: '1px solid #EDE8E0',
+                    background: card,
+                    border: `1px solid ${border2}`,
                     boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                     minHeight: 110,
                   }}
                 >
                   <div
                     className="rounded-2xl flex items-center justify-center mb-3"
-                    style={{ width: 44, height: 44, background: f.iconBg }}
+                    style={{ width: 44, height: 44, background: isDark ? '#2A2724' : f.iconBg }}
                   >
                     <f.icon className="w-5 h-5" style={{ color: f.iconColor }} strokeWidth={2} />
                   </div>
-                  <p className="font-extrabold text-sm mb-1" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
+                  <p className="font-extrabold text-sm mb-1" style={{ color: textPrimary, letterSpacing: '-0.01em' }}>
                     {f.title}
                   </p>
-                  <p className="text-xs leading-relaxed text-gray-400">{f.description}</p>
+                  <p className="text-xs leading-relaxed" style={{ color: textSecondary }}>{f.description}</p>
                 </div>
               </Link>
             )

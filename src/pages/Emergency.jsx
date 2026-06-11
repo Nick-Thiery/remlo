@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 // Static contact data — org names, numbers, hours are factual/proper nouns
 const CATEGORIES = [
@@ -61,9 +62,13 @@ function CallButton({ number, label }) {
 export default function Emergency() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg   = isDark ? '#121110' : '#FAFAF8'
+  const card = isDark ? '#1E1C1A' : 'white'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
 
       {/* Emergency call bar — always at top */}
       <div className="bg-red-600 px-4 py-4">
@@ -87,7 +92,7 @@ export default function Emergency() {
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>

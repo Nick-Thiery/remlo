@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ShieldCheck, Lightbulb, Clock, TrendingUp, Landmark, Smartphone, Wallet, ChevronLeft } from 'lucide-react'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 function formatSGD(n) {
   return new Intl.NumberFormat('en-SG', {
@@ -28,6 +29,11 @@ const TIP_ICONS = [Landmark, Smartphone, Wallet, ShieldCheck]
 export default function EmergencyFund() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg   = isDark ? '#121110' : '#FAFAF8'
+  const card = isDark ? '#1E1C1A' : 'white'
+  const border  = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const [expenses,    setExpenses]    = useState('')
   const [monthlySave, setMonthlySave] = useState('')
 
@@ -45,14 +51,14 @@ export default function EmergencyFund() {
   const tips = t('emergencyFund.tips', { returnObjects: true })
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -63,7 +69,7 @@ export default function EmergencyFund() {
         </div>
 
         {/* Input card */}
-        <div className="rounded-3xl p-6 mb-5" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+        <div className="rounded-3xl p-6 mb-5" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
             {t('emergencyFund.sectionNumbers')}
           </p>
@@ -189,7 +195,7 @@ export default function EmergencyFund() {
             </div>
           </>
         ) : (
-          <div className="rounded-3xl p-10 text-center mb-6" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+          <div className="rounded-3xl p-10 text-center mb-6" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
             <p className="text-4xl mb-3">🛡️</p>
             <p className="font-semibold text-gray-900 mb-1">{t('emergencyFund.emptyTitle')}</p>
             <p className="text-sm text-gray-500">{t('emergencyFund.emptyDesc')}</p>
@@ -204,7 +210,7 @@ export default function EmergencyFund() {
           {Array.isArray(tips) && tips.map((tip, i) => {
             const Icon = TIP_ICONS[i]
             return (
-              <div key={i} className="rounded-3xl px-4 py-4 flex gap-3" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+              <div key={i} className="rounded-3xl px-4 py-4 flex gap-3" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
                 <div className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center flex-shrink-0">
                   <Icon className="w-4 h-4 text-gray-500" />
                 </div>

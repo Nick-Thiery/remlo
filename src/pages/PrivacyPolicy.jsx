@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, Shield } from 'lucide-react'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const SECTIONS = [
   {
@@ -64,16 +65,20 @@ const SECTIONS = [
 
 export default function PrivacyPolicy() {
   const navigate = useNavigate()
+  const isDark = useDarkMode()
+  const bg   = isDark ? '#121110' : '#FAFAF8'
+  const card = isDark ? '#1E1C1A' : 'white'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-6">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate(-1)}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -94,7 +99,7 @@ export default function PrivacyPolicy() {
         {/* Sections */}
         <div className="space-y-4">
           {SECTIONS.map((section) => (
-            <div key={section.title} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-5 py-5">
+            <div key={section.title} className="rounded-2xl shadow-sm px-5 py-5" style={{ background: card, border: `1px solid ${border2}` }}>
               <h2 className="text-sm font-bold text-gray-900 mb-3">{section.title}</h2>
               <ul className="space-y-2">
                 {section.body.map((item, i) => (

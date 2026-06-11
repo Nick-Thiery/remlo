@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -25,6 +26,11 @@ const GOAL_COLORS = [
 
 export default function Savings() {
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const [goals,   setGoals]   = useState([])
@@ -156,7 +162,7 @@ export default function Savings() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: bg }}>
         <div
           className="w-10 h-10 rounded-full border-[3px] animate-spin"
           style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
@@ -166,7 +172,7 @@ export default function Savings() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Error banner */}
@@ -247,7 +253,7 @@ export default function Savings() {
           {goals.length === 0 ? (
             <div
               className="rounded-3xl px-8 py-14 text-center"
-              style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+              style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
             >
               {/* Empty state illustration */}
               <div
@@ -280,7 +286,7 @@ export default function Savings() {
                 <div
                   key={goal.id}
                   className="rounded-3xl p-6 overflow-hidden"
-                  style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+                  style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
                 >
                   {/* Gradient top strip */}
                   <div
@@ -402,7 +408,7 @@ export default function Savings() {
           <div
             className="w-full max-w-sm p-6 scale-in"
             style={{
-              background: 'white',
+              background: card,
               borderRadius: 24,
               boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
             }}
@@ -430,7 +436,7 @@ export default function Savings() {
                   onChange={(e) => setNewGoalName(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 />
               </div>
               <div>
@@ -446,7 +452,7 @@ export default function Savings() {
                     onChange={(e) => setNewGoalTarget(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
                     className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-                    style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
+                    style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   />
                 </div>
               </div>
@@ -456,7 +462,7 @@ export default function Savings() {
               <button
                 onClick={closeNewGoal}
                 className="flex-1 rounded-2xl py-3 text-sm font-bold text-gray-700 transition-colors"
-                style={{ border: '2px solid #EDE8E0', background: 'white' }}
+                style={{ border: `2px solid ${border2}`, background: card, color: isDark ? '#F5F2EE' : '#374151' }}
               >
                 {t('common.cancel')}
               </button>
@@ -485,7 +491,7 @@ export default function Savings() {
           <div
             className="w-full max-w-sm p-6 scale-in"
             style={{
-              background: 'white',
+              background: card,
               borderRadius: 24,
               boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
             }}
@@ -521,7 +527,7 @@ export default function Savings() {
                   onChange={(e) => setDepositAmount(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddDeposit()}
                   className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 />
               </div>
             </div>
@@ -530,7 +536,7 @@ export default function Savings() {
               <button
                 onClick={closeDeposit}
                 className="flex-1 rounded-2xl py-3 text-sm font-bold text-gray-700 transition-colors"
-                style={{ border: '2px solid #EDE8E0', background: 'white' }}
+                style={{ border: `2px solid ${border2}`, background: card, color: isDark ? '#F5F2EE' : '#374151' }}
               >
                 {t('common.cancel')}
               </button>

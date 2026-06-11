@@ -5,6 +5,7 @@ import { Receipt, ChevronLeft } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -81,6 +82,11 @@ const today = new Date().toISOString().slice(0, 10)
 export default function Loans() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const [loans, setLoans] = useState([])
@@ -212,21 +218,21 @@ export default function Loans() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: bg }}>
         <div className="w-10 h-10 rounded-full border-[3px] animate-spin" style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }} />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
             onClick={() => navigate('/more')}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -277,7 +283,7 @@ export default function Loans() {
 
         {/* Total debt summary */}
         {computed.length > 0 && (
-          <div className="rounded-3xl p-6 mb-6" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+          <div className="rounded-3xl p-6 mb-6" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">{t('loans.totalDebtLabel')}</p>
             <p className="text-3xl font-bold text-gray-900">{formatSGD(totalDebt)}</p>
             <p className="text-sm text-gray-500 mt-1">{t('loans.totalDebtSub', { count: computed.length })}</p>
@@ -286,7 +292,7 @@ export default function Loans() {
 
         {/* Loan cards */}
         {computed.length === 0 ? (
-          <div className="rounded-3xl px-8 py-12 text-center" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+          <div className="rounded-3xl px-8 py-12 text-center" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
             <div className="w-20 h-20 bg-violet-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
               <Receipt className="w-10 h-10 text-violet-400" strokeWidth={1.5} />
             </div>

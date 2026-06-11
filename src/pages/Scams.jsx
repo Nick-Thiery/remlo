@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ShieldCheck, RefreshCw, ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-scam-alerts`
 const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -36,6 +37,11 @@ const today = new Date().toISOString().slice(0, 10)
 export default function Scams() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
 
   const [alerts, setAlerts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -112,7 +118,7 @@ export default function Scams() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
 
       {/* Emergency banner */}
       <div className="sticky top-0 z-30 bg-red-600 px-4 py-3">
@@ -127,8 +133,8 @@ export default function Scams() {
         <div className="flex items-start gap-3 mb-5">
           <button
             onClick={() => navigate('/more')}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0 mt-0.5"
-            style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0 mt-0.5 text-gray-600"
+            style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -151,11 +157,12 @@ export default function Scams() {
             <button
               key={typeId}
               onClick={() => setFilter(typeId)}
-              className={`flex-shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
+              className="flex-shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors"
+              style={
                 filter === typeId
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-white border border-gray-200 text-gray-600'
-              }`}
+                  ? { background: isDark ? '#F5F2EE' : '#111827', color: isDark ? '#111827' : 'white' }
+                  : { background: card, border: `1px solid ${border2}`, color: isDark ? '#9CA3AF' : '#4B5563' }
+              }
             >
               {typeId === 'all' ? t('scams.filterAll') : t(`scams.types.${typeId}`)}
             </button>
@@ -166,7 +173,7 @@ export default function Scams() {
         {loading && (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="rounded-3xl overflow-hidden" style={{ background: 'white', border: '1px solid #F0EDE8' }}>
+              <div key={i} className="rounded-3xl overflow-hidden" style={{ background: card, border: `1px solid ${border}` }}>
                 <div className="h-1 w-full skeleton" />
                 <div className="px-5 py-4 space-y-2">
                   <div className="h-3 w-24 rounded-full skeleton" />
@@ -207,7 +214,7 @@ export default function Scams() {
                 <div
                   key={alert.id}
                   className="rounded-3xl overflow-hidden"
-                  style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+                  style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
                 >
                   {/* Coloured top accent bar */}
                   <div className={`h-1 w-full ${badge.dot}`} />
@@ -245,7 +252,7 @@ export default function Scams() {
 
                   {/* Expanded: what to do + source */}
                   {isExpanded && (
-                    <div className="border-t border-gray-50 px-4 py-4">
+                    <div className="px-4 py-4" style={{ borderTop: `1px solid ${border}` }}>
                       <p className="text-xs font-bold text-gray-900 uppercase tracking-wide mb-3">
                         {t('scams.whatToDoHeading')}
                       </p>
@@ -261,7 +268,7 @@ export default function Scams() {
                       </ul>
 
                       {/* Source attribution */}
-                      <div className="flex items-center gap-2 pt-3 border-t border-gray-50">
+                      <div className="flex items-center gap-2 pt-3" style={{ borderTop: `1px solid ${border}` }}>
                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">{t('scams.sourceLabel')}</span>
                         {alert.source_url ? (
                           <a
@@ -284,8 +291,8 @@ export default function Scams() {
             })}
 
             {visible.length === 0 && (
-              <div className="bg-white rounded-2xl border border-gray-100 px-8 py-10 text-center">
-                <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="rounded-2xl px-8 py-10 text-center" style={{ background: card, border: `1px solid ${border}` }}>
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: isDark ? '#0F2A1A' : '#F0FDF4' }}>
                   <ShieldCheck className="w-8 h-8 text-emerald-400" strokeWidth={1.5} />
                 </div>
                 <p className="font-semibold text-gray-900 mb-1">{t('scams.noAlerts')}</p>
@@ -308,7 +315,7 @@ export default function Scams() {
           className="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 p-4"
           onClick={(e) => e.target === e.currentTarget && closeReport()}
         >
-          <div className="bg-white rounded-2xl w-full max-w-sm shadow-xl max-h-[90vh] overflow-y-auto">
+          <div className="rounded-2xl w-full max-w-sm shadow-xl max-h-[90vh] overflow-y-auto" style={{ background: card }}>
             <div className="bg-red-600 rounded-t-2xl px-6 py-5">
               <h2 className="text-lg font-bold text-white">{t('scams.report.title')}</h2>
               <p className="text-red-100 text-xs mt-0.5">{t('scams.report.subtitle')}</p>

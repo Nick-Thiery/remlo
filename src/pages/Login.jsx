@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase.js'
 import { migrateGuestData } from '../lib/migrateGuestData.js'
 import { track, identifyUser } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const LANGUAGES = [
   { code: 'en',  label: 'English'   },
@@ -25,6 +26,12 @@ const LANGUAGES = [
 function Login() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+  const isDark = useDarkMode()
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#EDE8E0'
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const textPrimary   = isDark ? '#F5F2EE' : '#111827'
+  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
   const [mode, setMode] = useState('login') // 'login' | 'signup'
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
@@ -43,9 +50,10 @@ function Login() {
   }
 
   const inputStyle = {
-    border: '2px solid #EDE8E0',
-    background: '#FAFAF8',
+    border: `2px solid ${border}`,
+    background: bg,
     outline: 'none',
+    color: textPrimary,
   }
 
   async function handleLogin(e) {
@@ -108,7 +116,7 @@ function Login() {
   const isSignup = mode === 'signup'
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'white', overflowY: 'auto' }} onClick={() => setLangOpen(false)}>
+    <div className="min-h-screen flex flex-col" style={{ background: isDark ? '#0A0908' : 'white', overflowY: 'auto' }} onClick={() => setLangOpen(false)}>
 
       {/* Orange gradient hero */}
       <div
@@ -134,8 +142,8 @@ function Login() {
         </div>
       </div>
 
-      {/* White form card curves up over the hero */}
-      <div className="flex-1 flex flex-col rounded-t-[40px] -mt-6 relative z-10" style={{ background: 'white', boxShadow: '0 -4px 24px rgba(0,0,0,0.10)' }}>
+      {/* Form card curves up over the hero */}
+      <div className="flex-1 flex flex-col rounded-t-[40px] -mt-6 relative z-10" style={{ background: card, boxShadow: '0 -4px 24px rgba(0,0,0,0.15)' }}>
         <div className="px-5 pt-6 pb-10">
 
           {/* Language selector — compact row */}
@@ -144,21 +152,22 @@ function Login() {
               <button
                 onClick={() => setLangOpen(o => !o)}
                 className="flex items-center gap-1 rounded-xl px-2.5 py-1.5 transition-colors"
-                style={{ background: '#F3F4F6', border: '1px solid #E5E7EB' }}
+                style={{ background: isDark ? '#2A2724' : '#F3F4F6', border: `1px solid ${border}` }}
               >
-                <span className="text-xs font-bold text-gray-500">{currentLang.label.slice(0, 2).toUpperCase()}</span>
-                <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+                <span className="text-xs font-bold" style={{ color: textSecondary }}>{currentLang.label.slice(0, 2).toUpperCase()}</span>
+                <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} style={{ color: textSecondary }} />
               </button>
               {langOpen && (
                 <div
-                  className="absolute right-0 mt-1.5 w-40 bg-white rounded-2xl py-1.5 z-20 max-h-52 overflow-y-auto"
-                  style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.14)', border: '1px solid #E5E7EB' }}
+                  className="absolute right-0 mt-1.5 w-40 rounded-2xl py-1.5 z-20 max-h-52 overflow-y-auto"
+                  style={{ background: card, boxShadow: '0 8px 32px rgba(0,0,0,0.2)', border: `1px solid ${border}` }}
                 >
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
                       onClick={() => switchLang(l.code)}
-                      className={`w-full text-left px-4 py-2 text-sm transition-colors hover:bg-orange-50 ${l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'}`}
+                      className="w-full text-left px-4 py-2 text-sm transition-colors"
+                      style={{ color: l.code === i18n.language ? '#E8640C' : textSecondary, fontWeight: l.code === i18n.language ? 700 : 400 }}
                     >
                       {l.label}
                     </button>
@@ -168,10 +177,10 @@ function Login() {
             </div>
           </div>
 
-          <h2 className="text-xl font-extrabold mb-0.5 tracking-tight" style={{ color: '#111827' }}>
+          <h2 className="text-xl font-extrabold mb-0.5 tracking-tight" style={{ color: textPrimary }}>
             {isSignup ? t('login.createAccountTitle') : t('login.welcomeBack')}
           </h2>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm mb-6" style={{ color: textSecondary }}>
             {isSignup ? t('login.createAccountDesc') : t('login.signInDesc')}
           </p>
 
@@ -242,38 +251,38 @@ function Login() {
             <button
               onClick={() => switchMode(isSignup ? 'login' : 'signup')}
               className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98]"
-              style={{ border: '2px solid #EDE8E0', background: 'white', color: '#374151' }}
+              style={{ border: `2px solid ${border}`, background: card, color: isDark ? '#D1D5DB' : '#374151' }}
             >
               {isSignup ? t('login.switchToLogin') : t('login.switchToSignup')}
             </button>
 
             <div className="relative flex items-center gap-3 py-1">
-              <div className="flex-1 h-px" style={{ background: '#EDE8E0' }} />
-              <span className="text-xs text-gray-400 font-semibold">{t('login.or')}</span>
-              <div className="flex-1 h-px" style={{ background: '#EDE8E0' }} />
+              <div className="flex-1 h-px" style={{ background: border }} />
+              <span className="text-xs font-semibold" style={{ color: textSecondary }}>{t('login.or')}</span>
+              <div className="flex-1 h-px" style={{ background: border }} />
             </div>
 
             <button
               onClick={handleGuest}
               disabled={loading}
               className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-60"
-              style={{ border: '2px dashed #D4CFC8', background: '#FAFAF8', color: '#6B7280' }}
+              style={{ border: `2px dashed ${isDark ? '#3C3835' : '#D4CFC8'}`, background: bg, color: textSecondary }}
             >
               {t('login.continueGuest')}
             </button>
           </div>
 
-          <p className="text-xs text-gray-400 text-center mt-5 leading-relaxed">
+          <p className="text-xs text-center mt-5 leading-relaxed" style={{ color: textSecondary }}>
             {t('login.guestNote')}
             <br />{t('login.guestSyncNote')}
           </p>
 
           <div className="flex items-center justify-center gap-4 mt-4">
-            <Link to="/privacy" className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors">
+            <Link to="/privacy" className="text-xs underline underline-offset-2 transition-colors" style={{ color: textSecondary }}>
               {t('login.privacyPolicy')}
             </Link>
-            <span className="text-gray-200 text-xs">·</span>
-            <Link to="/terms" className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors">
+            <span className="text-xs" style={{ color: isDark ? '#4B5563' : '#E5E7EB' }}>·</span>
+            <Link to="/terms" className="text-xs underline underline-offset-2 transition-colors" style={{ color: textSecondary }}>
               {t('login.termsOfService')}
             </Link>
           </div>

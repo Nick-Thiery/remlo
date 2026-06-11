@@ -5,6 +5,7 @@ import { Banknote, ChevronLeft, Plus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -56,6 +57,11 @@ const today = toYYYYMMDD(new Date())
 export default function Salary() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const [payments, setPayments] = useState([])
@@ -191,7 +197,7 @@ export default function Salary() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: bg }}>
         <div
           className="w-10 h-10 rounded-full border-[3px] animate-spin"
           style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
@@ -201,7 +207,7 @@ export default function Salary() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
@@ -209,7 +215,7 @@ export default function Salary() {
           <button
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0"
-            style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+            style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4 text-gray-600" />
           </button>
@@ -245,7 +251,7 @@ export default function Salary() {
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div
             className="rounded-3xl p-5"
-            style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+            style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
           >
             <p className="text-xs text-gray-400 mb-1 font-semibold">{t('salary.monthEarnings', { month: monthName })}</p>
             <p className="text-xl font-extrabold text-gray-900 tabular-nums">{formatSGD(earnedThisMonth)}</p>
@@ -253,7 +259,7 @@ export default function Salary() {
           </div>
           <div
             className="rounded-3xl p-5"
-            style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+            style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
           >
             <p className="text-xs text-gray-400 mb-1 font-semibold">{t('salary.yearEarnings', { year: thisYear })}</p>
             <p className="text-xl font-extrabold text-gray-900 tabular-nums">{formatSGD(earnedThisYear)}</p>
@@ -287,7 +293,7 @@ export default function Salary() {
         {/* Payday setting */}
         <div
           className="rounded-3xl p-5 mb-6"
-          style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
         >
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{t('salary.paydaySetting')}</p>
           <div className="flex items-center gap-3">
@@ -297,7 +303,7 @@ export default function Salary() {
                 value={payday}
                 onChange={(e) => handlePaydayChange(Number(e.target.value))}
                 className="rounded-xl pl-3 pr-8 py-2.5 text-sm font-bold appearance-none"
-                style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none', color: '#1A1A1A' }}
+                style={{ border: '2px solid #EDE8E0', background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
               >
                 {Array.from({ length: 28 }, (_, i) => i + 1).map((d) => (
                   <option key={d} value={d}>{d}</option>
@@ -318,7 +324,7 @@ export default function Salary() {
         {sorted.length === 0 ? (
           <div
             className="rounded-3xl px-8 py-14 text-center"
-            style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+            style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
           >
             <div
               className="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-5"
@@ -351,8 +357,8 @@ export default function Salary() {
                   key={p.id}
                   className="rounded-3xl overflow-hidden transition-all"
                   style={{
-                    background: 'white',
-                    border: late ? '1px solid #FECACA' : '1px solid #F0EDE8',
+                    background: card,
+                    border: late ? '1px solid #FECACA' : `1px solid ${border}`,
                     boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
                   }}
                 >
@@ -385,7 +391,7 @@ export default function Salary() {
                   </button>
 
                   {isExpanded && (
-                    <div className="px-5 pb-4" style={{ borderTop: '1px solid #F5F2ED' }}>
+                    <div className="px-5 pb-4" style={{ borderTop: `1px solid ${isDark ? '#252220' : '#F5F2ED'}` }}>
                       <div className="pt-3 space-y-3">
                         {p.note ? (
                           <div>
@@ -430,7 +436,7 @@ export default function Salary() {
         >
           <div
             className="w-full max-w-sm p-6 scale-in"
-            style={{ background: 'white', borderRadius: 24, boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}
+            style={{ background: card, borderRadius: 24, boxShadow: '0 24px 64px rgba(0,0,0,0.2)' }}
           >
             <h2 className="text-lg font-extrabold text-gray-900 mb-0.5 tracking-tight">{t('salary.modalTitle')}</h2>
             <p className="text-sm text-gray-500 mb-5">{t('salary.modalDesc')}</p>
@@ -444,7 +450,7 @@ export default function Salary() {
                   max={today}
                   onChange={(e) => setFDate(e.target.value)}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
-                  style={{ border: `2px solid ${errors.date ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF8', outline: 'none' }}
+                  style={{ border: `2px solid ${errors.date ? '#FCA5A5' : '#EDE8E0'}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 />
                 {errors.date && <p className="text-xs text-red-500 mt-1 font-medium">{errors.date}</p>}
               </div>
@@ -461,7 +467,7 @@ export default function Salary() {
                     value={fAmount}
                     onChange={(e) => setFAmount(e.target.value)}
                     className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-                    style={{ border: `2px solid ${errors.amount ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF8', outline: 'none' }}
+                    style={{ border: `2px solid ${errors.amount ? '#FCA5A5' : '#EDE8E0'}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   />
                 </div>
                 {errors.amount && <p className="text-xs text-red-500 mt-1 font-medium">{errors.amount}</p>}
@@ -475,7 +481,7 @@ export default function Salary() {
                   value={fEmployer}
                   onChange={(e) => setFEmployer(e.target.value)}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
-                  style={{ border: `2px solid ${errors.employer ? '#FCA5A5' : '#EDE8E0'}`, background: '#FAFAF8', outline: 'none' }}
+                  style={{ border: `2px solid ${errors.employer ? '#FCA5A5' : '#EDE8E0'}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 />
                 {errors.employer && <p className="text-xs text-red-500 mt-1 font-medium">{errors.employer}</p>}
               </div>
@@ -490,7 +496,7 @@ export default function Salary() {
                   onChange={(e) => setFNote(e.target.value)}
                   rows={2}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium resize-none"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
+                  style={{ border: '2px solid #EDE8E0', background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 />
               </div>
             </div>
@@ -499,7 +505,7 @@ export default function Salary() {
               <button
                 onClick={closeForm}
                 className="flex-1 rounded-2xl py-3 text-sm font-bold text-gray-700"
-                style={{ border: '2px solid #EDE8E0', background: 'white' }}
+                style={{ border: `2px solid ${border2}`, background: card, color: isDark ? '#F5F2EE' : '#374151' }}
               >
                 {t('common.cancel')}
               </button>

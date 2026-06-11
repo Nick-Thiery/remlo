@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 // Weights stay in component — not translatable, just numeric
 const FLAG_WEIGHTS = {
@@ -51,6 +52,11 @@ const LEGAL_ICONS = ['🏢', '📋', '🪪', '💰', '📣', '🔒', '🤝']
 export default function LoanShark() {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg   = isDark ? '#121110' : '#FAFAF8'
+  const card = isDark ? '#1E1C1A' : 'white'
+  const border  = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const [checked, setChecked] = useState(new Set())
   const [showAll, setShowAll] = useState(false)
 
@@ -82,14 +88,14 @@ export default function LoanShark() {
   const visibleFlags = showAll ? flags : flags.slice(0, VISIBLE_LIMIT)
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-2">
           <button
             onClick={() => navigate('/more')}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: 'white', border: '1px solid #EDE8E0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
+            className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -207,7 +213,7 @@ export default function LoanShark() {
         <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">
           {t('loanshark.legalTitle')}
         </p>
-        <div className="rounded-3xl p-5 mb-6" style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}>
+        <div className="rounded-3xl p-5 mb-6" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
           <p className="text-sm text-gray-600 mb-4 leading-relaxed">{t('loanshark.legalDesc')}</p>
           <div className="space-y-3">
             {legalFacts.map((fact, i) => (

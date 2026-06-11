@@ -5,6 +5,9 @@
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
+/* ── Dark mode variant ─────────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ── Brand tokens ──────────────────────────────────────────────────── */
 :root {
   --brand-primary: #E8640C;
@@ -17,6 +20,16 @@
   --border-subtle: #F0EDE8;
   --shadow-card:   0 2px 16px rgba(0, 0, 0, 0.06);
   --shadow-deep:   0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.dark {
+  --bg-base:       #121110;
+  --bg-card:       #1E1C1A;
+  --text-primary:  #F5F2EE;
+  --text-secondary:#9CA3AF;
+  --border-subtle: #2C2926;
+  --shadow-card:   0 2px 16px rgba(0, 0, 0, 0.3);
+  --shadow-deep:   0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 /* ── Animations ────────────────────────────────────────────────────── */
@@ -60,6 +73,10 @@
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
+.dark .skeleton {
+  background: linear-gradient(90deg, #2a2724 25%, #332f2b 50%, #2a2724 75%);
+  background-size: 200% 100%;
+}
 
 /* ── Premium card ─────────────────────────────────────────────────── */
 .card {
@@ -68,6 +85,23 @@
   box-shadow: var(--shadow-card);
   border: 1px solid var(--border-subtle);
 }
+
+/* ── Dark mode Tailwind overrides ──────────────────────────────────── */
+.dark .text-gray-900 { color: #F5F2EE; }
+.dark .text-gray-800 { color: #E5E1DC; }
+.dark .text-gray-700 { color: #D1CDC8; }
+.dark .text-gray-600 { color: #B8B4AF; }
+.dark .text-gray-500 { color: #9CA3AF; }
+.dark .text-gray-400 { color: #6B7280; }
+.dark .text-gray-300 { color: #4B5563; }
+.dark .text-gray-200 { color: #374151; }
+.dark .bg-white      { background-color: #1E1C1A; }
+.dark .bg-gray-50    { background-color: #1A1816; }
+.dark .bg-gray-100   { background-color: #252220; }
+.dark .border-gray-50  { border-color: #2C2926; }
+.dark .border-gray-100 { border-color: #2C2926; }
+.dark .border-gray-200 { border-color: #3A3835; }
+.dark .hover\:bg-orange-50:hover { background-color: #2A1A0A; }
 
 /* ── Hide scrollbar ────────────────────────────────────────────────── */
 .scrollbar-none {

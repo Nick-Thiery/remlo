@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -25,9 +26,9 @@ const SEGMENT_COLORS = [
   { bar: 'bg-orange-500',  dot: 'bg-orange-500',  text: 'text-orange-600',  light: 'bg-orange-50',  svgColor: '#f97316' },
 ]
 
-function StackedBar({ segments }) {
+function StackedBar({ segments, trackBg = '#F0EDE8' }) {
   return (
-    <div className="flex w-full h-3 rounded-full overflow-hidden gap-px" style={{ background: '#F0EDE8' }}>
+    <div className="flex w-full h-3 rounded-full overflow-hidden gap-px" style={{ background: trackBg }}>
       {segments.map((seg, i) =>
         seg.pct > 0 ? (
           <div
@@ -42,7 +43,7 @@ function StackedBar({ segments }) {
   )
 }
 
-function DonutChart({ slices, size = 160 }) {
+function DonutChart({ slices, size = 160, centerFill = 'white' }) {
   const r = 54
   const cx = size / 2
   const cy = size / 2
@@ -76,13 +77,19 @@ function DonutChart({ slices, size = 160 }) {
       {paths.map((p, i) => (
         <path key={i} d={p.d} fill={p.color} />
       ))}
-      <circle cx={cx} cy={cy} r={r * 0.62} fill="white" />
+      <circle cx={cx} cy={cy} r={r * 0.62} fill={centerFill} />
     </svg>
   )
 }
 
 export default function Budget() {
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
+  const trackBg = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const PRESET_EXPENSES = useMemo(() => [
@@ -247,7 +254,7 @@ export default function Budget() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: bg }}>
         <div
           className="w-10 h-10 rounded-full border-[3px] animate-spin"
           style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
@@ -257,12 +264,12 @@ export default function Budget() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('budget.pageTitle')}</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">{t('budget.pageTitle')}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{t('budget.pageSubtitle')}</p>
         </div>
 
@@ -280,7 +287,7 @@ export default function Budget() {
         {/* Income input */}
         <div
           className="rounded-3xl p-6 mb-4"
-          style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
         >
           <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.incomeLabel')}</label>
           <div className="relative">
@@ -292,8 +299,8 @@ export default function Budget() {
               value={income}
               onChange={(e) => setIncome(e.target.value)}
               onBlur={() => saveBudget(income, expenses)}
-              className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
-              style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
+              className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium text-gray-900"
+              style={{ border: `2px solid ${border2}`, background: bg, outline: 'none' }}
               placeholder="0"
             />
           </div>
@@ -304,19 +311,19 @@ export default function Budget() {
           <div className="grid grid-cols-3 gap-3 mb-4">
             <div
               className="rounded-2xl p-4"
-              style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
+              style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
             >
               <p className="text-xs text-gray-400 mb-1 font-semibold">{t('budget.summaryIncome')}</p>
               <p className="text-base font-extrabold text-gray-900 tabular-nums">{formatSGD(monthlyIncome)}</p>
             </div>
             <div
               className="rounded-2xl p-4"
-              style={{ background: 'white', boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
+              style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
             >
               <p className="text-xs text-gray-400 mb-1 font-semibold">{t('budget.summaryExpenses')}</p>
               <p
                 className="text-base font-extrabold tabular-nums"
-                style={{ color: isOverBudget ? '#DC2626' : '#1A1A1A' }}
+                style={{ color: isOverBudget ? '#DC2626' : isDark ? '#F5F2EE' : '#1A1A1A' }}
               >
                 {formatSGD(totalExpenses)}
               </p>
@@ -324,8 +331,8 @@ export default function Budget() {
             <div
               className="rounded-2xl p-4"
               style={{
-                background: isOverBudget ? '#FEF2F2' : '#F0FDF4',
-                border: isOverBudget ? '1px solid #FECACA' : '1px solid #BBF7D0',
+                background: isOverBudget ? (isDark ? '#2D1515' : '#FEF2F2') : (isDark ? '#0F2A1A' : '#F0FDF4'),
+                border: isOverBudget ? (isDark ? '1px solid #4B2020' : '1px solid #FECACA') : (isDark ? '1px solid #1A4A2A' : '1px solid #BBF7D0'),
                 boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
               }}
             >
@@ -344,13 +351,13 @@ export default function Budget() {
         {monthlyIncome > 0 && expenses.length > 0 && (
           <div
             className="rounded-3xl p-6 mb-4"
-            style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+            style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
           >
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">{t('budget.breakdownTitle')}</p>
 
             <div className="flex items-center gap-6">
               <div className="flex-shrink-0">
-                <DonutChart slices={donutSlices} size={140} />
+                <DonutChart slices={donutSlices} size={140} centerFill={card} />
               </div>
 
               <div className="flex-1 min-w-0 space-y-2.5">
@@ -382,7 +389,7 @@ export default function Budget() {
             </div>
 
             <div className="mt-5">
-              <StackedBar segments={barSegments} />
+              <StackedBar segments={barSegments} trackBg={trackBg} />
             </div>
           </div>
         )}
@@ -390,7 +397,7 @@ export default function Budget() {
         {/* Expenses list */}
         <div
           className="rounded-3xl p-6 mb-4"
-          style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
         >
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5">{t('budget.expensesTitle')}</p>
 
@@ -398,7 +405,7 @@ export default function Budget() {
             <div className="flex flex-col items-center py-6 text-center">
               <div
                 className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3"
-                style={{ background: '#EFF6FF' }}
+                style={{ background: isDark ? '#1A2A40' : '#EFF6FF' }}
               >
                 <ListPlus className="w-6 h-6 text-blue-400" strokeWidth={1.5} />
               </div>
@@ -413,7 +420,7 @@ export default function Budget() {
                   <div
                     key={e._key}
                     className="flex items-center justify-between py-3"
-                    style={{ borderBottom: '1px solid #F5F2ED' }}
+                    style={{ borderBottom: `1px solid ${isDark ? '#252220' : '#F5F2ED'}` }}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span className={`w-2 h-2 rounded-full flex-shrink-0 ${c.dot}`} />
@@ -462,7 +469,7 @@ export default function Budget() {
                         onClick={() => removeExpense(e._key)}
                         aria-label="Remove"
                         className="w-7 h-7 flex items-center justify-center rounded-full text-gray-300 hover:text-rose-400 transition-all text-lg"
-                        style={{ background: '#F9F7F4' }}
+                        style={{ background: isDark ? '#2A2724' : '#F9F7F4' }}
                       >
                         ×
                       </button>
@@ -486,9 +493,10 @@ export default function Budget() {
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
                   className="w-full rounded-xl px-3 py-2.5 text-sm font-medium"
                   style={{
-                    border: `2px solid ${nameError ? '#FCA5A5' : '#EDE8E0'}`,
-                    background: '#FAFAF8',
+                    border: `2px solid ${nameError ? '#FCA5A5' : border2}`,
+                    background: bg,
                     outline: 'none',
+                    color: isDark ? '#F5F2EE' : '#1A1A1A',
                   }}
                 />
               </div>
@@ -504,9 +512,10 @@ export default function Budget() {
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
                   className="w-full rounded-xl pl-7 pr-2 py-2.5 text-sm font-medium"
                   style={{
-                    border: `2px solid ${amountError ? '#FCA5A5' : '#EDE8E0'}`,
-                    background: '#FAFAF8',
+                    border: `2px solid ${amountError ? '#FCA5A5' : border2}`,
+                    background: bg,
                     outline: 'none',
+                    color: isDark ? '#F5F2EE' : '#1A1A1A',
                   }}
                 />
               </div>
@@ -531,13 +540,13 @@ export default function Budget() {
         {suggested && (
           <div
             className="rounded-3xl p-6"
-            style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+            style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
           >
             <div className="flex items-start justify-between mb-1">
               <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('budget.guideTitle')}</p>
               <span
                 className="text-xs font-bold px-2 py-0.5 rounded-full"
-                style={{ background: '#EFF6FF', color: '#1D4ED8' }}
+                style={{ background: isDark ? '#1A2A40' : '#EFF6FF', color: isDark ? '#93C5FD' : '#1D4ED8' }}
               >
                 {t('budget.guideBadge')}
               </span>
@@ -554,7 +563,7 @@ export default function Budget() {
                   </div>
                   <span className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(suggested.needs)}</span>
                 </div>
-                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8E0' }}>
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: trackBg }}>
                   <div
                     className="h-1.5 rounded-full transition-all duration-500"
                     style={{
@@ -580,7 +589,7 @@ export default function Budget() {
                   </div>
                   <span className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(suggested.remittance)}</span>
                 </div>
-                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8E0' }}>
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: trackBg }}>
                   <div className="h-1.5 rounded-full bg-violet-500" style={{ width: '30%' }} />
                 </div>
                 <p className="text-xs text-gray-400 mt-1 font-medium">{t('budget.sendHomeDesc')}</p>
@@ -595,7 +604,7 @@ export default function Budget() {
                   </div>
                   <span className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(suggested.savings)}</span>
                 </div>
-                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8E0' }}>
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: trackBg }}>
                   <div
                     className="h-1.5 rounded-full transition-all duration-500"
                     style={{

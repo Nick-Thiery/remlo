@@ -4,6 +4,7 @@ import { Send, Sparkles, Mic, MicOff } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { track } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const SYSTEM_PROMPT =
   'You are a friendly financial assistant built by Remlo, an app helping workers in Singapore manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. If someone describes a loan shark or scam situation, provide the MOM helpline 1800-333-1313 and tell them to contact police if in danger.'
@@ -38,6 +39,14 @@ function TypingDots() {
 
 export default function Chat() {
   const { t, i18n } = useTranslation()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const header = isDark ? '#1E1C1A' : 'white'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
+  const textPrimary   = isDark ? '#F5F2EE' : '#1A1A1A'
+  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -132,12 +141,12 @@ export default function Chat() {
   return (
     <div
       className="flex flex-col"
-      style={{ height: 'calc(100dvh - 65px)', background: '#FAFAF8' }}
+      style={{ height: 'calc(100dvh - 65px)', background: bg }}
     >
       {/* ── Header ────────────────────────────────────────────────── */}
       <div
         className="flex-shrink-0 flex items-center justify-between px-4 py-3"
-        style={{ background: 'white', borderBottom: '1px solid #F0EDE8', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+        style={{ background: header, borderBottom: `1px solid ${border}`, boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.04)' }}
       >
         <div className="flex items-center gap-3">
           <div
@@ -147,15 +156,15 @@ export default function Chat() {
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="text-sm font-extrabold text-gray-900 leading-tight">{t('chat.pageTitle')}</p>
-            <p className="text-xs text-gray-400 leading-tight font-medium">{t('chat.pageSubtitle')}</p>
+            <p className="text-sm font-extrabold leading-tight" style={{ color: textPrimary }}>{t('chat.pageTitle')}</p>
+            <p className="text-xs leading-tight font-medium" style={{ color: textSecondary }}>{t('chat.pageSubtitle')}</p>
           </div>
         </div>
 
         {/* Language switcher */}
         <div
           className="flex gap-0.5 p-0.5 rounded-xl"
-          style={{ background: '#F5F2EC' }}
+          style={{ background: isDark ? '#2A2724' : '#F5F2EC' }}
         >
           {LANGUAGES.map((l) => (
             <button
@@ -163,9 +172,9 @@ export default function Chat() {
               onClick={() => switchLang(l.code)}
               className="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all"
               style={{
-                background: i18n.language === l.code ? 'white' : 'transparent',
-                color: i18n.language === l.code ? '#E8640C' : '#9CA3AF',
-                boxShadow: i18n.language === l.code ? '0 1px 4px rgba(0,0,0,0.08)' : 'none',
+                background: i18n.language === l.code ? (isDark ? '#3A3632' : 'white') : 'transparent',
+                color: i18n.language === l.code ? '#E8640C' : textSecondary,
+                boxShadow: i18n.language === l.code ? '0 1px 4px rgba(0,0,0,0.12)' : 'none',
               }}
             >
               {l.label}
@@ -188,8 +197,8 @@ export default function Chat() {
             >
               <Sparkles className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-xl font-extrabold text-gray-900 mb-2 tracking-tight">{t('chat.emptyTitle')}</h2>
-            <p className="text-sm text-gray-500 mb-7 leading-relaxed max-w-xs font-medium">
+            <h2 className="text-xl font-extrabold mb-2 tracking-tight" style={{ color: textPrimary }}>{t('chat.emptyTitle')}</h2>
+            <p className="text-sm mb-7 leading-relaxed max-w-xs font-medium" style={{ color: textSecondary }}>
               {t('chat.emptySubtitle')}
             </p>
 
@@ -201,9 +210,9 @@ export default function Chat() {
                   disabled={isLoading}
                   className="text-left text-sm rounded-2xl px-4 py-3.5 font-medium transition-all active:scale-[0.98] disabled:opacity-40"
                   style={{
-                    background: 'white',
-                    border: '1px solid #EDE8E0',
-                    color: '#374151',
+                    background: card,
+                    border: `1px solid ${border2}`,
+                    color: isDark ? '#D1D5DB' : '#374151',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                   }}
                 >
@@ -241,8 +250,8 @@ export default function Chat() {
                           boxShadow: '0 4px 12px rgba(232,100,12,0.25)',
                         }
                       : msg.isError
-                      ? { background: '#FEF2F2', color: '#DC2626', border: '1px solid #FECACA', borderBottomLeftRadius: 4 }
-                      : { background: 'white', color: '#1A1A1A', border: '1px solid #F0EDE8', borderBottomLeftRadius: 4, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }
+                      ? { background: isDark ? '#2D1515' : '#FEF2F2', color: '#DC2626', border: `1px solid ${isDark ? '#4B2020' : '#FECACA'}`, borderBottomLeftRadius: 4 }
+                      : { background: card, color: textPrimary, border: `1px solid ${border}`, borderBottomLeftRadius: 4, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }
                   }
                 >
                   {msg.role === 'user' ? (
@@ -278,8 +287,8 @@ export default function Chat() {
                 <div
                   className="rounded-2xl px-4 py-3"
                   style={{
-                    background: 'white',
-                    border: '1px solid #F0EDE8',
+                    background: card,
+                    border: `1px solid ${border}`,
                     borderBottomLeftRadius: 4,
                     boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                   }}
@@ -297,7 +306,7 @@ export default function Chat() {
       {/* ── Input area ────────────────────────────────────────────── */}
       <div
         className="flex-shrink-0 px-4 pt-3 pb-4"
-        style={{ background: 'white', borderTop: '1px solid #F0EDE8' }}
+        style={{ background: header, borderTop: `1px solid ${border}` }}
       >
         {/* Suggestion chips */}
         {hasMessages && messages.length <= 2 && !isLoading && (
@@ -308,7 +317,7 @@ export default function Chat() {
                 onClick={() => send(q)}
                 disabled={isLoading}
                 className="flex-shrink-0 text-xs rounded-full px-3.5 py-1.5 font-semibold transition-colors disabled:opacity-40"
-                style={{ background: '#FFF7ED', color: '#C2410C', border: '1px solid #FED7AA' }}
+                style={{ background: isDark ? '#2A1A0A' : '#FFF7ED', color: isDark ? '#FB923C' : '#C2410C', border: isDark ? '1px solid #4B2D0A' : '1px solid #FED7AA' }}
               >
                 {q}
               </button>
@@ -332,10 +341,10 @@ export default function Chat() {
             disabled={isLoading}
             className="flex-1 rounded-2xl px-4 py-3 text-sm font-medium transition-all disabled:opacity-50"
             style={{
-              border: isRecording ? '2px solid #FCA5A5' : '2px solid #EDE8E0',
-              background: isRecording ? '#FFF5F5' : '#FAFAF8',
+              border: isRecording ? '2px solid #FCA5A5' : `2px solid ${border2}`,
+              background: isRecording ? (isDark ? '#2D1515' : '#FFF5F5') : bg,
               outline: 'none',
-              color: '#1A1A1A',
+              color: textPrimary,
             }}
           />
 
@@ -346,8 +355,8 @@ export default function Chat() {
               aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
               className="rounded-2xl px-3 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"
               style={{
-                background: isRecording ? '#EF4444' : '#F5F2EC',
-                color: isRecording ? 'white' : '#6B7280',
+                background: isRecording ? '#EF4444' : (isDark ? '#2A2724' : '#F5F2EC'),
+                color: isRecording ? 'white' : textSecondary,
                 boxShadow: isRecording ? '0 4px 12px rgba(239,68,68,0.3)' : 'none',
               }}
             >
@@ -376,7 +385,7 @@ export default function Chat() {
           </button>
         </div>
 
-        <p className="text-xs text-gray-400 text-center mt-2 font-medium">{t('chat.disclaimer')}</p>
+        <p className="text-xs text-center mt-2 font-medium" style={{ color: textSecondary }}>{t('chat.disclaimer')}</p>
       </div>
     </div>
   )

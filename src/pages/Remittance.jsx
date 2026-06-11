@@ -3,6 +3,7 @@ import { ArrowLeftRight, RefreshCw, WifiOff, Zap } from 'lucide-react'
 import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 import safeStorage from '../lib/safeStorage.js'
+import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const COUNTRIES = {
   IN: { currency: 'INR', flag: '🇮🇳', symbol: '₹',   nameKey: 'countryIndia'       },
@@ -71,6 +72,11 @@ function formatTime(date) {
 
 export default function Remittance() {
   const { t } = useTranslation()
+  const isDark = useDarkMode()
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const [sendAmount, setSendAmount] = useState('500')
   const defaultCountry = (() => {
     const saved = safeStorage.getItem('remlo_country') || 'IN'
@@ -129,7 +135,7 @@ export default function Remittance() {
   const bestId = results[0]?.id
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }}>
+    <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
@@ -168,7 +174,7 @@ export default function Remittance() {
         {/* Input card */}
         <div
           className="rounded-3xl p-6 mb-6"
-          style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+          style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
         >
           <div className="space-y-4">
             {/* SGD amount */}
@@ -184,7 +190,7 @@ export default function Remittance() {
                   onChange={(e) => setSendAmount(e.target.value)}
                   onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { amount: parseFloat(sendAmount), destination_country: country }) }}
                   className="w-full rounded-2xl pl-10 pr-4 py-3.5 text-sm font-bold"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none' }}
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   placeholder="0"
                 />
               </div>
@@ -199,7 +205,7 @@ export default function Remittance() {
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                   className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-bold appearance-none"
-                  style={{ border: '2px solid #EDE8E0', background: '#FAFAF8', outline: 'none', color: '#1A1A1A' }}
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 >
                   {Object.entries(COUNTRIES).map(([code, c]) => (
                     <option key={code} value={code}>
@@ -222,7 +228,7 @@ export default function Remittance() {
               <div
                 key={i}
                 className="rounded-3xl p-6 animate-pulse"
-                style={{ background: 'white', border: '1px solid #F0EDE8' }}
+                style={{ background: card, border: `1px solid ${border}` }}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -259,7 +265,7 @@ export default function Remittance() {
               {amount <= 0 ? (
                 <div
                   className="rounded-3xl px-8 py-14 text-center"
-                  style={{ background: 'white', boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: '1px solid #F0EDE8' }}
+                  style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}
                 >
                   <div
                     className="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-5"
@@ -279,8 +285,8 @@ export default function Remittance() {
                       key={p.id}
                       className="rounded-3xl overflow-hidden transition-all"
                       style={{
-                        background: 'white',
-                        border: isBest ? '2px solid #E8640C' : '1px solid #F0EDE8',
+                        background: card,
+                        border: isBest ? '2px solid #E8640C' : `1px solid ${border}`,
                         boxShadow: isBest ? '0 4px 20px rgba(232,100,12,0.15)' : '0 2px 12px rgba(0,0,0,0.05)',
                       }}
                     >

@@ -2,11 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <style>html, body, #root { margin: 0; padding: 0; background: #ffffff; }</style>
+    <style>
+      html, body, #root { margin: 0; padding: 0; background: #ffffff; }
+      @media (prefers-color-scheme: dark) { html, body, #root { background: #121110; } }
+    </style>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/pwa-192x192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)" />
     <meta name="description" content="Smart financial tools for everyone in Singapore" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />

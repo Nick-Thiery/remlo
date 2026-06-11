@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useDarkMode } from './hooks/useDarkMode.js'
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Onboarding from './pages/Onboarding.jsx'
 import { useTranslation } from 'react-i18next'
@@ -133,6 +134,7 @@ function BottomTabBar() {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
+  const isDark = useDarkMode()
 
   const MORE_SUB_PATHS = MORE_ITEMS.map((m) => m.path)
   const onMoreSection = location.pathname === '/more' || MORE_SUB_PATHS.includes(location.pathname)
@@ -140,10 +142,10 @@ function BottomTabBar() {
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40">
       <div
-        className="bg-white backdrop-blur-xl"
         style={{
-          borderTop: '1px solid rgba(240, 237, 232, 0.8)',
-          boxShadow: '0 -4px 24px rgba(0,0,0,0.07)',
+          background: isDark ? '#1E1C1A' : 'white',
+          borderTop: isDark ? '1px solid rgba(44,41,38,0.8)' : '1px solid rgba(240, 237, 232, 0.8)',
+          boxShadow: isDark ? '0 -4px 24px rgba(0,0,0,0.3)' : '0 -4px 24px rgba(0,0,0,0.07)',
         }}
       >
         <div className="flex items-stretch px-1">
@@ -160,7 +162,7 @@ function BottomTabBar() {
                   style={{
                     width: 26,
                     height: 26,
-                    color: active ? '#E8640C' : '#9CA3AF',
+                    color: active ? '#E8640C' : isDark ? '#6B7280' : '#9CA3AF',
                     transition: 'color 0.15s',
                   }}
                   fill="none"
@@ -168,7 +170,7 @@ function BottomTabBar() {
                 />
                 <span
                   className="text-[10px] leading-none font-semibold transition-colors"
-                  style={{ color: active ? '#E8640C' : '#9CA3AF' }}
+                  style={{ color: active ? '#E8640C' : isDark ? '#6B7280' : '#9CA3AF' }}
                 >
                   {t(`nav.${key}`)}
                 </span>
@@ -190,6 +192,13 @@ function MorePage() {
   const navigate = useNavigate()
   const [langOpen, setLangOpen] = useState(false)
   const isGuest = safeStorage.getItem('remlo_guest') === 'true'
+  const isDark = useDarkMode()
+
+  const bg     = isDark ? '#121110' : '#FAFAF8'
+  const card   = isDark ? '#1E1C1A' : 'white'
+  const border = isDark ? '#2C2926' : '#F0EDE8'
+  const textPrimary   = isDark ? '#F5F2EE' : '#111827'
+  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
@@ -209,13 +218,13 @@ function MorePage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#FAFAF8' }} onClick={() => setLangOpen(false)}>
+    <div className="min-h-screen" style={{ background: bg }} onClick={() => setLangOpen(false)}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Heading */}
         <div className="mb-7">
-          <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('nav.moreHeading')}</h1>
-          <p className="text-sm text-gray-500 mt-1">{t('nav.moreDesc')}</p>
+          <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('nav.moreHeading')}</h1>
+          <p className="text-sm mt-1" style={{ color: textSecondary }}>{t('nav.moreDesc')}</p>
         </div>
 
         {/* Page links */}
@@ -224,10 +233,11 @@ function MorePage() {
             <button
               key={path}
               onClick={() => navigate(path)}
-              className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-white active:scale-[0.98] transition-all"
+              className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl active:scale-[0.98] transition-all"
               style={{
+                background: card,
                 boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
-                border: '1px solid #F0EDE8',
+                border: `1px solid ${border}`,
               }}
             >
               <div
@@ -236,43 +246,48 @@ function MorePage() {
                 <Icon className="w-5 h-5 text-white" strokeWidth={2} />
               </div>
               <div className="flex-1 text-left min-w-0">
-                <p className="text-sm font-bold text-gray-900">{t(`moreItems.${key}.label`)}</p>
-                <p className="text-xs text-gray-500 mt-0.5 truncate">{t(`moreItems.${key}.desc`)}</p>
+                <p className="text-sm font-bold" style={{ color: textPrimary }}>{t(`moreItems.${key}.label`)}</p>
+                <p className="text-xs mt-0.5 truncate" style={{ color: textSecondary }}>{t(`moreItems.${key}.desc`)}</p>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
+              <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: isDark ? '#4B5563' : '#D1D5DB' }} />
             </button>
           ))}
         </div>
 
         {/* Language selector */}
         <div
-          className="mb-4 px-4 py-3.5 rounded-2xl bg-white"
-          style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
+          className="mb-4 px-4 py-3.5 rounded-2xl"
+          style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between">
-            <p className="text-sm font-bold text-gray-900">{t('nav.language')}</p>
+            <p className="text-sm font-bold" style={{ color: textPrimary }}>{t('nav.language')}</p>
             <div className="relative">
               <button
                 onClick={() => setLangOpen((o) => !o)}
-                className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-semibold text-gray-700 transition-colors"
-                style={{ background: '#F8F6F2', border: '1px solid #E8E4DE' }}
+                className="flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-semibold transition-colors"
+                style={{
+                  background: isDark ? '#2A2724' : '#F8F6F2',
+                  border: `1px solid ${border}`,
+                  color: textSecondary,
+                }}
               >
                 {currentLang.label}
-                <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} style={{ color: textSecondary }} />
               </button>
               {langOpen && (
                 <div
-                  className="absolute right-0 mt-1.5 w-44 bg-white rounded-2xl py-1.5 z-10 max-h-60 overflow-y-auto"
-                  style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.14)', border: '1px solid #F0EDE8' }}
+                  className="absolute right-0 mt-1.5 w-44 rounded-2xl py-1.5 z-10 max-h-60 overflow-y-auto"
+                  style={{ background: card, boxShadow: '0 8px 32px rgba(0,0,0,0.2)', border: `1px solid ${border}` }}
                 >
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
                       onClick={() => switchLang(l.code)}
-                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-orange-50 ${
-                        l.code === i18n.language ? 'font-bold text-orange-600' : 'text-gray-700'
+                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                        l.code === i18n.language ? 'font-bold text-orange-500' : ''
                       }`}
+                      style={{ color: l.code === i18n.language ? '#E8640C' : textSecondary }}
                     >
                       {l.label}
                     </button>
@@ -286,8 +301,8 @@ function MorePage() {
         {/* Sign out */}
         <button
           onClick={handleSignOut}
-          className="w-full mb-6 px-4 py-3.5 rounded-2xl bg-white flex items-center justify-between active:scale-[0.98] transition-all"
-          style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: '1px solid #F0EDE8' }}
+          className="w-full mb-6 px-4 py-3.5 rounded-2xl flex items-center justify-between active:scale-[0.98] transition-all"
+          style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
         >
           <span className="text-sm font-bold text-red-500">
             {isGuest ? t('nav.endGuestSession') : t('nav.signOut')}
@@ -300,43 +315,45 @@ function MorePage() {
         {/* Emergency contacts */}
         <div
           className="overflow-hidden rounded-2xl"
-          style={{ background: '#FFF5F5', border: '1px solid #FECACA' }}
+          style={{ background: isDark ? '#2A1A1A' : '#FFF5F5', border: isDark ? '1px solid #4B2020' : '1px solid #FECACA' }}
         >
-          <div className="flex items-center gap-2.5 px-4 py-3.5" style={{ borderBottom: '1px solid #FECACA' }}>
+          <div className="flex items-center gap-2.5 px-4 py-3.5" style={{ borderBottom: isDark ? '1px solid #4B2020' : '1px solid #FECACA' }}>
             <div className="w-8 h-8 rounded-xl bg-red-500 flex items-center justify-center flex-shrink-0">
               <Phone className="w-4 h-4 text-white" />
             </div>
-            <p className="text-sm font-bold text-red-800">{t('nav.emergencySection')}</p>
+            <p className="text-sm font-bold" style={{ color: isDark ? '#FCA5A5' : '#991B1B' }}>{t('nav.emergencySection')}</p>
           </div>
           <div>
             {EMERGENCY_CONTACTS.map(({ label, number }) => (
               <a
                 key={number}
                 href={`tel:${number.replace(/[^0-9]/g, '')}`}
-                className="flex items-center justify-between px-4 py-3.5 transition-colors active:bg-red-100"
-                style={{ borderBottom: '1px solid #FEE2E2' }}
+                className="flex items-center justify-between px-4 py-3.5 transition-colors"
+                style={{ borderBottom: isDark ? '1px solid #3B1F1F' : '1px solid #FEE2E2' }}
               >
-                <span className="text-sm text-gray-700">{label}</span>
-                <span className="text-sm font-extrabold text-red-600 tabular-nums">{number}</span>
+                <span className="text-sm" style={{ color: textSecondary }}>{label}</span>
+                <span className="text-sm font-extrabold tabular-nums text-red-500">{number}</span>
               </a>
             ))}
           </div>
         </div>
 
-        <p className="text-xs text-center text-gray-400 mt-8">{t('nav.drawerFooter')}</p>
+        <p className="text-xs text-center mt-8" style={{ color: textSecondary }}>{t('nav.drawerFooter')}</p>
 
         {/* Legal links */}
         <div className="flex items-center justify-center gap-4 mt-3">
           <button
             onClick={() => navigate('/privacy')}
-            className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors"
+            className="text-xs underline underline-offset-2 transition-colors"
+            style={{ color: textSecondary }}
           >
             Privacy Policy
           </button>
-          <span className="text-gray-300 text-xs">·</span>
+          <span className="text-xs" style={{ color: isDark ? '#4B5563' : '#D1D5DB' }}>·</span>
           <button
             onClick={() => navigate('/terms')}
-            className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors"
+            className="text-xs underline underline-offset-2 transition-colors"
+            style={{ color: textSecondary }}
           >
             Terms of Service
           </button>
@@ -422,15 +439,16 @@ function AuthGuard({ children }) {
     return () => subscription.unsubscribe()
   }, [navigate])
 
+  const isDarkGuard = window.matchMedia('(prefers-color-scheme: dark)').matches
   if (!ready) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: '#FAFAF8' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: isDarkGuard ? '#121110' : '#FAFAF8' }}>
         <div className="flex flex-col items-center gap-4">
           <div
             className="w-10 h-10 rounded-full border-[3px] border-t-transparent animate-spin"
             style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
           />
-          <p className="text-xs font-semibold text-gray-400">Loading…</p>
+          <p className="text-xs font-semibold" style={{ color: isDarkGuard ? '#9CA3AF' : '#9CA3AF' }}>Loading…</p>
         </div>
       </div>
     )
@@ -442,11 +460,12 @@ function AuthGuard({ children }) {
 // ─── App Shell ────────────────────────────────────────────────────────────────
 
 function AppShell() {
+  const isDark = useDarkMode()
   return (
-    <div className="min-h-screen flex justify-center" style={{ background: '#1C1917' }}>
+    <div className="min-h-screen flex justify-center" style={{ background: isDark ? '#0A0908' : '#1C1917' }}>
       <div
         className="relative w-full max-w-[430px] min-h-screen overflow-x-hidden"
-        style={{ background: '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
+        style={{ background: isDark ? '#121110' : '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
       >
         <div className="overflow-x-hidden pb-[84px]">
           <GuestBanner />
@@ -488,6 +507,18 @@ export default function App() {
   const { i18n } = useTranslation()
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = (e) => {
+      document.documentElement.classList.toggle('dark', e.matches)
+      const meta = document.querySelector('meta[name="theme-color"][media*="light"], meta[name="theme-color"]:not([media])')
+      if (meta) meta.setAttribute('content', e.matches ? '#121110' : '#ffffff')
+    }
+    apply(mq)
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
+
+  useEffect(() => {
     document.documentElement.dir = RTL_LANGS.has(i18n.language) ? 'rtl' : 'ltr'
   }, [i18n.language])
 
@@ -500,12 +531,13 @@ export default function App() {
     return <SplashScreen onDone={handleSplashDone} />
   }
 
+  const isDarkInit = window.matchMedia('(prefers-color-scheme: dark)').matches
   if (!onboarded) {
     return (
-      <div className="min-h-screen flex justify-center" style={{ background: '#1C1917' }}>
+      <div className="min-h-screen flex justify-center" style={{ background: isDarkInit ? '#0A0908' : '#1C1917' }}>
         <div
           className="w-full max-w-[430px] min-h-screen overflow-x-hidden"
-          style={{ background: '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
+          style={{ background: isDarkInit ? '#121110' : '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
         >
           <Onboarding onComplete={() => setOnboarded(true)} />
         </div>
