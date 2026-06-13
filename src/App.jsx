@@ -556,7 +556,8 @@ export default function App() {
   }
 
   const isDarkInit = window.matchMedia('(prefers-color-scheme: dark)').matches
-  if (!onboarded) {
+  const ONBOARDING_BYPASS = ['/privacy', '/terms', '/delete-account']
+  if (!onboarded && !ONBOARDING_BYPASS.includes(window.location.pathname)) {
     return (
       <div className="min-h-screen flex justify-center" style={{ background: isDarkInit ? '#0A0908' : '#1C1917' }}>
         <div
