@@ -488,28 +488,32 @@ function AppShell() {
       >
         <div className="overflow-x-hidden pb-[84px]">
           <GuestBanner />
-          <AuthGuard>
-            <Routes>
-              <Route path="/"           element={<Home />}       />
-              <Route path="/savings"    element={<Savings />}    />
-              <Route path="/budget"     element={<Budget />}     />
-              <Route path="/remittance" element={<Remittance />} />
-              <Route path="/more"       element={<MorePage />}   />
-              <Route path="/salary"     element={<Salary />}     />
-              <Route path="/loans"      element={<Loans />}      />
-              <Route path="/scams"      element={<Scams />}      />
-              <Route path="/loanshark"  element={<LoanShark />}  />
-              <Route path="/emergency"  element={<Emergency />}  />
-              <Route path="/chat"       element={<Chat />}       />
-              <Route path="/scam-quiz"      element={<ScamQuiz />}      />
-              <Route path="/emergency-fund" element={<EmergencyFund />}  />
-              <Route path="/banking-guide"  element={<BankingGuide />}  />
-              <Route path="/privacy"         element={<PrivacyPolicy />}   />
-              <Route path="/terms"           element={<TermsOfService />}  />
-              <Route path="/delete-account"  element={<DeleteAccount />}   />
-              <Route path="/login"           element={<Login />}      />
-            </Routes>
-          </AuthGuard>
+          <Routes>
+            <Route path="/privacy"        element={<PrivacyPolicy />}  />
+            <Route path="/terms"          element={<TermsOfService />} />
+            <Route path="/delete-account" element={<DeleteAccount />}  />
+            <Route path="/login"          element={<Login />}          />
+            <Route path="*" element={
+              <AuthGuard>
+                <Routes>
+                  <Route path="/"           element={<Home />}       />
+                  <Route path="/savings"    element={<Savings />}    />
+                  <Route path="/budget"     element={<Budget />}     />
+                  <Route path="/remittance" element={<Remittance />} />
+                  <Route path="/more"       element={<MorePage />}   />
+                  <Route path="/salary"     element={<Salary />}     />
+                  <Route path="/loans"      element={<Loans />}      />
+                  <Route path="/scams"      element={<Scams />}      />
+                  <Route path="/loanshark"  element={<LoanShark />}  />
+                  <Route path="/emergency"  element={<Emergency />}  />
+                  <Route path="/chat"       element={<Chat />}       />
+                  <Route path="/scam-quiz"      element={<ScamQuiz />}      />
+                  <Route path="/emergency-fund" element={<EmergencyFund />}  />
+                  <Route path="/banking-guide"  element={<BankingGuide />}  />
+                </Routes>
+              </AuthGuard>
+            } />
+          </Routes>
         </div>
         <BottomTabBar />
       </div>
