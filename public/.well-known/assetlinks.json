@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.remlo.app",
+      "sha256_cert_fingerprints": [
+        "A0:B1:D8:A9:6C:62:94:C6:9D:50:AB:A7:C1:A9:8F:26:9D:15:B1:D2:86:FE:94:AB:0B:4E:2B:F5:BF:37:F0:A4"
+      ]
+    }
+  }
+]
