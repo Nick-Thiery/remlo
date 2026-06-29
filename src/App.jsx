@@ -243,7 +243,7 @@ function MorePage() {
               }}
             >
               <div
-                className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${grad} flex items-center justify-center flex-shrink-0 shadow-lg ${glow}`}
+                className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${grad} flex items-center justify-center flex-shrink-0 ${isDark ? '' : `shadow-lg ${glow}`}`}
               >
                 <Icon className="w-5 h-5 text-white" strokeWidth={2} />
               </div>

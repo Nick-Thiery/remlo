@@ -2,7 +2,7 @@
 -- Each row = one message sent by a user.
 -- The Edge Function counts rows in the last hour and blocks if >= 20.
 
-CREATE TABLE public.chat_rate_limits (
+CREATE TABLE IF NOT EXISTS public.chat_rate_limits (
   id         BIGSERIAL   PRIMARY KEY,
   user_id    UUID        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -13,7 +13,7 @@ CREATE TABLE public.chat_rate_limits (
 ALTER TABLE public.chat_rate_limits ENABLE ROW LEVEL SECURITY;
 
 -- Index for fast per-user windowed queries
-CREATE INDEX chat_rate_limits_user_window_idx
+CREATE INDEX IF NOT EXISTS chat_rate_limits_user_window_idx
   ON public.chat_rate_limits (user_id, created_at DESC);
 
 -- Auto-purge rows older than 2 hours to keep the table small.

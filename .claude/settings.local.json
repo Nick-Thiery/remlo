@@ -42,7 +42,13 @@
       "WebSearch",
       "WebFetch(domain:guide.data.gov.sg)",
       "Bash(ls /Users/nick/forwardwallet/.env*)",
-      "Bash(ls /Users/nick/forwardwallet/supabase/.env*)"
+      "Bash(ls /Users/nick/forwardwallet/supabase/.env*)",
+      "Bash(supabase functions *)",
+      "Bash(npm audit *)",
+      "Bash(git rm *)",
+      "Bash(supabase status *)",
+      "Bash(supabase db *)",
+      "Bash(supabase migration *)"
     ]
   }
 }
