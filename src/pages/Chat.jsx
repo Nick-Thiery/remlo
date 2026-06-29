@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import { track } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { supabase } from '../lib/supabase.js'
 
 const SYSTEM_PROMPT =
   'You are a friendly financial assistant built by Remlo, an app helping workers in Singapore manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. If someone describes a loan shark or scam situation, provide the MOM helpline 1800-333-1313 and tell them to contact police if in danger.'
@@ -104,9 +105,14 @@ export default function Chat() {
     setIsLoading(true)
 
     try {
+      const { data: { session } } = await supabase.auth.getSession()
+      const authHeader = session?.access_token
+        ? `Bearer ${session.access_token}`
+        : `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: authHeader },
         body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT }),
       })
 
