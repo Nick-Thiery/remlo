@@ -48,7 +48,8 @@
       "Bash(git rm *)",
       "Bash(supabase status *)",
       "Bash(supabase db *)",
-      "Bash(supabase migration *)"
+      "Bash(supabase migration *)",
+      "Bash(curl -s \"https://open.er-api.com/v6/latest/SGD\")"
     ]
   }
 }
