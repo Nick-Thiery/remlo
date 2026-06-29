@@ -42,7 +42,7 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         // Changing cacheId invalidates all existing SW caches on next deploy.
         // Increment (v2, v3, ...) whenever a SW update is not being picked up.
-        cacheId: 'remlo-v2',
+        cacheId: 'remlo-v3',
         // Cache app shell and all static assets
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // Runtime caching for API calls — network first, fall back to cache
@@ -53,7 +53,7 @@ export default defineConfig({
             options: {
               cacheName: 'exchange-rates-cache',
               expiration: { maxEntries: 5, maxAgeSeconds: 60 * 60 }, // 1 hour
-              cacheableResponse: { statuses: [0, 200] },
+              cacheableResponse: { statuses: [200] },
             },
           },
           {
