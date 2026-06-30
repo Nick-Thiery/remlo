@@ -254,27 +254,30 @@ export default function Loans() {
 
         {/* Error banner */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3">
-            <p className="text-sm text-red-700">{error}</p>
-            <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 text-lg leading-none flex-shrink-0">×</button>
+          <div className="rounded-2xl px-5 py-4 mb-4 flex items-center justify-between gap-3"
+            style={{ background: isDark ? '#2A1010' : '#FEF2F2', border: `1px solid ${isDark ? '#5C2020' : '#FECACA'}` }}>
+            <p className="text-sm" style={{ color: isDark ? '#FCA5A5' : '#B91C1C' }}>{error}</p>
+            <button onClick={() => setError(null)} className="text-lg leading-none flex-shrink-0" style={{ color: isDark ? '#F87171' : '#F87171' }}>×</button>
           </div>
         )}
 
         {/* Illegal loan alert banner */}
         {illegalCount > 0 && (
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-5 mb-4">
+          <div className="rounded-2xl p-5 mb-4"
+            style={{ background: isDark ? '#2A1010' : '#FEF2F2', border: `1px solid ${isDark ? '#5C2020' : '#FECACA'}` }}>
             <div className="flex items-start gap-3">
-              <span className="text-red-500 text-xl leading-none mt-0.5">⚠</span>
+              <span className="text-xl leading-none mt-0.5" style={{ color: isDark ? '#F87171' : '#EF4444' }}>⚠</span>
               <div>
-                <p className="text-sm font-bold text-red-700">
+                <p className="text-sm font-bold" style={{ color: isDark ? '#FCA5A5' : '#B91C1C' }}>
                   {t('loans.illegalBanner', { count: illegalCount })}
                 </p>
-                <p className="text-xs text-red-600 mt-1 leading-relaxed">
+                <p className="text-xs mt-1 leading-relaxed" style={{ color: isDark ? '#F87171' : '#DC2626' }}>
                   {t('loans.illegalBannerDesc', { threshold: ILLEGAL_RATE_THRESHOLD })}
                 </p>
                 <button
                   onClick={() => navigate('/loanshark')}
-                  className="inline-block mt-2 text-xs font-semibold text-red-600 underline underline-offset-2"
+                  className="inline-block mt-2 text-xs font-semibold underline underline-offset-2"
+                  style={{ color: isDark ? '#F87171' : '#DC2626' }}
                 >
                   {t('loans.illegalBannerLink')}
                 </button>
@@ -350,11 +353,13 @@ export default function Loans() {
                       </div>
                       <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
                         {loan.paidOff ? (
-                          <span className="bg-emerald-100 text-emerald-700 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                          <span className="text-xs font-medium px-2.5 py-0.5 rounded-full"
+                            style={{ background: isDark ? '#0A2418' : '#D1FAE5', color: isDark ? '#34D399' : '#065F46' }}>
                             {t('loans.paidOffBadge')}
                           </span>
                         ) : isIllegal ? (
-                          <span className="bg-red-100 text-red-600 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                          <span className="text-xs font-medium px-2.5 py-0.5 rounded-full"
+                            style={{ background: isDark ? '#2A1010' : '#FEE2E2', color: isDark ? '#F87171' : '#DC2626' }}>
                             {loan.rate}%/mo
                           </span>
                         ) : null}
@@ -412,7 +417,7 @@ export default function Loans() {
                         </div>
                         <div className="rounded-xl p-3" style={{ background: isDark ? '#2C2926' : '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.totalInterest')}</p>
-                          <p className={`text-sm font-semibold ${isIllegal ? 'text-red-600' : ''}`} style={isIllegal ? {} : { color: textPrimary }}>
+                          <p className="text-sm font-semibold" style={{ color: isIllegal ? (isDark ? '#F87171' : '#DC2626') : textPrimary }}>
                             {loan.neverPaidOff || loan.totalInterestPaid == null
                               ? '—'
                               : formatSGD(loan.totalInterestPaid)}
@@ -421,9 +426,10 @@ export default function Loans() {
                       </div>
 
                       {loan.neverPaidOff && !loan.paidOff && (
-                        <div className="bg-amber-50 border border-amber-100 rounded-xl p-3">
-                          <p className="text-xs font-semibold text-amber-700 mb-0.5">{t('loans.neverTitle')}</p>
-                          <p className="text-xs text-amber-600">
+                        <div className="rounded-xl p-3"
+                          style={{ background: isDark ? '#2A1F08' : '#FFFBEB', border: `1px solid ${isDark ? '#4A3510' : '#FDE68A'}` }}>
+                          <p className="text-xs font-semibold mb-0.5" style={{ color: isDark ? '#FCD34D' : '#92400E' }}>{t('loans.neverTitle')}</p>
+                          <p className="text-xs" style={{ color: isDark ? '#FBBF24' : '#B45309' }}>
                             {t('loans.neverDesc', {
                               payment: formatSGDExact(loan.monthlyPayment),
                               interest: formatSGDExact(loan.principal * loan.rate / 100),
@@ -433,9 +439,10 @@ export default function Loans() {
                       )}
 
                       {isIllegal && (
-                        <div className="bg-red-50 border border-red-100 rounded-xl p-3">
-                          <p className="text-xs font-semibold text-red-700 mb-1">{t('loans.illegalCardTitle')}</p>
-                          <p className="text-xs text-red-600 leading-relaxed">
+                        <div className="rounded-xl p-3"
+                          style={{ background: isDark ? '#2A1010' : '#FEF2F2', border: `1px solid ${isDark ? '#5C2020' : '#FEE2E2'}` }}>
+                          <p className="text-xs font-semibold mb-1" style={{ color: isDark ? '#FCA5A5' : '#B91C1C' }}>{t('loans.illegalCardTitle')}</p>
+                          <p className="text-xs leading-relaxed" style={{ color: isDark ? '#F87171' : '#DC2626' }}>
                             {t('loans.illegalCardDesc', { rate: loan.rate })}
                           </p>
                         </div>
