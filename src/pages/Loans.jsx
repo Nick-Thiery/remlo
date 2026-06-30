@@ -83,10 +83,12 @@ export default function Loans() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const isDark = useDarkMode()
-  const bg     = isDark ? '#121110' : '#FAFAF8'
-  const card   = isDark ? '#1E1C1A' : 'white'
-  const border = isDark ? '#2C2926' : '#F0EDE8'
-  const border2 = isDark ? '#2C2926' : '#EDE8E0'
+  const bg          = isDark ? '#121110' : '#FAFAF8'
+  const card        = isDark ? '#1E1C1A' : 'white'
+  const border      = isDark ? '#2C2926' : '#F0EDE8'
+  const border2     = isDark ? '#2C2926' : '#EDE8E0'
+  const textPrimary = isDark ? '#F5F2EC' : '#1A1A1A'
+  const textMuted   = isDark ? '#9C9590' : '#6B7280'
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const [loans, setLoans] = useState([])
@@ -234,11 +236,11 @@ export default function Loans() {
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: textPrimary }} />
           </button>
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('loans.pageTitle')}</h1>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('loans.pageTitle')}</h1>
+            <p className="text-sm mt-0.5" style={{ color: textMuted }}>
               {t('loans.pageSubtitle', { count: activeCount })}
             </p>
           </div>
@@ -285,19 +287,19 @@ export default function Loans() {
         {computed.length > 0 && (
           <div className="rounded-3xl p-6 mb-6" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">{t('loans.totalDebtLabel')}</p>
-            <p className="text-3xl font-bold text-gray-900">{formatSGD(totalDebt)}</p>
-            <p className="text-sm text-gray-500 mt-1">{t('loans.totalDebtSub', { count: computed.length })}</p>
+            <p className="text-3xl font-bold" style={{ color: textPrimary }}>{formatSGD(totalDebt)}</p>
+            <p className="text-sm mt-1" style={{ color: textMuted }}>{t('loans.totalDebtSub', { count: computed.length })}</p>
           </div>
         )}
 
         {/* Loan cards */}
         {computed.length === 0 ? (
           <div className="rounded-3xl px-8 py-12 text-center" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
-            <div className="w-20 h-20 bg-violet-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-5" style={{ background: isDark ? '#2C1F3D' : '#F5F3FF' }}>
               <Receipt className="w-10 h-10 text-violet-400" strokeWidth={1.5} />
             </div>
-            <p className="text-base font-bold text-gray-900 mb-2">{t('loans.emptyTitle')}</p>
-            <p className="text-sm text-gray-500 mb-6 max-w-[220px] mx-auto leading-relaxed">{t('loans.emptyDesc')}</p>
+            <p className="text-base font-bold mb-2" style={{ color: textPrimary }}>{t('loans.emptyTitle')}</p>
+            <p className="text-sm mb-6 max-w-[220px] mx-auto leading-relaxed" style={{ color: textMuted }}>{t('loans.emptyDesc')}</p>
             <button
               onClick={openForm}
               className="rounded-2xl px-6 py-3 text-sm font-extrabold text-white transition-all active:scale-95" style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', boxShadow: '0 6px 18px rgba(232,100,12,0.3)' }}
@@ -314,9 +316,17 @@ export default function Loans() {
               return (
                 <div
                   key={loan.id}
-                  className={`bg-white rounded-2xl shadow-sm border transition-all ${
-                    isIllegal ? 'border-red-200' : loan.paidOff ? 'border-emerald-100' : 'border-gray-100'
-                  }`}
+                  className="rounded-2xl shadow-sm transition-all"
+                  style={{
+                    background: isDark ? card : 'white',
+                    border: `1px solid ${
+                      isIllegal
+                        ? (isDark ? '#7F1D1D' : '#FECACA')
+                        : loan.paidOff
+                        ? (isDark ? '#064E3B' : '#D1FAE5')
+                        : (isDark ? border : '#F3F4F6')
+                    }`,
+                  }}
                 >
                   {isIllegal && (
                     <div className="bg-red-600 rounded-t-2xl px-5 py-2 flex items-center gap-2">
@@ -333,7 +343,7 @@ export default function Loans() {
                   >
                     <div className="flex items-start justify-between gap-2 mb-3">
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold text-gray-900 leading-snug">{loan.lender}</p>
+                        <p className="text-sm font-semibold leading-snug" style={{ color: textPrimary }}>{loan.lender}</p>
                         <p className="text-xs text-gray-400 mt-0.5">
                           {t('loans.rateMonthly', { rate: loan.rate, payment: formatSGDExact(loan.monthlyPayment) })}
                         </p>
@@ -357,16 +367,17 @@ export default function Loans() {
                     <div className="flex items-end justify-between mb-2">
                       <div>
                         <p className="text-xs text-gray-400 mb-0.5">{t('loans.remainingLabel')}</p>
-                        <p className={`text-xl font-bold ${loan.paidOff ? 'text-emerald-600' : 'text-gray-900'}`}>
+                        <p className={`text-xl font-bold ${loan.paidOff ? 'text-emerald-600' : ''}`}
+                          style={loan.paidOff ? {} : { color: textPrimary }}>
                           {loan.paidOff ? formatSGD(0) : formatSGD(loan.remaining)}
                         </p>
                       </div>
-                      <p className="text-sm font-medium text-gray-500 mb-0.5">
+                      <p className="text-sm font-medium mb-0.5" style={{ color: textMuted }}>
                         {Math.round(loan.progressPct)}%
                       </p>
                     </div>
 
-                    <div className="w-full bg-gray-100 rounded-full h-2">
+                    <div className="w-full rounded-full h-2" style={{ background: isDark ? border : '#F3F4F6' }}>
                       <div
                         className={`h-2 rounded-full transition-all duration-500 ${
                           loan.paidOff ? 'bg-emerald-500' : isIllegal ? 'bg-red-500' : 'bg-blue-500'
@@ -377,21 +388,21 @@ export default function Loans() {
                   </button>
 
                   {isExpanded && (
-                    <div className="border-t border-gray-50 px-5 py-4 space-y-4">
+                    <div className="px-5 py-4 space-y-4" style={{ borderTop: `1px solid ${isDark ? border : '#F9FAFB'}` }}>
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
+                        <div className="rounded-xl p-3" style={{ background: isDark ? '#2C2926' : '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.originalAmount')}</p>
-                          <p className="text-sm font-semibold text-gray-900">{formatSGD(loan.principal)}</p>
+                          <p className="text-sm font-semibold" style={{ color: textPrimary }}>{formatSGD(loan.principal)}</p>
                         </div>
-                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
+                        <div className="rounded-xl p-3" style={{ background: isDark ? '#2C2926' : '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.paymentsMade')}</p>
-                          <p className="text-sm font-semibold text-gray-900">
+                          <p className="text-sm font-semibold" style={{ color: textPrimary }}>
                             {t('loans.paymentsMade', { count: loan.made })}
                           </p>
                         </div>
-                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
+                        <div className="rounded-xl p-3" style={{ background: isDark ? '#2C2926' : '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.projectedPayoff')}</p>
-                          <p className="text-sm font-semibold text-gray-900">
+                          <p className="text-sm font-semibold" style={{ color: textPrimary }}>
                             {loan.paidOff
                               ? t('loans.projectedComplete')
                               : loan.neverPaidOff
@@ -399,9 +410,9 @@ export default function Loans() {
                               : formatMonthYear(loan.payoffDate)}
                           </p>
                         </div>
-                        <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
+                        <div className="rounded-xl p-3" style={{ background: isDark ? '#2C2926' : '#F5F2EC' }}>
                           <p className="text-xs text-gray-400 mb-0.5">{t('loans.totalInterest')}</p>
-                          <p className={`text-sm font-semibold ${isIllegal ? 'text-red-600' : 'text-gray-900'}`}>
+                          <p className={`text-sm font-semibold ${isIllegal ? 'text-red-600' : ''}`} style={isIllegal ? {} : { color: textPrimary }}>
                             {loan.neverPaidOff || loan.totalInterestPaid == null
                               ? '—'
                               : formatSGD(loan.totalInterestPaid)}
@@ -451,26 +462,27 @@ export default function Loans() {
           className="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 p-4"
           onClick={(e) => e.target === e.currentTarget && closeForm()}
         >
-          <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-            <h2 className="text-lg font-bold text-gray-900 mb-1">{t('loans.modalTitle')}</h2>
-            <p className="text-sm text-gray-500 mb-5">{t('loans.modalDesc')}</p>
+          <div className="rounded-2xl w-full max-w-sm p-6 shadow-xl max-h-[90vh] overflow-y-auto" style={{ background: card, border: `1px solid ${border}` }}>
+            <h2 className="text-lg font-bold mb-1" style={{ color: textPrimary }}>{t('loans.modalTitle')}</h2>
+            <p className="text-sm mb-5" style={{ color: textMuted }}>{t('loans.modalDesc')}</p>
 
             <div className="space-y-3 mb-5">
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.lenderLabel')}</label>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.lenderLabel')}</label>
                 <input
                   autoFocus
                   type="text"
                   placeholder={t('loans.lenderPlaceholder')}
                   value={fLender}
                   onChange={(e) => setFLender(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.lender ? 'border-red-300' : 'border-gray-200'}`}
+                  className="w-full rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  style={{ border: `1px solid ${errors.lender ? '#FCA5A5' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : 'white', color: textPrimary }}
                 />
                 {errors.lender && <p className="text-xs text-red-500 mt-1">{errors.lender}</p>}
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.principalLabel')}</label>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.principalLabel')}</label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
                   <input
@@ -480,14 +492,15 @@ export default function Loans() {
                     step="0.01"
                     value={fPrincipal}
                     onChange={(e) => setFPrincipal(e.target.value)}
-                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.principal ? 'border-red-300' : 'border-gray-200'}`}
+                    className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    style={{ border: `1px solid ${errors.principal ? '#FCA5A5' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : 'white', color: textPrimary }}
                   />
                 </div>
                 {errors.principal && <p className="text-xs text-red-500 mt-1">{errors.principal}</p>}
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>
                   {t('loans.rateLabel')}
                   <span className="ml-1.5 font-normal text-gray-400">{t('loans.rateNote')}</span>
                 </label>
@@ -499,7 +512,8 @@ export default function Loans() {
                     step="0.01"
                     value={fRate}
                     onChange={(e) => setFRate(e.target.value)}
-                    className={`w-full border rounded-xl px-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.rate ? 'border-red-300' : parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
+                    className="w-full rounded-xl px-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    style={{ border: `1px solid ${errors.rate ? '#FCA5A5' : parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? '#F87171' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : (parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? '#FEF2F2' : 'white'), color: textPrimary }}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">%</span>
                 </div>
@@ -510,7 +524,7 @@ export default function Loans() {
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.paymentLabel')}</label>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.paymentLabel')}</label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
                   <input
@@ -520,20 +534,22 @@ export default function Loans() {
                     step="0.01"
                     value={fPayment}
                     onChange={(e) => setFPayment(e.target.value)}
-                    className={`w-full border rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.payment ? 'border-red-300' : 'border-gray-200'}`}
+                    className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    style={{ border: `1px solid ${errors.payment ? '#FCA5A5' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : 'white', color: textPrimary }}
                   />
                 </div>
                 {errors.payment && <p className="text-xs text-red-500 mt-1">{errors.payment}</p>}
               </div>
 
               <div>
-                <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('loans.startDateLabel')}</label>
+                <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.startDateLabel')}</label>
                 <input
                   type="date"
                   value={fStart}
                   max={today}
                   onChange={(e) => setFStart(e.target.value)}
-                  className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 ${errors.start ? 'border-red-300' : 'border-gray-200'}`}
+                  className="w-full rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  style={{ border: `1px solid ${errors.start ? '#FCA5A5' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : 'white', color: textPrimary }}
                 />
                 {errors.start && <p className="text-xs text-red-500 mt-1">{errors.start}</p>}
               </div>
@@ -542,7 +558,8 @@ export default function Loans() {
             <div className="flex gap-3">
               <button
                 onClick={closeForm}
-                className="flex-1 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors"
+                className="flex-1 rounded-xl py-3 text-sm font-semibold transition-colors"
+                style={{ border: `1px solid ${isDark ? border : '#E5E7EB'}`, color: isDark ? '#F5F2EC' : '#374151', background: 'transparent' }}
               >
                 {t('common.cancel')}
               </button>

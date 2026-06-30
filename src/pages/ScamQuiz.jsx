@@ -77,14 +77,15 @@ export default function ScamQuiz() {
         <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all shadow-sm mb-5"
+            className="w-9 h-9 flex items-center justify-center rounded-xl active:scale-95 transition-all shadow-sm mb-5"
+            style={{ background: card, border: `1px solid ${border}` }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : '#6B7280' }} />
           </button>
 
           <div className={`rounded-2xl border ${rating.border} ${rating.bg} p-8 text-center mb-6`}>
             <p className="text-5xl mb-3">{rating.emoji}</p>
-            <p className="text-4xl font-bold text-gray-900 mb-1">{score}/{questions.length}</p>
+            <p className="text-4xl font-bold mb-1" style={{ color: isDark ? '#F5F2EC' : '#111827' }}>{score}/{questions.length}</p>
             <p className={`text-lg font-semibold ${rating.color} mb-2`}>{rating.label}</p>
             <p className="text-sm text-gray-500 leading-relaxed">{rating.desc}</p>
           </div>
@@ -120,7 +121,8 @@ export default function ScamQuiz() {
           <div className="flex gap-3">
             <button
               onClick={restart}
-              className="flex-1 flex items-center justify-center gap-2 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold hover:bg-gray-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition-colors"
+              style={{ border: `1px solid ${isDark ? border : '#E5E7EB'}`, color: isDark ? '#F5F2EC' : '#374151', background: 'transparent' }}
             >
               <RotateCcw className="w-4 h-4" /> {t('scamQuiz.retryBtn')}
             </button>
@@ -146,9 +148,10 @@ export default function ScamQuiz() {
         <div className="mb-5">
           <button
             onClick={() => navigate('/more')}
-            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white border border-gray-200 text-gray-500 hover:bg-gray-50 active:scale-95 transition-all shadow-sm mb-4"
+            className="w-9 h-9 flex items-center justify-center rounded-xl active:scale-95 transition-all shadow-sm mb-4"
+            style={{ background: card, border: `1px solid ${border}` }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : '#6B7280' }} />
           </button>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
@@ -168,7 +171,8 @@ export default function ScamQuiz() {
         </div>
 
         <div className="flex justify-end mb-4">
-          <span className="inline-flex items-center gap-1.5 bg-white border border-gray-100 shadow-sm rounded-full px-3 py-1 text-xs font-semibold text-gray-600">
+          <span className="inline-flex items-center gap-1.5 shadow-sm rounded-full px-3 py-1 text-xs font-semibold"
+            style={{ background: card, border: `1px solid ${border}`, color: isDark ? '#F5F2EC' : '#4B5563' }}>
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
             {t('scamQuiz.scoreLabel', { score })}
           </span>
@@ -183,18 +187,28 @@ export default function ScamQuiz() {
 
         <div className="space-y-2.5 mb-4">
           {q.options.map((opt, idx) => {
-            let style = 'bg-white border-gray-200 text-gray-800 hover:border-blue-300 hover:bg-blue-50'
+            let optClass = ''
+            let optStyle = {}
             if (answered) {
-              if (opt.correct)                        style = 'bg-emerald-50 border-emerald-400 text-emerald-800'
-              else if (idx === selected && !opt.correct) style = 'bg-red-50 border-red-400 text-red-800'
-              else                                    style = 'bg-white border-gray-100 text-gray-400'
+              if (opt.correct) {
+                optClass = 'bg-emerald-50 border-emerald-400 text-emerald-800'
+              } else if (idx === selected && !opt.correct) {
+                optClass = 'bg-red-50 border-red-400 text-red-800'
+              } else {
+                optClass = isDark ? '' : 'bg-white border-gray-100 text-gray-400'
+                optStyle = isDark ? { background: card, borderColor: border, color: '#6B7280' } : {}
+              }
+            } else {
+              optClass = isDark ? '' : 'bg-white border-gray-200 text-gray-800 hover:border-blue-300 hover:bg-blue-50'
+              optStyle = isDark ? { background: card, borderColor: border, color: '#F5F2EC' } : {}
             }
             return (
               <button
                 key={idx}
                 onClick={() => choose(idx)}
                 disabled={answered}
-                className={`w-full text-left border rounded-xl px-4 py-3.5 text-sm leading-snug transition-all active:scale-[0.98] disabled:cursor-default ${style}`}
+                className={`w-full text-left border rounded-xl px-4 py-3.5 text-sm leading-snug transition-all active:scale-[0.98] disabled:cursor-default ${optClass}`}
+                style={optStyle}
               >
                 <span className="font-medium mr-2">{String.fromCharCode(65 + idx)}.</span>
                 {opt.text}
@@ -214,7 +228,7 @@ export default function ScamQuiz() {
             }`}>
               {q.options[selected].correct ? t('scamQuiz.correct') : t('scamQuiz.incorrect')}
             </p>
-            <p className="text-sm text-gray-700 leading-relaxed">{q.explanation}</p>
+            <p className="text-sm leading-relaxed" style={{ color: isDark ? '#D1CDC8' : '#374151' }}>{q.explanation}</p>
           </div>
         )}
 

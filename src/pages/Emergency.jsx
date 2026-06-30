@@ -63,9 +63,11 @@ export default function Emergency() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const isDark = useDarkMode()
-  const bg   = isDark ? '#121110' : '#FAFAF8'
-  const card = isDark ? '#1E1C1A' : 'white'
-  const border2 = isDark ? '#2C2926' : '#EDE8E0'
+  const bg          = isDark ? '#121110' : '#FAFAF8'
+  const card        = isDark ? '#1E1C1A' : 'white'
+  const border2     = isDark ? '#2C2926' : '#EDE8E0'
+  const textPrimary = isDark ? '#F5F2EC' : '#1A1A1A'
+  const textMuted   = isDark ? '#9C9590' : '#6B7280'
 
   return (
     <div className="min-h-screen" style={{ background: bg }}>
@@ -77,7 +79,8 @@ export default function Emergency() {
         </p>
         <a
           href="tel:999"
-          className="flex items-center justify-center gap-2.5 bg-white text-red-600 rounded-2xl py-4 font-bold text-xl active:scale-[0.97] transition-transform shadow-md"
+          className="flex items-center justify-center gap-2.5 rounded-2xl py-4 font-bold text-xl text-red-600 active:scale-[0.97] transition-transform shadow-md"
+          style={{ background: isDark ? '#F5F2EC' : 'white' }}
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.338c0-.966.784-1.75 1.75-1.75h1.386c.46 0 .878.25 1.087.65l1.292 2.582a1.75 1.75 0 01-.38 2.064l-.44.44a12.14 12.14 0 005.586 5.586l.44-.44a1.75 1.75 0 012.064-.38l2.582 1.292c.4.2.65.627.65 1.087v1.386A1.75 1.75 0 0119.662 21.75C9.9 21.75 2.25 14.1 2.25 4.338V2.952A1.75 1.75 0 014 1.202z" />
@@ -94,11 +97,11 @@ export default function Emergency() {
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: textPrimary }} />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('emergency.pageTitle')}</h1>
-            <p className="text-sm text-gray-500 mt-0.5">{t('emergency.pageSubtitle')}</p>
+            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('emergency.pageTitle')}</h1>
+            <p className="text-sm mt-0.5" style={{ color: textMuted }}>{t('emergency.pageSubtitle')}</p>
           </div>
         </div>
 
@@ -109,7 +112,7 @@ export default function Emergency() {
               {/* Category label */}
               <div className="flex items-center gap-2 mb-3">
                 <span className={`w-2 h-2 rounded-full ${cat.color.dot}`} />
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: textMuted }}>
                   {t(`emergency.categories.${cat.key}`)}
                 </p>
               </div>
@@ -119,19 +122,22 @@ export default function Emergency() {
                 {cat.contacts.map((c) => (
                   <div
                     key={c.org}
-                    className={`rounded-2xl border p-4 ${c.always ? cat.color.section : 'bg-white border-gray-100'}`}
+                    className={`rounded-2xl border p-4 ${!isDark && c.always ? cat.color.section : ''}`}
+                    style={isDark
+                      ? { background: card, borderColor: border2 }
+                      : (!c.always ? { background: 'white', borderColor: '#F3F4F6' } : {})}
                   >
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-sm font-semibold text-gray-900">{c.org}</p>
+                          <p className="text-sm font-semibold" style={{ color: textPrimary }}>{c.org}</p>
                           {c.always && (
                             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${cat.color.badge}`}>
                               {t('emergency.badge247')}
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+                        <p className="text-xs mt-0.5 leading-relaxed" style={{ color: textMuted }}>
                           {t(`emergency.roles.${c.roleKey}`)}
                         </p>
                       </div>
@@ -140,7 +146,7 @@ export default function Emergency() {
                     {/* Phone + actions row */}
                     <div className="flex items-center justify-between gap-3 mt-3">
                       <div>
-                        <p className="text-base font-bold text-gray-900">{c.number}</p>
+                        <p className="text-base font-bold" style={{ color: textPrimary }}>{c.number}</p>
                         {c.alt && (
                           <p className="text-xs text-gray-400 mt-0.5">
                             {t('common.nonEmergency')}: {c.alt}

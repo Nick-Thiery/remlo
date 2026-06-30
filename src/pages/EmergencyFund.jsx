@@ -30,10 +30,12 @@ export default function EmergencyFund() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const isDark = useDarkMode()
-  const bg   = isDark ? '#121110' : '#FAFAF8'
-  const card = isDark ? '#1E1C1A' : 'white'
-  const border  = isDark ? '#2C2926' : '#F0EDE8'
-  const border2 = isDark ? '#2C2926' : '#EDE8E0'
+  const bg          = isDark ? '#121110' : '#FAFAF8'
+  const card        = isDark ? '#1E1C1A' : 'white'
+  const border      = isDark ? '#2C2926' : '#F0EDE8'
+  const border2     = isDark ? '#2C2926' : '#EDE8E0'
+  const textPrimary = isDark ? '#F5F2EC' : '#1A1A1A'
+  const textMuted   = isDark ? '#9C9590' : '#6B7280'
   const [expenses,    setExpenses]    = useState('')
   const [monthlySave, setMonthlySave] = useState('')
 
@@ -60,11 +62,11 @@ export default function EmergencyFund() {
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: textPrimary }} />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('emergencyFund.pageTitle')}</h1>
-            <p className="text-sm text-gray-500 mt-0.5">{t('emergencyFund.pageSubtitle')}</p>
+            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('emergencyFund.pageTitle')}</h1>
+            <p className="text-sm mt-0.5" style={{ color: textMuted }}>{t('emergencyFund.pageSubtitle')}</p>
           </div>
         </div>
 
@@ -75,7 +77,7 @@ export default function EmergencyFund() {
           </p>
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">
+              <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>
                 {t('emergencyFund.expensesLabel')}
               </label>
               <div className="relative">
@@ -83,12 +85,13 @@ export default function EmergencyFund() {
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={expenses} onChange={(e) => setExpenses(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                  className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                style={{ border: `1px solid ${isDark ? border : '#E5E7EB'}`, background: isDark ? bg : 'white', color: textPrimary }}
                 />
               </div>
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">
+              <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>
                 {t('emergencyFund.savingsLabel')}
               </label>
               <div className="relative">
@@ -96,7 +99,8 @@ export default function EmergencyFund() {
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={monthlySave} onChange={(e) => setMonthlySave(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                  className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                style={{ border: `1px solid ${isDark ? border : '#E5E7EB'}`, background: isDark ? bg : 'white', color: textPrimary }}
                 />
               </div>
             </div>
@@ -111,16 +115,16 @@ export default function EmergencyFund() {
             </p>
 
             {/* 3-month target */}
-            <div className="bg-white rounded-2xl shadow-sm border border-blue-100 p-5 mb-3">
+            <div className="rounded-2xl shadow-sm p-5 mb-3" style={{ background: isDark ? card : 'white', border: isDark ? `1px solid ${border}` : '1px solid #BFDBFE' }}>
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p className="text-xs font-semibold text-blue-600 uppercase tracking-wide mb-0.5">
                     {t('emergencyFund.minTarget')}
                   </p>
-                  <p className="text-2xl font-extrabold text-gray-900 tracking-tight">{formatSGD(target3)}</p>
+                  <p className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{formatSGD(target3)}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{t('emergencyFund.threeMonths')}</p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: isDark ? '#0C1F3D' : '#EFF6FF' }}>
                   <ShieldCheck className="w-5 h-5 text-blue-500" />
                 </div>
               </div>
@@ -149,16 +153,16 @@ export default function EmergencyFund() {
             </div>
 
             {/* 6-month target */}
-            <div className="bg-white rounded-2xl shadow-sm border border-violet-100 p-5 mb-6">
+            <div className="rounded-2xl shadow-sm p-5 mb-6" style={{ background: isDark ? card : 'white', border: isDark ? `1px solid ${border}` : '1px solid #DDD6FE' }}>
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p className="text-xs font-semibold text-violet-600 uppercase tracking-wide mb-0.5">
                     {t('emergencyFund.recTarget')}
                   </p>
-                  <p className="text-2xl font-extrabold text-gray-900 tracking-tight">{formatSGD(target6)}</p>
+                  <p className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{formatSGD(target6)}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{t('emergencyFund.sixMonths')}</p>
                 </div>
-                <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: isDark ? '#1A0F2E' : '#F5F3FF' }}>
                   <TrendingUp className="w-5 h-5 text-violet-500" />
                 </div>
               </div>
@@ -197,8 +201,8 @@ export default function EmergencyFund() {
         ) : (
           <div className="rounded-3xl p-10 text-center mb-6" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
             <p className="text-4xl mb-3">🛡️</p>
-            <p className="font-semibold text-gray-900 mb-1">{t('emergencyFund.emptyTitle')}</p>
-            <p className="text-sm text-gray-500">{t('emergencyFund.emptyDesc')}</p>
+            <p className="font-semibold mb-1" style={{ color: textPrimary }}>{t('emergencyFund.emptyTitle')}</p>
+            <p className="text-sm" style={{ color: textMuted }}>{t('emergencyFund.emptyDesc')}</p>
           </div>
         )}
 
@@ -211,12 +215,12 @@ export default function EmergencyFund() {
             const Icon = TIP_ICONS[i]
             return (
               <div key={i} className="rounded-3xl px-4 py-4 flex gap-3" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
-                <div className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: isDark ? '#2C2926' : '#F9FAFB', border: `1px solid ${isDark ? border : '#F3F4F6'}` }}>
                   <Icon className="w-4 h-4 text-gray-500" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 mb-0.5">{tip.title}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{tip.body}</p>
+                  <p className="text-sm font-semibold mb-0.5" style={{ color: textPrimary }}>{tip.title}</p>
+                  <p className="text-xs leading-relaxed" style={{ color: textMuted }}>{tip.body}</p>
                 </div>
               </div>
             )

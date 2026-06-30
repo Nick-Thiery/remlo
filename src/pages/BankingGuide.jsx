@@ -38,7 +38,7 @@ function BankCard({ style, text, feeLabel, minBalanceLabel, docsNeededLabel }) {
           <span className="text-white text-xs font-bold">{style.logo}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-gray-900">{text.name}</p>
+          <p className="text-sm font-semibold" style={{ color: isDark ? '#F5F2EC' : '#111827' }}>{text.name}</p>
           <p className={`text-xs mt-0.5 font-medium ${style.feeGood ? 'text-emerald-600' : 'text-gray-500'}`}>
             {text.fee}
           </p>
@@ -102,11 +102,11 @@ export default function BankingGuide() {
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : undefined }} />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('bankingGuide.pageTitle')}</h1>
-            <p className="text-sm text-gray-500 mt-0.5">{t('bankingGuide.pageSubtitle')}</p>
+            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{t('bankingGuide.pageTitle')}</h1>
+            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>{t('bankingGuide.pageSubtitle')}</p>
           </div>
         </div>
 
@@ -120,14 +120,14 @@ export default function BankingGuide() {
               <div key={i} className="flex items-start gap-3">
                 <span className="text-xl leading-none mt-0.5">{DOC_ICONS[i]}</span>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">{d.label}</p>
-                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{d.sub}</p>
+                  <p className="text-sm font-semibold" style={{ color: isDark ? '#F5F2EC' : '#111827' }}>{d.label}</p>
+                  <p className="text-xs mt-0.5 leading-relaxed" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>{d.sub}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-4 pt-4 border-t border-gray-50">
-            <p className="text-xs text-gray-500 leading-relaxed">{t('bankingGuide.docsTip')}</p>
+          <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${isDark ? border : '#F9FAFB'}` }}>
+            <p className="text-xs leading-relaxed" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>{t('bankingGuide.docsTip')}</p>
           </div>
         </div>
 
@@ -173,7 +173,7 @@ export default function BankingGuide() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="text-sm font-semibold text-gray-900">{d.name}</p>
+                    <p className="text-sm font-semibold" style={{ color: isDark ? '#F5F2EC' : '#111827' }}>{d.name}</p>
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${DIGITAL_STYLE[i].badgeColor}`}>
                       {d.badge}
                     </span>
@@ -181,7 +181,7 @@ export default function BankingGuide() {
                   <p className="text-xs text-gray-400 mt-0.5">{d.requirement}</p>
                 </div>
               </div>
-              <p className="text-xs text-gray-600 leading-relaxed">{d.desc}</p>
+              <p className="text-xs leading-relaxed" style={{ color: isDark ? '#9C9590' : '#4B5563' }}>{d.desc}</p>
             </div>
           ))}
         </div>
@@ -204,8 +204,8 @@ export default function BankingGuide() {
                 {i + 1}
               </div>
               <div>
-                <p className="text-sm font-semibold text-gray-900 mb-0.5">{s.title}</p>
-                <p className="text-xs text-gray-500 leading-relaxed">{s.body}</p>
+                <p className="text-sm font-semibold mb-0.5" style={{ color: isDark ? '#F5F2EC' : '#111827' }}>{s.title}</p>
+                <p className="text-xs leading-relaxed" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>{s.body}</p>
               </div>
             </div>
           ))}
@@ -213,18 +213,19 @@ export default function BankingGuide() {
 
         {/* Helplines */}
         <div className="rounded-3xl overflow-hidden mb-2" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-50">
+          <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: `1px solid ${isDark ? border : '#F9FAFB'}` }}>
             <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
-            <p className="text-sm font-semibold text-gray-900">{t('bankingGuide.helplineHeading')}</p>
+            <p className="text-sm font-semibold" style={{ color: isDark ? '#F5F2EC' : '#111827' }}>{t('bankingGuide.helplineHeading')}</p>
           </div>
-          <div className="divide-y divide-gray-50">
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             {Array.isArray(helplines) && helplines.map((h, i) => (
               <a
                 key={i}
                 href={`tel:${HELPLINE_NUMBERS[i].replace(/[^0-9]/g, '')}`}
-                className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors active:bg-gray-100"
+                className={`flex items-center justify-between px-4 py-3 transition-colors ${!isDark ? 'hover:bg-gray-50 active:bg-gray-100' : ''}`}
+                style={i < helplines.length - 1 ? { borderBottom: `1px solid ${isDark ? border : '#F9FAFB'}` } : {}}
               >
-                <span className="text-xs text-gray-600 leading-snug max-w-[65%]">{h.label}</span>
+                <span className="text-xs leading-snug max-w-[65%]" style={{ color: isDark ? '#9C9590' : '#4B5563' }}>{h.label}</span>
                 <span className="text-sm font-bold text-blue-600">{HELPLINE_NUMBERS[i]}</span>
               </a>
             ))}

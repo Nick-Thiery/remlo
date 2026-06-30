@@ -97,7 +97,7 @@ export default function LoanShark() {
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : undefined }} />
           </button>
           <div>
             <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('loanshark.pageTitle')}</h1>

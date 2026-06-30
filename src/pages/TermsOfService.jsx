@@ -77,11 +77,11 @@ export default function TermsOfService() {
             onClick={() => navigate(-1)}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : undefined }} />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">Terms of Service</h1>
-            <p className="text-sm text-gray-500 mt-0.5">Last updated April 2026</p>
+            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>Terms of Service</h1>
+            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated April 2026</p>
           </div>
         </div>
 
@@ -97,10 +97,10 @@ export default function TermsOfService() {
         <div className="space-y-4">
           {SECTIONS.map((section) => (
             <div key={section.title} className="rounded-2xl shadow-sm px-5 py-5" style={{ background: card, border: `1px solid ${border2}` }}>
-              <h2 className="text-sm font-bold text-gray-900 mb-3">{section.title}</h2>
+              <h2 className="text-sm font-bold mb-3" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{section.title}</h2>
               <ul className="space-y-2">
                 {section.body.map((item, i) => (
-                  <li key={i} className="flex gap-2 text-sm text-gray-600 leading-relaxed">
+                  <li key={i} className="flex gap-2 text-sm leading-relaxed" style={{ color: isDark ? '#9C9590' : '#4B5563' }}>
                     <span className="text-gray-300 flex-shrink-0 mt-0.5">•</span>
                     <span>{item}</span>
                   </li>
