@@ -243,13 +243,13 @@ export default function LoanShark() {
                   <div className="flex items-start gap-3">
                     <span className="text-xl leading-none mt-0.5">{meta.icon}</span>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900">{c.org}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{c.hours}</p>
-                      <p className="text-xs text-gray-600 mt-1 leading-relaxed">{c.note}</p>
+                      <p className="text-sm font-semibold" style={{ color: '#111827' }}>{c.org}</p>
+                      <p className="text-xs mt-0.5" style={{ color: '#6B7280' }}>{c.hours}</p>
+                      <p className="text-xs mt-1 leading-relaxed" style={{ color: '#374151' }}>{c.note}</p>
                     </div>
                   </div>
                   <div className="flex-shrink-0 text-right">
-                    <p className="text-sm font-bold text-gray-900">{c.number}</p>
+                    <p className="text-sm font-bold" style={{ color: '#111827' }}>{c.number}</p>
                     <p className="text-xs text-blue-500 mt-0.5">{t('common.tapToCall')}</p>
                   </div>
                 </div>
