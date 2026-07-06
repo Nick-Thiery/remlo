@@ -78,9 +78,10 @@ function Login() {
     setLoading(true)
     setError(null)
 
-    const opts = displayName.trim()
-      ? { data: { display_name: displayName.trim() } }
-      : {}
+    const opts = {
+      emailRedirectTo: `${window.location.origin}/`,
+      ...(displayName.trim() ? { data: { display_name: displayName.trim() } } : {}),
+    }
 
     const { data, error: err } = await supabase.auth.signUp({ email, password, options: opts })
     if (err) {
