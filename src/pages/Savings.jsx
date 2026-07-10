@@ -554,9 +554,6 @@ export default function Savings() {
           </div>
         </div>
       )}
-      <p className="text-xs text-center text-gray-400 mt-8 px-2 leading-relaxed">
-        {t('disclaimer.educational')}
-      </p>
     </div>
   )
 }

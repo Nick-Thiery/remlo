@@ -392,7 +392,6 @@ export default function Chat() {
         </div>
 
         <p className="text-xs text-center mt-2 font-medium" style={{ color: textSecondary }}>{t('chat.disclaimer')}</p>
-        <p className="text-xs text-center mt-1 px-2 leading-relaxed" style={{ color: textSecondary }}>{t('disclaimer.educational')}</p>
       </div>
     </div>
   )
