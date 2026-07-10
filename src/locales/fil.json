@@ -910,5 +910,9 @@
     "creating": "Ginagawa ang account…",
     "switchToSignup": "Bago ka ba? Gumawa ng account",
     "switchToLogin": "May account na? Mag-sign in"
+  },
+  "disclaimer": {
+    "educational": "Ang nilalaman sa Remlo ay para lamang sa pang-edukasyon at impormasyon. Hindi ito propesyonal na payo sa pananalapi. Dapat maingat na isaalang-alang ng mga gumagamit ang kanilang sariling kalagayan bago gumawa ng mga desisyon sa pananalapi.",
+    "bannerDismiss": "Naiintindihan"
   }
 }

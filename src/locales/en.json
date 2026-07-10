@@ -912,5 +912,9 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "confirmEmail": "Check your email to confirm your account. Your guest data will be migrated when you sign in."
+  },
+  "disclaimer": {
+    "educational": "The content on Remlo is for educational and informational purposes only. It is not professional financial advice. Users should carefully consider their individual circumstances before making financial decisions.",
+    "bannerDismiss": "Got it"
   }
 }

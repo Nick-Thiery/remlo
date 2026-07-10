@@ -910,5 +910,9 @@
     "creating": "Membuat akun…",
     "switchToSignup": "Baru di sini? Buat akun",
     "switchToLogin": "Sudah punya akun? Masuk"
+  },
+  "disclaimer": {
+    "educational": "Konten di Remlo hanya untuk tujuan pendidikan dan informasi. Ini bukan nasihat keuangan profesional. Pengguna harus mempertimbangkan keadaan individu mereka dengan cermat sebelum membuat keputusan keuangan.",
+    "bannerDismiss": "Mengerti"
   }
 }

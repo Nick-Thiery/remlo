@@ -910,5 +910,9 @@
     "creating": "正在创建账户…",
     "switchToSignup": "新用户？创建账户",
     "switchToLogin": "已有账户？立即登录"
+  },
+  "disclaimer": {
+    "educational": "Remlo上的内容仅供教育和信息参考。这不是专业的财务建议。用户在做出财务决策前应仔细考虑自身的个人情况。",
+    "bannerDismiss": "明白了"
   }
 }

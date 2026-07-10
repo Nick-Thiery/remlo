@@ -382,6 +382,42 @@ function MorePage() {
   )
 }
 
+// ─── Educational Disclaimer Banner ────────────────────────────────────────────
+
+function EduDisclaimerBanner() {
+  const { t } = useTranslation()
+  const location = useLocation()
+  const [dismissed, setDismissed] = useState(
+    () => safeStorage.getItem('remlo_edu_disclaimer_seen') === 'true'
+  )
+
+  if (dismissed || location.pathname === '/login') return null
+
+  function dismiss() {
+    safeStorage.setItem('remlo_edu_disclaimer_seen', 'true')
+    setDismissed(true)
+  }
+
+  return (
+    <div
+      className="px-4 py-3 flex items-start gap-3"
+      style={{ background: '#EFF6FF', borderBottom: '1px solid #BFDBFE' }}
+    >
+      <span className="text-base leading-none mt-0.5 flex-shrink-0">ℹ️</span>
+      <p className="text-xs text-blue-800 leading-relaxed flex-1">
+        {t('disclaimer.educational')}
+      </p>
+      <button
+        onClick={dismiss}
+        aria-label="Dismiss"
+        className="text-blue-400 hover:text-blue-600 transition-colors flex-shrink-0 text-lg leading-none mt-0.5"
+      >
+        ×
+      </button>
+    </div>
+  )
+}
+
 // ─── Guest Banner ─────────────────────────────────────────────────────────────
 
 function GuestBanner() {
@@ -487,6 +523,7 @@ function AppShell() {
         style={{ background: isDark ? '#121110' : '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
       >
         <div className="overflow-x-hidden pb-[84px]">
+          <EduDisclaimerBanner />
           <GuestBanner />
           <Routes>
             <Route path="/privacy"        element={<PrivacyPolicy />}  />
