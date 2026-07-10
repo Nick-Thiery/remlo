@@ -182,6 +182,9 @@ export default function Emergency() {
         <p className="text-xs text-center text-gray-400 mt-8 leading-relaxed">
           {t('emergency.footer')}
         </p>
+        <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+          {t('disclaimer.educational')}
+        </p>
       </div>
     </div>
   )

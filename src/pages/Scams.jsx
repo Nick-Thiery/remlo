@@ -307,6 +307,9 @@ export default function Scams() {
             {t('scams.sourceNote')}
           </p>
         )}
+        <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+          {t('disclaimer.educational')}
+        </p>
       </div>
 
       {/* Report a Scam modal */}

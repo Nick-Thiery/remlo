@@ -150,14 +150,6 @@ function BottomTabBar() {
           boxShadow: isDark ? '0 -4px 24px rgba(0,0,0,0.3)' : '0 -4px 24px rgba(0,0,0,0.07)',
         }}
       >
-        {location.pathname !== '/login' && (
-          <p
-            className="text-[10px] text-center px-5 pt-1.5 pb-0.5 leading-snug"
-            style={{ color: isDark ? '#4B5563' : '#9CA3AF' }}
-          >
-            {t('disclaimer.educational')}
-          </p>
-        )}
         <div className="flex items-stretch px-1">
           {TABS.map(({ path, key, Icon }) => {
             const active = key === 'more' ? onMoreSection : location.pathname === path
@@ -385,6 +377,9 @@ function MorePage() {
             Terms of Service
           </button>
         </div>
+        <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+          {t('disclaimer.educational')}
+        </p>
       </div>
     </div>
   )
@@ -494,7 +489,7 @@ function AppShell() {
         className="relative w-full max-w-[430px] min-h-screen overflow-x-hidden"
         style={{ background: isDark ? '#121110' : '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
       >
-        <div className="overflow-x-hidden pb-[128px]">
+        <div className="overflow-x-hidden pb-[84px]">
           <GuestBanner />
           <Routes>
             <Route path="/privacy"        element={<PrivacyPolicy />}  />

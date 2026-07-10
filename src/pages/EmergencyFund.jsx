@@ -230,6 +230,9 @@ export default function EmergencyFund() {
         <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
           {t('emergencyFund.disclaimer')}
         </p>
+        <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+          {t('disclaimer.educational')}
+        </p>
       </div>
     </div>
   )

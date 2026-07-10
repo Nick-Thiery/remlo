@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { ChevronLeft, FileText } from 'lucide-react'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { useTranslation } from 'react-i18next'
 
 const SECTIONS = [
   {
@@ -62,6 +63,7 @@ const SECTIONS = [
 
 export default function TermsOfService() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const isDark = useDarkMode()
   const bg   = isDark ? '#121110' : '#FAFAF8'
   const card = isDark ? '#1E1C1A' : 'white'
@@ -112,6 +114,9 @@ export default function TermsOfService() {
 
         <p className="text-xs text-gray-400 text-center mt-8 leading-relaxed">
           FinanceForward · financeforwardinitiative@gmail.com
+        </p>
+        <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+          {t('disclaimer.educational')}
         </p>
       </div>
     </div>

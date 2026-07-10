@@ -133,6 +133,9 @@ export default function ScamQuiz() {
               {t('scamQuiz.scamAlertsBtn')}
             </button>
           </div>
+          <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+            {t('disclaimer.educational')}
+          </p>
         </div>
       </div>
     )
@@ -241,6 +244,9 @@ export default function ScamQuiz() {
             <ChevronRight className="w-4 h-4" />
           </button>
         )}
+        <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+          {t('disclaimer.educational')}
+        </p>
       </div>
     </div>
   )
