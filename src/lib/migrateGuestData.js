@@ -4,20 +4,44 @@ import safeStorage from './safeStorage.js'
 export async function migrateGuestData(userId) {
   const errors = []
 
-  // Savings goals
+  // Savings goals + dated deposit entries
   try {
     const savings = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
+    const savingsEntries = JSON.parse(safeStorage.getItem('remlo_guest_savings_entries') || '[]')
     if (savings.length > 0) {
-      const { error } = await supabase.from('savings_goals').insert(
-        savings.map((g) => ({
+      let ok = true
+      const goalIdMap = {}
+
+      // Insert one at a time to capture each new row's id, so guest-mode
+      // entries (which reference the old local goal id) can be remapped.
+      for (const g of savings) {
+        const { data, error } = await supabase
+          .from('savings_goals')
+          .insert({ user_id: userId, name: g.name, target_amount: g.target, current_amount: g.saved })
+          .select('id')
+          .single()
+        if (error) { errors.push(error.message); ok = false; continue }
+        goalIdMap[g.id] = data.id
+      }
+
+      const mappedEntries = savingsEntries
+        .filter((e) => goalIdMap[e.goalId])
+        .map((e) => ({
           user_id: userId,
-          name: g.name,
-          target_amount: g.target,
-          current_amount: g.saved,
+          goal_id: goalIdMap[e.goalId],
+          date: e.date,
+          amount: e.amount,
+          note: e.note || null,
         }))
-      )
-      if (error) errors.push(error.message)
-      else safeStorage.removeItem('remlo_guest_savings')
+      if (mappedEntries.length > 0) {
+        const { error } = await supabase.from('savings_entries').insert(mappedEntries)
+        if (error) { errors.push(error.message); ok = false }
+      }
+
+      if (ok) {
+        safeStorage.removeItem('remlo_guest_savings')
+        safeStorage.removeItem('remlo_guest_savings_entries')
+      }
     }
   } catch (e) { errors.push(e.message) }
 

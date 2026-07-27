@@ -137,7 +137,16 @@
     "depositLabel": "Deposit Amount (SGD)",
     "errorGoalName": "Goal name is required.",
     "errorTarget": "Enter a valid target amount.",
-    "errorDeposit": "Enter a valid deposit amount."
+    "errorDeposit": "Enter a valid deposit amount.",
+    "dateLabel": "Deposit Date",
+    "errorDate": "Required",
+    "noteLabelModal": "Note",
+    "notePlaceholder": "e.g. Bonus from work",
+    "historyBtn_one": "{{count}} deposit",
+    "historyBtn_other": "{{count}} deposits",
+    "noEntriesYet": "No deposits logged yet.",
+    "runningTotalLabel": "Running total",
+    "deleteEntry": "Delete this entry"
   },
   "budget": {
     "pageTitle": "Budget Planner",

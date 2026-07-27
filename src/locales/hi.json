@@ -133,7 +133,16 @@
     "depositLabel": "जमा राशि (SGD)",
     "errorGoalName": "लक्ष्य का नाम आवश्यक है।",
     "errorTarget": "एक वैध लक्ष्य राशि दर्ज करें।",
-    "errorDeposit": "एक वैध जमा राशि दर्ज करें।"
+    "errorDeposit": "एक वैध जमा राशि दर्ज करें।",
+    "dateLabel": "जमा तारीख",
+    "errorDate": "आवश्यक",
+    "noteLabelModal": "नोट",
+    "notePlaceholder": "जैसे काम से मिला बोनस",
+    "historyBtn_one": "{{count}} जमा",
+    "historyBtn_other": "{{count}} जमा",
+    "noEntriesYet": "अभी तक कोई जमा दर्ज नहीं हुई।",
+    "runningTotalLabel": "कुल शेष",
+    "deleteEntry": "इस प्रविष्टि को हटाएं"
   },
   "budget": {
     "pageTitle": "बजट योजनाकार",

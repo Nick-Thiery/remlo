@@ -133,7 +133,16 @@
     "depositLabel": "Halagang Ideposito (SGD)",
     "errorGoalName": "Kinakailangan ang pangalan ng layunin.",
     "errorTarget": "Maglagay ng wastong target na halaga.",
-    "errorDeposit": "Maglagay ng wastong halagang ideposito."
+    "errorDeposit": "Maglagay ng wastong halagang ideposito.",
+    "dateLabel": "Petsa ng Deposito",
+    "errorDate": "Kinakailangan",
+    "noteLabelModal": "Tala",
+    "notePlaceholder": "hal. Bonus mula sa trabaho",
+    "historyBtn_one": "{{count}} deposito",
+    "historyBtn_other": "{{count}} na deposito",
+    "noEntriesYet": "Wala pang naitalang deposito.",
+    "runningTotalLabel": "Kabuuang balanse",
+    "deleteEntry": "Burahin ang entry na ito"
   },
   "budget": {
     "pageTitle": "Tagaplano ng Badyet",

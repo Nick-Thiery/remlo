@@ -133,7 +133,16 @@
     "depositLabel": "جمع رقم (SGD)",
     "errorGoalName": "ہدف کا نام ضروری ہے۔",
     "errorTarget": "ایک درست ہدف رقم درج کریں۔",
-    "errorDeposit": "ایک درست جمع رقم درج کریں۔"
+    "errorDeposit": "ایک درست جمع رقم درج کریں۔",
+    "dateLabel": "جمع کرنے کی تاریخ",
+    "errorDate": "ضروری",
+    "noteLabelModal": "نوٹ",
+    "notePlaceholder": "مثلاً کام سے ملا بونس",
+    "historyBtn_one": "{{count}} جمع",
+    "historyBtn_other": "{{count}} جمع",
+    "noEntriesYet": "ابھی تک کوئی جمع درج نہیں کی گئی۔",
+    "runningTotalLabel": "مجموعی بیلنس",
+    "deleteEntry": "یہ اندراج حذف کریں"
   },
   "budget": {
     "pageTitle": "بجٹ پلانر",

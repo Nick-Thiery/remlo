@@ -133,7 +133,16 @@
     "depositLabel": "জমার পরিমাণ (SGD)",
     "errorGoalName": "লক্ষ্যের নাম আবশ্যক।",
     "errorTarget": "একটি বৈধ লক্ষ্যমাত্রা লিখুন।",
-    "errorDeposit": "একটি বৈধ জমার পরিমাণ লিখুন।"
+    "errorDeposit": "একটি বৈধ জমার পরিমাণ লিখুন।",
+    "dateLabel": "জমার তারিখ",
+    "errorDate": "আবশ্যক",
+    "noteLabelModal": "নোট",
+    "notePlaceholder": "যেমন কাজের বোনাস",
+    "historyBtn_one": "{{count}}টি জমা",
+    "historyBtn_other": "{{count}}টি জমা",
+    "noEntriesYet": "এখনো কোনো জমা রেকর্ড করা হয়নি।",
+    "runningTotalLabel": "সর্বমোট জমা",
+    "deleteEntry": "এই এন্ট্রি মুছুন"
   },
   "budget": {
     "pageTitle": "বাজেট পরিকল্পনা",

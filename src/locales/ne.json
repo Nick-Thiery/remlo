@@ -133,7 +133,16 @@
     "depositLabel": "जम्मा रकम (SGD)",
     "errorGoalName": "लक्ष्यको नाम आवश्यक छ।",
     "errorTarget": "मान्य लक्ष्य रकम प्रविष्ट गर्नुहोस्।",
-    "errorDeposit": "मान्य जम्मा रकम प्रविष्ट गर्नुहोस्।"
+    "errorDeposit": "मान्य जम्मा रकम प्रविष्ट गर्नुहोस्।",
+    "dateLabel": "जम्मा मिति",
+    "errorDate": "आवश्यक",
+    "noteLabelModal": "टिप्पणी",
+    "notePlaceholder": "जस्तै कामबाट बोनस",
+    "historyBtn_one": "{{count}} जम्मा",
+    "historyBtn_other": "{{count}} जम्माहरू",
+    "noEntriesYet": "अहिलेसम्म कुनै जम्मा रेकर्ड गरिएको छैन।",
+    "runningTotalLabel": "कुल जम्मा रकम",
+    "deleteEntry": "यो प्रविष्टि मेट्नुहोस्"
   },
   "budget": {
     "pageTitle": "बजेट योजनाकार",

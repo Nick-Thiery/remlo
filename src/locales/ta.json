@@ -133,7 +133,16 @@
     "depositLabel": "வைப்பு தொகை (SGD)",
     "errorGoalName": "இலக்கு பெயர் தேவை.",
     "errorTarget": "சரியான இலக்கு தொகையை உள்ளிடுங்கள்.",
-    "errorDeposit": "சரியான வைப்பு தொகையை உள்ளிடுங்கள்."
+    "errorDeposit": "சரியான வைப்பு தொகையை உள்ளிடுங்கள்.",
+    "dateLabel": "வைப்பு தேதி",
+    "errorDate": "தேவையானது",
+    "noteLabelModal": "குறிப்பு",
+    "notePlaceholder": "உ.தா. வேலையிலிருந்து போனஸ்",
+    "historyBtn_one": "{{count}} வைப்பு",
+    "historyBtn_other": "{{count}} வைப்புகள்",
+    "noEntriesYet": "இதுவரை வைப்புகள் எதுவும் பதிவு செய்யப்படவில்லை.",
+    "runningTotalLabel": "மொத்த இருப்பு",
+    "deleteEntry": "இந்த பதிவை நீக்கு"
   },
   "budget": {
     "pageTitle": "பட்ஜெட் திட்டமிடல்",

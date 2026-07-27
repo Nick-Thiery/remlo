@@ -15,6 +15,20 @@ function formatSGD(amount) {
   }).format(amount)
 }
 
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-SG', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+function toYYYYMMDD(date) {
+  return date.toISOString().slice(0, 10)
+}
+
+const today = toYYYYMMDD(new Date())
+
 const GOAL_COLORS = [
   { grad: 'linear-gradient(135deg, #3B82F6, #2563EB)', light: '#EFF6FF', text: '#1D4ED8', bar: '#3B82F6' },
   { grad: 'linear-gradient(135deg, #8B5CF6, #7C3AED)', light: '#F5F3FF', text: '#6D28D9', bar: '#8B5CF6' },
@@ -34,6 +48,7 @@ export default function Savings() {
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const [goals,   setGoals]   = useState([])
+  const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(true)
   const [error,   setError]   = useState(null)
 
@@ -45,16 +60,21 @@ export default function Savings() {
 
   const [showNewGoal,    setShowNewGoal]    = useState(false)
   const [depositGoalId,  setDepositGoalId]  = useState(null)
+  const [historyGoalId,  setHistoryGoalId]  = useState(null)
   const [newGoalName,    setNewGoalName]    = useState('')
   const [newGoalTarget,  setNewGoalTarget]  = useState('')
   const [newGoalError,   setNewGoalError]   = useState('')
   const [depositAmount,  setDepositAmount]  = useState('')
+  const [depositDate,    setDepositDate]    = useState(today)
+  const [depositNote,    setDepositNote]    = useState('')
   const [depositError,   setDepositError]   = useState('')
 
   useEffect(() => {
     if (isGuest) {
-      const stored = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
-      setGoals(stored)
+      const storedGoals   = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
+      const storedEntries = JSON.parse(safeStorage.getItem('remlo_guest_savings_entries') || '[]')
+      setGoals(storedGoals)
+      setEntries(storedEntries)
       setLoading(false)
       return
     }
@@ -62,24 +82,39 @@ export default function Savings() {
     setLoading(true)
     setError(null)
 
-    supabase
-      .from('savings_goals')
-      .select('id, name, target_amount, current_amount')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: true })
-      .then(({ data, error: err }) => {
-        if (err) {
-          setError(err.message)
-        } else {
-          setGoals(data.map(row => ({
-            id:     row.id,
-            name:   row.name,
-            target: row.target_amount,
-            saved:  row.current_amount,
-          })))
-        }
-        setLoading(false)
-      })
+    Promise.all([
+      supabase
+        .from('savings_goals')
+        .select('id, name, target_amount, current_amount')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: true }),
+      supabase
+        .from('savings_entries')
+        .select('id, goal_id, date, amount, note')
+        .eq('user_id', user.id)
+        .order('date', { ascending: true }),
+    ]).then(([goalsRes, entriesRes]) => {
+      if (goalsRes.error) {
+        setError(goalsRes.error.message)
+      } else if (entriesRes.error) {
+        setError(entriesRes.error.message)
+      } else {
+        setGoals(goalsRes.data.map(row => ({
+          id:     row.id,
+          name:   row.name,
+          target: row.target_amount,
+          saved:  row.current_amount,
+        })))
+        setEntries(entriesRes.data.map(row => ({
+          id:     row.id,
+          goalId: row.goal_id,
+          date:   row.date,
+          amount: row.amount,
+          note:   row.note || '',
+        })))
+      }
+      setLoading(false)
+    })
   }, [user, isGuest])
 
   const totalSaved  = goals.reduce((sum, g) => sum + g.saved,  0)
@@ -117,45 +152,107 @@ export default function Savings() {
     closeNewGoal()
   }
 
-  function openDeposit(goalId)  { setDepositAmount(''); setDepositError(''); setDepositGoalId(goalId) }
+  function openDeposit(goalId)  { setDepositAmount(''); setDepositDate(today); setDepositNote(''); setDepositError(''); setDepositGoalId(goalId) }
   function closeDeposit()       { setDepositGoalId(null); setDepositError('') }
 
   async function handleAddDeposit() {
     const amount = parseFloat(depositAmount)
+    if (!depositDate) return setDepositError(t('savings.errorDate'))
     if (!amount || amount <= 0) return setDepositError(t('savings.errorDeposit'))
 
     const goal     = goals.find(g => g.id === depositGoalId)
     const newSaved = Math.min(goal.saved + amount, goal.target)
+    const note     = depositNote.trim()
 
     if (isGuest) {
-      const updated = goals.map(g => g.id === depositGoalId ? { ...g, saved: newSaved } : g)
-      setGoals(updated)
-      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      const newEntry     = { id: Date.now(), goalId: depositGoalId, date: depositDate, amount, note }
+      const updatedGoals   = goals.map(g => g.id === depositGoalId ? { ...g, saved: newSaved } : g)
+      const updatedEntries = [...entries, newEntry]
+      setGoals(updatedGoals)
+      setEntries(updatedEntries)
+      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updatedGoals))
+      safeStorage.setItem('remlo_guest_savings_entries', JSON.stringify(updatedEntries))
       closeDeposit()
       return
     }
 
-    const { error: err } = await supabase
+    const { data, error: entryErr } = await supabase
+      .from('savings_entries')
+      .insert({ user_id: user.id, goal_id: depositGoalId, date: depositDate, amount, note: note || null })
+      .select('id')
+      .single()
+
+    if (entryErr) return setDepositError(entryErr.message)
+
+    const { error: goalErr } = await supabase
       .from('savings_goals')
       .update({ current_amount: newSaved })
       .eq('id', depositGoalId)
 
-    if (err) return setDepositError(err.message)
+    if (goalErr) return setDepositError(goalErr.message)
 
+    setEntries(prev => [...prev, { id: data.id, goalId: depositGoalId, date: depositDate, amount, note }])
     setGoals(prev => prev.map(g => g.id === depositGoalId ? { ...g, saved: newSaved } : g))
     closeDeposit()
   }
 
   async function deleteGoal(id) {
     if (isGuest) {
-      const updated = goals.filter(g => g.id !== id)
-      setGoals(updated)
-      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updated))
+      const updatedGoals   = goals.filter(g => g.id !== id)
+      const updatedEntries = entries.filter(e => e.goalId !== id)
+      setGoals(updatedGoals)
+      setEntries(updatedEntries)
+      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updatedGoals))
+      safeStorage.setItem('remlo_guest_savings_entries', JSON.stringify(updatedEntries))
+      if (historyGoalId === id) setHistoryGoalId(null)
       return
     }
     const { error: err } = await supabase.from('savings_goals').delete().eq('id', id)
     if (err) return setError(err.message)
     setGoals(prev => prev.filter(g => g.id !== id))
+    setEntries(prev => prev.filter(e => e.goalId !== id))
+    if (historyGoalId === id) setHistoryGoalId(null)
+  }
+
+  async function deleteEntry(entryId) {
+    const entry = entries.find(e => e.id === entryId)
+    if (!entry) return
+    const goal     = goals.find(g => g.id === entry.goalId)
+    const newSaved = Math.max((goal?.saved ?? 0) - entry.amount, 0)
+
+    if (isGuest) {
+      const updatedEntries = entries.filter(e => e.id !== entryId)
+      const updatedGoals   = goals.map(g => g.id === entry.goalId ? { ...g, saved: newSaved } : g)
+      setEntries(updatedEntries)
+      setGoals(updatedGoals)
+      safeStorage.setItem('remlo_guest_savings_entries', JSON.stringify(updatedEntries))
+      safeStorage.setItem('remlo_guest_savings', JSON.stringify(updatedGoals))
+      return
+    }
+
+    const { error: err } = await supabase.from('savings_entries').delete().eq('id', entryId)
+    if (err) return setError(err.message)
+
+    const { error: goalErr } = await supabase
+      .from('savings_goals')
+      .update({ current_amount: newSaved })
+      .eq('id', entry.goalId)
+    if (goalErr) return setError(goalErr.message)
+
+    setEntries(prev => prev.filter(e => e.id !== entryId))
+    setGoals(prev => prev.map(g => g.id === entry.goalId ? { ...g, saved: newSaved } : g))
+  }
+
+  function entriesForGoal(goalId, target) {
+    const ascending = entries
+      .filter(e => e.goalId === goalId)
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
+    let cumulative = 0
+    const withRunningTotal = ascending.map(e => {
+      cumulative = Math.min(cumulative + e.amount, target)
+      return { ...e, runningTotal: cumulative }
+    })
+    return withRunningTotal.reverse()
   }
 
   const depositGoal = goals.find(g => g.id === depositGoalId)
@@ -277,10 +374,12 @@ export default function Savings() {
             </div>
           ) : (
             goals.map((goal, index) => {
-              const pct        = Math.min((goal.saved / goal.target) * 100, 100)
-              const remaining  = Math.max(goal.target - goal.saved, 0)
-              const isComplete = goal.saved >= goal.target
-              const color      = GOAL_COLORS[index % GOAL_COLORS.length]
+              const pct           = Math.min((goal.saved / goal.target) * 100, 100)
+              const remaining     = Math.max(goal.target - goal.saved, 0)
+              const isComplete    = goal.saved >= goal.target
+              const color         = GOAL_COLORS[index % GOAL_COLORS.length]
+              const goalEntries   = entriesForGoal(goal.id, goal.target)
+              const isHistoryOpen = historyGoalId === goal.id
 
               return (
                 <div
@@ -376,6 +475,60 @@ export default function Savings() {
                       {t('savings.addFundsBtn')}
                     </button>
                   )}
+
+                  {/* Deposit history */}
+                  <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${isDark ? '#252220' : '#F5F2ED'}` }}>
+                    <button
+                      onClick={() => setHistoryGoalId(isHistoryOpen ? null : goal.id)}
+                      className="w-full flex items-center justify-between"
+                    >
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                        {t('savings.historyBtn', { count: goalEntries.length })}
+                      </span>
+                      <span className={`text-xs font-bold transition-transform ${isHistoryOpen ? 'text-orange-500' : 'text-gray-300'}`}>
+                        {isHistoryOpen ? '▲' : '▼'}
+                      </span>
+                    </button>
+
+                    {isHistoryOpen && (
+                      <div className="mt-2">
+                        {goalEntries.length === 0 ? (
+                          <p className="text-xs text-gray-400 italic py-2">{t('savings.noEntriesYet')}</p>
+                        ) : (
+                          <div className="space-y-1">
+                            {goalEntries.map((entry) => (
+                              <div
+                                key={entry.id}
+                                className="flex items-center justify-between gap-2 py-2.5"
+                                style={{ borderBottom: `1px solid ${isDark ? '#252220' : '#F5F2ED'}` }}
+                              >
+                                <div className="min-w-0">
+                                  <p className="text-xs font-bold text-gray-700">{formatDate(entry.date)}</p>
+                                  {entry.note && <p className="text-xs text-gray-400 mt-0.5 truncate">{entry.note}</p>}
+                                </div>
+                                <div className="flex items-center gap-2 flex-shrink-0">
+                                  <div className="text-right">
+                                    <p className="text-sm font-extrabold text-gray-900 tabular-nums">+{formatSGD(entry.amount)}</p>
+                                    <p className="text-xs text-gray-400 tabular-nums">
+                                      {t('savings.runningTotalLabel')}: {formatSGD(entry.runningTotal)}
+                                    </p>
+                                  </div>
+                                  <button
+                                    onClick={() => deleteEntry(entry.id)}
+                                    aria-label={t('savings.deleteEntry')}
+                                    title={t('savings.deleteEntry')}
+                                    className="w-6 h-6 flex items-center justify-center rounded-full text-gray-300 hover:text-red-400 transition-all text-sm flex-shrink-0"
+                                  >
+                                    ×
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               )
             })
@@ -516,20 +669,47 @@ export default function Savings() {
               </div>
             )}
 
-            <div className="mb-5">
-              <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('savings.depositLabel')}</label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+            <div className="space-y-3 mb-5">
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('savings.dateLabel')}</label>
                 <input
-                  autoFocus
-                  type="number"
-                  placeholder="0.00"
-                  min="0.01"
-                  step="0.01"
-                  value={depositAmount}
-                  onChange={(e) => setDepositAmount(e.target.value)}
+                  type="date"
+                  value={depositDate}
+                  max={today}
+                  onChange={(e) => setDepositDate(e.target.value)}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('savings.depositLabel')}</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <input
+                    autoFocus
+                    type="number"
+                    placeholder="0.00"
+                    min="0.01"
+                    step="0.01"
+                    value={depositAmount}
+                    onChange={(e) => setDepositAmount(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAddDeposit()}
+                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">
+                  {t('savings.noteLabelModal')} <span className="text-gray-300 font-normal">({t('common.optional')})</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder={t('savings.notePlaceholder')}
+                  value={depositNote}
+                  onChange={(e) => setDepositNote(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddDeposit()}
-                  className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
                   style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 />
               </div>

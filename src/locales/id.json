@@ -133,7 +133,16 @@
     "depositLabel": "Jumlah Setoran (SGD)",
     "errorGoalName": "Nama tujuan wajib diisi.",
     "errorTarget": "Masukkan jumlah target yang valid.",
-    "errorDeposit": "Masukkan jumlah setoran yang valid."
+    "errorDeposit": "Masukkan jumlah setoran yang valid.",
+    "dateLabel": "Tanggal Setoran",
+    "errorDate": "Wajib",
+    "noteLabelModal": "Catatan",
+    "notePlaceholder": "mis. Bonus dari pekerjaan",
+    "historyBtn_one": "{{count}} setoran",
+    "historyBtn_other": "{{count}} setoran",
+    "noEntriesYet": "Belum ada setoran yang dicatat.",
+    "runningTotalLabel": "Total saldo",
+    "deleteEntry": "Hapus entri ini"
   },
   "budget": {
     "pageTitle": "Perencana Anggaran",

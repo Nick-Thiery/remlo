@@ -133,7 +133,16 @@
     "depositLabel": "තැන්පතු මුදල (SGD)",
     "errorGoalName": "ඉලක්කයේ නම අවශ්‍යයි.",
     "errorTarget": "වලංගු ඉලක්ක මුදලක් ඇතුළු කරන්න.",
-    "errorDeposit": "වලංගු තැන්පතු මුදලක් ඇතුළු කරන්න."
+    "errorDeposit": "වලංගු තැන්පතු මුදලක් ඇතුළු කරන්න.",
+    "dateLabel": "තැන්පතු දිනය",
+    "errorDate": "අවශ්‍යයි",
+    "noteLabelModal": "සටහන",
+    "notePlaceholder": "උදා. රැකියාවෙන් ලද බෝනස්",
+    "historyBtn_one": "තැන්පතු {{count}}ක්",
+    "historyBtn_other": "තැන්පතු {{count}}ක්",
+    "noEntriesYet": "තවම තැන්පතු කිසිවක් සටහන් වී නැත.",
+    "runningTotalLabel": "සමස්ත ශේෂය",
+    "deleteEntry": "මෙම සටහන මකන්න"
   },
   "budget": {
     "pageTitle": "අයවැය සැලසුම",

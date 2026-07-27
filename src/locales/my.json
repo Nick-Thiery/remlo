@@ -133,7 +133,16 @@
     "depositLabel": "အပ်ငွေပမာဏ (SGD)",
     "errorGoalName": "ပန်းတိုင်နာမည် လိုအပ်သည်။",
     "errorTarget": "ပန်းတိုင်ပမာဏ မှန်ကန်စွာ ထည့်သွင်းပါ။",
-    "errorDeposit": "အပ်ငွေပမာဏ မှန်ကန်စွာ ထည့်သွင်းပါ။"
+    "errorDeposit": "အပ်ငွေပမာဏ မှန်ကန်စွာ ထည့်သွင်းပါ။",
+    "dateLabel": "အပ်ငွေသွင်းသည့်ရက်",
+    "errorDate": "လိုအပ်သည်",
+    "noteLabelModal": "မှတ်ချက်",
+    "notePlaceholder": "ဥပမာ- အလုပ်မှ ဘောနပ်စ်",
+    "historyBtn_one": "အပ်ငွေ {{count}} ခု",
+    "historyBtn_other": "အပ်ငွေ {{count}} ခု",
+    "noEntriesYet": "အပ်ငွေများ မှတ်တမ်းမတင်ရသေးပါ။",
+    "runningTotalLabel": "စုစုပေါင်းလက်ကျန်",
+    "deleteEntry": "ဤမှတ်တမ်းကို ဖျက်မည်"
   },
   "budget": {
     "pageTitle": "ဘတ်ဂျက်စီမံကိန်း",

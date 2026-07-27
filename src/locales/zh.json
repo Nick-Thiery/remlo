@@ -133,7 +133,16 @@
     "depositLabel": "存入金额（新元）",
     "errorGoalName": "请输入目标名称。",
     "errorTarget": "请输入有效的目标金额。",
-    "errorDeposit": "请输入有效的存入金额。"
+    "errorDeposit": "请输入有效的存入金额。",
+    "dateLabel": "存款日期",
+    "errorDate": "必填",
+    "noteLabelModal": "备注",
+    "notePlaceholder": "例如：工作奖金",
+    "historyBtn_one": "{{count}} 笔存款",
+    "historyBtn_other": "{{count}} 笔存款",
+    "noEntriesYet": "尚未记录任何存款。",
+    "runningTotalLabel": "累计余额",
+    "deleteEntry": "删除此记录"
   },
   "budget": {
     "pageTitle": "预算规划",

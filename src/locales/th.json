@@ -133,7 +133,16 @@
     "depositLabel": "จำนวนเงินที่ฝาก (SGD)",
     "errorGoalName": "กรุณาระบุชื่อเป้าหมาย",
     "errorTarget": "กรุณาระบุจำนวนเงินเป้าหมายที่ถูกต้อง",
-    "errorDeposit": "กรุณาระบุจำนวนเงินที่ฝากที่ถูกต้อง"
+    "errorDeposit": "กรุณาระบุจำนวนเงินที่ฝากที่ถูกต้อง",
+    "dateLabel": "วันที่ฝากเงิน",
+    "errorDate": "จำเป็น",
+    "noteLabelModal": "หมายเหตุ",
+    "notePlaceholder": "เช่น โบนัสจากที่ทำงาน",
+    "historyBtn_one": "ฝากเงิน {{count}} ครั้ง",
+    "historyBtn_other": "ฝากเงิน {{count}} ครั้ง",
+    "noEntriesYet": "ยังไม่มีการบันทึกการฝากเงิน",
+    "runningTotalLabel": "ยอดรวมสะสม",
+    "deleteEntry": "ลบรายการนี้"
   },
   "budget": {
     "pageTitle": "ตัวช่วยวางแผนงบ",
