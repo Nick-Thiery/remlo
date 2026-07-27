@@ -140,6 +140,7 @@
     "errorDeposit": "Enter a valid deposit amount.",
     "dateLabel": "Deposit Date",
     "errorDate": "Required",
+    "errorFutureDate": "Deposit date can't be in the future.",
     "noteLabelModal": "Note",
     "notePlaceholder": "e.g. Bonus from work",
     "historyBtn_one": "{{count}} deposit",

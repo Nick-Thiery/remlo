@@ -161,6 +161,7 @@ export default function Savings() {
   async function handleAddDeposit() {
     const amount = parseFloat(depositAmount)
     if (!depositDate) return setDepositError(t('savings.errorDate'))
+    if (depositDate > toYYYYMMDD(new Date())) return setDepositError(t('savings.errorFutureDate'))
     if (!amount || amount <= 0) return setDepositError(t('savings.errorDeposit'))
 
     const goal     = goals.find(g => g.id === depositGoalId)

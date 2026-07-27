@@ -136,6 +136,7 @@
     "errorDeposit": "请输入有效的存入金额。",
     "dateLabel": "存款日期",
     "errorDate": "必填",
+    "errorFutureDate": "存款日期不能是未来日期。",
     "noteLabelModal": "备注",
     "notePlaceholder": "例如：工作奖金",
     "historyBtn_one": "{{count}} 笔存款",

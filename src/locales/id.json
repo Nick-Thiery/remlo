@@ -136,6 +136,7 @@
     "errorDeposit": "Masukkan jumlah setoran yang valid.",
     "dateLabel": "Tanggal Setoran",
     "errorDate": "Wajib",
+    "errorFutureDate": "Tanggal setoran tidak boleh di masa depan.",
     "noteLabelModal": "Catatan",
     "notePlaceholder": "mis. Bonus dari pekerjaan",
     "historyBtn_one": "{{count}} setoran",

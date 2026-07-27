@@ -136,6 +136,7 @@
     "errorDeposit": "একটি বৈধ জমার পরিমাণ লিখুন।",
     "dateLabel": "জমার তারিখ",
     "errorDate": "আবশ্যক",
+    "errorFutureDate": "জমার তারিখ ভবিষ্যতে হতে পারবে না।",
     "noteLabelModal": "নোট",
     "notePlaceholder": "যেমন কাজের বোনাস",
     "historyBtn_one": "{{count}}টি জমা",

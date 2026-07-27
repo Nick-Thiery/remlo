@@ -136,6 +136,7 @@
     "errorDeposit": "சரியான வைப்பு தொகையை உள்ளிடுங்கள்.",
     "dateLabel": "வைப்பு தேதி",
     "errorDate": "தேவையானது",
+    "errorFutureDate": "வைப்பு தேதி எதிர்காலத்தில் இருக்க முடியாது.",
     "noteLabelModal": "குறிப்பு",
     "notePlaceholder": "உ.தா. வேலையிலிருந்து போனஸ்",
     "historyBtn_one": "{{count}} வைப்பு",

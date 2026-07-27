@@ -136,6 +136,7 @@
     "errorDeposit": "အပ်ငွေပမာဏ မှန်ကန်စွာ ထည့်သွင်းပါ။",
     "dateLabel": "အပ်ငွေသွင်းသည့်ရက်",
     "errorDate": "လိုအပ်သည်",
+    "errorFutureDate": "အပ်ငွေသွင်းသည့်ရက်သည် အနာဂတ်ရက်ဖြစ်၍မရပါ။",
     "noteLabelModal": "မှတ်ချက်",
     "notePlaceholder": "ဥပမာ- အလုပ်မှ ဘောနပ်စ်",
     "historyBtn_one": "အပ်ငွေ {{count}} ခု",

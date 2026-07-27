@@ -136,6 +136,7 @@
     "errorDeposit": "Maglagay ng wastong halagang ideposito.",
     "dateLabel": "Petsa ng Deposito",
     "errorDate": "Kinakailangan",
+    "errorFutureDate": "Ang petsa ng deposito ay hindi maaaring nasa hinaharap.",
     "noteLabelModal": "Tala",
     "notePlaceholder": "hal. Bonus mula sa trabaho",
     "historyBtn_one": "{{count}} deposito",

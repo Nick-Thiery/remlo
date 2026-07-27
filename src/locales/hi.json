@@ -136,6 +136,7 @@
     "errorDeposit": "एक वैध जमा राशि दर्ज करें।",
     "dateLabel": "जमा तारीख",
     "errorDate": "आवश्यक",
+    "errorFutureDate": "जमा तारीख भविष्य में नहीं हो सकती।",
     "noteLabelModal": "नोट",
     "notePlaceholder": "जैसे काम से मिला बोनस",
     "historyBtn_one": "{{count}} जमा",

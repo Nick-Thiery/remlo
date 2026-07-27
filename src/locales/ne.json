@@ -136,6 +136,7 @@
     "errorDeposit": "मान्य जम्मा रकम प्रविष्ट गर्नुहोस्।",
     "dateLabel": "जम्मा मिति",
     "errorDate": "आवश्यक",
+    "errorFutureDate": "जम्मा मिति भविष्यमा हुन सक्दैन।",
     "noteLabelModal": "टिप्पणी",
     "notePlaceholder": "जस्तै कामबाट बोनस",
     "historyBtn_one": "{{count}} जम्मा",

@@ -136,6 +136,7 @@
     "errorDeposit": "ایک درست جمع رقم درج کریں۔",
     "dateLabel": "جمع کرنے کی تاریخ",
     "errorDate": "ضروری",
+    "errorFutureDate": "جمع کرنے کی تاریخ مستقبل میں نہیں ہو سکتی۔",
     "noteLabelModal": "نوٹ",
     "notePlaceholder": "مثلاً کام سے ملا بونس",
     "historyBtn_one": "{{count}} جمع",

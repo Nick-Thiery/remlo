@@ -136,6 +136,7 @@
     "errorDeposit": "กรุณาระบุจำนวนเงินที่ฝากที่ถูกต้อง",
     "dateLabel": "วันที่ฝากเงิน",
     "errorDate": "จำเป็น",
+    "errorFutureDate": "วันที่ฝากเงินต้องไม่ใช่วันที่ในอนาคต",
     "noteLabelModal": "หมายเหตุ",
     "notePlaceholder": "เช่น โบนัสจากที่ทำงาน",
     "historyBtn_one": "ฝากเงิน {{count}} ครั้ง",

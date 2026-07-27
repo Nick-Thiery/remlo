@@ -136,6 +136,7 @@
     "errorDeposit": "වලංගු තැන්පතු මුදලක් ඇතුළු කරන්න.",
     "dateLabel": "තැන්පතු දිනය",
     "errorDate": "අවශ්‍යයි",
+    "errorFutureDate": "තැන්පතු දිනය අනාගතයේ විය නොහැක.",
     "noteLabelModal": "සටහන",
     "notePlaceholder": "උදා. රැකියාවෙන් ලද බෝනස්",
     "historyBtn_one": "තැන්පතු {{count}}ක්",
