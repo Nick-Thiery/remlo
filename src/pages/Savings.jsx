@@ -24,7 +24,10 @@ function formatDate(iso) {
 }
 
 function toYYYYMMDD(date) {
-  return date.toISOString().slice(0, 10)
+  const year  = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day   = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 const today = toYYYYMMDD(new Date())
@@ -152,7 +155,7 @@ export default function Savings() {
     closeNewGoal()
   }
 
-  function openDeposit(goalId)  { setDepositAmount(''); setDepositDate(today); setDepositNote(''); setDepositError(''); setDepositGoalId(goalId) }
+  function openDeposit(goalId)  { setDepositAmount(''); setDepositDate(toYYYYMMDD(new Date())); setDepositNote(''); setDepositError(''); setDepositGoalId(goalId) }
   function closeDeposit()       { setDepositGoalId(null); setDepositError('') }
 
   async function handleAddDeposit() {
@@ -675,7 +678,7 @@ export default function Savings() {
                 <input
                   type="date"
                   value={depositDate}
-                  max={today}
+                  max={toYYYYMMDD(new Date())}
                   onChange={(e) => setDepositDate(e.target.value)}
                   className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
                   style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
