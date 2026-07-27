@@ -16,6 +16,50 @@ function formatSGD(amount) {
   }).format(amount)
 }
 
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-SG', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+// Local (not UTC) date string — see the equivalent fix in Savings.jsx for
+// why toISOString()-based conversion breaks around midnight for SGT users.
+function toYYYYMMDD(date) {
+  const year  = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day   = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+// budgets.expenses categories predate this feature and have no stable id
+// (only a client-only React key regenerated from array index each load).
+// Assigns a permanent id to any category missing one so it can be
+// referenced by budget_entries.category_id.
+function withStableIds(list) {
+  let changed = false
+  const next = list.map((item) => {
+    if (item.id) return item
+    changed = true
+    return { ...item, id: crypto.randomUUID() }
+  })
+  return { list: next, changed }
+}
+
+function cleanExpense({ id, name, amount }) {
+  return { id, name, amount }
+}
+
+// Compares an entry's date string against today's local calendar month —
+// string-based so it never touches Date/UTC parsing and rolls over
+// correctly at month boundaries with no hardcoded ranges.
+function isCurrentMonth(dateStr) {
+  const now = new Date()
+  const [y, m] = dateStr.split('-').map(Number)
+  return y === now.getFullYear() && m === now.getMonth() + 1
+}
+
 const SEGMENT_COLORS = [
   { bar: 'bg-blue-500',    dot: 'bg-blue-500',    text: 'text-blue-600',    light: 'bg-blue-50',    svgColor: '#3b82f6' },
   { bar: 'bg-rose-500',    dot: 'bg-rose-500',    text: 'text-rose-600',    light: 'bg-rose-50',    svgColor: '#f43f5e' },
@@ -93,20 +137,27 @@ export default function Budget() {
   const { user, authLoading, isGuest } = useRequireAuth()
 
   const PRESET_EXPENSES = useMemo(() => [
-    { name: t('budget.presetRent'),        amount: 400, _key: 'preset-0' },
-    { name: t('budget.presetGroceries'),   amount: 200, _key: 'preset-1' },
-    { name: t('budget.presetTransport'),   amount: 80,  _key: 'preset-2' },
-    { name: t('budget.presetPhone'),       amount: 20,  _key: 'preset-3' },
+    { name: t('budget.presetRent'),        amount: 400 },
+    { name: t('budget.presetGroceries'),   amount: 200 },
+    { name: t('budget.presetTransport'),   amount: 80 },
+    { name: t('budget.presetPhone'),       amount: 20 },
   ], [t])
 
   const [income, setIncome] = useState('')
   const [expenses, setExpenses] = useState(PRESET_EXPENSES)
+  const [entries, setEntries] = useState([])
   const [newName, setNewName] = useState('')
   const [newAmount, setNewAmount] = useState('')
   const [nameError, setNameError] = useState('')
   const [amountError, setAmountError] = useState('')
   const [editingKey, setEditingKey] = useState(null)
   const [editingValue, setEditingValue] = useState('')
+  const [logCategoryId, setLogCategoryId] = useState(null)
+  const [historyCategoryId, setHistoryCategoryId] = useState(null)
+  const [logAmount, setLogAmount] = useState('')
+  const [logDate, setLogDate] = useState('')
+  const [logNote, setLogNote] = useState('')
+  const [logError, setLogError] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const budgetExists = useRef(false)
@@ -114,38 +165,57 @@ export default function Budget() {
   useEffect(() => {
     if (isGuest) {
       const stored = JSON.parse(safeStorage.getItem('remlo_guest_budget') || 'null')
-      if (stored) {
-        setIncome(stored.income > 0 ? String(stored.income) : '')
-        setExpenses(Array.isArray(stored.expenses) && stored.expenses.length > 0
-          ? stored.expenses.map((e, i) => ({ ...e, _key: e._key ?? i }))
-          : PRESET_EXPENSES)
-      }
+      const storedEntries = JSON.parse(safeStorage.getItem('remlo_guest_budget_entries') || '[]')
+      const rawExpenses = stored && Array.isArray(stored.expenses) && stored.expenses.length > 0 ? stored.expenses : PRESET_EXPENSES
+      const { list: idExpenses, changed: idsChanged } = withStableIds(rawExpenses)
+
+      if (stored) setIncome(stored.income > 0 ? String(stored.income) : '')
+      setExpenses(idExpenses)
+      setEntries(storedEntries)
       setLoading(false)
+
+      if (stored && idsChanged) {
+        safeStorage.setItem('remlo_guest_budget', JSON.stringify({ income: stored.income, expenses: idExpenses.map(cleanExpense) }))
+      }
       return
     }
     if (!user) return
     setLoading(true)
-    supabase
-      .from('budgets')
-      .select('income, expenses')
-      .eq('user_id', user.id)
-      .maybeSingle()
-      .then(({ data, error: err }) => {
-        if (err) {
-          setError(err.message)
-        } else if (data) {
-          budgetExists.current = true
-          setIncome(data.income > 0 ? String(data.income) : '')
-          setExpenses(Array.isArray(data.expenses) && data.expenses.length > 0
-            ? data.expenses.map((e, i) => ({ ...e, _key: e._key ?? i }))
-            : PRESET_EXPENSES)
+    setError(null)
+
+    Promise.all([
+      supabase.from('budgets').select('income, expenses').eq('user_id', user.id).maybeSingle(),
+      supabase.from('budget_entries').select('id, category_id, date, amount, note').eq('user_id', user.id).order('date', { ascending: true }),
+    ]).then(([budgetRes, entriesRes]) => {
+      if (budgetRes.error) {
+        setError(budgetRes.error.message)
+      } else if (entriesRes.error) {
+        setError(entriesRes.error.message)
+      } else {
+        if (budgetRes.data) budgetExists.current = true
+        const rawExpenses = budgetRes.data && Array.isArray(budgetRes.data.expenses) && budgetRes.data.expenses.length > 0
+          ? budgetRes.data.expenses : PRESET_EXPENSES
+        const { list, changed } = withStableIds(rawExpenses)
+        if (budgetRes.data) setIncome(budgetRes.data.income > 0 ? String(budgetRes.data.income) : '')
+        setExpenses(list)
+        if (budgetRes.data && changed) {
+          supabase.from('budgets').update({ expenses: list.map(cleanExpense) }).eq('user_id', user.id)
+            .then(({ error: idErr }) => { if (idErr) setError(idErr.message) })
         }
-        setLoading(false)
-      })
+        setEntries(entriesRes.data.map(row => ({
+          id:         row.id,
+          categoryId: row.category_id,
+          date:       row.date,
+          amount:     row.amount,
+          note:       row.note || '',
+        })))
+      }
+      setLoading(false)
+    })
   }, [user, isGuest, PRESET_EXPENSES])
 
   async function saveBudget(incomeVal, expensesVal) {
-    const cleanExpenses = expensesVal.map(({ _key, ...rest }) => rest)
+    const cleanExpenses = expensesVal.map(cleanExpense)
     track('budget_updated', { income: parseFloat(incomeVal) || 0, expense_count: cleanExpenses.length })
     if (isGuest) {
       safeStorage.setItem('remlo_guest_budget', JSON.stringify({
@@ -215,6 +285,8 @@ export default function Budget() {
     }
   }, [monthlyIncome])
 
+  const logCategory = expenses.find(e => e.id === logCategoryId)
+
   function handleAddExpense() {
     let valid = true
     if (!newName.trim()) { setNameError(t('budget.errorName')); valid = false } else setNameError('')
@@ -222,34 +294,112 @@ export default function Budget() {
     if (!amt || amt <= 0) { setAmountError(t('budget.errorAmount')); valid = false } else setAmountError('')
     if (!valid) return
 
-    const newExpenses = [...expenses, { name: newName.trim(), amount: amt, _key: Date.now() }]
+    const newExpenses = [...expenses, { id: crypto.randomUUID(), name: newName.trim(), amount: amt }]
     setExpenses(newExpenses)
     setNewName('')
     setNewAmount('')
     saveBudget(income, newExpenses)
   }
 
-  function removeExpense(key) {
-    const newExpenses = expenses.filter((e) => e._key !== key)
+  async function removeExpense(id) {
+    const newExpenses = expenses.filter((e) => e.id !== id)
+    const newEntries  = entries.filter((e) => e.categoryId !== id)
     setExpenses(newExpenses)
+    setEntries(newEntries)
     saveBudget(income, newExpenses)
+    if (historyCategoryId === id) setHistoryCategoryId(null)
+
+    if (isGuest) {
+      safeStorage.setItem('remlo_guest_budget_entries', JSON.stringify(newEntries))
+      return
+    }
+    const { error: err } = await supabase.from('budget_entries').delete().eq('category_id', id)
+    if (err) setError(err.message)
   }
 
-  function startEdit(key) {
-    const e = expenses.find((exp) => exp._key === key)
-    setEditingKey(key)
+  function startEdit(id) {
+    const e = expenses.find((exp) => exp.id === id)
+    setEditingKey(id)
     setEditingValue(String(e.amount))
   }
 
-  function commitEdit(key) {
+  function commitEdit(id) {
     const amt = parseFloat(editingValue)
     setEditingKey(null)
     setEditingValue('')
-    const e = expenses.find((exp) => exp._key === key)
+    const e = expenses.find((exp) => exp.id === id)
     if (!amt || amt <= 0 || amt === e?.amount) return
-    const newExpenses = expenses.map((exp) => exp._key === key ? { ...exp, amount: amt } : exp)
+    const newExpenses = expenses.map((exp) => exp.id === id ? { ...exp, amount: amt } : exp)
     setExpenses(newExpenses)
     saveBudget(income, newExpenses)
+  }
+
+  function openLog(categoryId) {
+    setLogAmount('')
+    setLogDate(toYYYYMMDD(new Date()))
+    setLogNote('')
+    setLogError('')
+    setLogCategoryId(categoryId)
+  }
+  function closeLog() { setLogCategoryId(null); setLogError('') }
+
+  async function handleAddLog() {
+    const amount = parseFloat(logAmount)
+    if (!logDate) return setLogError(t('budget.errorDate'))
+    if (logDate > toYYYYMMDD(new Date())) return setLogError(t('budget.errorFutureDate'))
+    if (!amount || amount <= 0) return setLogError(t('budget.errorAmount'))
+
+    const note = logNote.trim()
+
+    if (isGuest) {
+      const newEntry = { id: crypto.randomUUID(), categoryId: logCategoryId, date: logDate, amount, note }
+      const updatedEntries = [...entries, newEntry]
+      setEntries(updatedEntries)
+      safeStorage.setItem('remlo_guest_budget_entries', JSON.stringify(updatedEntries))
+      closeLog()
+      return
+    }
+
+    const { data, error: entryErr } = await supabase
+      .from('budget_entries')
+      .insert({ user_id: user.id, category_id: logCategoryId, date: logDate, amount, note: note || null })
+      .select('id')
+      .single()
+
+    if (entryErr) return setLogError(entryErr.message)
+
+    setEntries(prev => [...prev, { id: data.id, categoryId: logCategoryId, date: logDate, amount, note }])
+    closeLog()
+  }
+
+  async function deleteLogEntry(entryId) {
+    if (isGuest) {
+      const updated = entries.filter(e => e.id !== entryId)
+      setEntries(updated)
+      safeStorage.setItem('remlo_guest_budget_entries', JSON.stringify(updated))
+      return
+    }
+    const { error: err } = await supabase.from('budget_entries').delete().eq('id', entryId)
+    if (err) return setError(err.message)
+    setEntries(prev => prev.filter(e => e.id !== entryId))
+  }
+
+  function entriesForCategory(categoryId) {
+    const ascending = entries
+      .filter(e => e.categoryId === categoryId)
+      .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
+    let cumulative = 0
+    const withRunningTotal = ascending.map(e => {
+      cumulative += e.amount
+      return { ...e, runningTotal: cumulative }
+    })
+    return withRunningTotal.reverse()
+  }
+
+  function spentThisMonth(categoryId) {
+    return entries
+      .filter(e => e.categoryId === categoryId && isCurrentMonth(e.date))
+      .reduce((sum, e) => sum + e.amount, 0)
   }
 
   if (authLoading || loading) {
@@ -416,64 +566,137 @@ export default function Budget() {
               {expenses.map((e, i) => {
                 const c = SEGMENT_COLORS[i % SEGMENT_COLORS.length]
                 const pct = monthlyIncome > 0 ? (e.amount / monthlyIncome) * 100 : 0
+                const categoryEntries = entriesForCategory(e.id)
+                const spent = spentThisMonth(e.id)
+                const isHistoryOpen = historyCategoryId === e.id
                 return (
                   <div
-                    key={e._key}
-                    className="flex items-center justify-between py-3"
+                    key={e.id}
+                    className="py-3"
                     style={{ borderBottom: `1px solid ${isDark ? '#252220' : '#F5F2ED'}` }}
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className={`w-2 h-2 rounded-full flex-shrink-0 ${c.dot}`} />
-                      <span className="text-sm text-gray-800 truncate font-medium">{e.name}</span>
-                    </div>
-                    <div className="flex items-center gap-3 flex-shrink-0">
-                      {editingKey === e._key ? (
-                        <div className="relative">
-                          <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">S$</span>
-                          <input
-                            autoFocus
-                            type="number"
-                            min="0"
-                            step="1"
-                            value={editingValue}
-                            onChange={(ev) => setEditingValue(ev.target.value)}
-                            onBlur={() => commitEdit(e._key)}
-                            onKeyDown={(ev) => {
-                              if (ev.key === 'Enter') ev.target.blur()
-                              if (ev.key === 'Escape') { setEditingKey(null); setEditingValue('') }
-                            }}
-                            className="w-24 rounded-xl pl-6 pr-2 py-1 text-sm font-bold"
-                            style={{ border: '2px solid #E8640C', outline: 'none' }}
-                          />
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => startEdit(e._key)}
-                          title="Click to edit"
-                          className="text-sm font-bold text-gray-900 hover:text-orange-600 transition-colors group/amt flex items-center gap-1"
-                        >
-                          <span className="underline decoration-dashed decoration-gray-300 underline-offset-2 group-hover/amt:decoration-orange-400 transition-colors tabular-nums">
-                            {formatSGD(e.amount)}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className={`w-2 h-2 rounded-full flex-shrink-0 ${c.dot}`} />
+                        <span className="text-sm text-gray-800 truncate font-medium">{e.name}</span>
+                      </div>
+                      <div className="flex items-center gap-3 flex-shrink-0">
+                        {editingKey === e.id ? (
+                          <div className="relative">
+                            <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">S$</span>
+                            <input
+                              autoFocus
+                              type="number"
+                              min="0"
+                              step="1"
+                              value={editingValue}
+                              onChange={(ev) => setEditingValue(ev.target.value)}
+                              onBlur={() => commitEdit(e.id)}
+                              onKeyDown={(ev) => {
+                                if (ev.key === 'Enter') ev.target.blur()
+                                if (ev.key === 'Escape') { setEditingKey(null); setEditingValue('') }
+                              }}
+                              className="w-24 rounded-xl pl-6 pr-2 py-1 text-sm font-bold"
+                              style={{ border: '2px solid #E8640C', outline: 'none' }}
+                            />
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => startEdit(e.id)}
+                            title="Click to edit"
+                            className="text-sm font-bold text-gray-900 hover:text-orange-600 transition-colors group/amt flex items-center gap-1"
+                          >
+                            <span className="underline decoration-dashed decoration-gray-300 underline-offset-2 group-hover/amt:decoration-orange-400 transition-colors tabular-nums">
+                              {formatSGD(e.amount)}
+                            </span>
+                            <svg className="w-3 h-3 text-gray-300 group-hover/amt:text-orange-400 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z" />
+                            </svg>
+                          </button>
+                        )}
+                        {monthlyIncome > 0 && editingKey !== e.id && (
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${c.light} ${c.text}`}>
+                            {pct.toFixed(0)}%
                           </span>
-                          <svg className="w-3 h-3 text-gray-300 group-hover/amt:text-orange-400 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z" />
-                          </svg>
+                        )}
+                        <button
+                          onClick={() => removeExpense(e.id)}
+                          aria-label="Remove"
+                          className="w-7 h-7 flex items-center justify-center rounded-full text-gray-300 hover:text-rose-400 transition-all text-lg"
+                          style={{ background: isDark ? '#2A2724' : '#F9F7F4' }}
+                        >
+                          ×
                         </button>
-                      )}
-                      {monthlyIncome > 0 && editingKey !== e._key && (
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${c.light} ${c.text}`}>
-                          {pct.toFixed(0)}%
+                      </div>
+                    </div>
+
+                    {/* Actual spend tracking */}
+                    <div className="flex items-center justify-between mt-2.5 pl-5">
+                      <p className="text-xs text-gray-400 font-medium">
+                        {t('budget.spentThisMonthLabel')}{': '}
+                        <span className="font-bold tabular-nums" style={{ color: isDark ? '#F5F2EE' : '#1A1A1A' }}>
+                          {formatSGD(spent)}
                         </span>
-                      )}
+                      </p>
                       <button
-                        onClick={() => removeExpense(e._key)}
-                        aria-label="Remove"
-                        className="w-7 h-7 flex items-center justify-center rounded-full text-gray-300 hover:text-rose-400 transition-all text-lg"
-                        style={{ background: isDark ? '#2A2724' : '#F9F7F4' }}
+                        onClick={() => openLog(e.id)}
+                        className="text-xs font-extrabold px-3 py-1.5 rounded-full text-white active:scale-95 transition-all flex-shrink-0"
+                        style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)' }}
                       >
-                        ×
+                        {t('budget.logSpendBtn')}
                       </button>
                     </div>
+
+                    <button
+                      onClick={() => setHistoryCategoryId(isHistoryOpen ? null : e.id)}
+                      className="flex items-center gap-1.5 mt-1.5 pl-5"
+                    >
+                      <span className="text-xs font-bold text-gray-400">
+                        {t('budget.historyBtn', { count: categoryEntries.length })}
+                      </span>
+                      <span className={`text-xs font-bold transition-transform ${isHistoryOpen ? 'text-orange-500' : 'text-gray-300'}`}>
+                        {isHistoryOpen ? '▲' : '▼'}
+                      </span>
+                    </button>
+
+                    {isHistoryOpen && (
+                      <div className="mt-2 pl-5">
+                        {categoryEntries.length === 0 ? (
+                          <p className="text-xs text-gray-400 italic py-2">{t('budget.noEntriesYet')}</p>
+                        ) : (
+                          <div className="space-y-1">
+                            {categoryEntries.map((entry) => (
+                              <div
+                                key={entry.id}
+                                className="flex items-center justify-between gap-2 py-2.5"
+                                style={{ borderBottom: `1px solid ${isDark ? '#252220' : '#F5F2ED'}` }}
+                              >
+                                <div className="min-w-0">
+                                  <p className="text-xs font-bold text-gray-700">{formatDate(entry.date)}</p>
+                                  {entry.note && <p className="text-xs text-gray-400 mt-0.5 truncate">{entry.note}</p>}
+                                </div>
+                                <div className="flex items-center gap-2 flex-shrink-0">
+                                  <div className="text-right">
+                                    <p className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(entry.amount)}</p>
+                                    <p className="text-xs text-gray-400 tabular-nums">
+                                      {t('budget.runningTotalLabel')}: {formatSGD(entry.runningTotal)}
+                                    </p>
+                                  </div>
+                                  <button
+                                    onClick={() => deleteLogEntry(entry.id)}
+                                    aria-label={t('budget.deleteEntry')}
+                                    title={t('budget.deleteEntry')}
+                                    className="w-6 h-6 flex items-center justify-center rounded-full text-gray-300 hover:text-red-400 transition-all text-sm flex-shrink-0"
+                                  >
+                                    ×
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )
               })}
@@ -627,6 +850,107 @@ export default function Budget() {
           {t('disclaimer.educational')}
         </p>
       </div>
+
+      {/* Log Spend Modal */}
+      {logCategoryId && logCategory && (
+        <div
+          className="fixed inset-0 flex items-end sm:items-center justify-center z-50 p-4"
+          style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }}
+          onClick={(e) => e.target === e.currentTarget && closeLog()}
+        >
+          <div
+            className="w-full max-w-sm p-6 scale-in"
+            style={{
+              background: card,
+              borderRadius: 24,
+              boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
+            }}
+          >
+            <h2 className="text-lg font-extrabold text-gray-900 mb-0.5 tracking-tight">{t('budget.logSpendTitle')}</h2>
+            <p className="text-sm text-gray-500 mb-5">
+              {t('budget.logSpendDesc', {
+                name:   logCategory.name,
+                amount: formatSGD(Math.max(logCategory.amount - spentThisMonth(logCategory.id), 0)),
+              })}
+            </p>
+
+            {logError && (
+              <div
+                className="text-sm rounded-xl p-3 mb-4 font-medium"
+                style={{ background: '#FEF2F2', color: '#DC2626' }}
+              >
+                {logError}
+              </div>
+            )}
+
+            <div className="space-y-3 mb-5">
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.dateLabel')}</label>
+                <input
+                  type="date"
+                  value={logDate}
+                  max={toYYYYMMDD(new Date())}
+                  onChange={(e) => setLogDate(e.target.value)}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.spendAmountLabel')}</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <input
+                    autoFocus
+                    type="number"
+                    placeholder="0.00"
+                    min="0.01"
+                    step="0.01"
+                    value={logAmount}
+                    onChange={(e) => setLogAmount(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAddLog()}
+                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">
+                  {t('budget.noteLabel')} <span className="text-gray-300 font-normal">({t('common.optional')})</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder={t('budget.notePlaceholder')}
+                  value={logNote}
+                  onChange={(e) => setLogNote(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleAddLog()}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={closeLog}
+                className="flex-1 rounded-2xl py-3 text-sm font-bold text-gray-700 transition-colors"
+                style={{ border: `2px solid ${border2}`, background: card, color: isDark ? '#F5F2EE' : '#374151' }}
+              >
+                {t('common.cancel')}
+              </button>
+              <button
+                onClick={handleAddLog}
+                className="flex-1 rounded-2xl py-3 text-sm font-extrabold text-white transition-all active:scale-[0.98]"
+                style={{
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 4px 14px rgba(232,100,12,0.3)',
+                }}
+              >
+                {t('common.confirm')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

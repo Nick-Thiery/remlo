@@ -45,16 +45,37 @@ export async function migrateGuestData(userId) {
     }
   } catch (e) { errors.push(e.message) }
 
-  // Budget
+  // Budget + dated expense entries. Categories already carry a stable
+  // client-generated id (see Budget.jsx), so entries need no id remapping —
+  // they're inserted as-is once the budgets row itself is migrated.
   try {
     const budget = JSON.parse(safeStorage.getItem('remlo_guest_budget') || 'null')
+    const budgetEntries = JSON.parse(safeStorage.getItem('remlo_guest_budget_entries') || '[]')
     if (budget) {
       const { error } = await supabase.from('budgets').upsert(
         { user_id: userId, income: budget.income, expenses: budget.expenses },
         { onConflict: 'user_id' }
       )
-      if (error) errors.push(error.message)
-      else safeStorage.removeItem('remlo_guest_budget')
+      if (error) {
+        errors.push(error.message)
+      } else {
+        safeStorage.removeItem('remlo_guest_budget')
+        if (budgetEntries.length > 0) {
+          const { error: entriesErr } = await supabase.from('budget_entries').insert(
+            budgetEntries.map((e) => ({
+              user_id: userId,
+              category_id: e.categoryId,
+              date: e.date,
+              amount: e.amount,
+              note: e.note || null,
+            }))
+          )
+          if (entriesErr) errors.push(entriesErr.message)
+          else safeStorage.removeItem('remlo_guest_budget_entries')
+        } else {
+          safeStorage.removeItem('remlo_guest_budget_entries')
+        }
+      }
     }
   } catch (e) { errors.push(e.message) }
 
