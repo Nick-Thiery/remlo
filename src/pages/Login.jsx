@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ChevronDown } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { migrateGuestData } from '../lib/migrateGuestData.js'
-import { track, identifyUser } from '../lib/analytics.js'
+import { track } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 
@@ -60,16 +60,20 @@ function Login() {
     e.preventDefault()
     setLoading(true)
     setError(null)
-
-    const { data, error: err } = await supabase.auth.signInWithPassword({ email, password })
-    if (err) {
-      setError(err.message)
+    try {
+      const { data, error: err } = await supabase.auth.signInWithPassword({ email, password })
+      if (err) {
+        setError(err.message)
+        setLoading(false)
+      } else {
+        if (wasGuest && data.user) await migrateGuestData(data.user.id)
+        track('login', { method: 'email' })
+        navigate('/', { replace: true })
+      }
+    } catch {
+      setError(t('chat.errorMsg'))
+    } finally {
       setLoading(false)
-    } else {
-      if (wasGuest && data.user) await migrateGuestData(data.user.id)
-      identifyUser(data.user.id)
-      track('login', { method: 'email' })
-      navigate('/', { replace: true })
     }
   }
 
@@ -77,27 +81,31 @@ function Login() {
     e.preventDefault()
     setLoading(true)
     setError(null)
-
-    const opts = {
-      emailRedirectTo: `${window.location.origin}/`,
-      ...(displayName.trim() ? { data: { display_name: displayName.trim() } } : {}),
-    }
-
-    const { data, error: err } = await supabase.auth.signUp({ email, password, options: opts })
-    if (err) {
-      setError(err.message)
-      setLoading(false)
-    } else if (data.session) {
-      if (data.user && displayName.trim()) {
-        await supabase.from('profiles').upsert({ id: data.user.id, preferred_name: displayName.trim() })
+    try {
+      const opts = {
+        emailRedirectTo: `${window.location.origin}/`,
+        ...(displayName.trim() ? { data: { display_name: displayName.trim() } } : {}),
       }
-      if (wasGuest && data.user) await migrateGuestData(data.user.id)
-      identifyUser(data.user.id)
-      track('signup', { method: 'email' })
-      navigate('/', { replace: true })
-    } else {
-      track('signup', { method: 'email', awaiting_confirmation: true })
-      alert(t('login.confirmEmail'))
+
+      const { data, error: err } = await supabase.auth.signUp({ email, password, options: opts })
+      if (err) {
+        setError(err.message)
+        setLoading(false)
+      } else if (data.session) {
+        if (data.user && displayName.trim()) {
+          await supabase.from('profiles').upsert({ id: data.user.id, preferred_name: displayName.trim() })
+        }
+        if (wasGuest && data.user) await migrateGuestData(data.user.id)
+        track('signup', { method: 'email' })
+        navigate('/', { replace: true })
+      } else {
+        track('signup', { method: 'email', awaiting_confirmation: true })
+        alert(t('login.confirmEmail'))
+        setLoading(false)
+      }
+    } catch {
+      setError(t('chat.errorMsg'))
+    } finally {
       setLoading(false)
     }
   }
@@ -105,7 +113,7 @@ function Login() {
   function handleGuest() {
     safeStorage.setItem('remlo_guest', 'true')
     track('guest_mode_selected')
-    navigate('/', { replace: true })
+    navigate('/scam-quiz', { replace: true })
   }
 
   function switchMode(next) {
@@ -155,7 +163,7 @@ function Login() {
                 className="flex items-center gap-1 rounded-xl px-2.5 py-1.5 transition-colors"
                 style={{ background: isDark ? '#2A2724' : '#F3F4F6', border: `1px solid ${border}` }}
               >
-                <span className="text-xs font-bold" style={{ color: textSecondary }}>{currentLang.label.slice(0, 2).toUpperCase()}</span>
+                <span className="text-xs font-bold" style={{ color: textSecondary }}>{currentLang.label}</span>
                 <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} style={{ color: textSecondary }} />
               </button>
               {langOpen && (
@@ -178,6 +186,15 @@ function Login() {
             </div>
           </div>
 
+            <button
+              onClick={handleGuest}
+              disabled={loading}
+              className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-60"
+              style={{ border: `2px dashed ${isDark ? '#3C3835' : '#D4CFC8'}`, background: bg, color: textSecondary }}
+            >
+              {t('login.continueGuest')}
+            </button>
+          <p className="text-sm text-gray-500 my-3">{t("workshop.nextScam")}</p>
           <h2 className="text-xl font-extrabold mb-0.5 tracking-tight" style={{ color: textPrimary }}>
             {isSignup ? t('login.createAccountTitle') : t('login.welcomeBack')}
           </h2>
@@ -186,7 +203,7 @@ function Login() {
           </p>
 
           {error && (
-            <div className="text-sm rounded-2xl px-4 py-3 mb-5 flex items-start gap-2" style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626' }}>
+            <div role="alert" className="text-sm rounded-2xl px-4 py-3 mb-5 flex items-start gap-2" style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626' }}>
               <svg className="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" />
               </svg>
@@ -194,7 +211,7 @@ function Login() {
             </div>
           )}
 
-          <div className="space-y-3">
+          <form className="space-y-3" onSubmit={isSignup ? handleSignup : handleLogin}>
             {isSignup && (
               <input
                 type="text"
@@ -209,6 +226,9 @@ function Login() {
             )}
             <input
               type="email"
+              aria-label={t("login.emailPlaceholder")}
+              autoComplete="email"
+              required
               placeholder={t('login.emailPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -219,10 +239,13 @@ function Login() {
             />
             <input
               type="password"
+              aria-label={t("login.passwordPlaceholder")}
+              autoComplete={isSignup ? "new-password" : "current-password"}
+              required
+              minLength={isSignup ? 6 : undefined}
               placeholder={t('login.passwordPlaceholder')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && (isSignup ? handleSignup(e) : handleLogin(e))}
               className="w-full rounded-2xl px-4 py-3.5 text-sm font-medium transition-all"
               style={inputStyle}
               onFocus={e => e.target.style.borderColor = '#E8640C'}
@@ -231,7 +254,7 @@ function Login() {
 
             {isSignup ? (
               <button
-                onClick={handleSignup}
+                type="submit"
                 disabled={loading}
                 className="w-full rounded-2xl py-3.5 text-sm font-extrabold transition-all active:scale-[0.98] disabled:opacity-60"
                 style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', color: 'white', boxShadow: '0 6px 20px rgba(232,100,12,0.35)' }}
@@ -240,7 +263,7 @@ function Login() {
               </button>
             ) : (
               <button
-                onClick={handleLogin}
+                type="submit"
                 disabled={loading}
                 className="w-full rounded-2xl py-3.5 text-sm font-extrabold transition-all active:scale-[0.98] disabled:opacity-60"
                 style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)', color: 'white', boxShadow: '0 6px 20px rgba(232,100,12,0.35)' }}
@@ -250,6 +273,7 @@ function Login() {
             )}
 
             <button
+              type="button"
               onClick={() => switchMode(isSignup ? 'login' : 'signup')}
               className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98]"
               style={{ border: `2px solid ${border}`, background: card, color: isDark ? '#D1D5DB' : '#374151' }}
@@ -257,21 +281,7 @@ function Login() {
               {isSignup ? t('login.switchToLogin') : t('login.switchToSignup')}
             </button>
 
-            <div className="relative flex items-center gap-3 py-1">
-              <div className="flex-1 h-px" style={{ background: border }} />
-              <span className="text-xs font-semibold" style={{ color: textSecondary }}>{t('login.or')}</span>
-              <div className="flex-1 h-px" style={{ background: border }} />
-            </div>
-
-            <button
-              onClick={handleGuest}
-              disabled={loading}
-              className="w-full rounded-2xl py-3.5 text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-60"
-              style={{ border: `2px dashed ${isDark ? '#3C3835' : '#D4CFC8'}`, background: bg, color: textSecondary }}
-            >
-              {t('login.continueGuest')}
-            </button>
-          </div>
+          </form>
 
           <p className="text-xs text-center mt-5 leading-relaxed" style={{ color: textSecondary }}>
             {t('login.guestNote')}

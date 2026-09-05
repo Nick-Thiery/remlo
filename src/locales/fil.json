@@ -30,8 +30,8 @@
       "description": "Planuhin ang iyong buwanang gastusin at tingnan kung magkano ang matitipid mo."
     },
     "remittance": {
-      "title": "Magpadala ng Pera",
-      "description": "Ikumpara ang Wise, Remitly, at iba pa para makuha ang pinakamahusay na rate."
+      "title": "Palitan ng Pera",
+      "description": "Ang mga rate ay indikatibo at pana-panahong ina-update. Ang mga aktwal na rate ay maaaring mag-iba sa oras ng paglipat."
     },
     "ai": {
       "title": "AI Assistant",
@@ -67,7 +67,7 @@
     },
     "scams": {
       "label": "Mga Babala sa Scam",
-      "desc": "Pinakabagong mga scam na nagta-target sa mga manggagawa sa Singapore"
+      "desc": "Quiz sa Kamalayan sa Scam · ScamShield"
     },
     "loanshark": {
       "label": "Gabay sa Loan Shark",
@@ -199,7 +199,7 @@
     "presetPhone": "Plano sa Telepono"
   },
   "remittance": {
-    "pageTitle": "Magpadala ng Pera",
+    "pageTitle": "Palitan ng Pera",
     "pageSubtitle": "Ikumpara ang mga live na rate sa iba't ibang provider",
     "sendLabel": "Ipadala Mo (SGD)",
     "countryLabel": "Destinasyon",
@@ -647,7 +647,7 @@
           "Ito ay scam sa trabaho — ang mga lehitimong employer ay hindi kailanman naniningil ng upfront na bayad sa mga manggagawa",
           "Makipagtawaran na ibaba ang bayad sa S$100 bago magbayad"
         ],
-        "explanation": "Sa ilalim ng Employment of Foreign Manpower Act, hindi maaaring singilin ng mga employer ang mga manggagawa ng recruitment fee. Ang anumang trabaho na nangangailangan kang magbayad muna ay scam. Mag-report sa MOM sa 1800-333-1313."
+        "explanation": "Tingnan kung ang ahensya ay lisensyado sa mom.gov.sg/employment-agencies-search. Kung nakabayad ka na, mag-report sa MOM Taskforce sa 1800-333-1313. Ingatan ang lahat ng mga resibo at mensahe bilang ebidensya."
       },
       {
         "scenario": "May nagsiksik ng card sa ilalim ng pinto ng iyong dormitoryo: \"Kailangan ng mabilis na cash? Walang credit check! Umutang ng hanggang S$5,000 ngayon. WhatsApp kami.\" Walang pangalan ng kumpanya o numero ng lisensya sa card.",
@@ -662,10 +662,10 @@
         "scenario": "Hindi nagbayad ng sahod ang iyong employer sa loob ng 2 buwan. Sinasabi niya: \"Huwag mag-report sa MOM o kakanselin ko ang iyong work pass at pauuwiin kita.\" Ano ang dapat mong gawin?",
         "options": [
           "Tahimik na maghintay — hindi ko maaaring ipanganib ang aking work pass",
-          "Mag-report sa MOM — pinoprotektahan nila ang mga manggagawa at hindi nila maaaring kanselahin ang iyong pass dahil sa pag-uulat",
+          "Tumawag MOM: 6438-5122",
           "Humiram ng pera sa mga kaibigan at huwag magsalita"
         ],
-        "explanation": "Pinoprotektahan ng MOM ang mga manggagawang naghahabol ng sahod. Hindi MAAARING kanselahin ng iyong employer ang iyong work pass dahil lang sa pag-uulat ng hindi pagbabayad ng sahod — iyon ay magiging karagdagang paglabag. Mag-file ng reklamo sa sahod sa mom.gov.sg o tumawag sa 1800-333-1313."
+        "explanation": "Humingi ng tulong sa MOM tungkol sa hindi nabayarang sahod at work pass. Itago ang mga rekord ng bayad at mensahe. Magtanong tungkol sa iyong mga opsyon bago umalis sa Singapore."
       },
       {
         "scenario": "Isang bagong kaibigan ang nagtatanong kung maaari kang tumanggap ng S$8,000 sa iyong bank account at ilipat ito sa ibang account para sa \"maliit na komisyon.\" Sinasabi niya na para ito sa kanyang negosyo.",
@@ -674,7 +674,7 @@
           "Tumanggi — ang paggamit ng iyong account sa ganitong paraan ay money mule fraud, na isang krimen",
           "Humingi ng mas malaking komisyon bago sumang-ayon"
         ],
-        "explanation": "Ang pagpapahintulot sa iba na gumamit ng iyong bank account para ilipat ang pera ay isang krimen sa Singapore sa ilalim ng Corruption, Drug Trafficking and Other Serious Crimes Act. Maaari kang makulong ng hanggang 3 taon at multahin ng hanggang S$50,000, kahit hindi mo alam na mula sa krimen ang pera."
+        "explanation": "Huwag hayaang gamitin ng iba ang iyong bank account para tumanggap o maglipat ng pera. Maaaring nakaw ang pera. Kung hindi sigurado, tumawag sa ScamShield sa 1799."
       },
       {
         "scenario": "Nakatanggap ka ng SMS: \"DBS Bank: Nakita ang hindi karaniwang login sa iyong account. I-click ang link na ito para ma-verify: dbs-secure-login.com.\" Ang link ay mukhang naiiba sa opisyal na website ng DBS.",
@@ -683,7 +683,7 @@
           "Burahin ang SMS — ito ay phishing scam. Tumawag nang direkta sa DBS sa 1800-111-1111",
           "I-forward ang link sa isang kaibigan para tingnan kung totoo ito"
         ],
-        "explanation": "Hindi kailanman nagpapadala ang mga bangko ng mga link na hihinging sa iyo na mag-login. Ang tunay na site ng DBS ay dbs.com.sg — ang iba pa ay peke. Palaging i-type mismo ang URL ng bangko o tumawag sa numero sa likod ng iyong card. Maaari ka ring tumawag sa ScamShield helpline: 1799."
+        "explanation": "Huwag kailanman mag-click ng mga link ng bangko na ipinadala sa WhatsApp, SMS, o email. Palaging i-type ang URL ng iyong bangko nang direkta sa browser. Mag-report sa ScamShield: tumawag sa 1799 o gamitin ang ScamShield app."
       },
       {
         "scenario": "Isang online na \"investment guru\" sa isang grupo sa Telegram ang nagsasabing maaari mong doblehin ang iyong pera sa loob ng 30 araw sa pamamagitan ng pag-invest sa isang espesyal na cryptocurrency fund. Maraming tao sa grupo ang nagpo-post ng mga screenshot ng kanilang malaking kita.",
@@ -692,7 +692,7 @@
           "I-report ang grupo — ito ay klasikong investment scam na may mga pekeng testimonya",
           "Maghintay muna kung mabayaran ang iba bago mag-invest"
         ],
-        "explanation": "Ang garantisadong mataas na kita sa maikling panahon ay ang #1 na tanda ng scam. Ang mga screenshot ng kita ay peke, at ang mga \"miyembro ng grupo\" na pumupuri sa iskema ay mga bayad na scammer. Mag-report ng mga investment scam sa pulisya sa police.gov.sg/iwitness o tumawag sa 999."
+        "explanation": "Ang garantisadong mataas na kita sa maikling panahon ay ang #1 na tanda ng scam. Ang mga screenshot ng kita ay peke, at ang mga \"miyembro ng grupo\" na pumupuri sa iskema ay mga bayad na scammer. Mag-report ng mga investment scam sa pulisya sa police.gov.sg/iwitness o tumawag sa ScamShield: 1799."
       },
       {
         "scenario": "Isang nagpapaupa sa Carousell ang humihingi ng 3 buwang upa (S$2,400) bilang deposito sa pamamagitan ng PayNow bago mo makita ang silid. Sinasabi niya na maraming tao ang gustong kumuha ng silid at mawawala na ito ngayong gabi.",
@@ -701,7 +701,7 @@
           "Tumanggi — huwag kailanman magbayad bago tumingin. Ito ay malamang na rental scam",
           "Magbayad ng kalahati ngayon at kalahati pagkatapos tumingin"
         ],
-        "explanation": "Ang pagmamadali at presyon na magbayad bago tumingin ay mga klasikong taktika ng rental scam. Palaging tingnan ang ari-arian nang personal, i-verify ang pagkakakilanlan at pagmamay-ari ng nagpapaupa, at huwag kailanman maglipat ng pera bago pumirma ng kontrata. Tingnan ang scamalert.sg para sa mga naiulat na listahan ng scam."
+        "explanation": "Ang pagmamadali at presyon na magbayad bago tumingin ay mga klasikong taktika ng rental scam. Palaging tingnan ang ari-arian nang personal, i-verify ang pagkakakilanlan at pagmamay-ari ng nagpapaupa, at huwag kailanman maglipat ng pera bago pumirma ng kontrata. Tingnan ang www.scamshield.gov.sg para sa mga naiulat na listahan ng scam."
       }
     ]
   },
@@ -939,5 +939,20 @@
   "disclaimer": {
     "educational": "Ang nilalaman sa Remlo ay para lamang sa pang-edukasyon at impormasyon. Hindi ito propesyonal na payo sa pananalapi. Dapat maingat na isaalang-alang ng mga gumagamit ang kanilang sariling kalagayan bago gumawa ng mga desisyon sa pananalapi.",
     "bannerDismiss": "Naiintindihan"
+  },
+  "workshop": {
+    "welcome": "Maligayang pagdating sa Remlo",
+    "purpose": "Libreng gabay sa pera para sa mga manggagawa sa Singapore. Alamin ang tungkol sa scam, badyet at pagpapadala ng pera.",
+    "trust": "Hindi kami naglilipat ng pera. Hindi kailangan ng koneksyon sa bangko o password sa banking.",
+    "begin": "Magsimula",
+    "back": "Bumalik",
+    "setup": "I-set up ang Remlo",
+    "choose": "Piliin ang iyong bansang pinagmulan at wika para magpatuloy.",
+    "country": "Bansang pinagmulan",
+    "nextScam": "Susunod: subukan ang isang tanong tungkol sa scam. Hindi kailangan ng account.",
+    "returnHint": "Para bumalik, buksan ang Remlo o i-bookmark ang pahinang ito. Maaari ring i-scan muli ang parehong QR code.",
+    "reportNote": "Hindi tumatanggap ng ulat ng scam ang Remlo. Tingnan ang ScamShield para sa tulong at paraan ng pag-uulat.",
+    "estimates": "Mga halimbawang tantiya lang ito, hindi alok ng provider. Tiyakin sa provider ang bayad, rate, bilis at availability. Hindi naglilipat ng pera ang Remlo.",
+    "referenceRate": "Reference exchange rate · Kinuha noong {{time}}"
   }
 }

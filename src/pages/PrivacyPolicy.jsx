@@ -11,7 +11,7 @@ const SECTIONS = [
       'Country and language preference — stored to personalise your experience.',
       'Financial tracking data — savings goals, budget entries, and expenses you enter in the app. This data is stored securely and used only to power the features you use.',
       'Chat messages — if you use the AI assistant, your messages are sent to Anthropic (the company that makes Claude) to generate a response. We do not store your chat history on our servers.',
-      'Usage data — we use PostHog, an analytics tool, to collect anonymous data about which features are used. This helps us improve the app. PostHog does not receive your name, email, or financial data.',
+      'Usage data — we use PostHog, an analytics tool, to collect anonymous data about which features are used. This helps us improve the app. Product events do not include names, email addresses, financial amounts, or chat content.',
     ],
   },
   {
@@ -29,7 +29,7 @@ const SECTIONS = [
     body: [
       'Your account and financial data is stored using Supabase, a secure cloud database. All data is encrypted when sent over the internet and when stored.',
       'Scam alerts are fetched from our Supabase Edge Functions — these are small server programs that run in the cloud. No personal data is sent during this process.',
-      'Guest mode data is stored only on your device and is never uploaded to our servers.',
+      'Guest budgets and savings are stored on this device. If you later sign in, they can be uploaded to your account. AI chat messages are sent for processing even in guest mode.',
     ],
   },
   {
@@ -44,7 +44,7 @@ const SECTIONS = [
     title: 'Analytics (PostHog)',
     body: [
       'We use PostHog to understand how people use the app — for example, which pages are visited most often. This helps us fix problems and improve features.',
-      'PostHog collects anonymous usage data only. It does not receive your name, email address, or any financial information.',
+      'When analytics is configured, PostHog receives product events with a pseudonymous device identifier, language, country and workshop attribution. We disable session recording and exclude financial amounts, chat content, full URLs and account identifiers. This is not advertising tracking.',
       'You can learn more about PostHog\'s data practices at posthog.com.',
     ],
   },
@@ -86,7 +86,7 @@ export default function PrivacyPolicy() {
           </button>
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>Privacy Policy</h1>
-            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated April 2026</p>
+            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated September 2026</p>
           </div>
         </div>
 

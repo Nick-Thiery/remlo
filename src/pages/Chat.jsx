@@ -3,19 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { Send, Sparkles, Mic, MicOff } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { track } from '../lib/analytics.js'
-import safeStorage from '../lib/safeStorage.js'
+import LanguageSelect from '../components/LanguageSelect.jsx'
+import { fetchJson } from '../lib/fetchJson.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 import { supabase } from '../lib/supabase.js'
 
 const SYSTEM_PROMPT =
   'You are a friendly financial assistant built by Remlo, an app helping workers in Singapore manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. If someone describes a loan shark or scam situation, provide the MOM helpline 1800-333-1313 and tell them to contact police if in danger.'
-
-const LANGUAGES = [
-  { code: 'en', label: 'EN' },
-  { code: 'ta', label: 'த'  },
-  { code: 'hi', label: 'हि' },
-  { code: 'bn', label: 'ব'  },
-]
 
 const SPEECH_LANG = {
   en:  'en-SG', ta:  'ta-SG', hi:  'hi-IN', bn:  'bn-BD',
@@ -54,7 +48,11 @@ export default function Chat() {
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
   const isMounted = useRef(true)
-  useEffect(() => () => { isMounted.current = false }, [])
+  const requestRef = useRef(null)
+  useEffect(() => {
+    isMounted.current = true
+    return () => { isMounted.current = false; requestRef.current?.abort() }
+  }, [])
 
   const [isRecording, setIsRecording] = useState(false)
   const recognitionRef = useRef(null)
@@ -85,48 +83,47 @@ export default function Chat() {
   useEffect(() => () => recognitionRef.current?.stop(), [])
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    const pane = messagesEndRef.current
+    pane?.scrollTo({ top: pane.scrollHeight, behavior: 'smooth' })
   }, [messages, isLoading])
 
-  function switchLang(code) {
-    i18n.changeLanguage(code)
-    safeStorage.setItem('remlo_lang', code)
-  }
-
-  async function send(text) {
+  async function send(text, retry = false) {
     const trimmed = (text ?? input).trim()
     if (!trimmed || isLoading) return
 
     track('chat_message_sent')
     const userMsg = { role: 'user', content: trimmed }
-    const history = [...messages, userMsg]
+    const previous = messages.filter(message => !message.isError)
+    const history = [...(retry ? previous.slice(0, -1) : previous), userMsg]
     setMessages(history)
     setInput('')
     setIsLoading(true)
 
+    const controller = new AbortController()
+    requestRef.current = controller
     try {
       const { data: { session } } = await supabase.auth.getSession()
       const authHeader = session?.access_token
         ? `Bearer ${session.access_token}`
         : `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
 
-      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`, {
-        method: 'POST',
+      const data = await fetchJson(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`, {
+        method: 'POST', signal: controller.signal, timeoutMs: 20000,
         headers: { 'Content-Type': 'application/json', Authorization: authHeader },
         body: JSON.stringify({ messages: history, system: SYSTEM_PROMPT }),
       })
 
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data = await res.json()
+      if (typeof data?.content?.[0]?.text !== 'string') throw new Error('Invalid response')
 
       if (isMounted.current) {
+        track('chat_response_received')
         setMessages((prev) => [
           ...prev,
           { role: 'assistant', content: data.content[0].text },
         ])
       }
-    } catch (err) {
-      console.error('Chat API error:', err)
+    } catch {
+      track('chat_failed')
       if (isMounted.current) {
         setMessages((prev) => [
           ...prev,
@@ -147,11 +144,11 @@ export default function Chat() {
   return (
     <div
       className="flex flex-col"
-      style={{ height: 'calc(100dvh - 65px)', background: bg }}
+      style={{ height: 'calc(100dvh - 60px - max(env(safe-area-inset-bottom, 0px), 6px))', background: bg }}
     >
       {/* ── Header ────────────────────────────────────────────────── */}
       <div
-        className="flex-shrink-0 flex items-center justify-between px-4 py-3"
+        className="flex-shrink-0 flex flex-wrap gap-3 items-center justify-between px-4 py-3"
         style={{ background: header, borderBottom: `1px solid ${border}`, boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.2)' : '0 2px 8px rgba(0,0,0,0.04)' }}
       >
         <div className="flex items-center gap-3">
@@ -167,30 +164,11 @@ export default function Chat() {
           </div>
         </div>
 
-        {/* Language switcher */}
-        <div
-          className="flex gap-0.5 p-0.5 rounded-xl"
-          style={{ background: isDark ? '#2A2724' : '#F5F2EC' }}
-        >
-          {LANGUAGES.map((l) => (
-            <button
-              key={l.code}
-              onClick={() => switchLang(l.code)}
-              className="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all"
-              style={{
-                background: i18n.language === l.code ? (isDark ? '#3A3632' : 'white') : 'transparent',
-                color: i18n.language === l.code ? '#E8640C' : textSecondary,
-                boxShadow: i18n.language === l.code ? '0 1px 4px rgba(0,0,0,0.12)' : 'none',
-              }}
-            >
-              {l.label}
-            </button>
-          ))}
-        </div>
+        <LanguageSelect />
       </div>
 
       {/* ── Messages area ─────────────────────────────────────────── */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+      <div ref={messagesEndRef} className="min-h-0 flex-1 overflow-y-auto px-4 py-4 space-y-3">
         {!hasMessages ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4 py-8">
             {/* Illustration */}
@@ -260,6 +238,9 @@ export default function Chat() {
                       : { background: card, color: textPrimary, border: `1px solid ${border}`, borderBottomLeftRadius: 4, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }
                   }
                 >
+                  {msg.isError && !isLoading && (
+                    <button className="block min-h-11 font-bold underline" onClick={() => send(messages.filter(message => message.role === "user").at(-1)?.content, true)}>{t("scams.tryAgain")}</button>
+                  )}
                   {msg.role === 'user' ? (
                     msg.content
                   ) : (
@@ -304,7 +285,7 @@ export default function Chat() {
               </div>
             )}
 
-            <div ref={messagesEndRef} />
+
           </>
         )}
       </div>
@@ -333,6 +314,8 @@ export default function Chat() {
 
         <div className="flex gap-2">
           <input
+            aria-label={t("chat.inputPlaceholder")}
+            maxLength={2000}
             ref={inputRef}
             type="text"
             placeholder={isRecording ? t('chat.listeningPlaceholder') : t('chat.inputPlaceholder')}
@@ -345,7 +328,7 @@ export default function Chat() {
               }
             }}
             disabled={isLoading}
-            className="flex-1 rounded-2xl px-4 py-3 text-sm font-medium transition-all disabled:opacity-50"
+            className="min-w-0 flex-1 rounded-2xl px-4 py-3 text-sm font-medium transition-all disabled:opacity-50"
             style={{
               border: isRecording ? '2px solid #FCA5A5' : `2px solid ${border2}`,
               background: isRecording ? (isDark ? '#2D1515' : '#FFF5F5') : bg,
@@ -378,6 +361,7 @@ export default function Chat() {
           )}
 
           <button
+            aria-label={`${t("nav.send")} · ${t("nav.chat")}`}
             onClick={() => send(input)}
             disabled={!input.trim() || isLoading}
             className="rounded-2xl px-4 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"

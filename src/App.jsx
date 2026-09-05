@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDarkMode } from './hooks/useDarkMode.js'
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Onboarding from './pages/Onboarding.jsx'
+import { track } from './lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 import { supabase } from './lib/supabase.js'
 import safeStorage, { safeSession } from './lib/safeStorage.js'
@@ -42,49 +43,6 @@ import BankingGuide from './pages/BankingGuide.jsx'
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx'
 import TermsOfService from './pages/TermsOfService.jsx'
 import DeleteAccount from './pages/DeleteAccount.jsx'
-
-// ─── Splash Screen ───────────────────────────────────────────────────────────
-
-function SplashScreen({ onDone }) {
-  const [fading, setFading] = useState(false)
-
-  useEffect(() => {
-    const fadeTimer = setTimeout(() => setFading(true), 1500)
-    const doneTimer = setTimeout(() => onDone(), 1800)
-    return () => { clearTimeout(fadeTimer); clearTimeout(doneTimer) }
-  }, [onDone])
-
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 9999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(160deg, #C2410C 0%, #E8640C 55%, #F59E0B 100%)',
-        opacity: fading ? 0 : 1,
-        transition: 'opacity 0.3s ease',
-        pointerEvents: fading ? 'none' : 'auto',
-      }}
-    >
-      <img
-        src="/pwa-192x192.png"
-        alt="Remlo"
-        style={{
-          width: 120,
-          height: 120,
-          borderRadius: 28,
-          boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
-        }}
-      />
-    </div>
-  )
-}
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -157,7 +115,7 @@ function BottomTabBar() {
               <button
                 key={path}
                 onClick={() => navigate(path)}
-                className="flex-1 flex flex-col items-center justify-center gap-1 transition-colors"
+                className="min-w-0 flex-1 flex flex-col items-center justify-center gap-1 transition-colors"
                 style={{ minHeight: 60, paddingTop: 10, paddingBottom: 8 }}
               >
                 <Icon
@@ -171,7 +129,7 @@ function BottomTabBar() {
                   strokeWidth={active ? 2.2 : 1.8}
                 />
                 <span
-                  className="text-[10px] leading-none font-semibold transition-colors"
+                  className="text-[10px] leading-snug font-semibold transition-colors break-words w-full px-0.5"
                   style={{ color: active ? '#E8640C' : isDark ? '#6B7280' : '#9CA3AF' }}
                 >
                   {t(`nav.${key}`)}
@@ -396,7 +354,7 @@ function GuestBanner() {
     () => safeSession.getItem('remlo_guest_banner_dismissed') === 'true'
   )
 
-  if (!isGuest || location.pathname === '/login' || dismissed) return null
+  if (!isGuest || ['/login', '/scam-quiz', '/scams', '/chat'].includes(location.pathname) || dismissed) return null
 
   function dismiss() {
     safeSession.setItem('remlo_guest_banner_dismissed', 'true')
@@ -433,7 +391,7 @@ function GuestBanner() {
 // ─── Auth Guard ───────────────────────────────────────────────────────────────
 
 function AuthGuard({ children }) {
-  const [ready, setReady] = useState(false)
+  const [ready, setReady] = useState(() => safeStorage.getItem('remlo_guest') === 'true')
   const navigate = useNavigate()
   const location = useLocation()
   const locationRef = useRef(location.pathname)
@@ -444,6 +402,7 @@ function AuthGuard({ children }) {
 
   useEffect(() => {
     const isGuest = safeStorage.getItem('remlo_guest') === 'true'
+    if (isGuest) return
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
         if (!session && !isGuest && locationRef.current !== '/login') {
@@ -451,7 +410,7 @@ function AuthGuard({ children }) {
         }
         setReady(true)
       })
-      .catch(() => setReady(true))
+      .catch(() => navigate('/login', { replace: true }))
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       const stillGuest = safeStorage.getItem('remlo_guest') === 'true'
@@ -482,6 +441,15 @@ function AuthGuard({ children }) {
 // ─── App Shell ────────────────────────────────────────────────────────────────
 
 function AppShell() {
+  const location = useLocation()
+  const previousPath = useRef(null)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    if (previousPath.current !== location.pathname) {
+      track('feature_opened', { feature: location.pathname })
+      previousPath.current = location.pathname
+    }
+  }, [location.pathname])
   const isDark = useDarkMode()
   return (
     <div className="min-h-screen flex justify-center" style={{ background: isDark ? '#0A0908' : '#1C1917' }}>
@@ -489,7 +457,7 @@ function AppShell() {
         className="relative w-full max-w-[430px] min-h-screen overflow-x-hidden"
         style={{ background: isDark ? '#121110' : '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
       >
-        <div className="overflow-x-hidden pb-[84px]">
+        <div className={`overflow-x-hidden ${location.pathname === "/chat" ? "" : "pb-[84px]"}`}>
           <GuestBanner />
           <Routes>
             <Route path="/privacy"        element={<PrivacyPolicy />}  />
@@ -513,12 +481,13 @@ function AppShell() {
                   <Route path="/scam-quiz"      element={<ScamQuiz />}      />
                   <Route path="/emergency-fund" element={<EmergencyFund />}  />
                   <Route path="/banking-guide"  element={<BankingGuide />}  />
+                  <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </AuthGuard>
             } />
           </Routes>
         </div>
-        <BottomTabBar />
+        {location.pathname !== '/login' && <BottomTabBar />}
       </div>
     </div>
   )
@@ -530,7 +499,6 @@ const RTL_LANGS = new Set(['ur'])
 
 export default function App() {
   const [onboarded, setOnboarded] = useState(() => !!safeStorage.getItem('remlo_onboarded'))
-  const [splashDone, setSplashDone] = useState(() => !!safeSession.getItem('remlo_splashed'))
   const { i18n } = useTranslation()
 
   useEffect(() => {
@@ -547,16 +515,8 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.dir = RTL_LANGS.has(i18n.language) ? 'rtl' : 'ltr'
+    document.documentElement.lang = i18n.language
   }, [i18n.language])
-
-  function handleSplashDone() {
-    safeSession.setItem('remlo_splashed', 'true')
-    setSplashDone(true)
-  }
-
-  if (!splashDone) {
-    return <SplashScreen onDone={handleSplashDone} />
-  }
 
   const isDarkInit = window.matchMedia('(prefers-color-scheme: dark)').matches
   const ONBOARDING_BYPASS = ['/privacy', '/terms', '/delete-account']
@@ -567,7 +527,11 @@ export default function App() {
           className="w-full max-w-[430px] min-h-screen overflow-x-hidden"
           style={{ background: isDarkInit ? '#121110' : '#FAFAF8', boxShadow: '0 0 80px rgba(0,0,0,0.5)' }}
         >
-          <Onboarding onComplete={() => setOnboarded(true)} />
+          <Onboarding onComplete={(path) => {
+            window.history.replaceState(null, '', path + window.location.search)
+            setOnboarded(true)
+            window.scrollTo(0, 0)
+          }} />
         </div>
       </div>
     )

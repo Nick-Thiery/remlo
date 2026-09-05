@@ -30,8 +30,8 @@
       "description": "Rencanakan pengeluaran bulanan dan lihat berapa yang bisa Anda hemat."
     },
     "remittance": {
-      "title": "Kirim Uang",
-      "description": "Bandingkan Wise, Remitly, dan lainnya untuk mendapatkan nilai tukar terbaik."
+      "title": "Kurs Tukar",
+      "description": "Tarif bersifat indikatif dan diperbarui secara berkala. Tarif aktual dapat berbeda pada saat transfer."
     },
     "ai": {
       "title": "Asisten AI",
@@ -67,7 +67,7 @@
     },
     "scams": {
       "label": "Peringatan Penipuan",
-      "desc": "Penipuan terbaru yang menargetkan pekerja di Singapura"
+      "desc": "Kuis Kesadaran Penipuan · ScamShield"
     },
     "loanshark": {
       "label": "Panduan Rentenir",
@@ -199,7 +199,7 @@
     "presetPhone": "Paket Telepon"
   },
   "remittance": {
-    "pageTitle": "Kirim Uang",
+    "pageTitle": "Kurs Tukar",
     "pageSubtitle": "Bandingkan tarif langsung dari berbagai penyedia",
     "sendLabel": "Anda Kirim (SGD)",
     "countryLabel": "Negara Tujuan",
@@ -647,7 +647,7 @@
           "Ini penipuan kerja — pemberi kerja yang sah tidak pernah memungut biaya dari pekerja di muka",
           "Negosiasikan biayanya turun menjadi S$100 sebelum membayar"
         ],
-        "explanation": "Berdasarkan Undang-Undang Ketenagakerjaan Tenaga Kerja Asing, pemberi kerja tidak boleh memungut biaya rekrutmen dari pekerja. Setiap pekerjaan yang mengharuskan Anda membayar terlebih dahulu adalah penipuan. Laporkan ke MOM di 1800-333-1313."
+        "explanation": "Periksa apakah agen memiliki lisensi di mom.gov.sg/employment-agencies-search. Jika Anda sudah membayar, laporkan ke MOM Taskforce di 1800-333-1313. Simpan semua kwitansi dan pesan sebagai bukti."
       },
       {
         "scenario": "Seseorang menyelipkan kartu di bawah pintu asrama Anda: \"Butuh uang cepat? Tanpa cek kredit! Pinjam hingga S$5.000 hari ini. WhatsApp kami.\" Kartu tersebut tidak ada nama perusahaan atau nomor lisensi.",
@@ -662,10 +662,10 @@
         "scenario": "Pemberi kerja Anda tidak membayar gaji Anda selama 2 bulan. Dia berkata: \"Jangan lapor ke MOM atau saya akan membatalkan izin kerja Anda dan mengirim Anda pulang.\" Apa yang harus Anda lakukan?",
         "options": [
           "Tunggu diam-diam — saya tidak bisa mengambil risiko kehilangan izin kerja",
-          "Laporkan ke MOM — mereka melindungi pekerja dan tidak bisa membatalkan izin Anda karena melapor",
+          "Telepon MOM: 6438-5122",
           "Pinjam uang dari teman dan diam saja"
         ],
-        "explanation": "MOM melindungi pekerja yang mengajukan klaim gaji. Pemberi kerja Anda TIDAK BISA membatalkan izin kerja Anda hanya karena melaporkan upah yang tidak dibayar — itu akan menjadi pelanggaran tambahan. Ajukan klaim gaji di mom.gov.sg atau hubungi 1800-333-1313."
+        "explanation": "Hubungi MOM untuk bantuan soal gaji yang belum dibayar dan izin kerja. Simpan catatan pembayaran dan pesan. Tanyakan pilihan Anda sebelum meninggalkan Singapura."
       },
       {
         "scenario": "Teman baru meminta apakah Anda bisa menerima S$8.000 ke rekening bank Anda dan mentransfernya ke rekening lain untuk \"komisi kecil.\" Dia bilang itu untuk bisnisnya.",
@@ -674,7 +674,7 @@
           "Tolak — menggunakan rekening Anda dengan cara ini adalah penipuan money mule, yang merupakan tindak pidana",
           "Minta komisi lebih besar sebelum setuju"
         ],
-        "explanation": "Mengizinkan orang lain menggunakan rekening bank Anda untuk memindahkan uang adalah tindak pidana di Singapura berdasarkan Undang-Undang Korupsi, Perdagangan Narkoba, dan Kejahatan Serius Lainnya. Anda bisa dipenjara hingga 3 tahun dan didenda hingga S$50.000, meskipun Anda tidak tahu uang itu berasal dari kejahatan."
+        "explanation": "Jangan biarkan orang lain menggunakan rekening Anda untuk menerima atau memindahkan uang. Uang itu mungkin hasil curian. Jika ragu, hubungi ScamShield di 1799."
       },
       {
         "scenario": "Anda menerima SMS: \"DBS Bank: Login tidak biasa terdeteksi di akun Anda. Klik tautan ini untuk verifikasi: dbs-secure-login.com.\" Tautannya terlihat berbeda dari situs web DBS resmi.",
@@ -683,7 +683,7 @@
           "Hapus SMS-nya — ini penipuan phishing. Hubungi DBS langsung di 1800-111-1111",
           "Teruskan tautannya ke teman untuk memeriksa apakah itu asli"
         ],
-        "explanation": "Bank tidak pernah mengirim tautan yang meminta Anda untuk login. Situs DBS yang asli adalah dbs.com.sg — yang lainnya palsu. Selalu ketik URL bank sendiri atau hubungi nomor di belakang kartu Anda. Anda juga dapat menghubungi helpline ScamShield: 1799."
+        "explanation": "Jangan pernah mengklik tautan bank yang dikirim melalui WhatsApp, SMS, atau email. Selalu ketik URL bank Anda langsung ke browser. Laporkan ke ScamShield: hubungi 1799 atau gunakan aplikasi ScamShield."
       },
       {
         "scenario": "\"Guru investasi\" online dalam grup Telegram mengatakan Anda bisa menggandakan uang dalam 30 hari dengan berinvestasi di dana kripto khusus. Banyak orang dalam grup memposting tangkapan layar keuntungan besar mereka.",
@@ -692,7 +692,7 @@
           "Laporkan grupnya — ini adalah penipuan investasi klasik dengan testimoni palsu",
           "Tunggu untuk melihat apakah orang lain dibayar sebelum berinvestasi"
         ],
-        "explanation": "Keuntungan tinggi yang dijamin dalam waktu singkat adalah tanda penipuan nomor 1. Tangkapan layar keuntungan itu palsu, dan \"anggota grup\" yang memuji skema tersebut adalah penipu bayaran. Laporkan penipuan investasi ke polisi di police.gov.sg/iwitness atau hubungi 999."
+        "explanation": "Keuntungan tinggi yang dijamin dalam waktu singkat adalah tanda penipuan nomor 1. Tangkapan layar keuntungan itu palsu, dan \"anggota grup\" yang memuji skema tersebut adalah penipu bayaran. Laporkan penipuan investasi ke polisi di police.gov.sg/iwitness atau hubungi ScamShield: 1799."
       },
       {
         "scenario": "Seorang pemilik rumah di Carousell meminta uang sewa 3 bulan (S$2.400) sebagai deposit melalui PayNow sebelum Anda bisa melihat kamarnya. Dia mengatakan banyak orang menginginkan kamar itu dan akan habis malam ini.",
@@ -701,7 +701,7 @@
           "Tolak — jangan pernah bayar sebelum melihat. Ini kemungkinan penipuan sewa",
           "Bayar setengahnya sekarang dan setengahnya setelah melihat"
         ],
-        "explanation": "Desakan dan tekanan untuk membayar sebelum melihat adalah taktik penipuan sewa yang klasik. Selalu lihat propertinya secara langsung, verifikasi identitas dan kepemilikan pemilik rumah, dan jangan pernah transfer uang sebelum menandatangani kontrak. Periksa scamalert.sg untuk daftar penipuan yang dilaporkan."
+        "explanation": "Desakan dan tekanan untuk membayar sebelum melihat adalah taktik penipuan sewa yang klasik. Selalu lihat propertinya secara langsung, verifikasi identitas dan kepemilikan pemilik rumah, dan jangan pernah transfer uang sebelum menandatangani kontrak. Periksa www.scamshield.gov.sg untuk daftar penipuan yang dilaporkan."
       }
     ]
   },
@@ -939,5 +939,20 @@
   "disclaimer": {
     "educational": "Konten di Remlo hanya untuk tujuan pendidikan dan informasi. Ini bukan nasihat keuangan profesional. Pengguna harus mempertimbangkan keadaan individu mereka dengan cermat sebelum membuat keputusan keuangan.",
     "bannerDismiss": "Mengerti"
+  },
+  "workshop": {
+    "welcome": "Selamat datang di Remlo",
+    "purpose": "Panduan keuangan gratis untuk pekerja di Singapura. Pelajari penipuan, anggaran dan pengiriman uang ke rumah.",
+    "trust": "Tidak mentransfer uang. Tidak perlu koneksi bank atau kata sandi perbankan.",
+    "begin": "Mulai",
+    "back": "Kembali",
+    "setup": "Atur Remlo untuk Anda",
+    "choose": "Pilih negara asal dan bahasa untuk melanjutkan.",
+    "country": "Negara asal",
+    "nextScam": "Selanjutnya: coba satu pertanyaan tentang penipuan. Tidak perlu akun.",
+    "returnHint": "Untuk kembali, buka Remlo atau tandai halaman ini. Anda juga bisa memindai kode QR yang sama lagi.",
+    "reportNote": "Remlo tidak menerima laporan penipuan. Lihat ScamShield untuk bantuan dan petunjuk pelaporan.",
+    "estimates": "Ini perkiraan contoh, bukan penawaran penyedia. Periksa biaya, kurs, waktu dan ketersediaan dengan penyedia. Remlo tidak mentransfer uang.",
+    "referenceRate": "Kurs referensi · Diambil {{time}}"
   }
 }

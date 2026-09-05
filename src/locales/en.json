@@ -34,8 +34,8 @@
       "description": "Plan your monthly spend and see what you can save."
     },
     "remittance": {
-      "title": "Send Money",
-      "description": "Compare Wise, Remitly, and more to get the best rate."
+      "title": "Exchange Rate",
+      "description": "Rates are indicative and updated periodically. Actual rates may vary at time of transfer."
     },
     "ai": {
       "title": "AI Assistant",
@@ -71,7 +71,7 @@
     },
     "scams": {
       "label": "Scam Alerts",
-      "desc": "Latest scams targeting workers in Singapore"
+      "desc": "Scam Awareness Quiz · ScamShield"
     },
     "loanshark": {
       "label": "Loan Shark Guide",
@@ -203,7 +203,7 @@
     "presetPhone": "Phone Plan"
   },
   "remittance": {
-    "pageTitle": "Send Money",
+    "pageTitle": "Exchange Rate",
     "pageSubtitle": "Compare live rates across providers",
     "sendLabel": "You Send (SGD)",
     "countryLabel": "Destination Country",
@@ -621,7 +621,7 @@
           "This is a job scam — legitimate employers never charge workers upfront fees",
           "Negotiate the fee down to S$100 before paying"
         ],
-        "explanation": "Under the Employment of Foreign Manpower Act, employers cannot charge workers recruitment fees. Any job that requires you to pay money first is a scam. Report to MOM at 1800-333-1313."
+        "explanation": "Check if the agency is licensed at mom.gov.sg/employment-agencies-search. If you have already paid, report to MOM Taskforce at 1800-333-1313. Keep all receipts and messages as evidence."
       },
       {
         "scenario": "Someone slips a card under your dormitory door: \"Need cash fast? No credit check! Borrow up to S$5,000 today. WhatsApp us.\" The card has no company name or licence number.",
@@ -636,10 +636,10 @@
         "scenario": "Your employer has not paid your salary for 2 months. He says: \"Don't report to MOM or I will cancel your work pass and send you home.\" What should you do?",
         "options": [
           "Wait quietly — I can't risk losing my work pass",
-          "Report to MOM — they protect workers and cannot cancel your pass for reporting",
+          "Call MOM: 6438-5122",
           "Borrow money from friends and say nothing"
         ],
-        "explanation": "MOM protects workers who make salary claims. Your employer CANNOT cancel your work pass just for reporting unpaid wages — that would be an additional offence. File a salary claim at mom.gov.sg or call 1800-333-1313."
+        "explanation": "Contact MOM for help with unpaid salary and work-pass questions. Keep payment records and messages. Ask about your options before leaving Singapore."
       },
       {
         "scenario": "A new friend asks if you can receive S$8,000 into your bank account and transfer it to another account for a \"small commission.\" He says it's for his business.",
@@ -648,7 +648,7 @@
           "Refuse — using your account this way is money mule fraud, which is a criminal offence",
           "Ask for a bigger commission before agreeing"
         ],
-        "explanation": "Allowing others to use your bank account to move money is a criminal offence in Singapore under the Corruption, Drug Trafficking and Other Serious Crimes Act. You can be jailed up to 3 years and fined up to S$50,000, even if you didn't know the money was from crime."
+        "explanation": "Do not let others use your bank account to receive or move money. It may be stolen money. If unsure, call ScamShield on 1799."
       },
       {
         "scenario": "You receive an SMS: \"DBS Bank: Unusual login detected on your account. Click this link to verify: dbs-secure-login.com.\" The link looks different from the official DBS website.",
@@ -657,7 +657,7 @@
           "Delete the SMS — this is a phishing scam. Call DBS directly at 1800-111-1111",
           "Forward the link to a friend to check if it's real"
         ],
-        "explanation": "Banks never send links asking you to log in. The real DBS site is dbs.com.sg — anything else is fake. Always type the bank's URL yourself or call the number on the back of your card. You can also call ScamShield helpline: 1799."
+        "explanation": "Never click bank links sent by WhatsApp, SMS, or email. Always type your bank URL directly into the browser. Report to ScamShield: call 1799 or use the ScamShield app."
       },
       {
         "scenario": "An online \"investment guru\" in a Telegram group says you can double your money in 30 days by investing in a special cryptocurrency fund. Many people in the group post screenshots of their big profits.",
@@ -666,7 +666,7 @@
           "Report the group — this is a classic investment scam with fake testimonials",
           "Wait to see if others get paid before investing"
         ],
-        "explanation": "Guaranteed high returns in a short time is the #1 sign of a scam. The profit screenshots are fake, and the \"group members\" praising the scheme are paid scammers. Report investment scams to the police at police.gov.sg/iwitness or call 999."
+        "explanation": "Guaranteed high returns in a short time is the #1 sign of a scam. The profit screenshots are fake, and the \"group members\" praising the scheme are paid scammers. Report investment scams to the police at police.gov.sg/iwitness or call ScamShield: 1799."
       },
       {
         "scenario": "A landlord on Carousell asks for 3 months' rent (S$2,400) as deposit via PayNow before you can view the room. He says many people want the room and it will be gone by tonight.",
@@ -675,7 +675,7 @@
           "Refuse — never pay before viewing. This is likely a rental scam",
           "Pay half now and half after viewing"
         ],
-        "explanation": "Urgency and pressure to pay before viewing are classic rental scam tactics. Always view the property in person, verify the landlord's identity and ownership, and never transfer money before signing a contract. Check scamalert.sg for reported scam listings."
+        "explanation": "Urgency and pressure to pay before viewing are classic rental scam tactics. Always view the property in person, verify the landlord's identity and ownership, and never transfer money before signing a contract. Check www.scamshield.gov.sg for reported scam listings."
       }
     ]
   },
@@ -941,5 +941,20 @@
   "disclaimer": {
     "educational": "The content on Remlo is for educational and informational purposes only. It is not professional financial advice. Users should carefully consider their individual circumstances before making financial decisions.",
     "bannerDismiss": "Got it"
+  },
+  "workshop": {
+    "welcome": "Welcome to Remlo",
+    "purpose": "Free money guidance for workers in Singapore. Learn about scams, budgets and sending money home.",
+    "trust": "No money transfers. No bank connection or banking passwords needed.",
+    "begin": "Get started",
+    "back": "Back",
+    "setup": "Make Remlo yours",
+    "choose": "Choose your home country and language to continue.",
+    "country": "Home country",
+    "nextScam": "Next: try a scam question. No account needed.",
+    "returnHint": "To return, open Remlo or bookmark this page. You can also scan the same QR code again.",
+    "reportNote": "Remlo does not receive scam reports. Get help and reporting instructions from ScamShield.",
+    "estimates": "Illustrative estimates, not provider quotes. Fees, rates, speed and availability must be checked with the provider. Remlo does not transfer money.",
+    "referenceRate": "Reference exchange rate · Fetched {{time}}"
   }
 }

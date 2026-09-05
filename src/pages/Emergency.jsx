@@ -38,8 +38,8 @@ const CATEGORIES = [
     key: 'scamReporting',
     color: { section: 'bg-rose-50 border-rose-100', badge: 'bg-rose-100 text-rose-700', dot: 'bg-rose-500' },
     contacts: [
-      { roleKey: 'scamshield',    org: 'ScamShield Helpline (NCPC)',               number: '1800-722-6688', hours: 'Mon – Fri 9:00 am – 5:30 pm', web: 'scamalert.sg' },
-      { roleKey: 'antiscam',      org: 'Singapore Police Force Anti-Scam Centre', number: '1800-722-6688', always: true },
+      { roleKey: 'scamshield',    org: 'ScamShield Helpline (NCPC)',               number: '1799', always: true, web: 'www.scamshield.gov.sg' },
+      { roleKey: 'antiscam',      org: 'ScamShield Helpline', number: '1799', always: true },
       { roleKey: 'momtaskforce',  org: 'MOM Taskforce (Job Scams)',               number: '1800-333-1313', hours: 'Mon – Fri 8:00 am – 5:00 pm' },
     ],
   },

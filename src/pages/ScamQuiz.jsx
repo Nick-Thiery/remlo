@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ShieldCheck, ShieldAlert, ChevronRight, ChevronLeft, RotateCcw, Trophy } from 'lucide-react'
-import { track } from '../lib/analytics.js'
+import LanguageSelect from '../components/LanguageSelect.jsx'
+import { track, trackActivation } from '../lib/analytics.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 
 // Correct answer index for each question (option B = index 1 for all 8)
@@ -53,6 +54,8 @@ export default function ScamQuiz() {
   function choose(idx) {
     if (answered) return
     const correct = q.options[idx].correct
+    track('scam_question_answered', { question: current + 1, correct })
+    trackActivation()
     setSelected(idx)
     if (correct) setScore((s) => s + 1)
     setAnswers((prev) => [...prev, correct])
@@ -76,6 +79,7 @@ export default function ScamQuiz() {
       <div className="min-h-screen" style={{ background: bg }}>
         <div className="max-w-lg mx-auto px-4 pt-8 pb-8">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate('/more')}
             className="w-9 h-9 flex items-center justify-center rounded-xl active:scale-95 transition-all shadow-sm mb-5"
             style={{ background: card, border: `1px solid ${border}` }}
@@ -148,8 +152,10 @@ export default function ScamQuiz() {
     <div className="min-h-screen" style={{ background: bg }}>
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
+        <div className="mb-5"><LanguageSelect /></div>
         <div className="mb-5">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate('/more')}
             className="w-9 h-9 flex items-center justify-center rounded-xl active:scale-95 transition-all shadow-sm mb-4"
             style={{ background: card, border: `1px solid ${border}` }}
@@ -163,7 +169,7 @@ export default function ScamQuiz() {
               </div>
               <p className="text-sm font-semibold text-gray-700">{t('scamQuiz.pageTitle')}</p>
             </div>
-            <p className="text-sm font-medium text-gray-400">{current + 1} / {questions.length}</p>
+            <p dir="ltr" className="text-sm font-medium text-gray-400">{current + 1} / {questions.length}</p>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-1.5">
             <div
@@ -210,7 +216,7 @@ export default function ScamQuiz() {
                 key={idx}
                 onClick={() => choose(idx)}
                 disabled={answered}
-                className={`w-full text-left border rounded-xl px-4 py-3.5 text-sm leading-snug transition-all active:scale-[0.98] disabled:cursor-default ${optClass}`}
+                className={`w-full text-start border rounded-xl px-4 py-3.5 text-sm leading-snug transition-all active:scale-[0.98] disabled:cursor-default ${optClass}`}
                 style={optStyle}
               >
                 <span className="font-medium mr-2">{String.fromCharCode(65 + idx)}.</span>
@@ -223,7 +229,7 @@ export default function ScamQuiz() {
         </div>
 
         {answered && (
-          <div className={`rounded-xl border px-4 py-3.5 mb-5 ${
+          <div role="status" className={`rounded-xl border px-4 py-3.5 mb-5 ${
             q.options[selected].correct ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200'
           }`}>
             <p className={`text-xs font-bold uppercase tracking-wide mb-1.5 ${
@@ -231,8 +237,12 @@ export default function ScamQuiz() {
             }`}>
               {q.options[selected].correct ? t('scamQuiz.correct') : t('scamQuiz.incorrect')}
             </p>
-            <p className="text-sm leading-relaxed" style={{ color: isDark ? '#D1CDC8' : '#374151' }}>{q.explanation}</p>
+            <p className="text-sm leading-relaxed" style={{ color: '#374151' }}>{q.explanation}</p>
           </div>
+        )}
+
+        {answered && current === 0 && (
+          <p className="rounded-xl p-4 mb-4 text-sm text-gray-700" style={{ background: card }}>{t('workshop.returnHint')}</p>
         )}
 
         {answered && (

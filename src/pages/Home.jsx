@@ -204,7 +204,7 @@ export default function Home() {
                   style={{ background: isDark ? '#2A2724' : '#F5F2EC' }}
                 >
                   <span className="text-xs font-semibold" style={{ color: textSecondary }}>
-                    {currentLang.label.slice(0, 2).toUpperCase()}
+                    {currentLang.label}
                   </span>
                   <ChevronDown
                     className={`w-3 h-3 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`}
@@ -248,6 +248,8 @@ export default function Home() {
       </div>
 
       <div className="max-w-lg mx-auto px-4 pt-5 pb-14 space-y-3">
+
+        <Link to="/scam-quiz" className="block rounded-2xl p-4 bg-orange-600 text-white font-bold">{t('scamQuiz.pageTitle')} →</Link>
 
         {/* ── Hero stats card ── */}
         <div

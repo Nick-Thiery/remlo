@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useCallback } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { ShieldCheck, RefreshCw, ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import LanguageSelect from '../components/LanguageSelect.jsx'
+import { fetchJson } from '../lib/fetchJson.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-scam-alerts`
@@ -32,7 +34,6 @@ function formatDate(iso) {
   return d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
-const today = new Date().toISOString().slice(0, 10)
 
 export default function Scams() {
   const navigate = useNavigate()
@@ -49,73 +50,37 @@ export default function Scams() {
 
   const [filter, setFilter] = useState('all')
   const [expandedId, setExpandedId] = useState(null)
-  const [showReport, setShowReport] = useState(false)
-
-  // Report form state
-  const [rWhat, setRWhat] = useState('')
-  const [rWhen, setRWhen] = useState(today)
-  const [rLost, setRLost] = useState('')
-  const [rContact, setRContact] = useState('')
-  const [rErrors, setRErrors] = useState({})
-  const [submitted, setSubmitted] = useState(false)
-
-  async function loadAlerts(lang = i18n.language) {
+  const loadAlerts = useCallback(async (lang, signal) => {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch(FUNCTIONS_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': ANON_KEY,
-          'Authorization': `Bearer ${ANON_KEY}`,
-        },
+      const data = await fetchJson(FUNCTIONS_URL, {
+        method: 'POST', signal,
+        headers: { 'Content-Type': 'application/json', apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}` },
         body: JSON.stringify({ language: lang }),
       })
-      const text = await res.text()
-      if (!res.ok) {
-        const keyPreview = ANON_KEY ? `${ANON_KEY.slice(0, 12)}…` : 'MISSING'
-        throw new Error(
-          `Status: ${res.status}\nURL: ${FUNCTIONS_URL}\nKey: ${keyPreview}\nBody: ${text}`
-        )
-      }
-      let data
-      try {
-        data = JSON.parse(text)
-      } catch {
-        throw new Error(`Invalid JSON response: ${text.slice(0, 120)}`)
-      }
-      setAlerts(data?.alerts ?? [])
-    } catch (err) {
-      setError(err.message)
+      if (!Array.isArray(data?.alerts)) throw new Error('Invalid alerts')
+      if (!signal?.aborted) setAlerts(data.alerts.filter(alert =>
+        // This legacy item wrongly claims all employment agency fees are illegal.
+        // Suppress it until both source and cached translations are corrected.
+        alert.id !== 'alert_jobscam_001' && typeof alert.title === 'string' &&
+        typeof alert.description === 'string' && Array.isArray(alert.what_to_do)
+      ))
+    } catch {
+      if (!signal?.aborted) setError(true)
     } finally {
-      setLoading(false)
+      if (!signal?.aborted) setLoading(false)
     }
-  }
+  }, [])
 
-  useEffect(() => { loadAlerts(i18n.language) }, [i18n.language])
+  const [attempt, setAttempt] = useState(0)
+  useEffect(() => {
+    const controller = new AbortController()
+    loadAlerts(i18n.language, controller.signal)
+    return () => controller.abort()
+  }, [i18n.language, loadAlerts, attempt])
 
   const visible = filter === 'all' ? alerts : alerts.filter((a) => a.type === filter)
-
-  function openReport() {
-    setRWhat(''); setRWhen(today); setRLost(''); setRContact('')
-    setRErrors({}); setSubmitted(false)
-    setShowReport(true)
-  }
-
-  function closeReport() {
-    setShowReport(false)
-    setRErrors({})
-  }
-
-  function handleReport() {
-    const errs = {}
-    if (!rWhat.trim()) errs.what = t('scams.report.errorWhat')
-    if (!rWhen) errs.when = t('scams.report.errorWhen')
-    if (!rContact.trim()) errs.contact = t('scams.report.errorContact')
-    if (Object.keys(errs).length) return setRErrors(errs)
-    setSubmitted(true)
-  }
 
   return (
     <div className="min-h-screen" style={{ background: bg }}>
@@ -132,6 +97,7 @@ export default function Scams() {
         {/* Header */}
         <div className="flex items-start gap-3 mb-5">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0 mt-0.5"
             style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)', color: isDark ? '#F5F2EC' : '#4B5563' }}
@@ -140,15 +106,19 @@ export default function Scams() {
           </button>
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight leading-tight">{t('scams.pageTitle')}</h1>
-            <p className="text-sm text-gray-500 mt-1 leading-snug">{t('scams.pageSubtitle')}</p>
+
           </div>
-          <button
-            onClick={openReport}
-            className="flex-shrink-0 bg-red-600 text-white rounded-xl px-3 py-2.5 text-xs font-semibold active:scale-95 transition-all text-center leading-snug"
-            style={{ maxWidth: 88 }}
-          >
-            {t('scams.reportBtn')}
-          </button>
+
+        </div>
+
+        <div className="mb-5 space-y-3">
+          <LanguageSelect />
+          <Link to="/scam-quiz" className="block rounded-2xl bg-orange-600 text-white p-4 font-bold">{t('scamQuiz.pageTitle')} →</Link>
+          <p className="text-sm text-gray-600">{t('workshop.reportNote')}</p>
+          <div className="flex flex-wrap gap-3">
+            <a className="min-h-11 inline-flex items-center underline font-semibold text-blue-600" href="https://www.scamshield.gov.sg/" target="_blank" rel="noopener noreferrer">ScamShield ↗</a>
+            <a className="min-h-11 inline-flex items-center underline font-semibold text-blue-600" href="tel:1799">{t('common.call')} 1799</a>
+          </div>
         </div>
 
         {/* Type filter */}
@@ -171,7 +141,7 @@ export default function Scams() {
 
         {/* Loading skeleton */}
         {loading && (
-          <div className="space-y-4">
+          <div role="status" aria-label={t("common.loading")} className="space-y-4">
             {[1, 2, 3].map((i) => (
               <div key={i} className="rounded-3xl overflow-hidden" style={{ background: card, border: `1px solid ${border}` }}>
                 <div className="h-1 w-full skeleton" />
@@ -190,12 +160,9 @@ export default function Scams() {
         {!loading && error && (
           <div className="rounded-2xl px-5 py-4 mb-4" style={{ background: '#FEF2F2', border: '1px solid #FECACA' }}>
             <p className="text-sm text-red-700 font-semibold mb-2">{t('scams.loadError')}</p>
-            <pre className="text-[11px] text-red-600 mb-3 whitespace-pre-wrap break-all leading-relaxed font-mono">
-              {error}
-            </pre>
             <button
-              onClick={() => loadAlerts(i18n.language)}
-              className="flex items-center gap-1.5 text-xs font-bold text-red-700"
+              onClick={() => setAttempt(value => value + 1)}
+              className="min-h-11 flex items-center gap-1.5 text-sm font-bold text-red-700"
             >
               <RefreshCw className="w-3.5 h-3.5" /> {t('scams.tryAgain')}
             </button>
@@ -222,6 +189,7 @@ export default function Scams() {
                   {/* Tappable header */}
                   <button
                     className="w-full text-left px-4 pt-4 pb-4"
+                    aria-expanded={isExpanded}
                     onClick={() => setExpandedId(isExpanded ? null : alert.id)}
                   >
                     {/* Row 1: badges + chevron */}
@@ -270,7 +238,7 @@ export default function Scams() {
                       {/* Source attribution */}
                       <div className="flex items-center gap-2 pt-3" style={{ borderTop: `1px solid ${border}` }}>
                         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">{t('scams.sourceLabel')}</span>
-                        {alert.source_url ? (
+                        {typeof alert.source_url === 'string' && alert.source_url.startsWith('https://') ? (
                           <a
                             href={alert.source_url}
                             target="_blank"
@@ -301,122 +269,11 @@ export default function Scams() {
           </div>
         )}
 
-        {/* Disclaimer */}
-        {!loading && (
-          <p className="text-xs text-gray-400 text-center mt-8 leading-relaxed">
-            {t('scams.sourceNote')}
-          </p>
-        )}
         <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
           {t('disclaimer.educational')}
         </p>
       </div>
 
-      {/* Report a Scam modal */}
-      {showReport && (
-        <div
-          className="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 p-4"
-          onClick={(e) => e.target === e.currentTarget && closeReport()}
-        >
-          <div className="rounded-2xl w-full max-w-sm shadow-xl max-h-[90vh] overflow-y-auto" style={{ background: card }}>
-            <div className="bg-red-600 rounded-t-2xl px-6 py-5">
-              <h2 className="text-lg font-bold text-white">{t('scams.report.title')}</h2>
-              <p className="text-red-100 text-xs mt-0.5">{t('scams.report.subtitle')}</p>
-            </div>
-
-            <div className="p-6">
-              {submitted ? (
-                <div className="text-center py-6">
-                  <p className="text-3xl mb-3">✅</p>
-                  <p className="font-semibold text-gray-900 mb-1">{t('scams.report.successTitle')}</p>
-                  <p className="text-sm text-gray-500 mb-5 leading-relaxed">{t('scams.report.successDesc')}</p>
-                  <button
-                    onClick={closeReport}
-                    className="bg-gray-900 text-white rounded-xl px-6 py-3 text-sm font-semibold transition-colors"
-                  >
-                    {t('common.close')}
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <div className="space-y-4 mb-5">
-                    <div>
-                      <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('scams.report.whatLabel')}</label>
-                      <textarea
-                        placeholder={t('scams.report.whatPlaceholder')}
-                        value={rWhat}
-                        onChange={(e) => setRWhat(e.target.value)}
-                        rows={4}
-                        className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 resize-none ${rErrors.what ? 'border-red-300' : 'border-gray-200'}`}
-                      />
-                      {rErrors.what && <p className="text-xs text-red-500 mt-1">{rErrors.what}</p>}
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('scams.report.whenLabel')}</label>
-                      <input
-                        type="date"
-                        value={rWhen}
-                        max={today}
-                        onChange={(e) => setRWhen(e.target.value)}
-                        className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 ${rErrors.when ? 'border-red-300' : 'border-gray-200'}`}
-                      />
-                      {rErrors.when && <p className="text-xs text-red-500 mt-1">{rErrors.when}</p>}
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-gray-500 mb-1.5 block">
-                        {t('scams.report.lostLabel')}
-                        <span className="ml-1.5 font-normal text-gray-400">{t('scams.report.lostNote')}</span>
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
-                        <input
-                          type="number"
-                          placeholder="0"
-                          min="0"
-                          step="1"
-                          value={rLost}
-                          onChange={(e) => setRLost(e.target.value)}
-                          className="w-full border border-gray-200 rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="text-xs font-medium text-gray-500 mb-1.5 block">{t('scams.report.contactLabel')}</label>
-                      <input
-                        type="tel"
-                        placeholder={t('scams.report.contactPlaceholder')}
-                        value={rContact}
-                        onChange={(e) => setRContact(e.target.value)}
-                        className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 ${rErrors.contact ? 'border-red-300' : 'border-gray-200'}`}
-                      />
-                      {rErrors.contact && <p className="text-xs text-red-500 mt-1">{rErrors.contact}</p>}
-                      <p className="text-xs text-gray-400 mt-1">{t('scams.report.contactNote')}</p>
-                    </div>
-                    <div className="bg-amber-50 border border-amber-100 rounded-xl p-3">
-                      <p className="text-xs font-semibold text-amber-700 mb-0.5">{t('scams.report.policeTitle')}</p>
-                      <p className="text-xs text-amber-600 leading-relaxed">{t('scams.report.policeDesc')}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-3">
-                    <button
-                      onClick={closeReport}
-                      className="flex-1 border border-gray-200 text-gray-700 rounded-xl py-3 text-sm font-semibold"
-                    >
-                      {t('common.cancel')}
-                    </button>
-                    <button
-                      onClick={handleReport}
-                      className="flex-1 bg-red-600 text-white rounded-xl py-3 text-sm font-semibold"
-                    >
-                      {t('scams.report.submitBtn')}
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

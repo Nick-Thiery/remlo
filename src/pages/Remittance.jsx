@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { ArrowLeftRight, RefreshCw, WifiOff, Zap } from 'lucide-react'
+import { fetchJson } from '../lib/fetchJson.js'
 import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 import safeStorage from '../lib/safeStorage.js'
@@ -93,9 +94,7 @@ export default function Remittance() {
     let cancelled = false
     async function fetchRates() {
       try {
-        const res = await fetch('https://open.er-api.com/v6/latest/SGD')
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const data = await res.json()
+        const data = await fetchJson('https://open.er-api.com/v6/latest/SGD')
         if (cancelled) return
         if (data?.result === 'success' && data?.rates) {
           setMidRates(data.rates)
@@ -129,10 +128,9 @@ export default function Remittance() {
       const netSend = Math.max(amount - fee, 0)
       const received = netSend * rate
       return { ...p, rate, fee, received }
-    }).sort((a, b) => b.received - a.received)
-  }, [amount, country, midRates])
+    })
+  }, [amount, country, midRates, dest.currency])
 
-  const bestId = results[0]?.id
 
   return (
     <div className="min-h-screen" style={{ background: bg }}>
@@ -141,7 +139,7 @@ export default function Remittance() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('remittance.pageTitle')}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{t('remittance.pageSubtitle')}</p>
+          <p className="text-sm text-gray-500 mt-0.5">{t('workshop.estimates')}</p>
         </div>
 
         {/* Live rates status */}
@@ -166,7 +164,7 @@ export default function Remittance() {
           ) : (
             <>
               <span className="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0 animate-pulse" />
-              <span>{t('remittance.ratesLive', { time: fetchedAt ? formatTime(fetchedAt) : '' })}</span>
+              <span>{t('workshop.referenceRate', { time: fetchedAt ? formatTime(fetchedAt) : '' })}</span>
             </>
           )}
         </div>
@@ -184,11 +182,13 @@ export default function Remittance() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold">S$</span>
                 <input
                   type="number"
+                  inputMode="decimal"
+                  aria-label={t("remittance.sendLabel")}
                   min="1"
                   step="1"
                   value={sendAmount}
                   onChange={(e) => setSendAmount(e.target.value)}
-                  onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { amount: parseFloat(sendAmount), destination_country: country }) }}
+                  onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { destination_country: country }) }}
                   className="w-full rounded-2xl pl-10 pr-4 py-3.5 text-sm font-bold"
                   style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   placeholder="0"
@@ -202,6 +202,7 @@ export default function Remittance() {
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-base pointer-events-none">{dest.flag}</span>
                 <select
+                  aria-label={t("remittance.countryLabel")}
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
                   className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-bold appearance-none"
@@ -277,8 +278,7 @@ export default function Remittance() {
                   <p className="text-sm text-gray-500 max-w-[200px] mx-auto leading-relaxed">{t('remittance.emptyDesc')}</p>
                 </div>
               ) : (
-                results.map((p, i) => {
-                  const isBest = p.id === bestId
+                results.map((p) => {
 
                   return (
                     <div
@@ -286,8 +286,8 @@ export default function Remittance() {
                       className="rounded-3xl overflow-hidden transition-all"
                       style={{
                         background: card,
-                        border: isBest ? '2px solid #E8640C' : `1px solid ${border}`,
-                        boxShadow: isBest ? '0 4px 20px rgba(232,100,12,0.15)' : '0 2px 12px rgba(0,0,0,0.05)',
+                        border: `1px solid ${border}`,
+                        boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
                       }}
                     >
                       {/* Card header */}
@@ -312,22 +312,6 @@ export default function Remittance() {
                         </div>
 
                         <div className="text-right">
-                          {isBest && (
-                            <span
-                              className="inline-block text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full mb-1.5 uppercase tracking-wide"
-                              style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)' }}
-                            >
-                              {t('remittance.bestValue')}
-                            </span>
-                          )}
-                          {!isBest && i > 0 && (
-                            <span
-                              className="inline-block text-xs font-bold px-2.5 py-1 rounded-full mb-1.5"
-                              style={{ background: '#F5F2EC', color: '#6B7280' }}
-                            >
-                              #{i + 1}
-                            </span>
-                          )}
                           <p className="text-2xl font-extrabold text-gray-900 tabular-nums leading-tight">
                             {formatForeignAmount(p.received, dest.symbol)}
                           </p>
