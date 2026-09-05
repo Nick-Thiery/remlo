@@ -1,0 +1,54 @@
+name: Supabase Keepalive
+
+# Free-tier Supabase projects auto-pause after ~7 days of inactivity.
+# This pings the REST API daily so the project stays awake, and fails
+# loudly if the backend is not returning 200.
+
+on:
+  schedule:
+    # 06:17 UTC daily (off-the-hour to avoid GitHub's scheduler congestion)
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    name: Ping Supabase REST API
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping scam_alerts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SUPABASE_URL}" ] || [ -z "${SUPABASE_ANON_KEY}" ]; then
+            echo "::error::Repository secrets SUPABASE_URL and SUPABASE_ANON_KEY must both be set."
+            exit 1
+          fi
+
+          body_file="$(mktemp)"
+
+          # scam_alerts is publicly readable via RLS ("Public can read active alerts"),
+          # so the anon key is enough and no user data is touched.
+          status="$(curl -sS \
+            -o "$body_file" \
+            -w '%{http_code}' \
+            --max-time 30 \
+            --retry 2 --retry-delay 5 --retry-connrefused \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            -H "Accept: application/json" \
+            "${SUPABASE_URL%/}/rest/v1/scam_alerts?select=id&limit=1")"
+
+          echo "HTTP status: ${status}"
+
+          if [ "${status}" != "200" ]; then
+            echo "::error::Supabase keepalive ping failed with HTTP ${status}"
+            echo "Response body:"
+            cat "$body_file"
+            exit 1
+          fi
+
+          echo "Supabase responded 200 - project is awake."
