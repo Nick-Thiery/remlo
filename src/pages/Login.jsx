@@ -194,7 +194,7 @@ function Login() {
             >
               {t('login.continueGuest')}
             </button>
-          <p className="text-sm text-gray-500 my-3">{t("workshop.nextScam")}</p>
+          <p className="text-sm text-gray-500 my-3">{t("login.guestNote")}</p>
           <h2 className="text-xl font-extrabold mb-0.5 tracking-tight" style={{ color: textPrimary }}>
             {isSignup ? t('login.createAccountTitle') : t('login.welcomeBack')}
           </h2>

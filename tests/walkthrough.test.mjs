@@ -37,7 +37,7 @@ test('guest setup from root or /login lands on Home, not the quiz', () => {
   const onboarding = source('pages/Onboarding.jsx')
   assert.match(onboarding, /guestLandingPath\(window\.location\.pathname\)/)
   assert.doesNotMatch(onboarding, /workshop\.nextScam/, 'setup must not promise the quiz as the next step')
-  assert.doesNotMatch(source('pages/Login.jsx'), /navigate\(['"]\/scam-quiz/)
+  assert.doesNotMatch(source('pages/Login.jsx'), /navigate\(['"]\/scam-quiz|workshop\.nextScam/)
 })
 
 test('intentional deep links survive guest setup', () => {
