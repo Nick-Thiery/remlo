@@ -1,5 +1,5 @@
 import safeStorage, { safeSession } from './safeStorage.js'
-import { campaignFromSearch, EVENT_FIELDS, safeEventProperties, sanitizeCapture } from './analyticsPolicy.js'
+import { campaignFromSearch, eventsToCapture, sanitizeCapture } from './analyticsPolicy.js'
 
 let posthog
 let enabled = false
@@ -32,7 +32,7 @@ export async function initAnalytics() {
       posthog.reset()
       safeStorage.setItem('remlo_analytics_privacy_v2', 'true')
     }
-    for (const [event, properties] of queue.splice(0)) track(event, properties)
+    for (const [event, properties] of queue.splice(0)) capture(event, properties)
   } catch {
     enabled = false
     posthog = undefined
@@ -40,19 +40,16 @@ export async function initAnalytics() {
   }
 }
 
-export function track(event, properties = {}) {
-  if (!enabled || !Object.hasOwn(EVENT_FIELDS, event)) return
-  const safe = safeEventProperties(event, properties)
+function capture(event, properties) {
   if (!posthog) {
-    if (queue.length < 30) queue.push([event, safe])
+    if (queue.length < 30) queue.push([event, properties])
     return
   }
-  try { posthog.capture(event, { ...safe, ...campaign }) }
+  try { posthog.capture(event, { ...properties, ...campaign }) }
   catch { /* Optional telemetry must never break a user action. */ }
 }
 
-export function trackActivation() {
-  if (safeStorage.getItem('remlo_activated') === 'true') return
-  safeStorage.setItem('remlo_activated', 'true')
-  track('first_useful_action_completed', { feature: 'scam-quiz', action: 'answer_and_view_explanation' })
+export function track(event, properties = {}) {
+  if (!enabled) return
+  for (const [name, safe] of eventsToCapture(event, properties, safeStorage)) capture(name, safe)
 }

@@ -3,11 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ShieldCheck, ShieldAlert, ChevronRight, ChevronLeft, RotateCcw, Trophy } from 'lucide-react'
 import LanguageSelect from '../components/LanguageSelect.jsx'
-import { track, trackActivation } from '../lib/analytics.js'
+import { track } from '../lib/analytics.js'
+import { QUIZ_VERSION, buildQuizQuestions, scoreAnswers } from '../lib/scamQuiz.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
-
-// Correct answer index for each question (option B = index 1 for all 8)
-const CORRECT_IDX = [1, 1, 1, 1, 1, 1, 1, 1]
 
 // Non-translatable style metadata for the three rating bands
 const RATING_STYLE = [
@@ -26,22 +24,14 @@ export default function ScamQuiz() {
 
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState(null)
-  const [score, setScore]       = useState(0)
   const [answers, setAnswers]   = useState([])
   const [done, setDone]         = useState(false)
 
-  // Pull all question text from the active locale
-  const questionTexts = t('scamQuiz.questions', { returnObjects: true })
-  const ratingTexts   = t('scamQuiz.ratings',   { returnObjects: true })
+  // Locale text in a fixed display order; correctness follows the answer, not its letter
+  const questions   = buildQuizQuestions(t('scamQuiz.questions', { returnObjects: true }))
+  const ratingTexts = t('scamQuiz.ratings', { returnObjects: true })
 
-  // Build full question objects by merging locale text with correct-answer metadata
-  const questions = CORRECT_IDX.map((correctIdx, i) => ({
-    id: i + 1,
-    scenario: questionTexts[i]?.scenario ?? '',
-    options:  (questionTexts[i]?.options ?? []).map((text, j) => ({ text, correct: j === correctIdx })),
-    explanation: questionTexts[i]?.explanation ?? '',
-  }))
-
+  const score    = scoreAnswers(answers)
   const q        = questions[current]
   const answered = selected !== null
   const isLast   = current === questions.length - 1
@@ -54,22 +44,20 @@ export default function ScamQuiz() {
   function choose(idx) {
     if (answered) return
     const correct = q.options[idx].correct
-    track('scam_question_answered', { question: current + 1, correct })
-    trackActivation()
+    track('scam_question_answered', { question: current + 1, correct, quiz_version: QUIZ_VERSION })
     setSelected(idx)
-    if (correct) setScore((s) => s + 1)
     setAnswers((prev) => [...prev, correct])
   }
 
   function next() {
     if (isLast) {
-      track('scam_quiz_completed', { score, total: questions.length })
+      track('scam_quiz_completed', { score, total: questions.length, quiz_version: QUIZ_VERSION })
       setDone(true)
     } else { setCurrent((c) => c + 1); setSelected(null) }
   }
 
   function restart() {
-    setCurrent(0); setSelected(null); setScore(0); setAnswers([]); setDone(false)
+    setCurrent(0); setSelected(null); setAnswers([]); setDone(false)
   }
 
   // ── Results screen ───────────────────────────────────────────────────────

@@ -153,3 +153,22 @@ The pre-existing change in `supabase/.temp/cli-latest` is unrelated and excluded
 - [Singapore Police: unlicensed moneylending](https://www.police.gov.sg/Advisories/Unlicensed-Moneylending): supporting safety guidance reviewed during the content check.
 
 These sources support the specific corrections above; they do not establish completeness or accuracy of all existing app content.
+
+## Addendum — 18 September 2026: worker walkthrough readiness
+
+For independent-choice walkthroughs, the guided workshop defaults above were changed:
+
+- **Entry:** Continue as Guest from root or `/login` (setup or Login page) now lands on Home, not the quiz. Other deep links (e.g. `/scam-quiz`, `/remittance`) are still kept through setup. The setup footer no longer says "Next: try a scam question"; it shows the existing guest-storage note. `workshop.nextScam` remains in the locale files but is unused.
+- **Home:** the standalone orange quiz link is removed. Scam Quiz is a regular card beside Savings, Budget and Exchange Rate, using the existing `moreItems.scamQuiz` copy.
+- **Quiz answer order:** the safe answer was option B for all 8 questions. Locale files are unchanged; `src/lib/scamQuiz.js` applies one fixed display order in every language, putting the safe answer at C, A, B, A, C, B, C, A. Correctness, scoring and `scam_question_answered.correct` follow the answer, not its letter. `scam_question_answered` and `scam_quiz_completed` now carry `quiz_version: 2`. Events without `quiz_version` came from the all-B quiz, including any sent after release by a stale cached app, so filter on `quiz_version = 2` instead of by date.
+- **Activation:** `first_useful_action_completed` now fires once per device (storage key `remlo_activated_v2`) the first time a core feature task is completed, with `activation_version: 2`:
+
+| Feature | Trigger (existing event) | `action` |
+|---|---|---|
+| `scam-quiz` | `scam_quiz_completed` (all 8 answered) | `quiz_completed` |
+| `chat` | `chat_response_received` | `response_received` |
+| `savings` | `savings_goal_created` | `goal_created` |
+| `budget` | `budget_updated` with income entered (checked on device, not sent) | `budget_saved` |
+| `remittance` | `remittance_compared` | `rates_compared` |
+
+Earlier events have no `activation_version` and `action: 'answer_and_view_explanation'` (v1: first scam answer). v1 is no longer emitted; the same first-answer moment is still available in old and new data as a device's first `scam_question_answered` (always question 1). Devices activated under v1 can emit one v2 event, which may not be their first-ever completion.

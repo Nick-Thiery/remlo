@@ -9,6 +9,7 @@ import {
   Flame,
   Coins,
   Wallet,
+  Brain,
 } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import safeStorage from '../lib/safeStorage.js'
@@ -180,7 +181,14 @@ export default function Home() {
       description: t('features.remittance.description'),
       iconBg: '#FFF7ED',
       iconColor: '#E8640C',
-      wide: true,
+    },
+    {
+      to: '/scam-quiz',
+      icon: Brain,
+      title: t('moreItems.scamQuiz.label'),
+      description: t('moreItems.scamQuiz.desc'),
+      iconBg: '#F5F2EC',
+      iconColor: '#8B7355',
     },
   ]
 
@@ -248,8 +256,6 @@ export default function Home() {
       </div>
 
       <div className="max-w-lg mx-auto px-4 pt-5 pb-14 space-y-3">
-
-        <Link to="/scam-quiz" className="block rounded-2xl p-4 bg-orange-600 text-white font-bold">{t('scamQuiz.pageTitle')} →</Link>
 
         {/* ── Hero stats card ── */}
         <div
@@ -349,13 +355,9 @@ export default function Home() {
 
             /* Regular feature cards */
             return (
-              <Link
-                key={f.to}
-                to={f.to}
-                className={`block ${f.wide ? 'col-span-2' : ''}`}
-              >
+              <Link key={f.to} to={f.to} className="block">
                 <div
-                  className="rounded-3xl p-4 transition-transform active:scale-[0.98]"
+                  className="h-full rounded-3xl p-4 transition-transform active:scale-[0.98]"
                   style={{
                     background: card,
                     border: `1px solid ${border2}`,

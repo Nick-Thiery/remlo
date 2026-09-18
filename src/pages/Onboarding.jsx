@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { LANGUAGES } from '../lib/languages.js'
 import LanguageSelect from '../components/LanguageSelect.jsx'
 import { track } from '../lib/analytics.js'
+import { guestLandingPath } from '../lib/entryRoute.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 
@@ -175,7 +176,7 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish, o
         className="flex-shrink-0 px-5 py-3 pb-[max(env(safe-area-inset-bottom),12px)]"
         style={{ background: card, borderTop: `1px solid ${border}` }}
       >
-        <p role="status" className="text-sm mb-2 text-gray-600">{!country ? t("workshop.choose") : t("workshop.nextScam")}</p>
+        <p role="status" className="text-sm mb-2 text-gray-600">{!country ? t("workshop.choose") : t("login.guestNote")}</p>
         <button
           onClick={() => onFinish(true)}
           disabled={!country}
@@ -223,7 +224,7 @@ export default function Onboarding({ onComplete }) {
       safeStorage.setItem('remlo_guest', 'true')
       track('guest_mode_selected')
     }
-    onComplete(asGuest ? (window.location.pathname === '/' || window.location.pathname === '/login' ? '/scam-quiz' : window.location.pathname) : '/login')
+    onComplete(asGuest ? guestLandingPath(window.location.pathname) : '/login')
   }
 
   if (step === 0) return <WelcomeScreen onNext={() => {

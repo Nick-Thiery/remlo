@@ -113,7 +113,7 @@ function Login() {
   function handleGuest() {
     safeStorage.setItem('remlo_guest', 'true')
     track('guest_mode_selected')
-    navigate('/scam-quiz', { replace: true })
+    navigate('/', { replace: true })
   }
 
   function switchMode(next) {
