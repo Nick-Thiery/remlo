@@ -324,7 +324,7 @@
     "errorPayment": "Masukkan jumlah cicilan yang valid"
   },
   "scams": {
-    "emergencyBanner": "🚨 Jika Anda dalam bahaya hubungi 999  ·  Helpline MOM: 1800-333-1313",
+    "emergencyBanner": "🚨 Jika Anda dalam bahaya hubungi 999  ·  Helpline MOM: 6438-5122",
     "pageTitle": "Peringatan Penipuan",
     "pageSubtitle": "Penipuan terbaru yang menargetkan pekerja di Singapura",
     "reportBtn": "Laporkan Penipuan",
@@ -392,8 +392,8 @@
         "description": "Grup Facebook dan Telegram mengiklankan pekerjaan konstruksi dan kebersihan bergaji tinggi di Singapura, tetapi meminta pekerja membayar S$200–S$800 sebagai biaya penempatan atau biaya pemrosesan izin kerja sebelum pekerjaan dimulai. Setelah pembayaran, agen pekerjaan menghilang. Agen tenaga kerja berlisensi di Singapura tidak diperbolehkan mengenakan biaya kepada pencari kerja.",
         "whatToDo": [
           "Jangan pernah membayar biaya apapun untuk mendapatkan pekerjaan — ini ilegal di Singapura.",
-          "Periksa apakah agen memiliki lisensi di mom.gov.sg/employment-agencies-search.",
-          "Jika Anda sudah membayar, laporkan ke MOM Taskforce di 1800-333-1313.",
+          "Periksa apakah agen memiliki lisensi di mom.gov.sg/eadirectory.",
+          "Jika Anda sudah membayar, laporkan ke MOM di 6438-5122.",
           "Simpan semua kwitansi dan pesan sebagai bukti."
         ]
       },
@@ -403,7 +403,7 @@
         "type": "loanScam",
         "description": "Pemberi pinjaman tidak berizin mengirim SMS dan pesan WhatsApp tidak diminta yang mengiklankan pinjaman tunai instan tanpa pemeriksaan yang diperlukan. Mereka mengenakan suku bunga jauh di atas batas bulanan legal 4%, dan menggunakan ancaman, pelecehan, dan kerusakan properti terhadap peminjam dan keluarga mereka. Meminjam dari pemberi pinjaman tidak berizin adalah tindak pidana di Singapura.",
         "whatToDo": [
-          "Jangan meminjam dari siapapun yang menghubungi Anda melalui SMS atau WhatsApp — semua pemberi pinjaman berlisensi terdaftar di moneylenders.justice.gov.sg.",
+          "Jangan meminjam dari siapapun yang menghubungi Anda melalui SMS atau WhatsApp — semua pemberi pinjaman berlisensi terdaftar di rom.mlaw.gov.sg.",
           "Jika diancam atau dilecehkan, segera hubungi Polisi di 999.",
           "Laporkan ke hotline X-Ah Long: 1800-924-5664 (tersedia 24/7).",
           "Anda adalah korban — hukum Singapura melindungi Anda meskipun Anda sudah meminjam."
@@ -443,7 +443,7 @@
     "riskCounter": "{{checked}} dari {{total}} tanda diperiksa",
     "legalTitle": "Seperti Apa Pemberi Pinjaman yang Legal",
     "legalDesc": "Pemberi pinjaman uang berlisensi di Singapura terdaftar, diatur, dan terikat oleh Undang-Undang Pemberi Pinjaman Uang. Inilah yang harus mereka lakukan:",
-    "verifyNote": "Verifikasi pemberi pinjaman manapun di moneylenders.justice.gov.sg sebelum meminjam. Daftar lengkap pemberi pinjaman berlisensi bersifat publik dan gratis untuk diperiksa.",
+    "verifyNote": "Verifikasi pemberi pinjaman manapun di rom.mlaw.gov.sg sebelum meminjam. Daftar lengkap pemberi pinjaman berlisensi bersifat publik dan gratis untuk diperiksa.",
     "helpTitle": "Dapatkan Bantuan",
     "callXAhLong": "Hubungi X-Ah Long: 1800-924-5664",
     "callPolice": "Hubungi Polisi: 999",
@@ -457,7 +457,7 @@
       {
         "id": "no_license",
         "label": "Mereka tidak dapat memberikan nomor lisensi atau menolak untuk menunjukkannya",
-        "detail": "Setiap pemberi pinjaman uang berlisensi harus terdaftar di Daftar Pemberi Pinjaman Uang. Anda dapat memverifikasi nomor lisensi apapun di moneylenders.justice.gov.sg. Penolakan untuk memberikannya adalah tanda bahaya serius."
+        "detail": "Setiap pemberi pinjaman uang berlisensi harus terdaftar di Daftar Pemberi Pinjaman Uang. Anda dapat memverifikasi nomor lisensi apapun di rom.mlaw.gov.sg. Penolakan untuk memberikannya adalah tanda bahaya serius."
       },
       {
         "id": "high_interest",
@@ -503,7 +503,7 @@
     "risks": {
       "green": {
         "label": "Kemungkinan Sah",
-        "summary": "Tidak ada tanda bahaya yang dipilih. Ini mungkin pemberi pinjaman uang berlisensi. Selalu verifikasi nomor lisensi mereka di moneylenders.justice.gov.sg sebelum menandatangani apapun."
+        "summary": "Tidak ada tanda bahaya yang dipilih. Ini mungkin pemberi pinjaman uang berlisensi. Selalu verifikasi nomor lisensi mereka di rom.mlaw.gov.sg sebelum menandatangani apapun."
       },
       "yellow": {
         "label": "Berhati-hatilah",
@@ -543,9 +543,9 @@
         "note": "Verifikasi lisensi pemberi pinjaman atau laporkan pemberi pinjaman ilegal."
       },
       {
-        "org": "MOM Migrant Worker Helpline",
-        "number": "1800-333-1313",
-        "hours": "Mon–Fri 8:00 am – 5:00 pm",
+        "org": "Ministry of Manpower (MOM)",
+        "number": "6438-5122",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
         "note": "Untuk masalah izin kerja, sengketa ketenagakerjaan, dan bantuan umum."
       },
       {
@@ -578,7 +578,7 @@
     "callPolice": "Hubungi 999 — Darurat Polisi",
     "pageTitle": "Kontak Darurat",
     "pageSubtitle": "Saluran bantuan untuk pekerja di Singapura",
-    "footer": "Semua nomor sudah benar per 2026. Jika nomor tidak tersedia, hubungi MOM di 1800-333-1313 untuk rujukan.",
+    "footer": "Semua nomor sudah benar per 2026. Jika nomor tidak tersedia, hubungi MOM di 6438-5122 untuk rujukan.",
     "badge247": "24 / 7",
     "byAppt": "Dengan perjanjian",
     "categories": {
@@ -647,7 +647,7 @@
           "Ini penipuan kerja — pemberi kerja yang sah tidak pernah memungut biaya dari pekerja di muka",
           "Negosiasikan biayanya turun menjadi S$100 sebelum membayar"
         ],
-        "explanation": "Periksa apakah agen memiliki lisensi di mom.gov.sg/employment-agencies-search. Jika Anda sudah membayar, laporkan ke MOM Taskforce di 1800-333-1313. Simpan semua kwitansi dan pesan sebagai bukti."
+        "explanation": "Periksa apakah agen memiliki lisensi di mom.gov.sg/eadirectory. Jika Anda sudah membayar, laporkan ke MOM di 6438-5122. Simpan semua kwitansi dan pesan sebagai bukti."
       },
       {
         "scenario": "Seseorang menyelipkan kartu di bawah pintu asrama Anda: \"Butuh uang cepat? Tanpa cek kredit! Pinjam hingga S$5.000 hari ini. WhatsApp kami.\" Kartu tersebut tidak ada nama perusahaan atau nomor lisensi.",
@@ -724,11 +724,11 @@
     "emptyTitle": "Masukkan pengeluaran Anda di atas",
     "emptyDesc": "Kami akan menghitung berapa yang Anda butuhkan dan berapa lama untuk mencapainya.",
     "tipsHeading": "Di mana menyimpan dana darurat Anda",
-    "disclaimer": "Asuransi deposito di Singapura melindungi hingga S$75.000 per bank per nasabah melalui SDIC.",
+    "disclaimer": "Asuransi deposito di Singapura melindungi hingga S$100.000 per bank per nasabah melalui SDIC.",
     "tips": [
       {
         "title": "POSB / DBS eMySavings",
-        "body": "Tidak ada saldo minimum, tidak ada biaya. Buka secara online dengan SingPass. Uang Anda dilindungi oleh SDIC hingga S$75.000."
+        "body": "Tidak ada saldo minimum, tidak ada biaya. Buka secara online dengan SingPass. Uang Anda dilindungi oleh SDIC hingga S$100.000."
       },
       {
         "title": "GXS Bank atau MariBank",
@@ -876,7 +876,7 @@
       },
       {
         "title": "Hubungi MOM",
-        "body": "Jika pemberi kerja Anda menolak, hubungi MOM di 1800-333-1313 (panggilan gratis, Senin–Jumat 08.30–17.30). Mereka dapat turun tangan atas nama Anda."
+        "body": "Jika pemberi kerja Anda menolak, hubungi MOM di 6438-5122 (Senin–Jumat 08.30–17.30). Mereka dapat turun tangan atas nama Anda."
       },
       {
         "title": "Hubungi polisi jika diancam",

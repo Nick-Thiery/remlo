@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { calcRemaining, totalPayoffMonths, totalInterest } from '../lib/loanMath.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -33,24 +34,6 @@ function monthsElapsed(startIso) {
   return Math.max(months, 0)
 }
 
-function calcRemaining(principal, monthlyRatePct, monthlyPayment, paymentsMade) {
-  if (paymentsMade === 0) return principal
-  const r = monthlyRatePct / 100
-  if (r === 0) return Math.max(principal - monthlyPayment * paymentsMade, 0)
-  const balance =
-    principal * Math.pow(1 + r, paymentsMade) -
-    monthlyPayment * ((Math.pow(1 + r, paymentsMade) - 1) / r)
-  return Math.max(balance, 0)
-}
-
-function totalPayoffMonths(principal, monthlyRatePct, monthlyPayment) {
-  const r = monthlyRatePct / 100
-  if (monthlyPayment <= 0) return Infinity
-  if (r === 0) return Math.ceil(principal / monthlyPayment)
-  if (monthlyPayment <= principal * r) return Infinity
-  return Math.ceil(-Math.log(1 - (r * principal) / monthlyPayment) / Math.log(1 + r))
-}
-
 function addMonths(date, months) {
   const d = new Date(date)
   d.setMonth(d.getMonth() + months)
@@ -71,7 +54,7 @@ function computeLoan(loan) {
   const progressPct = paidOff ? 100 : Math.min(((loan.principal - remaining) / loan.principal) * 100, 100)
   const totalInterestPaid = paidOff || neverPaidOff
     ? null
-    : loan.monthlyPayment * totalMonths - loan.principal
+    : totalInterest(loan.principal, loan.rate, loan.monthlyPayment)
   return { ...loan, made, remaining, totalMonths, neverPaidOff, payoffDate, paidOff, progressPct, totalInterestPaid }
 }
 

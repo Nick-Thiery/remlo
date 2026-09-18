@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Landmark, Smartphone, ShieldAlert, ChevronDown, ChevronUp, ChevronLeft, Phone } from 'lucide-react'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { telHref } from '../lib/phone.js'
 
 // Non-translatable style metadata — merged with locale text at render time
 const BANKS_STYLE = [
@@ -22,7 +23,7 @@ const DIGITAL_STYLE = [
 
 const DOC_ICONS = ['🪪', '📘', '📄', '🏠']
 
-const HELPLINE_NUMBERS = ['1800-333-1313', '999', '6509-0026']
+const HELPLINE_NUMBERS = ['6438-5122', '999', '1800-888-1515']
 
 // ─── Expandable bank card ─────────────────────────────────────────────────────
 
@@ -221,7 +222,7 @@ export default function BankingGuide() {
             {Array.isArray(helplines) && helplines.map((h, i) => (
               <a
                 key={i}
-                href={`tel:${HELPLINE_NUMBERS[i].replace(/[^0-9]/g, '')}`}
+                href={telHref(HELPLINE_NUMBERS[i])}
                 className={`flex items-center justify-between px-4 py-3 transition-colors ${!isDark ? 'hover:bg-gray-50 active:bg-gray-100' : ''}`}
                 style={i < helplines.length - 1 ? { borderBottom: `1px solid ${isDark ? border : '#F9FAFB'}` } : {}}
               >

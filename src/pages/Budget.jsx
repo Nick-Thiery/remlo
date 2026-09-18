@@ -4,6 +4,7 @@ import { ListPlus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
+import { presetExpenses } from '../lib/budgetPresets.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 
@@ -136,12 +137,7 @@ export default function Budget() {
   const trackBg = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
-  const PRESET_EXPENSES = useMemo(() => [
-    { name: t('budget.presetRent'),        amount: 400 },
-    { name: t('budget.presetGroceries'),   amount: 200 },
-    { name: t('budget.presetTransport'),   amount: 80 },
-    { name: t('budget.presetPhone'),       amount: 20 },
-  ], [t])
+  const PRESET_EXPENSES = useMemo(() => presetExpenses(t), [t])
 
   const [income, setIncome] = useState('')
   const [expenses, setExpenses] = useState(PRESET_EXPENSES)

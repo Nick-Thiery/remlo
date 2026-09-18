@@ -324,7 +324,7 @@
     "errorPayment": "请输入有效还款金额"
   },
   "scams": {
-    "emergencyBanner": "🚨 如有危险请拨打 999  ·  MOM 热线：1800-333-1313",
+    "emergencyBanner": "🚨 如有危险请拨打 999  ·  MOM 热线：6438-5122",
     "pageTitle": "诈骗警报",
     "pageSubtitle": "新加坡最新针对工人的诈骗信息",
     "reportBtn": "举报诈骗",
@@ -392,8 +392,8 @@
         "description": "社交媒体群组发布新加坡工作广告，但要求预付 200 至 800 新元的中介费后便消失无踪。",
         "whatToDo": [
           "切勿为求职支付任何费用 — 在新加坡属违法行为。",
-          "在 mom.gov.sg/employment-agencies-search 核实中介机构资质。",
-          "如已付款，请向 MOM 专案组举报：1800-333-1313。",
+          "在 mom.gov.sg/eadirectory 核实中介机构资质。",
+          "如已付款，请向 MOM 举报：6438-5122。",
           "保留所有收据和聊天记录作为证据。"
         ]
       },
@@ -443,7 +443,7 @@
     "riskCounter": "已勾选 {{checked}} / {{total}} 项",
     "legalTitle": "合法放贷人的特征",
     "legalDesc": "新加坡的持牌放贷人已登记注册，受监管，并受《放贷人法》约束。",
-    "verifyNote": "借款前请在 moneylenders.justice.gov.sg 核实放贷人资质。",
+    "verifyNote": "借款前请在 rom.mlaw.gov.sg 核实放贷人资质。",
     "helpTitle": "获取帮助",
     "callXAhLong": "拨打 X-Ah Long：1800-924-5664",
     "callPolice": "拨打警察：999",
@@ -457,7 +457,7 @@
       {
         "id": "no_license",
         "label": "对方无法提供或拒绝出示执照编号",
-        "detail": "每位持牌放贷人必须登记注册。请在 moneylenders.justice.gov.sg 核实。"
+        "detail": "每位持牌放贷人必须登记注册。请在 rom.mlaw.gov.sg 核实。"
       },
       {
         "id": "high_interest",
@@ -503,7 +503,7 @@
     "risks": {
       "green": {
         "label": "可能合法",
-        "summary": "无红旗警示。可能是持牌放贷人。签署任何文件前请在 moneylenders.justice.gov.sg 核实。"
+        "summary": "无红旗警示。可能是持牌放贷人。签署任何文件前请在 rom.mlaw.gov.sg 核实。"
       },
       "yellow": {
         "label": "请谨慎",
@@ -543,9 +543,9 @@
         "note": "核实放贷人资质或举报非法放贷者。"
       },
       {
-        "org": "MOM 外来务工人员热线",
-        "number": "1800-333-1313",
-        "hours": "Mon–Fri 8:00 am – 5:00 pm",
+        "org": "Ministry of Manpower (MOM)",
+        "number": "6438-5122",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
         "note": "处理工作准证问题、劳动纠纷及一般援助。"
       },
       {
@@ -578,7 +578,7 @@
     "callPolice": "拨打 999 — 警察紧急热线",
     "pageTitle": "紧急联系方式",
     "pageSubtitle": "新加坡工人求助热线",
-    "footer": "所有号码截至 2026 年均有效。如某号码无法接通，请拨打 MOM 热线 1800-333-1313 转介。",
+    "footer": "所有号码截至 2026 年均有效。如某号码无法接通，请拨打 MOM 热线 6438-5122 转介。",
     "badge247": "24 / 7",
     "byAppt": "需预约",
     "categories": {
@@ -647,7 +647,7 @@
           "这是求职诈骗——合法雇主绝不会向工人预收任何费用",
           "先把费用压到 S$100 再付"
         ],
-        "explanation": "在 mom.gov.sg/employment-agencies-search 核实中介机构资质。 如已付款，请向 MOM 专案组举报：1800-333-1313。 保留所有收据和聊天记录作为证据。"
+        "explanation": "在 mom.gov.sg/eadirectory 核实中介机构资质。 如已付款，请向 MOM 举报：6438-5122。 保留所有收据和聊天记录作为证据。"
       },
       {
         "scenario": "有人在您宿舍门缝塞了一张卡片：\"急需现金？免信用审查！今日可借最高 S$5,000。WhatsApp 联系我们。\"该卡片没有公司名称或执照号码。",
@@ -724,11 +724,11 @@
     "emptyTitle": "请在上方输入您的支出",
     "emptyDesc": "我们将为您计算所需金额及达成目标的时间。",
     "tipsHeading": "应急基金存哪里",
-    "disclaimer": "新加坡存款保险通过 SDIC 为每位存款人在每家银行提供最高 S$75,000 的保障。",
+    "disclaimer": "新加坡存款保险通过 SDIC 为每位存款人在每家银行提供最高 S$100,000 的保障。",
     "tips": [
       {
         "title": "POSB / DBS eMySavings",
-        "body": "无最低存款要求，无费用。可通过 SingPass 在线开户。您的存款受 SDIC 保障，上限 S$75,000。"
+        "body": "无最低存款要求，无费用。可通过 SingPass 在线开户。您的存款受 SDIC 保障，上限 S$100,000。"
       },
       {
         "title": "GXS Bank 或 MariBank",
@@ -876,7 +876,7 @@
       },
       {
         "title": "联系 MOM",
-        "body": "如果雇主拒绝，请拨打 MOM 电话 1800-333-1313（免费电话，周一至周五 8:30–17:30）。MOM 可代您介入处理。"
+        "body": "如果雇主拒绝，请拨打 MOM 电话 6438-5122（周一至周五 8:30–17:30）。MOM 可代您介入处理。"
       },
       {
         "title": "遭受威胁时拨打警方电话",

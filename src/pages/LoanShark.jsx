@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { telHref } from '../lib/phone.js'
 
 // Weights stay in component — not translatable, just numeric
 const FLAG_WEIGHTS = {
@@ -236,7 +237,7 @@ export default function LoanShark() {
             return (
               <a
                 key={i}
-                href={`tel:${c.number.replace(/[^0-9]/g, '')}`}
+                href={telHref(c.number)}
                 className={`block rounded-2xl border p-4 transition-all hover:shadow-sm active:scale-95 ${meta.color}`}
               >
                 <div className="flex items-start justify-between gap-3">

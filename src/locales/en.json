@@ -329,7 +329,7 @@
     "whyTitle": "Why workers need more"
   },
   "scams": {
-    "emergencyBanner": "🚨 If you are in danger call 999  ·  MOM Helpline: 1800-333-1313",
+    "emergencyBanner": "🚨 If you are in danger call 999  ·  MOM Helpline: 6438-5122",
     "pageTitle": "Scam Alerts",
     "pageSubtitle": "Latest scams targeting workers in Singapore",
     "reportBtn": "Report a Scam",
@@ -406,8 +406,8 @@
         "description": "Facebook and Telegram groups are advertising high-paying construction and cleaning jobs in Singapore, but asking workers to pay S$200–S$800 as a placement fee or work permit processing fee before the job starts. After payment, the job agent disappears. Licensed employment agencies in Singapore are not allowed to charge job seekers.",
         "whatToDo": [
           "Never pay any fee to get a job — this is illegal in Singapore.",
-          "Check if the agency is licensed at mom.gov.sg/employment-agencies-search.",
-          "If you have already paid, report to MOM Taskforce at 1800-333-1313.",
+          "Check if the agency is licensed at mom.gov.sg/eadirectory.",
+          "If you have already paid, report to MOM at 6438-5122.",
           "Keep all receipts and messages as evidence."
         ]
       },
@@ -417,7 +417,7 @@
         "type": "loanScam",
         "description": "Unlicensed moneylenders are sending unsolicited SMS and WhatsApp messages advertising instant cash loans with no checks required. They charge interest rates far above the legal 4% monthly cap, and use threats, harassment, and property damage against borrowers and their families. Borrowing from unlicensed lenders is a criminal offence in Singapore.",
         "whatToDo": [
-          "Do not borrow from anyone who contacts you by SMS or WhatsApp — all licensed lenders are listed at moneylenders.justice.gov.sg.",
+          "Do not borrow from anyone who contacts you by SMS or WhatsApp — all licensed lenders are listed at rom.mlaw.gov.sg.",
           "If threatened or harassed, call Police immediately at 999.",
           "Report to the X-Ah Long hotline: 1800-924-5664 (available 24/7).",
           "You are a victim — Singapore law protects you even if you have already borrowed."
@@ -448,7 +448,7 @@
     "riskCounter": "{{checked}} of {{total}} flags checked",
     "legalTitle": "What a Legal Moneylender Looks Like",
     "legalDesc": "A licensed moneylender in Singapore is registered, regulated, and bound by the Moneylenders Act. Here is what they must do:",
-    "verifyNote": "Verify any moneylender at moneylenders.justice.gov.sg before borrowing. The full list of licensed lenders is public and free to check.",
+    "verifyNote": "Verify any moneylender at rom.mlaw.gov.sg before borrowing. The full list of licensed lenders is public and free to check.",
     "helpTitle": "Get Help",
     "callXAhLong": "Call X-Ah Long: 1800-924-5664",
     "callPolice": "Call Police: 999",
@@ -462,7 +462,7 @@
       {
         "id": "no_license",
         "label": "They cannot provide a license number or refuse to show it",
-        "detail": "Every licensed moneylender must be registered with the Registry of Moneylenders. You can verify any license number at moneylenders.justice.gov.sg. Refusing to provide one is a serious red flag."
+        "detail": "Every licensed moneylender must be registered with the Registry of Moneylenders. You can verify any license number at rom.mlaw.gov.sg. Refusing to provide one is a serious red flag."
       },
       {
         "id": "high_interest",
@@ -508,7 +508,7 @@
     "risks": {
       "green": {
         "label": "Likely Legitimate",
-        "summary": "No red flags selected. This may be a licensed moneylender. Always verify their license number at moneylenders.justice.gov.sg before signing anything."
+        "summary": "No red flags selected. This may be a licensed moneylender. Always verify their license number at rom.mlaw.gov.sg before signing anything."
       },
       "yellow": {
         "label": "Be Cautious",
@@ -548,9 +548,9 @@
         "note": "Verify a moneylender licence or report an illegal lender."
       },
       {
-        "org": "MOM Migrant Worker Helpline",
-        "number": "1800-333-1313",
-        "hours": "Mon–Fri 8:00 am – 5:00 pm",
+        "org": "Ministry of Manpower (MOM)",
+        "number": "6438-5122",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
         "note": "For work permit issues, employment disputes, and general assistance."
       },
       {
@@ -621,7 +621,7 @@
           "This is a job scam — legitimate employers never charge workers upfront fees",
           "Negotiate the fee down to S$100 before paying"
         ],
-        "explanation": "Check if the agency is licensed at mom.gov.sg/employment-agencies-search. If you have already paid, report to MOM Taskforce at 1800-333-1313. Keep all receipts and messages as evidence."
+        "explanation": "Check if the agency is licensed at mom.gov.sg/eadirectory. If you have already paid, report to MOM at 6438-5122. Keep all receipts and messages as evidence."
       },
       {
         "scenario": "Someone slips a card under your dormitory door: \"Need cash fast? No credit check! Borrow up to S$5,000 today. WhatsApp us.\" The card has no company name or licence number.",
@@ -698,11 +698,11 @@
     "emptyTitle": "Enter your expenses above",
     "emptyDesc": "We'll calculate how much you need and how long it will take.",
     "tipsHeading": "Where to keep your emergency fund",
-    "disclaimer": "Deposit insurance in Singapore protects up to S$75,000 per bank per depositor via SDIC.",
+    "disclaimer": "Deposit insurance in Singapore protects up to S$100,000 per bank per depositor via SDIC.",
     "tips": [
       {
         "title": "POSB / DBS eMySavings",
-        "body": "No minimum balance, no fall-below fee. Open online with SingPass. Your money is protected by SDIC up to S$75,000."
+        "body": "No minimum balance, no fall-below fee. Open online with SingPass. Your money is protected by SDIC up to S$100,000."
       },
       {
         "title": "GXS Bank or MariBank",
@@ -850,7 +850,7 @@
       },
       {
         "title": "Contact MOM",
-        "body": "If your employer refuses, call MOM at 1800-333-1313 (free call, Monday–Friday 8:30am–5:30pm). They can intervene on your behalf."
+        "body": "If your employer refuses, call MOM at 6438-5122 (Monday–Friday 8:30am–5:30pm). They can intervene on your behalf."
       },
       {
         "title": "Call the police if threatened",
@@ -879,7 +879,7 @@
     "callPolice": "Call 999 — Police Emergency",
     "pageTitle": "Emergency Contacts",
     "pageSubtitle": "Helplines for workers in Singapore",
-    "footer": "All numbers are correct as of 2026. If a number is unavailable, call MOM on 1800-333-1313 for referral.",
+    "footer": "All numbers are correct as of 2026. If a number is unavailable, call MOM on 6438-5122 for referral.",
     "badge247": "24 / 7",
     "byAppt": "By appointment",
     "categories": {

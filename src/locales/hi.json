@@ -324,7 +324,7 @@
     "errorPayment": "एक वैध भुगतान राशि दर्ज करें"
   },
   "scams": {
-    "emergencyBanner": "🚨 खतरे में हों तो 999 कॉल करें  ·  MOM हेल्पलाइन: 1800-333-1313",
+    "emergencyBanner": "🚨 खतरे में हों तो 999 कॉल करें  ·  MOM हेल्पलाइन: 6438-5122",
     "pageTitle": "धोखाधड़ी अलर्ट",
     "pageSubtitle": "सिंगापुर में श्रमिकों को निशाना बनाने वाले नवीनतम घोटाले",
     "reportBtn": "घोटाला रिपोर्ट करें",
@@ -392,8 +392,8 @@
         "description": "Facebook and Telegram groups are advertising high-paying construction and cleaning jobs in Singapore, but asking workers to pay S$200–S$800 as a placement fee before the job starts. After payment, the job agent disappears.",
         "whatToDo": [
           "नौकरी के लिए कोई शुल्क न दें — सिंगापुर में यह अवैध है।",
-          "एजेंसी का लाइसेंस mom.gov.sg/employment-agencies-search पर जांचें।",
-          "अगर पहले से भुगतान कर दिया है, तो MOM Taskforce को 1800-333-1313 पर रिपोर्ट करें।",
+          "एजेंसी का लाइसेंस mom.gov.sg/eadirectory पर जांचें।",
+          "अगर पहले से भुगतान कर दिया है, तो MOM को 6438-5122 पर रिपोर्ट करें।",
           "सभी रसीदें और संदेश साक्ष्य के रूप में रखें।"
         ]
       },
@@ -403,7 +403,7 @@
         "type": "loanScam",
         "description": "Unlicensed moneylenders are sending unsolicited SMS and WhatsApp messages advertising instant cash loans. They charge rates far above the legal 4% monthly cap, and use threats and harassment against borrowers.",
         "whatToDo": [
-          "SMS या WhatsApp से संपर्क करने वाले किसी से उधार न लें — लाइसेंसी ऋणदाता moneylenders.justice.gov.sg पर हैं।",
+          "SMS या WhatsApp से संपर्क करने वाले किसी से उधार न लें — लाइसेंसी ऋणदाता rom.mlaw.gov.sg पर हैं।",
           "धमकी या उत्पीड़न हो तो तुरंत 999 पर पुलिस को कॉल करें।",
           "X-Ah Long हॉटलाइन पर रिपोर्ट करें: 1800-924-5664 (24/7 उपलब्ध)।",
           "आप पीड़ित हैं — पहले से उधार लिया हो तो भी सिंगापुर कानून आपकी रक्षा करता है।"
@@ -443,7 +443,7 @@
     "riskCounter": "{{total}} में से {{checked}} झंडे चेक किए",
     "legalTitle": "वैध साहूकार कैसा दिखता है",
     "legalDesc": "सिंगापुर में लाइसेंसी साहूकार पंजीकृत, विनियमित और Moneylenders Act से बंधे हैं। उन्हें यह करना होगा:",
-    "verifyNote": "उधार लेने से पहले moneylenders.justice.gov.sg पर साहूकार को सत्यापित करें। लाइसेंसी ऋणदाताओं की पूरी सूची सार्वजनिक है।",
+    "verifyNote": "उधार लेने से पहले rom.mlaw.gov.sg पर साहूकार को सत्यापित करें। लाइसेंसी ऋणदाताओं की पूरी सूची सार्वजनिक है।",
     "helpTitle": "मदद लें",
     "callXAhLong": "X-Ah Long कॉल करें: 1800-924-5664",
     "callPolice": "पुलिस कॉल करें: 999",
@@ -457,7 +457,7 @@
       {
         "id": "no_license",
         "label": "वे लाइसेंस नंबर नहीं दे सकते या दिखाने से इनकार करते हैं",
-        "detail": "Every licensed moneylender must be registered with the Registry of Moneylenders. You can verify any license number at moneylenders.justice.gov.sg."
+        "detail": "Every licensed moneylender must be registered with the Registry of Moneylenders. You can verify any license number at rom.mlaw.gov.sg."
       },
       {
         "id": "high_interest",
@@ -503,7 +503,7 @@
     "risks": {
       "green": {
         "label": "संभवतः वैध",
-        "summary": "कोई लाल झंडा नहीं चुना। यह एक लाइसेंसी साहूकार हो सकता है। कुछ भी साइन करने से पहले moneylenders.justice.gov.sg पर उनका लाइसेंस सत्यापित करें।"
+        "summary": "कोई लाल झंडा नहीं चुना। यह एक लाइसेंसी साहूकार हो सकता है। कुछ भी साइन करने से पहले rom.mlaw.gov.sg पर उनका लाइसेंस सत्यापित करें।"
       },
       "yellow": {
         "label": "सावधान रहें",
@@ -543,9 +543,9 @@
         "note": "साहूकार लाइसेंस सत्यापित करें या अवैध ऋणदाता की रिपोर्ट करें।"
       },
       {
-        "org": "MOM प्रवासी श्रमिक हेल्पलाइन",
-        "number": "1800-333-1313",
-        "hours": "सोम–शुक्र 8:00 am – 5:00 pm",
+        "org": "Ministry of Manpower (MOM)",
+        "number": "6438-5122",
+        "hours": "सोम–शुक्र 8:30 am – 5:30 pm",
         "note": "कार्य परमिट मुद्दे, रोजगार विवाद और सामान्य सहायता के लिए।"
       },
       {
@@ -578,7 +578,7 @@
     "callPolice": "999 कॉल करें — पुलिस आपातकाल",
     "pageTitle": "आपातकालीन संपर्क",
     "pageSubtitle": "सिंगापुर में श्रमिकों के लिए हेल्पलाइन",
-    "footer": "सभी नंबर 2026 तक सही हैं। नंबर उपलब्ध न हो तो MOM को 1800-333-1313 पर कॉल करें।",
+    "footer": "सभी नंबर 2026 तक सही हैं। नंबर उपलब्ध न हो तो MOM को 6438-5122 पर कॉल करें।",
     "badge247": "24 / 7",
     "byAppt": "अपॉइंटमेंट से",
     "categories": {
@@ -647,7 +647,7 @@
           "यह नौकरी घोटाला है — असली नियोक्ता कभी मजदूरों से पहले पैसे नहीं लेते",
           "देने से पहले शुल्क को S$100 तक घटाने की बातचीत करूंगा"
         ],
-        "explanation": "एजेंसी का लाइसेंस mom.gov.sg/employment-agencies-search पर जांचें। अगर पहले से भुगतान कर दिया है, तो MOM Taskforce को 1800-333-1313 पर रिपोर्ट करें। सभी रसीदें और संदेश साक्ष्य के रूप में रखें।"
+        "explanation": "एजेंसी का लाइसेंस mom.gov.sg/eadirectory पर जांचें। अगर पहले से भुगतान कर दिया है, तो MOM को 6438-5122 पर रिपोर्ट करें। सभी रसीदें और संदेश साक्ष्य के रूप में रखें।"
       },
       {
         "scenario": "कोई आपके छात्रावास के दरवाजे के नीचे एक कार्ड डालता है: \"जल्दी पैसा चाहिए? कोई क्रेडिट चेक नहीं! आज S$5,000 तक उधार लें। WhatsApp करें।\" कार्ड पर कोई कंपनी का नाम या लाइसेंस नंबर नहीं है।",
@@ -724,11 +724,11 @@
     "emptyTitle": "ऊपर अपने खर्च दर्ज करें",
     "emptyDesc": "हम हिसाब लगाएंगे कि आपको कितनी जरूरत है और कितना समय लगेगा।",
     "tipsHeading": "आपातकालीन निधि कहाँ रखें",
-    "disclaimer": "सिंगापुर में जमा बीमा SDIC के माध्यम से प्रति बैंक प्रति जमाकर्ता S$75,000 तक सुरक्षित करता है।",
+    "disclaimer": "सिंगापुर में जमा बीमा SDIC के माध्यम से प्रति बैंक प्रति जमाकर्ता S$100,000 तक सुरक्षित करता है।",
     "tips": [
       {
         "title": "POSB / DBS eMySavings",
-        "body": "कोई न्यूनतम बैलेंस नहीं, कोई fall-below शुल्क नहीं। SingPass से ऑनलाइन खोलें। आपका पैसा SDIC द्वारा S$75,000 तक सुरक्षित है।"
+        "body": "कोई न्यूनतम बैलेंस नहीं, कोई fall-below शुल्क नहीं। SingPass से ऑनलाइन खोलें। आपका पैसा SDIC द्वारा S$100,000 तक सुरक्षित है।"
       },
       {
         "title": "GXS Bank या MariBank",
@@ -876,7 +876,7 @@
       },
       {
         "title": "MOM से संपर्क करें",
-        "body": "अगर नियोक्ता मना करे, तो 1800-333-1313 पर MOM को कॉल करें (मुफ्त कॉल, सोम–शुक्र सुबह 8:30–शाम 5:30)। वे आपकी ओर से हस्तक्षेप कर सकते हैं।"
+        "body": "अगर नियोक्ता मना करे, तो 6438-5122 पर MOM को कॉल करें (सोम–शुक्र सुबह 8:30–शाम 5:30)। वे आपकी ओर से हस्तक्षेप कर सकते हैं।"
       },
       {
         "title": "धमकी मिले तो पुलिस को कॉल करें",

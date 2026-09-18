@@ -6,6 +6,7 @@ import { track } from './lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 import { supabase } from './lib/supabase.js'
 import safeStorage, { safeSession } from './lib/safeStorage.js'
+import { telHref } from './lib/phone.js'
 import {
   Home as HomeIcon,
   Coins,
@@ -84,7 +85,7 @@ const MORE_ITEMS = [
 const EMERGENCY_CONTACTS = [
   { label: 'Police (Emergency)',     number: '999'           },
   { label: 'X-Ah Long Hotline',     number: '1800-924-5664' },
-  { label: 'MOM Helpline',          number: '1800-333-1313' },
+  { label: 'MOM Helpline',          number: '6438-5122'     },
   { label: 'Credit Counselling SG', number: '6225-5227'     },
 ]
 
@@ -304,7 +305,7 @@ function MorePage() {
             {EMERGENCY_CONTACTS.map(({ label, number }) => (
               <a
                 key={number}
-                href={`tel:${number.replace(/[^0-9]/g, '')}`}
+                href={telHref(number)}
                 className="flex items-center justify-between px-4 py-3.5 transition-colors"
                 style={{ borderBottom: isDark ? '1px solid #3B1F1F' : '1px solid #FEE2E2' }}
               >

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { ChevronLeft } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { telHref } from '../lib/phone.js'
 
 // Static contact data — org names, numbers, hours are factual/proper nouns
 const CATEGORIES = [
@@ -10,19 +11,17 @@ const CATEGORIES = [
     color: { section: 'bg-blue-50 border-blue-100', badge: 'bg-blue-100 text-blue-700', dot: 'bg-blue-500' },
     contacts: [
       { roleKey: 'police',      org: 'Singapore Police Force',        number: '999',           alt: '1800-255-0000', always: true },
-      { roleKey: 'mom',         org: 'Ministry of Manpower (MOM)',    number: '1800-333-1313', hours: 'Mon – Fri 8:00 am – 5:00 pm' },
+      { roleKey: 'mom',         org: 'Ministry of Manpower (MOM)',    number: '6438-5122',     hours: 'Mon – Fri 8:30 am – 5:30 pm' },
       { roleKey: 'moneylenders',org: 'Registry of Moneylenders',     number: '1800-2255-529', hours: 'Mon – Fri 8:30 am – 5:30 pm' },
-      { roleKey: 'comcare',     org: 'National Helpline (ComCare)',   number: '1800-222-0000', hours: '24 / 7' },
     ],
   },
   {
     key: 'workerSupport',
     color: { section: 'bg-emerald-50 border-emerald-100', badge: 'bg-emerald-100 text-emerald-700', dot: 'bg-emerald-500' },
     contacts: [
-      { roleKey: 'twc2', org: 'Transient Workers Count Too (TWC2)',                            number: '6790-4430', hours: 'Mon – Fri 9:00 am – 6:00 pm', web: 'twc2.org.sg' },
-      { roleKey: 'irr',  org: "It's Raining Raincoats (IRR)",                                 number: '9151-4756', hoursKey: 'byAppt',                    web: 'itsrainingraincoats.com' },
+      { roleKey: 'twc2', org: 'Transient Workers Count Too (TWC2)',                            number: '1800-888-1515', hours: 'Mon – Fri 9:00 am – 9:00 pm', web: 'twc2.org.sg' },
       { roleKey: 'home', org: 'HOME (Humanitarian Organisation for Migration Economics)',      number: '6341-5535', hours: 'Mon – Fri 9:00 am – 6:00 pm', web: 'home.org.sg' },
-      { roleKey: 'fast', org: 'FAST (Foreign Domestic Worker Association for Social Support)', number: '6258-5025', hours: 'Mon – Fri 9:00 am – 5:00 pm' },
+      { roleKey: 'fast', org: 'FAST (Foreign Domestic Worker Association for Social Support)', number: '1800-3394-357' },
     ],
   },
   {
@@ -31,7 +30,6 @@ const CATEGORIES = [
     contacts: [
       { roleKey: 'ccs',        org: 'Credit Counselling Singapore (CCS)', number: '6225-5227',     hours: 'Mon – Fri 9:00 am – 6:00 pm', web: 'ccs.org.sg' },
       { roleKey: 'xahlong',    org: 'X-Ah Long Hotline',                 number: '1800-924-5664', always: true },
-      { roleKey: 'moneysense', org: 'MoneySense (MAS)',                  number: '1800-227-1177', hours: 'Mon – Fri 9:00 am – 5:30 pm', web: 'moneysense.gov.sg' },
     ],
   },
   {
@@ -39,8 +37,6 @@ const CATEGORIES = [
     color: { section: 'bg-rose-50 border-rose-100', badge: 'bg-rose-100 text-rose-700', dot: 'bg-rose-500' },
     contacts: [
       { roleKey: 'scamshield',    org: 'ScamShield Helpline (NCPC)',               number: '1799', always: true, web: 'www.scamshield.gov.sg' },
-      { roleKey: 'antiscam',      org: 'ScamShield Helpline', number: '1799', always: true },
-      { roleKey: 'momtaskforce',  org: 'MOM Taskforce (Job Scams)',               number: '1800-333-1313', hours: 'Mon – Fri 8:00 am – 5:00 pm' },
     ],
   },
 ]
@@ -48,7 +44,7 @@ const CATEGORIES = [
 function CallButton({ number, label }) {
   return (
     <a
-      href={`tel:${number.replace(/[^0-9]/g, '')}`}
+      href={telHref(number)}
       className="inline-flex items-center justify-center gap-1.5 bg-orange-500 text-white text-xs font-semibold rounded-xl px-3.5 py-2 hover:bg-orange-600 active:scale-95 transition-all"
     >
       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

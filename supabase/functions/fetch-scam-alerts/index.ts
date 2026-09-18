@@ -31,7 +31,7 @@ const ALERTS = [
     description: 'WhatsApp messages claiming to be DBS Bank say your account is suspended. The link steals your login and OTP. Never click bank links from WhatsApp.',
     what_to_do: ['Never click bank links sent by WhatsApp or SMS.', 'Type dbs.com.sg directly into your browser.', 'Call DBS at 1800-111-1111 immediately if you entered your details.'],
     source: 'SPF',
-    source_url: 'https://www.police.gov.sg/media-room/news',
+    source_url: 'https://www.police.gov.sg/Media-Hub/News',
     published_at: '2025-10-20T00:00:00Z',
   },
   {
@@ -42,7 +42,7 @@ const ALERTS = [
     description: 'Scammers call claiming to be MOM officers and demand immediate PayNow payment to avoid arrest. Real MOM officers never ask for payments over the phone.',
     what_to_do: ['Hang up immediately.', 'Call MOM on 6438 5122 to verify.', 'Report to Police at 1800-255-0000.'],
     source: 'SPF',
-    source_url: 'https://www.police.gov.sg/media-room/news',
+    source_url: 'https://www.police.gov.sg/Media-Hub/News',
     published_at: '2025-11-01T00:00:00Z',
   },
   {
@@ -51,9 +51,9 @@ const ALERTS = [
     type: 'jobScam',
     severity: 'high',
     description: 'Facebook and Telegram ads offer high-paying jobs in Singapore then ask workers to pay S$200–S$800 placement fees. After payment the agent disappears. It is illegal for employment agencies to charge job seekers fees.',
-    what_to_do: ['Never pay any fee to get a job — it is illegal in Singapore.', 'Verify the agency at mom.gov.sg/employment-agencies-search.', 'Report to MOM at 1800-333-1313.'],
+    what_to_do: ['Never pay any fee to get a job — it is illegal in Singapore.', 'Verify the agency at mom.gov.sg/eadirectory.', 'Report to MOM at 6438-5122.'],
     source: 'MOM',
-    source_url: 'https://www.mom.gov.sg/newsroom/advisories',
+    source_url: 'https://www.mom.gov.sg/newsroom',
     published_at: '2025-08-05T00:00:00Z',
   },
   {
@@ -62,9 +62,9 @@ const ALERTS = [
     type: 'loanScam',
     severity: 'high',
     description: 'Unlicensed lenders send SMS and WhatsApp messages advertising instant cash loans. They charge illegal interest rates and use threats and harassment against borrowers.',
-    what_to_do: ['Never borrow from anyone who contacts you by SMS or WhatsApp.', 'All licensed lenders are listed at moneylenders.justice.gov.sg.', 'Call the X-Ah Long hotline: 1800-924-5664.'],
+    what_to_do: ['Never borrow from anyone who contacts you by SMS or WhatsApp.', 'All licensed lenders are listed at rom.mlaw.gov.sg.', 'Call the X-Ah Long hotline: 1800-924-5664.'],
     source: 'SPF',
-    source_url: 'https://www.police.gov.sg/media-room/news',
+    source_url: 'https://www.police.gov.sg/Media-Hub/News',
     published_at: '2025-07-12T00:00:00Z',
   },
   {
@@ -86,7 +86,7 @@ const ALERTS = [
     description: 'Scammers paste fraudulent PayNow QR codes over legitimate ones at hawker centres and markets. Payments go directly to the scammer instead of the vendor. Victims only discover the fraud when the stallholder says they received nothing.',
     what_to_do: ['Always verify the payee name shown after scanning before confirming.', 'If the name does not match the stall or shop, do not proceed.', 'Report suspicious QR codes to SPF at 1800-255-0000.'],
     source: 'SPF',
-    source_url: 'https://www.police.gov.sg/media-room/news',
+    source_url: 'https://www.police.gov.sg/Media-Hub/News',
     published_at: '2026-03-15T00:00:00Z',
   },
 ]

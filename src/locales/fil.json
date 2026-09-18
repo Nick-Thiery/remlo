@@ -324,7 +324,7 @@
     "errorPayment": "Maglagay ng wastong halagang babayaran"
   },
   "scams": {
-    "emergencyBanner": "🚨 Kung ikaw ay nasa panganib tumawag sa 999  ·  MOM Helpline: 1800-333-1313",
+    "emergencyBanner": "🚨 Kung ikaw ay nasa panganib tumawag sa 999  ·  MOM Helpline: 6438-5122",
     "pageTitle": "Mga Babala sa Scam",
     "pageSubtitle": "Pinakabagong mga scam na nagta-target sa mga manggagawa sa Singapore",
     "reportBtn": "Mag-ulat ng Scam",
@@ -392,8 +392,8 @@
         "description": "Ang mga grupo sa Facebook at Telegram ay nag-a-advertise ng mga trabahong may mataas na sahod sa konstruksyon at paglilinis sa Singapore, ngunit humihingi sa mga manggagawa na magbayad ng S$200–S$800 bilang placement fee o bayad sa pagproseso ng work permit bago magsimula ang trabaho. Pagkatapos ng bayad, nawawala ang ahente ng trabaho. Ang mga lisensyadong ahensya ng trabaho sa Singapore ay hindi pinahihintulutang maniningil sa mga naghahanap ng trabaho.",
         "whatToDo": [
           "Huwag kailanman magbayad ng anumang bayad para makakuha ng trabaho — ito ay ilegal sa Singapore.",
-          "Tingnan kung ang ahensya ay lisensyado sa mom.gov.sg/employment-agencies-search.",
-          "Kung nakabayad ka na, mag-report sa MOM Taskforce sa 1800-333-1313.",
+          "Tingnan kung ang ahensya ay lisensyado sa mom.gov.sg/eadirectory.",
+          "Kung nakabayad ka na, mag-report sa MOM sa 6438-5122.",
           "Ingatan ang lahat ng mga resibo at mensahe bilang ebidensya."
         ]
       },
@@ -403,7 +403,7 @@
         "type": "loanScam",
         "description": "Ang mga hindi lisensyadong nagpapahiram ay nagpapadala ng mga hindi hinihinging SMS at WhatsApp na mensahe na nag-a-advertise ng mga mabilis na cash loan nang walang kinakailangang tsek. Naniningil sila ng mga rate ng interes na malayo sa legal na 4% buwanang limitasyon, at gumagamit ng mga banta, panliligalig, at pinsala sa ari-arian laban sa mga nanghiram at sa kanilang mga pamilya. Ang paghiram mula sa mga hindi lisensyadong nagpapahiram ay isang krimen sa Singapore.",
         "whatToDo": [
-          "Huwag humiram mula sa sinuman na makipag-ugnayan sa iyo sa pamamagitan ng SMS o WhatsApp — lahat ng lisensyadong nagpapahiram ay nakalista sa moneylenders.justice.gov.sg.",
+          "Huwag humiram mula sa sinuman na makipag-ugnayan sa iyo sa pamamagitan ng SMS o WhatsApp — lahat ng lisensyadong nagpapahiram ay nakalista sa rom.mlaw.gov.sg.",
           "Kung binalaan o pinagbantaan, tumawag agad sa Pulisya sa 999.",
           "Mag-report sa X-Ah Long hotline: 1800-924-5664 (available 24/7).",
           "Ikaw ay biktima — pinoprotektahan ka ng batas ng Singapore kahit huminram ka na."
@@ -443,7 +443,7 @@
     "riskCounter": "{{checked}} sa {{total}} na mga flag ang nasuri",
     "legalTitle": "Ano ang Hitsura ng isang Legal na Nagpapahiram",
     "legalDesc": "Ang isang lisensyadong nagpapahiram sa Singapore ay rehistrado, pinamamahalaan, at nakatali sa Moneylenders Act. Narito ang dapat nilang gawin:",
-    "verifyNote": "I-verify ang anumang nagpapahiram sa moneylenders.justice.gov.sg bago humiram. Ang buong listahan ng mga lisensyadong nagpapahiram ay pampubliko at libre ang pagtingin.",
+    "verifyNote": "I-verify ang anumang nagpapahiram sa rom.mlaw.gov.sg bago humiram. Ang buong listahan ng mga lisensyadong nagpapahiram ay pampubliko at libre ang pagtingin.",
     "helpTitle": "Humingi ng Tulong",
     "callXAhLong": "Tumawag sa X-Ah Long: 1800-924-5664",
     "callPolice": "Tumawag sa Pulisya: 999",
@@ -457,7 +457,7 @@
       {
         "id": "no_license",
         "label": "Hindi nila maibigay ang numero ng lisensya o tumatangging ipakita ito",
-        "detail": "Bawat lisensyadong nagpapahiram ay dapat na rehistrado sa Registry of Moneylenders. Maaari mong i-verify ang anumang numero ng lisensya sa moneylenders.justice.gov.sg. Ang pagtanggi na magbigay ng isa ay isang seryosong red flag."
+        "detail": "Bawat lisensyadong nagpapahiram ay dapat na rehistrado sa Registry of Moneylenders. Maaari mong i-verify ang anumang numero ng lisensya sa rom.mlaw.gov.sg. Ang pagtanggi na magbigay ng isa ay isang seryosong red flag."
       },
       {
         "id": "high_interest",
@@ -503,7 +503,7 @@
     "risks": {
       "green": {
         "label": "Malamang na Lehitimo",
-        "summary": "Walang mga red flag na napili. Maaaring lisensyadong nagpapahiram ito. Palaging i-verify ang kanilang numero ng lisensya sa moneylenders.justice.gov.sg bago pumirma ng anuman."
+        "summary": "Walang mga red flag na napili. Maaaring lisensyadong nagpapahiram ito. Palaging i-verify ang kanilang numero ng lisensya sa rom.mlaw.gov.sg bago pumirma ng anuman."
       },
       "yellow": {
         "label": "Maging Maingat",
@@ -543,9 +543,9 @@
         "note": "I-verify ang lisensya ng nagpapahiram o mag-report ng ilegal na nagpapahiram."
       },
       {
-        "org": "MOM Migrant Worker Helpline",
-        "number": "1800-333-1313",
-        "hours": "Mon–Fri 8:00 am – 5:00 pm",
+        "org": "Ministry of Manpower (MOM)",
+        "number": "6438-5122",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
         "note": "Para sa mga isyu sa work permit, mga alitan sa trabaho, at pangkalahatang tulong."
       },
       {
@@ -578,7 +578,7 @@
     "callPolice": "Tumawag sa 999 — Emergency ng Pulisya",
     "pageTitle": "Emergency Contacts",
     "pageSubtitle": "Mga helpline para sa mga manggagawa sa Singapore",
-    "footer": "Lahat ng mga numero ay tama simula 2026. Kung ang isang numero ay hindi available, tumawag sa MOM sa 1800-333-1313 para sa referral.",
+    "footer": "Lahat ng mga numero ay tama simula 2026. Kung ang isang numero ay hindi available, tumawag sa MOM sa 6438-5122 para sa referral.",
     "badge247": "24 / 7",
     "byAppt": "Sa pamamagitan ng appointment",
     "categories": {
@@ -647,7 +647,7 @@
           "Ito ay scam sa trabaho — ang mga lehitimong employer ay hindi kailanman naniningil ng upfront na bayad sa mga manggagawa",
           "Makipagtawaran na ibaba ang bayad sa S$100 bago magbayad"
         ],
-        "explanation": "Tingnan kung ang ahensya ay lisensyado sa mom.gov.sg/employment-agencies-search. Kung nakabayad ka na, mag-report sa MOM Taskforce sa 1800-333-1313. Ingatan ang lahat ng mga resibo at mensahe bilang ebidensya."
+        "explanation": "Tingnan kung ang ahensya ay lisensyado sa mom.gov.sg/eadirectory. Kung nakabayad ka na, mag-report sa MOM sa 6438-5122. Ingatan ang lahat ng mga resibo at mensahe bilang ebidensya."
       },
       {
         "scenario": "May nagsiksik ng card sa ilalim ng pinto ng iyong dormitoryo: \"Kailangan ng mabilis na cash? Walang credit check! Umutang ng hanggang S$5,000 ngayon. WhatsApp kami.\" Walang pangalan ng kumpanya o numero ng lisensya sa card.",
@@ -724,11 +724,11 @@
     "emptyTitle": "Ilagay ang iyong mga gastusin sa itaas",
     "emptyDesc": "Kalkulahin namin kung magkano ang kailangan mo at kung gaano katagal.",
     "tipsHeading": "Saan itatago ang iyong emergency fund",
-    "disclaimer": "Ang deposito insurance sa Singapore ay nagpoprotekta ng hanggang S$75,000 bawat bangko bawat nagdeposito sa pamamagitan ng SDIC.",
+    "disclaimer": "Ang deposito insurance sa Singapore ay nagpoprotekta ng hanggang S$100,000 bawat bangko bawat nagdeposito sa pamamagitan ng SDIC.",
     "tips": [
       {
         "title": "POSB / DBS eMySavings",
-        "body": "Walang minimum na balanse, walang fall-below fee. Buksan online gamit ang SingPass. Ang iyong pera ay protektado ng SDIC hanggang S$75,000."
+        "body": "Walang minimum na balanse, walang fall-below fee. Buksan online gamit ang SingPass. Ang iyong pera ay protektado ng SDIC hanggang S$100,000."
       },
       {
         "title": "GXS Bank o MariBank",
@@ -876,7 +876,7 @@
       },
       {
         "title": "Makipag-ugnayan sa MOM",
-        "body": "Kung tumanggi ang iyong employer, tumawag sa MOM sa 1800-333-1313 (libreng tawag, Lunes–Biyernes 8:30am–5:30pm). Maaari silang makialam para sa iyo."
+        "body": "Kung tumanggi ang iyong employer, tumawag sa MOM sa 6438-5122 (Lunes–Biyernes 8:30am–5:30pm). Maaari silang makialam para sa iyo."
       },
       {
         "title": "Tumawag sa pulisya kung binalaan",
