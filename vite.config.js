@@ -9,6 +9,8 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Registered by src/lib/serviceWorker.js, which also moves open pages onto new deploys.
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
         name: 'Remlo',
@@ -40,8 +42,11 @@ export default defineConfig({
       },
       workbox: {
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-        // Changing cacheId invalidates all existing SW caches on next deploy.
-        // Increment (v2, v3, ...) whenever a SW update is not being picked up.
+        // Activate new workers straight away (the plugin only adds these itself when it injects the register script).
+        skipWaiting: true,
+        clientsClaim: true,
+        // Changing cacheId discards every device's service-worker caches (not localStorage).
+        // It is not needed for updates; src/lib/serviceWorker.js handles those.
         cacheId: 'remlo-v3',
         // Cache app shell and all static assets
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],

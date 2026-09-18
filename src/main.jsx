@@ -5,6 +5,7 @@ import './i18n.js'
 import App from './App.jsx'
 import safeStorage, { safeSession } from './lib/safeStorage.js'
 import { initAnalytics, track } from './lib/analytics.js'
+import { registerServiceWorker } from './lib/serviceWorker.js'
 
 initAnalytics()
 if (!safeSession.getItem('remlo_opened')) {
@@ -12,6 +13,7 @@ if (!safeSession.getItem('remlo_opened')) {
   safeSession.setItem('remlo_opened', 'true')
 }
 safeStorage.setItem('remlo_visited', 'true')
+if (import.meta.env.PROD) registerServiceWorker()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
