@@ -2,13 +2,15 @@
  * fetch-scam-alerts
  *
  * Upserts hardcoded alerts, reads them back, and returns them translated into
- * the requested language. Translations are cached in scam_alert_translations —
+ * the requested language (English for the temporary fallback languages in
+ * alertLanguage.ts). Translations are cached in scam_alert_translations —
  * the Anthropic API is only called once per (alert_id, language) combination.
  *
  * Deploy: supabase functions deploy fetch-scam-alerts
  */
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { servesEnglishAlerts } from './alertLanguage.ts'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -195,8 +197,8 @@ Deno.serve(async (req) => {
 
     const englishAlerts: Alert[] = alerts ?? []
 
-    // ── Step 3: return English immediately ─────────────────────────────────────
-    if (language === 'en' || !LANG_NAMES[language]) {
+    // ── Step 3: return English immediately (incl. the temporary fallback languages) ──
+    if (servesEnglishAlerts(language, LANG_NAMES)) {
       return new Response(
         JSON.stringify({ alerts: englishAlerts, count: englishAlerts.length }),
         { headers: { ...CORS, 'Content-Type': 'application/json' } },
