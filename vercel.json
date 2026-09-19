@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    {
+      "source": "/((?!sw\\.js$|workbox-[^/]+\\.js$|index\\.html$|manifest\\.webmanifest$|favicon\\.svg$|icons\\.svg$|pwa-192x192\\.png$|pwa-512x512\\.png$|assets/|\\.well-known/).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "remlo-iota.vercel.app"
+        }
+      ],
+      "destination": "https://remloapp.com/$1",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     { "source": "/((?!\\.well-known/).*)", "destination": "/index.html" }
   ],
