@@ -574,6 +574,7 @@
       "Help me make a budget"
     ],
     "errorMsg": "Sorry, something went wrong. Please try again.",
+    "limitReached": "You've reached today's chat limit. Please try again later.",
     "disclaimer": "For guidance only. Call 999 in emergencies.",
     "noApiKey": "API key not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.",
     "listeningPlaceholder": "Listening…"

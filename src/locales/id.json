@@ -569,6 +569,7 @@
       "Bantu saya membuat anggaran"
     ],
     "errorMsg": "Maaf, terjadi kesalahan. Silakan coba lagi.",
+    "limitReached": "Anda sudah mencapai batas obrolan hari ini. Silakan coba lagi nanti.",
     "disclaimer": "Hanya untuk panduan. Hubungi 999 dalam keadaan darurat.",
     "noApiKey": "Kunci API belum dikonfigurasi. Tambahkan VITE_ANTHROPIC_API_KEY ke file .env Anda.",
     "listeningPlaceholder": "Mendengarkan…"

@@ -9,7 +9,7 @@ export const EVENT_FIELDS = {
   scam_question_answered: ['question', 'correct', 'quiz_version'],
   scam_quiz_completed: ['score', 'total', 'quiz_version'],
   guest_mode_selected: [], login: ['method'], signup: ['method', 'awaiting_confirmation'],
-  chat_message_sent: [], chat_response_received: [], chat_failed: [],
+  chat_message_sent: [], chat_response_received: [], chat_failed: [], chat_rate_limited: [],
   budget_updated: ['expense_count'], savings_goal_created: [],
   remittance_compared: ['destination_country'],
 }

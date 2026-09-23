@@ -569,6 +569,7 @@
       "Tulungan mo akong gumawa ng badyet"
     ],
     "errorMsg": "Paumanhin, may nangyaring hindi tama. Subukan ulit.",
+    "limitReached": "Naabot mo na ang limitasyon ng chat para ngayong araw. Subukan ulit mamaya.",
     "disclaimer": "Para sa gabay lamang. Tumawag sa 999 sa mga emergency.",
     "noApiKey": "Hindi naka-configure ang API key. Idagdag ang VITE_ANTHROPIC_API_KEY sa iyong .env file.",
     "listeningPlaceholder": "Nakikinig…"

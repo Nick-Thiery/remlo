@@ -184,6 +184,7 @@ test('devices activated under v1 can still record their first v2 activation', ()
 
 // ── Privacy allowlist ────────────────────────────────────────────────────────
 
+// chat_rate_limited (22 Sep 2026) records that a quota was hit, with no properties.
 test('event allowlist only gains the activation_version and quiz_version fields', () => {
   assert.deepEqual(EVENT_FIELDS, {
     app_opened: ['return_session'], onboarding_started: [],
@@ -193,7 +194,7 @@ test('event allowlist only gains the activation_version and quiz_version fields'
     scam_question_answered: ['question', 'correct', 'quiz_version'],
     scam_quiz_completed: ['score', 'total', 'quiz_version'],
     guest_mode_selected: [], login: ['method'], signup: ['method', 'awaiting_confirmation'],
-    chat_message_sent: [], chat_response_received: [], chat_failed: [],
+    chat_message_sent: [], chat_response_received: [], chat_failed: [], chat_rate_limited: [],
     budget_updated: ['expense_count'], savings_goal_created: [],
     remittance_compared: ['destination_country'],
   })

@@ -1,4 +1,10 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import {
+  buildLimitChecks,
+  clientAddress,
+  rateLimitMessage,
+  retryAfterSeconds,
+} from './rateLimit.ts'
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -6,14 +12,25 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-const MAX_MESSAGES_PER_HOUR = 20
-const MAX_MESSAGE_LENGTH    = 2000
+const MAX_MESSAGE_LENGTH = 2000
 
 function errResp(msg: string, status = 400) {
   return new Response(JSON.stringify({ error: msg }), {
     status,
     headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
   })
+}
+
+// Addresses are only ever stored as a salted digest, so the table holds no
+// readable IP. The salt is a secret the caller cannot see, which is what stops
+// someone confirming a guess at an address from the stored hash.
+async function hashIp(ip: string, salt: string): Promise<string> {
+  const bytes = new TextEncoder().encode(`${salt}:${ip}`)
+  const digest = await crypto.subtle.digest('SHA-256', bytes)
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 32)
 }
 
 Deno.serve(async (req) => {
@@ -42,7 +59,7 @@ Deno.serve(async (req) => {
   }
 
   // ── 2. Parse and validate request body ───────────────────────────────────────
-  let body: { messages?: unknown; system?: unknown }
+  let body: { messages?: unknown; system?: unknown; device_id?: unknown; language?: unknown }
   try {
     body = await req.json()
   } catch {
@@ -69,27 +86,56 @@ Deno.serve(async (req) => {
     ? body.system.slice(0, 1000)
     : undefined
 
-  // ── 3. Rate limit authenticated users (guests are not rate-limited by user) ──
-  if (userId) {
-    const admin = createClient(supabaseUrl, serviceRoleKey, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    })
+  // ── 3. Rate limit every caller, guests included ──────────────────────────────
+  // Guests are counted per device id, not per IP: a whole dormitory shares one
+  // connection, so an IP quota tight enough to stop abuse would lock out the
+  // people this app is for. IP and global buckets are loose backstops only.
+  const clientIp = clientAddress((name) => req.headers.get(name))
+  const ipSalt = Deno.env.get('CHAT_RATE_LIMIT_SALT')
+  if (clientIp && !ipSalt) console.error('CHAT_RATE_LIMIT_SALT is not set; the per-address bucket is inactive')
+  const ipHash = clientIp && ipSalt ? await hashIp(clientIp, ipSalt) : null
 
-    const windowStart = new Date(Date.now() - 60 * 60 * 1000).toISOString()
-    const { count, error: countError } = await admin
-      .from('chat_rate_limits')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', userId)
-      .gte('created_at', windowStart)
+  const checks = buildLimitChecks({
+    userId,
+    deviceId: typeof body.device_id === 'string' ? body.device_id : null,
+    ipHash,
+  })
 
-    if (!countError && (count ?? 0) >= MAX_MESSAGES_PER_HOUR) {
-      return errResp('Rate limit exceeded — try again in an hour', 429)
-    }
+  const admin = createClient(supabaseUrl, serviceRoleKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  })
 
-    // Record this request (fire-and-forget)
-    admin.from('chat_rate_limits').insert({ user_id: userId }).then(({ error }) => {
-      if (error) console.error('Failed to record rate limit entry:', error.message)
-    })
+  const { data: blocked, error: limitError } = await admin.rpc('chat_usage_record', {
+    p_checks: checks.map((check) => ({
+      scope: check.scope,
+      subject: check.subject,
+      window_kind: check.window,
+      max: check.max,
+    })),
+  })
+
+  if (limitError) {
+    // Counting is unavailable, so spending is unbounded: refuse rather than
+    // call Anthropic uncounted. Only the database's own error code is logged —
+    // never a message, address, device id or key.
+    console.error(`Chat rate limit check unavailable (code ${limitError.code ?? 'unknown'})`)
+    return errResp('AI service temporarily unavailable', 503)
+  }
+
+  if (blocked) {
+    const retryAfter = retryAfterSeconds(blocked.reset_at, Date.now())
+    console.log(`Chat rate limit hit: scope=${blocked.scope} window=${blocked.window_kind} max=${blocked.max}`)
+    return new Response(
+      JSON.stringify({
+        error: rateLimitMessage(body.language),
+        error_code: 'rate_limited',
+        retry_after_seconds: retryAfter,
+      }),
+      {
+        status: 429,
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json', 'Retry-After': String(retryAfter) },
+      },
+    )
   }
 
   // ── 4. Call Anthropic ─────────────────────────────────────────────────────────
