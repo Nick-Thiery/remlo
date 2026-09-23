@@ -78,10 +78,12 @@ test('Emergency page lists only verified numbers and no unsupported helpline cla
 })
 
 test('the AI assistant is only given verified contacts', () => {
-  const prompt = read('src/pages/Chat.jsx').match(/const SYSTEM_PROMPT =\s*'([^']*)'/)[1]
+  // The prompt moved into the Edge Function (23 Sep 2026) so a caller cannot
+  // replace these instructions; it is no longer truncated in transit.
+  const prompt = read('supabase/functions/chat/index.ts').match(/const SYSTEM_PROMPT =\s*\n\s*'([^']*)'/)[1]
   for (const number of ['1800-924-5664', '1799', '6438 5122', '999']) assert.ok(prompt.includes(number), number)
   assert.match(prompt, /Do not give any other phone numbers/)
-  assert.ok(prompt.length <= 1000, 'the chat function keeps only the first 1000 characters')
+  assert.ok(!read('src/pages/Chat.jsx').includes('SYSTEM_PROMPT'), 'the browser must not carry the prompt')
 })
 
 // ── Bengali numerals in tel: links ────────────────────────────────────────────

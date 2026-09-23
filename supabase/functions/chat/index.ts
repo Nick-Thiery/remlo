@@ -5,6 +5,7 @@ import {
   rateLimitMessage,
   retryAfterSeconds,
 } from './rateLimit.ts'
+import { buildHistory, MAX_MESSAGE_LENGTH } from './history.ts'
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -12,7 +13,12 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-const MAX_MESSAGE_LENGTH = 2000
+// The assistant's instructions live here, not in the browser: a page can be
+// edited by anyone holding it, and the safety lines below are the part of this
+// product that must not be rewritable by the caller. Any 'system' field in the
+// request body is ignored.
+const SYSTEM_PROMPT =
+  'You are a friendly financial assistant built by Remlo, an app helping workers in Singapore manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. For a loan shark, give the X-Ah Long hotline 1800-924-5664; for a possible scam, the ScamShield Helpline 1799; for work pass, salary or employer problems, the Ministry of Manpower on 6438 5122. Tell them to call the police on 999 if they are in danger. Do not give any other phone numbers.'
 
 function errResp(msg: string, status = 400) {
   return new Response(JSON.stringify({ error: msg }), {
@@ -79,12 +85,13 @@ Deno.serve(async (req) => {
     messages.push({ role, content })
   }
 
-  // Cap history to last 20 turns to limit token spend
-  const trimmedMessages = messages.slice(-20)
+  // Cap history to the last 20 turns to limit token spend, starting on a user
+  // turn so a long conversation stays valid for the API.
+  const trimmedMessages = buildHistory(messages)
 
-  const system = typeof body.system === 'string'
-    ? body.system.slice(0, 1000)
-    : undefined
+  if (trimmedMessages.length === 0) {
+    return errResp('messages must contain at least one user message')
+  }
 
   // ── 3. Rate limit every caller, guests included ──────────────────────────────
   // Guests are counted per device id, not per IP: a whole dormitory shares one
@@ -150,7 +157,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 1024,
-        system,
+        system: SYSTEM_PROMPT,
         messages: trimmedMessages,
       }),
     })

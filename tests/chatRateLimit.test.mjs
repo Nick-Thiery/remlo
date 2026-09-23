@@ -293,6 +293,10 @@ test('a broken rate-limit check refuses the request instead of spending', () => 
   assert.equal(JSON.parse(readFileSync(new URL('../src/locales/en.json', import.meta.url), 'utf8')).chat.errorMsg.length > 0, true)
 })
 
-test('chat history trimming is untouched', () => {
-  assert.match(chatFn, /const trimmedMessages = messages\.slice\(-20\)/)
+test('rate limiting stays out of the history path', () => {
+  // Trimming is history.ts's job (see chatHistory.test.mjs); the rate limiter
+  // must not reach into the messages it sends.
+  assert.match(chatFn, /const trimmedMessages = buildHistory\(messages\)/)
+  const limitSection = chatFn.slice(chatFn.indexOf('── 3. Rate limit'), chatFn.indexOf('── 4. Call Anthropic'))
+  assert.ok(!/messages/.test(limitSection))
 })

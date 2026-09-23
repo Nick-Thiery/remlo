@@ -9,9 +9,6 @@ import { useDarkMode } from '../hooks/useDarkMode.js'
 import { supabase } from '../lib/supabase.js'
 import { getDeviceId } from '../lib/deviceId.js'
 
-const SYSTEM_PROMPT =
-  'You are a friendly financial assistant built by Remlo, an app helping workers in Singapore manage their money better. You help users with: budgeting, saving money, sending money home, understanding their rights as workers in Singapore, identifying loan sharks and scams, and general financial questions. Always respond in the same language the user writes in. Keep answers simple and practical. For a loan shark, give the X-Ah Long hotline 1800-924-5664; for a possible scam, the ScamShield Helpline 1799; for work pass, salary or employer problems, the Ministry of Manpower on 6438 5122. Tell them to call the police on 999 if they are in danger. Do not give any other phone numbers.'
-
 const SPEECH_LANG = {
   en:  'en-SG', ta:  'ta-SG', hi:  'hi-IN', bn:  'bn-BD',
   my:  'my-MM', si:  'si-LK', fil: 'fil-PH', id:  'id-ID',
@@ -113,7 +110,6 @@ export default function Chat() {
         headers: { 'Content-Type': 'application/json', Authorization: authHeader },
         body: JSON.stringify({
           messages: history,
-          system: SYSTEM_PROMPT,
           device_id: getDeviceId(),
           language: i18n.language,
         }),
