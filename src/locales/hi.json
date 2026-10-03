@@ -149,6 +149,7 @@
     "pageTitle": "बजट योजनाकार",
     "pageSubtitle": "अपनी मासिक आय और खर्चों की योजना बनाएं",
     "incomeLabel": "मासिक आय (SGD)",
+    "incomeHint": "हर महीने मिलने वाली आपकी सामान्य तनख्वाह। इस महीने तनख्वाह अलग है? यहाँ रकम बदलें।",
     "summaryIncome": "आय",
     "summaryExpenses": "खर्च",
     "summaryOverBy": "अधिक हो गया",

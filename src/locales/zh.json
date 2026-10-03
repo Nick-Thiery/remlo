@@ -149,6 +149,7 @@
     "pageTitle": "预算规划",
     "pageSubtitle": "规划您的月收入和支出",
     "incomeLabel": "月收入（新元）",
+    "incomeHint": "您每月通常领到的工资。这个月工资不一样？请在这里修改金额。",
     "summaryIncome": "收入",
     "summaryExpenses": "支出",
     "summaryOverBy": "超支",

@@ -149,6 +149,7 @@
     "pageTitle": "Tagaplano ng Badyet",
     "pageSubtitle": "Planuhin ang iyong buwanang kita at gastusin",
     "incomeLabel": "Buwanang Kita (SGD)",
+    "incomeHint": "Ang karaniwan mong sahod bawat buwan. Iba ba ang sahod mo ngayong buwan? Palitan ang halaga dito.",
     "summaryIncome": "Kita",
     "summaryExpenses": "Gastusin",
     "summaryOverBy": "Lampas ng",
