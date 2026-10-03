@@ -153,6 +153,7 @@
     "pageTitle": "Budget Planner",
     "pageSubtitle": "Plan your monthly income and expenses",
     "incomeLabel": "Monthly Income (SGD)",
+    "incomeHint": "Your usual pay each month. Pay different this month? Change the number here.",
     "summaryIncome": "Income",
     "summaryExpenses": "Expenses",
     "summaryOverBy": "Over by",

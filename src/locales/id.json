@@ -149,6 +149,7 @@
     "pageTitle": "Perencana Anggaran",
     "pageSubtitle": "Rencanakan pendapatan dan pengeluaran bulanan Anda",
     "incomeLabel": "Pendapatan Bulanan (SGD)",
+    "incomeHint": "Gaji Anda yang biasa setiap bulan. Gaji bulan ini berbeda? Ubah jumlahnya di sini.",
     "summaryIncome": "Pendapatan",
     "summaryExpenses": "Pengeluaran",
     "summaryOverBy": "Melebihi",

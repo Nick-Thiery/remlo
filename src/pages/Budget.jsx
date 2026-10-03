@@ -471,8 +471,10 @@ export default function Budget() {
               className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium text-gray-900"
               style={{ border: `2px solid ${border2}`, background: bg, outline: 'none' }}
               placeholder="0"
+              aria-describedby="budget-income-hint"
             />
           </div>
+          <p id="budget-income-hint" className="text-xs text-gray-400 mt-2 leading-relaxed font-medium">{t('budget.incomeHint')}</p>
         </div>
 
         {/* Summary cards */}

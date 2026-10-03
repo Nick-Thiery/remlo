@@ -149,6 +149,7 @@
     "pageTitle": "বাজেট পরিকল্পনা",
     "pageSubtitle": "আপনার মাসিক আয় এবং খরচ পরিকল্পনা করুন",
     "incomeLabel": "মাসিক আয় (SGD)",
+    "incomeHint": "প্রতি মাসে আপনি সাধারণত যে বেতন পান। এই মাসে বেতন আলাদা? এখানে টাকার পরিমাণ বদলান।",
     "summaryIncome": "আয়",
     "summaryExpenses": "খরচ",
     "summaryOverBy": "অতিরিক্ত",
