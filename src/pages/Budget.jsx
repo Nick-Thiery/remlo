@@ -8,6 +8,7 @@ import { track } from '../lib/analytics.js'
 import { presetExpenses } from '../lib/budgetPresets.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { onPageExit } from '../lib/pageExit.js'
 
 function formatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
@@ -169,6 +170,12 @@ export default function Budget() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const budgetExists = useRef(false)
+  // Income and expense amounts used to save only on blur. Pressing Done, Android
+  // back or leaving the app does not blur the field, so a typed value showed on
+  // screen and was gone on reopening. Unsaved edits are now also saved as the
+  // page goes away.
+  const incomeDirty = useRef(false)
+  const saveUnsaved = useRef(null)
 
   useEffect(() => {
     if (isGuest) {
@@ -227,6 +234,7 @@ export default function Budget() {
   }, [user, isGuest, PRESET_EXPENSES])
 
   async function saveBudget(incomeVal, expensesVal) {
+    incomeDirty.current = false
     const cleanExpenses = expensesVal.map(cleanExpense)
     track('budget_updated', { income: parseFloat(incomeVal) || 0, expense_count: cleanExpenses.length })
     if (isGuest) {
@@ -345,6 +353,20 @@ export default function Budget() {
     setExpenses(newExpenses)
     saveBudget(income, newExpenses)
   }
+
+  useEffect(() => {
+    saveUnsaved.current = () => {
+      // An open amount editor is committed first; its save also writes the income.
+      if (editingKey) commitEdit(editingKey)
+      if (incomeDirty.current) saveBudget(income, expenses)
+    }
+  })
+
+  useEffect(() => {
+    const flushUnsaved = () => saveUnsaved.current?.()
+    const stop = onPageExit(flushUnsaved)
+    return () => { stop(); flushUnsaved() }
+  }, [])
 
   const receivedThisMonth = payments
     .filter(p => isCurrentMonth(p.date))
@@ -505,8 +527,9 @@ export default function Budget() {
               min="0"
               step="50"
               value={income}
-              onChange={(e) => setIncome(e.target.value)}
+              onChange={(e) => { setIncome(e.target.value); incomeDirty.current = true }}
               onBlur={() => saveBudget(income, expenses)}
+              onKeyDown={(e) => { if (e.key === 'Enter') e.target.blur() }}
               className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium text-gray-900"
               style={{ border: `2px solid ${border2}`, background: bg, outline: 'none' }}
               placeholder="0"
