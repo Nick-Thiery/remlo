@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { ListPlus } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
@@ -137,6 +138,7 @@ export default function Budget() {
   const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const trackBg = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
+  const navigate = useNavigate()
 
   const PRESET_EXPENSES = useMemo(() => presetExpenses(t), [t])
 
@@ -155,6 +157,16 @@ export default function Budget() {
   const [logDate, setLogDate] = useState('')
   const [logNote, setLogNote] = useState('')
   const [logError, setLogError] = useState('')
+  // Income received is the Salary Tracker's payment log (guest storage or
+  // salary_logs), so pay logged on either page shows on both. It sits beside the
+  // planned income and does not change Left Over or the 50/30/20 guide.
+  const [payments, setPayments] = useState([])
+  const [incomeOpen, setIncomeOpen] = useState(false)
+  const [incDate, setIncDate] = useState('')
+  const [incAmount, setIncAmount] = useState('')
+  const [incEmployer, setIncEmployer] = useState('')
+  const [incNote, setIncNote] = useState('')
+  const [incError, setIncError] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const budgetExists = useRef(false)
@@ -175,6 +187,7 @@ export default function Budget() {
       if (stored) setIncome(stored.income > 0 ? String(stored.income) : '')
       setExpenses(idExpenses)
       setEntries(storedEntries)
+      setPayments(JSON.parse(safeStorage.getItem('remlo_guest_salary') || '[]'))
       setLoading(false)
 
       if (stored && idsChanged) {
@@ -189,7 +202,8 @@ export default function Budget() {
     Promise.all([
       supabase.from('budgets').select('income, expenses').eq('user_id', user.id).maybeSingle(),
       supabase.from('budget_entries').select('id, category_id, date, amount, note').eq('user_id', user.id).order('date', { ascending: true }),
-    ]).then(([budgetRes, entriesRes]) => {
+      supabase.from('salary_logs').select('id, date, amount, employer').eq('user_id', user.id),
+    ]).then(([budgetRes, entriesRes, salaryRes]) => {
       if (budgetRes.error) {
         setError(budgetRes.error.message)
       } else if (entriesRes.error) {
@@ -213,6 +227,8 @@ export default function Budget() {
           note:       row.note || '',
         })))
       }
+      if (salaryRes.error) setError(salaryRes.error.message)
+      else setPayments(salaryRes.data)
       setLoading(false)
     })
   }, [user, isGuest, PRESET_EXPENSES])
@@ -352,6 +368,52 @@ export default function Budget() {
     return () => { stop(); flushUnsaved() }
   }, [])
 
+  const receivedThisMonth = payments
+    .filter(p => isCurrentMonth(p.date))
+    .reduce((sum, p) => sum + p.amount, 0)
+  const receivedDiff = receivedThisMonth - monthlyIncome
+
+  function openIncome() {
+    const latest = [...payments].sort((a, b) => (a.date < b.date ? 1 : -1))[0]
+    setIncDate(toYYYYMMDD(new Date()))
+    setIncAmount('')
+    setIncEmployer(latest?.employer || '')
+    setIncNote('')
+    setIncError('')
+    setIncomeOpen(true)
+  }
+  function closeIncome() { setIncomeOpen(false); setIncError('') }
+
+  async function handleAddIncome() {
+    const amount = parseFloat(incAmount)
+    const employer = incEmployer.trim()
+    const note = incNote.trim()
+    if (!incDate) return setIncError(t('budget.errorDate'))
+    if (incDate > toYYYYMMDD(new Date())) return setIncError(t('budget.errorFutureIncomeDate'))
+    if (!amount || amount <= 0) return setIncError(t('budget.errorAmount'))
+    if (!employer) return setIncError(t('budget.errorIncomeFrom'))
+
+    if (isGuest) {
+      // Same shape and newest-first order as the Salary Tracker's own entries.
+      const stored = JSON.parse(safeStorage.getItem('remlo_guest_salary') || '[]')
+      const updated = [{ id: Date.now(), date: incDate, amount, employer, note }, ...stored]
+      safeStorage.setItem('remlo_guest_salary', JSON.stringify(updated))
+      setPayments(updated)
+      closeIncome()
+      return
+    }
+
+    const { data, error: err } = await supabase
+      .from('salary_logs')
+      .insert({ user_id: user.id, date: incDate, amount, employer, notes: note || null })
+      .select('id')
+      .single()
+    if (err) return setIncError(err.message)
+
+    setPayments(prev => [{ id: data.id, date: incDate, amount, employer }, ...prev])
+    closeIncome()
+  }
+
   function openLog(categoryId) {
     setLogAmount('')
     setLogDate(toYYYYMMDD(new Date()))
@@ -475,6 +537,40 @@ export default function Budget() {
             />
           </div>
           <p id="budget-income-hint" className="text-xs text-gray-400 mt-2 leading-relaxed font-medium">{t('budget.incomeHint')}</p>
+
+          {/* Income received this month */}
+          <div className="mt-4 pt-4" style={{ borderTop: `1px solid ${isDark ? '#252220' : '#F5F2ED'}` }}>
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-xs text-gray-400 font-medium">
+                  {t('budget.receivedThisMonthLabel')}{': '}
+                  <span className="font-bold tabular-nums" style={{ color: isDark ? '#F5F2EE' : '#1A1A1A' }}>
+                    {formatSGD(receivedThisMonth)}
+                  </span>
+                </p>
+                {receivedThisMonth > 0 && monthlyIncome > 0 && receivedDiff !== 0 && (
+                  <p className="text-xs font-bold mt-0.5" style={{ color: receivedDiff > 0 ? '#059669' : '#D97706' }}>
+                    {receivedDiff > 0
+                      ? t('budget.receivedMore', { amount: formatSGD(receivedDiff) })
+                      : t('budget.receivedLess', { amount: formatSGD(-receivedDiff) })}
+                  </p>
+                )}
+              </div>
+              <button
+                onClick={openIncome}
+                className="text-xs font-extrabold px-3 py-1.5 rounded-full text-white active:scale-95 transition-all flex-shrink-0"
+                style={{ background: 'linear-gradient(135deg, #E8640C, #CC5708)' }}
+              >
+                {t('budget.addIncomeBtn')}
+              </button>
+            </div>
+            {payments.length > 0 && (
+              <button onClick={() => navigate('/salary')} className="flex items-center gap-1.5 mt-1.5 text-start">
+                <span className="text-xs font-bold text-gray-400">{t('budget.seeSalaryHistory')}</span>
+                <span className="text-xs font-bold text-gray-300">›</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Summary cards */}
@@ -871,6 +967,114 @@ export default function Budget() {
           {t('disclaimer.educational')}
         </p>
       </div>
+
+      {/* Add Income Modal — same layout and styles as the Log Spend modal */}
+      {incomeOpen && (
+        <div
+          className="fixed inset-0 flex items-end sm:items-center justify-center z-50 p-4"
+          style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }}
+          onClick={(e) => e.target === e.currentTarget && closeIncome()}
+        >
+          <div
+            className="w-full max-w-sm p-6 scale-in"
+            style={{
+              background: card,
+              borderRadius: 24,
+              boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
+            }}
+          >
+            <h2 className="text-lg font-extrabold text-gray-900 mb-0.5 tracking-tight">{t('budget.addIncomeTitle')}</h2>
+            <p className="text-sm text-gray-500 mb-5">{t('budget.addIncomeDesc')}</p>
+
+            {incError && (
+              <div
+                className="text-sm rounded-xl p-3 mb-4 font-medium"
+                style={{ background: '#FEF2F2', color: '#DC2626' }}
+              >
+                {incError}
+              </div>
+            )}
+
+            <div className="space-y-3 mb-5">
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.dateLabel')}</label>
+                <input
+                  type="date"
+                  value={incDate}
+                  max={toYYYYMMDD(new Date())}
+                  onChange={(e) => setIncDate(e.target.value)}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <input
+                    autoFocus
+                    type="number"
+                    placeholder="0.00"
+                    min="0.01"
+                    step="0.01"
+                    value={incAmount}
+                    onChange={(e) => setIncAmount(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAddIncome()}
+                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.employerLabel')}</label>
+                <input
+                  type="text"
+                  placeholder={t('salary.employerPlaceholder')}
+                  value={incEmployer}
+                  onChange={(e) => setIncEmployer(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleAddIncome()}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-gray-500 mb-1.5 block">
+                  {t('salary.noteLabelModal')} <span className="text-gray-300 font-normal">({t('common.optional')})</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder={t('salary.notePlaceholder')}
+                  value={incNote}
+                  onChange={(e) => setIncNote(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleAddIncome()}
+                  className="w-full rounded-2xl px-4 py-3 text-sm font-medium"
+                  style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={closeIncome}
+                className="flex-1 rounded-2xl py-3 text-sm font-bold text-gray-700 transition-colors"
+                style={{ border: `2px solid ${border2}`, background: card, color: isDark ? '#F5F2EE' : '#374151' }}
+              >
+                {t('common.cancel')}
+              </button>
+              <button
+                onClick={handleAddIncome}
+                className="flex-1 rounded-2xl py-3 text-sm font-extrabold text-white transition-all active:scale-[0.98]"
+                style={{
+                  background: 'linear-gradient(135deg, #E8640C, #CC5708)',
+                  boxShadow: '0 4px 14px rgba(232,100,12,0.3)',
+                }}
+              >
+                {t('common.confirm')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Log Spend Modal */}
       {logCategoryId && logCategory && (
