@@ -61,8 +61,13 @@ test('Budget income is saved on Done/Enter, not only on blur', () => {
 
 test('an unsaved Budget income is saved when the page goes away or Budget unmounts', () => {
   assert.match(budgetPage, /onChange=\{\(e\) => \{ setIncome\(e\.target\.value\); incomeDirty\.current = true \}\}/)
-  assert.match(budgetPage, /const stop = onPageExit\(flushIncome\)\s*return \(\) => \{ stop\(\); flushIncome\(\) \}/)
+  assert.match(budgetPage, /const stop = onPageExit\(flushUnsaved\)\s*return \(\) => \{ stop\(\); flushUnsaved\(\) \}/)
+  assert.match(budgetPage, /if \(incomeDirty\.current\) saveBudget\(income, expenses\)/)
   // Any save writes the current income, so it clears the pending flag; a later
   // exit then cannot overwrite a newer expense list with an older one.
   assert.match(budgetPage, /async function saveBudget\(incomeVal, expensesVal\) \{\s*incomeDirty\.current = false/)
+})
+
+test('an open expense-amount edit is committed when the page goes away, before the income save', () => {
+  assert.match(budgetPage, /if \(editingKey\) commitEdit\(editingKey\)\s*if \(incomeDirty\.current\)/)
 })

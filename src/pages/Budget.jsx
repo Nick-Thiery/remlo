@@ -158,11 +158,12 @@ export default function Budget() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const budgetExists = useRef(false)
-  // Income used to save only on blur. Pressing Done, Android back or leaving the
-  // app does not blur the field, so a typed income showed on screen and was gone
-  // on reopening. An unsaved income is now also saved as the page goes away.
+  // Income and expense amounts used to save only on blur. Pressing Done, Android
+  // back or leaving the app does not blur the field, so a typed value showed on
+  // screen and was gone on reopening. Unsaved edits are now also saved as the
+  // page goes away.
   const incomeDirty = useRef(false)
-  const saveLatest = useRef(null)
+  const saveUnsaved = useRef(null)
 
   useEffect(() => {
     if (isGuest) {
@@ -238,16 +239,6 @@ export default function Budget() {
     }
     if (err) setError(err.message)
   }
-
-  useEffect(() => {
-    saveLatest.current = () => saveBudget(income, expenses)
-  })
-
-  useEffect(() => {
-    const flushIncome = () => { if (incomeDirty.current) saveLatest.current?.() }
-    const stop = onPageExit(flushIncome)
-    return () => { stop(); flushIncome() }
-  }, [])
 
   const monthlyIncome = parseFloat(income) || 0
 
@@ -346,6 +337,20 @@ export default function Budget() {
     setExpenses(newExpenses)
     saveBudget(income, newExpenses)
   }
+
+  useEffect(() => {
+    saveUnsaved.current = () => {
+      // An open amount editor is committed first; its save also writes the income.
+      if (editingKey) commitEdit(editingKey)
+      if (incomeDirty.current) saveBudget(income, expenses)
+    }
+  })
+
+  useEffect(() => {
+    const flushUnsaved = () => saveUnsaved.current?.()
+    const stop = onPageExit(flushUnsaved)
+    return () => { stop(); flushUnsaved() }
+  }, [])
 
   function openLog(categoryId) {
     setLogAmount('')
