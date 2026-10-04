@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/check_locale_edit.mjs\"",
+            "timeout": 60,
+            "statusMessage": "Checking translations"
+          }
+        ]
+      }
+    ]
+  }
+}
