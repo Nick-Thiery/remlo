@@ -5,21 +5,106 @@
     <style>
       html, body, #root { margin: 0; padding: 0; background: #ffffff; }
       @media (prefers-color-scheme: dark) { html, body, #root { background: #121110; } }
+      /* Shown only until the app loads (React replaces #root). Gives crawlers and no-JS visitors real text. */
+      .seo-fallback { max-width: 430px; margin: 0 auto; padding: 32px 20px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #1C1917; line-height: 1.5; }
+      .seo-fallback h1 { font-size: 24px; margin: 0 0 8px; }
+      .seo-fallback h2 { font-size: 16px; margin: 20px 0 6px; }
+      .seo-fallback p, .seo-fallback li { font-size: 14px; color: #57534E; }
+      .seo-fallback ul { padding-left: 18px; margin: 0; list-style: disc; }
+      .seo-fallback a { color: #C2410C; }
+      @media (prefers-color-scheme: dark) {
+        .seo-fallback { color: #FAFAF9; }
+        .seo-fallback p, .seo-fallback li { color: #A8A29E; }
+        .seo-fallback a { color: #FB923C; }
+      }
     </style>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/pwa-192x192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)" />
-    <meta name="description" content="Smart financial tools for everyone in Singapore" />
+
+    <title>Remlo – Free money tools for migrant workers in Singapore</title>
+    <meta name="description" content="Compare remittance estimates, plan a budget, track savings and learn to spot scams. Free, in 12 languages. Remlo never transfers money or asks for bank logins." />
+    <link rel="canonical" href="https://remloapp.com/" />
+    <script>
+      // Point the canonical at the page actually being viewed (one HTML file serves every route).
+      (function () {
+        var c = document.querySelector('link[rel="canonical"]');
+        if (c) c.href = 'https://remloapp.com' + (location.pathname === '/' ? '/' : location.pathname.replace(/\/+$/, ''));
+      })();
+    </script>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Remlo" />
+    <meta property="og:title" content="Remlo – Free money tools for migrant workers in Singapore" />
+    <meta property="og:description" content="Compare remittance estimates, plan a budget, track savings and learn to spot scams. Free, in 12 languages." />
+    <meta property="og:url" content="https://remloapp.com/" />
+    <meta property="og:image" content="https://remloapp.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Remlo logo with the text: Free money tools for migrant workers in Singapore" />
+    <meta property="og:locale" content="en_SG" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Remlo – Free money tools for migrant workers in Singapore" />
+    <meta name="twitter:description" content="Compare remittance estimates, plan a budget, track savings and learn to spot scams. Free, in 12 languages." />
+    <meta name="twitter:image" content="https://remloapp.com/og-image.png" />
+
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Remlo" />
-    <title>Remlo</title>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://remloapp.com/#app",
+            "name": "Remlo",
+            "url": "https://remloapp.com/",
+            "description": "Free money tools for migrant workers in Singapore: remittance estimates, budgeting, savings goals and scam awareness, in 12 languages.",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web, Android",
+            "isAccessibleForFree": true,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SGD" },
+            "inLanguage": ["en", "ta", "hi", "bn", "my", "si", "fil", "id", "zh", "th", "ur", "ne"],
+            "image": "https://remloapp.com/og-image.png",
+            "sameAs": ["https://play.google.com/store/apps/details?id=com.remlo.app"],
+            "publisher": { "@id": "https://financeforwardsg.com/#org" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://financeforwardsg.com/#org",
+            "name": "FinanceForward",
+            "url": "https://financeforwardsg.com/",
+            "email": "financeforwardinitiative@gmail.com",
+            "areaServed": "SG"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main class="seo-fallback">
+        <h1>Remlo: free money tools for migrant workers in Singapore</h1>
+        <p>Remlo helps you make everyday money decisions with clear information in your own language. It is free, and you can start as a guest without an account.</p>
+        <h2>What you can do</h2>
+        <ul>
+          <li>Compare remittance estimates before you send money home</li>
+          <li>Plan a monthly budget and track savings goals</li>
+          <li>Learn to spot scams with a short quiz and official help links</li>
+          <li>Find salary, loan and emergency information</li>
+        </ul>
+        <h2>12 languages</h2>
+        <p>English, தமிழ், हिंदी, বাংলা, မြန်မာ, සිංහල, Filipino, Bahasa Indonesia, 中文, ภาษาไทย, اردو, नेपाली</p>
+        <h2>What Remlo does not do</h2>
+        <p>Remlo does not transfer or hold money, connect to your bank account, or ask for bank passwords or OTPs. It offers general information and illustrative estimates, not financial advice.</p>
+        <p><a href="https://play.google.com/store/apps/details?id=com.remlo.app">Get Remlo on Google Play</a> · On iPhone, use this website. · Made by <a href="https://financeforwardsg.com/">FinanceForward</a>.</p>
+      </main>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

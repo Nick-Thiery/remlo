@@ -15,7 +15,7 @@ export default defineConfig({
       manifest: {
         name: 'Remlo',
         short_name: 'Remlo',
-        description: 'Smart financial tools for everyone in Singapore',
+        description: 'Free money tools for migrant workers in Singapore, in 12 languages',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
@@ -50,6 +50,8 @@ export default defineConfig({
         cacheId: 'remlo-v3',
         // Cache app shell and all static assets
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // The social share image is only fetched by link previews, so keep it off users' devices.
+        globIgnores: ['**/og-image.png'],
         // Runtime caching for API calls — network first, fall back to cache
         runtimeCaching: [
           {
