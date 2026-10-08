@@ -11,7 +11,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       // Registered by src/lib/serviceWorker.js, which also moves open pages onto new deploys.
       injectRegister: false,
-      includeAssets: ['favicon.svg', 'pwa-192x192.png', 'pwa-512x512.png'],
+      includeAssets: ['favicon.ico', 'favicon-96x96.png', 'favicon.svg', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
         name: 'Remlo',
         short_name: 'Remlo',
