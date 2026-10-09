@@ -5,6 +5,7 @@ import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { ltr } from '../lib/bidi.js'
 
 const COUNTRIES = {
   IN: { currency: 'INR', flag: '🇮🇳', symbol: '₹',   nameKey: 'countryIndia'       },
@@ -56,6 +57,10 @@ const PROVIDER_CONFIG = [
 ]
 
 function formatForeignAmount(amount, symbol) {
+  return ltr(rawFormatForeignAmount(amount, symbol))
+}
+
+function rawFormatForeignAmount(amount, symbol) {
   const rounded = Math.round(amount)
   const formatted = rounded >= 10000
     ? new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(rounded)
@@ -64,6 +69,10 @@ function formatForeignAmount(amount, symbol) {
 }
 
 function formatSGD(amount) {
+  return ltr(rawFormatSGD(amount))
+}
+
+function rawFormatSGD(amount) {
   return `S$${amount.toFixed(2)}`
 }
 
@@ -179,7 +188,7 @@ export default function Remittance() {
             <div>
               <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('remittance.sendLabel')}</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold">S$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold" dir="ltr">S$</span>
                 <input
                   type="number"
                   inputMode="decimal"

@@ -108,7 +108,8 @@
     "noFee": "No fee",
     "loading": "Loading...",
     "emergency": "Emergency",
-    "nonEmergency": "Non-emergency"
+    "nonEmergency": "Non-emergency",
+    "englishOnly": "This page is only available in English."
   },
   "savings": {
     "pageTitle": "Savings Goals",
@@ -335,8 +336,7 @@
     "errorRequired": "Required",
     "errorAmount": "Enter a valid amount",
     "errorRate": "Enter a valid rate (0 or above)",
-    "errorPayment": "Enter a valid payment amount",
-    "whyTitle": "Why workers need more"
+    "errorPayment": "Enter a valid payment amount"
   },
   "scams": {
     "emergencyBanner": "🚨 If you are in danger call 999  ·  MOM Helpline: 6438-5122",
@@ -587,7 +587,9 @@
     "limitReached": "You've reached today's chat limit. Please try again later.",
     "disclaimer": "For guidance only. Call 999 in emergencies.",
     "noApiKey": "API key not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.",
-    "listeningPlaceholder": "Listening…"
+    "listeningPlaceholder": "Listening…",
+    "voiceStart": "Start voice input",
+    "voiceStop": "Stop recording"
   },
   "scamQuiz": {
     "pageTitle": "Scam Awareness Quiz",
@@ -882,8 +884,7 @@
       {
         "label": "TWC2 (Transient Workers Count Too)"
       }
-    ],
-    "guideBadge": "Workers in Singapore"
+    ]
   },
   "emergency": {
     "dangerText": "In immediate danger?",
@@ -967,5 +968,27 @@
     "reportNote": "Remlo does not receive scam reports. Get help and reporting instructions from ScamShield.",
     "estimates": "Illustrative estimates, not provider quotes. Fees, rates, speed and availability must be checked with the provider. Remlo does not transfer money.",
     "referenceRate": "Reference exchange rate · Fetched {{time}}"
+  },
+  "deleteAccount": {
+    "title": "Delete Account",
+    "subtitle": "This action is permanent and cannot be undone",
+    "warningTitle": "Warning — permanent action",
+    "warningBody": "Deleting your account will permanently erase all your Remlo data from our servers. There is no way to recover it afterwards.",
+    "listTitle": "What will be permanently deleted",
+    "items": [
+      "Your Remlo account and login details",
+      "All savings goals and progress",
+      "Budget entries and income data",
+      "Loan tracking records",
+      "Salary and payment logs",
+      "Your profile and preferences"
+    ],
+    "confirm": "I understand that deleting my account is permanent and all my data will be lost forever.",
+    "button": "Delete My Account",
+    "deleting": "Deleting account…",
+    "changedMind": "Changed your mind? Tap the back arrow — your data is safe.",
+    "doneTitle": "Account deleted",
+    "doneBody": "Your data has been permanently removed.",
+    "redirecting": "Redirecting you now…"
   }
 }

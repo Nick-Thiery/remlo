@@ -72,7 +72,7 @@ export default function ScamQuiz() {
             className="w-9 h-9 flex items-center justify-center rounded-xl active:scale-95 transition-all shadow-sm mb-5"
             style={{ background: card, border: `1px solid ${border}` }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : '#6B7280' }} />
+            <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: isDark ? '#F5F2EC' : '#6B7280' }} />
           </button>
 
           <div className={`rounded-2xl border ${rating.border} ${rating.bg} p-8 text-center mb-6`}>
@@ -148,7 +148,7 @@ export default function ScamQuiz() {
             className="w-9 h-9 flex items-center justify-center rounded-xl active:scale-95 transition-all shadow-sm mb-4"
             style={{ background: card, border: `1px solid ${border}` }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : '#6B7280' }} />
+            <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: isDark ? '#F5F2EC' : '#6B7280' }} />
           </button>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">

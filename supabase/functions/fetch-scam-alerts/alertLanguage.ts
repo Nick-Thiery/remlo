@@ -12,3 +12,15 @@ export const ENGLISH_FALLBACK_LANGUAGES = ['ta', 'si', 'my']
 export function servesEnglishAlerts(language: string, translatedLanguages: Record<string, string>): boolean {
   return language === 'en' || !translatedLanguages[language] || ENGLISH_FALLBACK_LANGUAGES.includes(language)
 }
+
+// A "translation" that comes back unchanged from English. The model sometimes
+// returns the English text (Thai and Filipino had five such alerts cached on
+// 10 Oct 2026, served as if translated). Such rows are treated as missing, so
+// they are translated again, and are never cached.
+export function isUntranslated(
+  english: { title: string, description: string },
+  tx: { title?: string, description?: string } | undefined | null,
+): boolean {
+  if (!tx || !tx.title || !tx.description) return true
+  return tx.title.trim() === english.title.trim() || tx.description.trim() === english.description.trim()
+}

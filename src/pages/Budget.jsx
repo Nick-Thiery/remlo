@@ -9,8 +9,13 @@ import { presetExpenses } from '../lib/budgetPresets.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 import { onPageExit } from '../lib/pageExit.js'
+import { ltr } from '../lib/bidi.js'
 
 function formatSGD(amount) {
+  return ltr(rawFormatSGD(amount))
+}
+
+function rawFormatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency',
     currency: 'SGD',
@@ -532,7 +537,7 @@ export default function Budget() {
         >
           <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.incomeLabel')}</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
             <input
               type="number"
               min="0"
@@ -711,7 +716,7 @@ export default function Budget() {
                       <div className="flex items-center gap-3 flex-shrink-0">
                         {editingKey === e.id ? (
                           <div className="relative">
-                            <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">S$</span>
+                            <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none" dir="ltr">S$</span>
                             <input
                               autoFocus
                               type="number"
@@ -852,7 +857,7 @@ export default function Budget() {
                 />
               </div>
               <div className="relative w-28">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none font-semibold">S$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                 <input
                   type="number"
                   placeholder="0"
@@ -1021,7 +1026,7 @@ export default function Budget() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                   <input
                     autoFocus
                     type="number"
@@ -1134,7 +1139,7 @@ export default function Budget() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.spendAmountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                   <input
                     autoFocus
                     type="number"

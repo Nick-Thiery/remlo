@@ -104,7 +104,8 @@
     "noFee": "免费",
     "loading": "加载中...",
     "emergency": "紧急",
-    "nonEmergency": "非紧急"
+    "nonEmergency": "非紧急",
+    "englishOnly": "此页面仅提供英文版本。"
   },
   "savings": {
     "pageTitle": "储蓄目标",
@@ -582,7 +583,9 @@
     "limitReached": "您已达到今天的聊天次数上限，请稍后再试。",
     "disclaimer": "仅供参考。紧急情况请拨打 999。",
     "noApiKey": "API 密钥未配置。请在 .env 文件中添加 VITE_ANTHROPIC_API_KEY。",
-    "listeningPlaceholder": "正在聆听…"
+    "listeningPlaceholder": "正在聆听…",
+    "voiceStart": "开始语音输入",
+    "voiceStop": "停止录音"
   },
   "emergency": {
     "dangerText": "身处紧急危险？",
@@ -965,5 +968,27 @@
     "reportNote": "Remlo 不接收诈骗举报。请前往 ScamShield 获取帮助和举报指引。",
     "estimates": "仅为示例估算，并非服务商报价。请向服务商确认费用、汇率、到账时间及可用性。Remlo 不提供转账服务。",
     "referenceRate": "参考汇率 · 获取于 {{time}}"
+  },
+  "deleteAccount": {
+    "title": "删除账户",
+    "subtitle": "此操作是永久性的，无法撤销",
+    "warningTitle": "警告 — 永久性操作",
+    "warningBody": "删除账户后，我们服务器上您的所有 Remlo 数据将被永久清除，之后无法恢复。",
+    "listTitle": "将被永久删除的内容",
+    "items": [
+      "您的 Remlo 账户和登录信息",
+      "所有储蓄目标和进度",
+      "预算记录和收入数据",
+      "贷款记录",
+      "工资和付款记录",
+      "您的个人资料和偏好设置"
+    ],
+    "confirm": "我明白删除账户是永久性的，我的所有数据将永远丢失。",
+    "button": "删除我的账户",
+    "deleting": "正在删除账户…",
+    "changedMind": "改变主意了？点击返回箭头 — 您的数据是安全的。",
+    "doneTitle": "账户已删除",
+    "doneBody": "您的数据已被永久删除。",
+    "redirecting": "正在为您跳转…"
   }
 }

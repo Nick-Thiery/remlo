@@ -6,15 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { supabase } from '../lib/supabase.js'
 import safeStorage from '../lib/safeStorage.js'
 
-const WHAT_GETS_DELETED = [
-  'Your Remlo account and login credentials',
-  'All savings goals and progress',
-  'Budget entries and income data',
-  'Loan tracking records',
-  'Salary and payment logs',
-  'Your profile and preferences',
-]
-
 export default function DeleteAccount() {
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -79,9 +70,9 @@ export default function DeleteAccount() {
             style={{ background: isDark ? '#0D2B1E' : '#ECFDF5', border: `1px solid ${isDark ? '#1A4A30' : '#A7F3D0'}` }}>
             <CheckCircle className="w-8 h-8 text-emerald-500" />
           </div>
-          <p className="text-lg font-bold text-gray-900 mb-2">Account deleted</p>
+          <p className="text-lg font-bold text-gray-900 mb-2">{t('deleteAccount.doneTitle')}</p>
           <p className="text-sm text-gray-500 leading-relaxed">
-            Your data has been permanently removed.<br />Redirecting you now…
+            {t('deleteAccount.doneBody')}<br />{t('deleteAccount.redirecting')}
           </p>
         </div>
       </div>
@@ -96,15 +87,16 @@ export default function DeleteAccount() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate(-1)}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0"
             style={{ background: card, border: `1px solid ${border}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : undefined }} />
+            <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: isDark ? '#F5F2EC' : undefined }} />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">Delete Account</h1>
-            <p className="text-sm text-gray-500 mt-0.5">This action is permanent and cannot be undone</p>
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('deleteAccount.title')}</h1>
+            <p className="text-sm text-gray-500 mt-0.5">{t('deleteAccount.subtitle')}</p>
           </div>
         </div>
 
@@ -114,11 +106,10 @@ export default function DeleteAccount() {
           <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: isDark ? '#FCA5A5' : '#DC2626' }} />
           <div>
             <p className="text-xs font-bold mb-1" style={{ color: isDark ? '#FCA5A5' : '#991B1B' }}>
-              Warning — permanent action
+              {t('deleteAccount.warningTitle')}
             </p>
             <p className="text-xs leading-relaxed" style={{ color: isDark ? '#F87171' : '#B91C1C' }}>
-              Deleting your account will permanently erase all your Remlo data from our servers.
-              There is no way to recover it afterwards.
+              {t('deleteAccount.warningBody')}
             </p>
           </div>
         </div>
@@ -126,9 +117,9 @@ export default function DeleteAccount() {
         {/* What gets deleted */}
         <div className="rounded-2xl px-5 py-5 mb-5"
           style={{ background: card, border: `1px solid ${border}`, boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
-          <p className="text-sm font-bold text-gray-900 mb-3">What will be permanently deleted</p>
+          <p className="text-sm font-bold text-gray-900 mb-3">{t('deleteAccount.listTitle')}</p>
           <ul className="space-y-2">
-            {WHAT_GETS_DELETED.map((item) => (
+            {t('deleteAccount.items', { returnObjects: true }).map((item) => (
               <li key={item} className="flex gap-2.5 text-sm text-gray-600 leading-relaxed">
                 <span className="text-red-300 flex-shrink-0 mt-0.5">•</span>
                 <span>{item}</span>
@@ -161,7 +152,7 @@ export default function DeleteAccount() {
             )}
           </div>
           <span className="text-sm leading-snug" style={{ color: isDark ? '#D1CDC8' : '#374151' }}>
-            I understand that deleting my account is permanent and all my data will be lost forever.
+            {t('deleteAccount.confirm')}
           </span>
         </button>
 
@@ -190,18 +181,18 @@ export default function DeleteAccount() {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              Deleting account…
+              {t('deleteAccount.deleting')}
             </>
           ) : (
             <>
               <Trash2 className="w-4 h-4" />
-              Delete My Account
+              {t('deleteAccount.button')}
             </>
           )}
         </button>
 
         <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
-          Changed your mind? Tap the back arrow — your data is safe.
+          {t('deleteAccount.changedMind')}
         </p>
         <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
           {t('disclaimer.educational')}

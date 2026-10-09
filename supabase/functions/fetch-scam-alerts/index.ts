@@ -10,7 +10,7 @@
  */
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { servesEnglishAlerts } from './alertLanguage.ts'
+import { servesEnglishAlerts, isUntranslated } from './alertLanguage.ts'
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -214,8 +214,13 @@ Deno.serve(async (req) => {
       .eq('language', language)
       .in('alert_id', alertIds)
 
+    // Cached rows that are still English are treated as missing (see isUntranslated).
+    const englishById = new Map(englishAlerts.map(a => [a.id, a]))
     const cacheMap = new Map<string, CachedTranslation>(
-      (cached ?? []).map((row: CachedTranslation) => [row.alert_id, row])
+      (cached ?? [])
+        .filter((row: CachedTranslation) => !isUntranslated(englishById.get(row.alert_id)!,
+          { title: row.translated_title, description: row.translated_description }))
+        .map((row: CachedTranslation) => [row.alert_id, row])
     )
 
     console.log(`[fetch-scam-alerts] Cache hits: ${cacheMap.size}/${englishAlerts.length} for "${language}"`)
@@ -234,7 +239,7 @@ Deno.serve(async (req) => {
         const rows = uncached
           .map(a => {
             const tx = txMap.get(a.id)
-            if (!tx) return null
+            if (!tx || isUntranslated(a, tx)) return null
             return {
               alert_id: a.id,
               language,
@@ -260,7 +265,7 @@ Deno.serve(async (req) => {
         // Merge fresh translations into the cache map for this response
         for (const a of uncached) {
           const tx = txMap.get(a.id)
-          if (tx) {
+          if (tx && !isUntranslated(a, tx)) {
             cacheMap.set(a.id, {
               alert_id: a.id,
               translated_title: tx.title,

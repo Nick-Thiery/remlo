@@ -6,8 +6,13 @@ import { supabase } from '../lib/supabase.js'
 import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { ltr } from '../lib/bidi.js'
 
 function formatSGD(amount) {
+  return ltr(rawFormatSGD(amount))
+}
+
+function rawFormatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency',
     currency: 'SGD',
@@ -198,11 +203,12 @@ export default function Salary() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0"
             style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : '#4B5563' }} />
+            <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: isDark ? '#F5F2EC' : '#4B5563' }} />
           </button>
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('salary.pageTitle')}</h1>
@@ -282,9 +288,10 @@ export default function Salary() {
         >
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{t('salary.paydaySetting')}</p>
           <div className="flex items-center gap-3">
-            <label className="text-sm text-gray-700 flex-shrink-0 font-medium">{t('salary.paydayPrefix')}</label>
+            <label htmlFor="salary-payday" className="text-sm text-gray-700 flex-shrink-0 font-medium">{t('salary.paydayPrefix')}</label>
             <div className="relative">
               <select
+                id="salary-payday"
                 value={payday}
                 onChange={(e) => handlePaydayChange(Number(e.target.value))}
                 className="rounded-xl pl-3 pr-8 py-2.5 text-sm font-bold appearance-none"
@@ -446,7 +453,7 @@ export default function Salary() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold" dir="ltr">S$</span>
                   <input
                     type="number"
                     placeholder="0.00"

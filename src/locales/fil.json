@@ -104,7 +104,8 @@
     "noFee": "Walang bayad",
     "loading": "Naglo-load...",
     "emergency": "Emergency",
-    "nonEmergency": "Hindi emergency"
+    "nonEmergency": "Hindi emergency",
+    "englishOnly": "Available lang sa English ang page na ito."
   },
   "savings": {
     "pageTitle": "Mga Layunin sa Ipon",
@@ -582,7 +583,9 @@
     "limitReached": "Naabot mo na ang limitasyon ng chat para ngayong araw. Subukan ulit mamaya.",
     "disclaimer": "Para sa gabay lamang. Tumawag sa 999 sa mga emergency.",
     "noApiKey": "Hindi naka-configure ang API key. Idagdag ang VITE_ANTHROPIC_API_KEY sa iyong .env file.",
-    "listeningPlaceholder": "Nakikinig…"
+    "listeningPlaceholder": "Nakikinig…",
+    "voiceStart": "Simulan ang voice input",
+    "voiceStop": "Ihinto ang pag-record"
   },
   "emergency": {
     "dangerText": "Nasa agarang panganib?",
@@ -965,5 +968,27 @@
     "reportNote": "Hindi tumatanggap ng ulat ng scam ang Remlo. Tingnan ang ScamShield para sa tulong at paraan ng pag-uulat.",
     "estimates": "Mga halimbawang tantiya lang ito, hindi alok ng provider. Tiyakin sa provider ang bayad, rate, bilis at availability. Hindi naglilipat ng pera ang Remlo.",
     "referenceRate": "Reference exchange rate · Kinuha noong {{time}}"
+  },
+  "deleteAccount": {
+    "title": "Burahin ang Account",
+    "subtitle": "Permanente ang aksyong ito at hindi na maibabalik",
+    "warningTitle": "Babala — permanenteng aksyon",
+    "warningBody": "Kapag binura mo ang account mo, permanenteng mabubura ang lahat ng Remlo data mo sa aming mga server. Wala nang paraan para maibalik ito pagkatapos.",
+    "listTitle": "Ang permanenteng mabubura",
+    "items": [
+      "Ang Remlo account mo at mga detalye sa pag-login",
+      "Lahat ng savings goal at progreso",
+      "Mga budget entry at datos ng kita",
+      "Mga record ng utang",
+      "Mga record ng sweldo at bayad",
+      "Ang profile at mga setting mo"
+    ],
+    "confirm": "Naiintindihan ko na permanente ang pagbura ng account ko at mawawala nang tuluyan ang lahat ng data ko.",
+    "button": "Burahin ang Account Ko",
+    "deleting": "Binubura ang account…",
+    "changedMind": "Nagbago ang isip mo? I-tap ang pabalik na arrow — ligtas ang data mo.",
+    "doneTitle": "Nabura na ang account",
+    "doneBody": "Permanente nang naalis ang data mo.",
+    "redirecting": "Ililipat ka na ngayon…"
   }
 }

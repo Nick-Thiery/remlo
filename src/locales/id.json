@@ -104,7 +104,8 @@
     "noFee": "Tanpa biaya",
     "loading": "Memuat...",
     "emergency": "Darurat",
-    "nonEmergency": "Tidak darurat"
+    "nonEmergency": "Tidak darurat",
+    "englishOnly": "Halaman ini hanya tersedia dalam bahasa Inggris."
   },
   "savings": {
     "pageTitle": "Tujuan Tabungan",
@@ -582,7 +583,9 @@
     "limitReached": "Anda sudah mencapai batas obrolan hari ini. Silakan coba lagi nanti.",
     "disclaimer": "Hanya untuk panduan. Hubungi 999 dalam keadaan darurat.",
     "noApiKey": "Kunci API belum dikonfigurasi. Tambahkan VITE_ANTHROPIC_API_KEY ke file .env Anda.",
-    "listeningPlaceholder": "Mendengarkan…"
+    "listeningPlaceholder": "Mendengarkan…",
+    "voiceStart": "Mulai input suara",
+    "voiceStop": "Hentikan rekaman"
   },
   "emergency": {
     "dangerText": "Dalam bahaya langsung?",
@@ -965,5 +968,27 @@
     "reportNote": "Remlo tidak menerima laporan penipuan. Lihat ScamShield untuk bantuan dan petunjuk pelaporan.",
     "estimates": "Ini perkiraan contoh, bukan penawaran penyedia. Periksa biaya, kurs, waktu dan ketersediaan dengan penyedia. Remlo tidak mentransfer uang.",
     "referenceRate": "Kurs referensi · Diambil {{time}}"
+  },
+  "deleteAccount": {
+    "title": "Hapus Akun",
+    "subtitle": "Tindakan ini permanen dan tidak bisa dibatalkan",
+    "warningTitle": "Peringatan — tindakan permanen",
+    "warningBody": "Menghapus akun akan menghapus semua data Remlo-mu dari server kami secara permanen. Data itu tidak bisa dipulihkan lagi setelahnya.",
+    "listTitle": "Yang akan dihapus permanen",
+    "items": [
+      "Akun Remlo-mu dan detail login",
+      "Semua target tabungan dan perkembangannya",
+      "Catatan anggaran dan data pendapatan",
+      "Catatan pinjaman",
+      "Catatan gaji dan pembayaran",
+      "Profil dan preferensimu"
+    ],
+    "confirm": "Saya mengerti bahwa menghapus akun saya bersifat permanen dan semua data saya akan hilang selamanya.",
+    "button": "Hapus Akun Saya",
+    "deleting": "Menghapus akun…",
+    "changedMind": "Berubah pikiran? Ketuk panah kembali — datamu aman.",
+    "doneTitle": "Akun dihapus",
+    "doneBody": "Datamu sudah dihapus secara permanen.",
+    "redirecting": "Mengalihkanmu sekarang…"
   }
 }
