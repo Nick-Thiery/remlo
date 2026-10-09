@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
-import { ArrowLeftRight, RefreshCw, WifiOff, Zap } from 'lucide-react'
+import { ArrowLeftRight, RefreshCw, WifiOff, Zap, ExternalLink } from 'lucide-react'
 import { fetchJson } from '../lib/fetchJson.js'
+import { fetchWiseQuote, speedLabelFor, singaporeTime, roundCents, WISE_UNSUPPORTED, QUOTE_MIN_SGD, QUOTE_MAX_SGD } from '../lib/wiseQuote.js'
 import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
 import safeStorage from '../lib/safeStorage.js'
@@ -26,21 +27,25 @@ const FALLBACK_MID_RATES = {
 
 const PROVIDER_CONFIG = [
   {
-    id: 'wise', name: 'Wise',
+    id: 'wise', name: 'Wise', url: 'https://wise.com/',
     grad: 'linear-gradient(135deg, #10B981, #059669)',
-    spread: 0.005,
-    fees:  { IN: 1.40,  BD: 1.65,  PH: 1.50,  MM: 2.10,  ID: 1.80,  LK: 1.55,  CN: 1.20, TH: 1.40, PK: 1.80,  NP: 1.60  },
+    // Used only when the live quote can't be fetched. Fitted to Wise's own
+    // PayNow quotes at S$100 and S$1,000 (10 Oct 2026): Wise uses the market
+    // rate and charges a fixed fee plus a percentage. No Myanmar (not offered).
+    spread: 0,
+    fees:   { IN: 0.72,   BD: 2.75,   PH: 0.65,   MM: 0, ID: 0.94,   LK: 3.04,  CN: 3.86,   TH: 2.33,   PK: 1.01,   NP: 1.98  },
+    feePct: { IN: 0.0033, BD: 0.0059, PH: 0.0040, MM: 0, ID: 0.0027, LK: 0.0037, CN: 0.0075, TH: 0.0050, PK: 0.0046, NP: 0.0097 },
     speed: { IN: 'remittance.speedInstant2hrs', BD: 'remittance.speed1to2days', PH: 'remittance.speedInstant', MM: 'remittance.speed2to5days', ID: 'remittance.speedInstant', LK: 'remittance.speed1to2days', CN: 'remittance.speed1to2days', TH: 'remittance.speedInstant', PK: 'remittance.speed1to2days', NP: 'remittance.speed1to2days' },
   },
   {
-    id: 'remitly', name: 'Remitly',
+    id: 'remitly', name: 'Remitly', url: 'https://www.remitly.com/',
     grad: 'linear-gradient(135deg, #3B82F6, #2563EB)',
     spread: 0.010,
     fees:  { IN: 0.00, BD: 0.00, PH: 0.00, MM: 0.00, ID: 0.00, LK: 0.00, CN: 0.00, TH: 0.00, PK: 0.00, NP: 0.00 },
     speed: { IN: 'remittance.speedInstant', BD: 'remittance.speed3to5days', PH: 'remittance.speedInstant', MM: 'remittance.speed3to7days', ID: 'remittance.speedInstant', LK: 'remittance.speed3to5days', CN: 'remittance.speed2to4days', TH: 'remittance.speedInstant', PK: 'remittance.speed3to5days', NP: 'remittance.speed3to5days' },
   },
   {
-    id: 'wu', name: 'Western Union',
+    id: 'wu', name: 'Western Union', url: 'https://www.westernunion.com/',
     grad: 'linear-gradient(135deg, #F59E0B, #D97706)',
     spread: 0.020,
     fees:  { IN: 3.90, BD: 4.50, PH: 3.50, MM: 5.00, ID: 4.00, LK: 4.20, CN: 3.80, TH: 3.50, PK: 4.50, NP: 4.00 },
@@ -72,7 +77,7 @@ function formatTime(date) {
 }
 
 export default function Remittance() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const isDark = useDarkMode()
   const bg     = isDark ? '#121110' : '#FAFAF8'
   const card   = isDark ? '#1E1C1A' : 'white'
@@ -118,18 +123,60 @@ export default function Remittance() {
   const amount = parseFloat(sendAmount) || 0
   const dest = COUNTRIES[country]
 
+  // Live Wise quote for this amount and country. Other providers stay estimates.
+  // status: idle | loading | ok | unavailable (Wise doesn't send there) | error
+  const [wise, setWise] = useState({ status: 'idle' })
+  useEffect(() => {
+    const amt = roundCents(parseFloat(sendAmount) || 0)
+    const currency = COUNTRIES[country].currency
+    const controller = new AbortController()
+    let cancelled = false
+    // Wait until the worker stops typing before asking for a quote.
+    const timer = setTimeout(async () => {
+      if (WISE_UNSUPPORTED.includes(currency)) { setWise({ status: 'unavailable', currency }); return }
+      if (amt < QUOTE_MIN_SGD || amt > QUOTE_MAX_SGD) { setWise({ status: 'idle', currency }); return }
+      setWise({ status: 'loading', currency })
+      try {
+        const q = await fetchWiseQuote(currency, amt, { signal: controller.signal })
+        if (cancelled) return
+        if (q?.supported === false) setWise({ status: 'unavailable', currency })
+        else if (q?.supported && q.targetCurrency === currency) setWise({ status: 'ok', currency, quote: q })
+        else setWise({ status: 'error', currency })
+      } catch {
+        if (!cancelled) setWise({ status: 'error', currency })
+      }
+    }, 500)
+    return () => { cancelled = true; clearTimeout(timer); controller.abort() }
+  }, [sendAmount, country])
+
+  // Known straight away for Myanmar, so the row never shows during the debounce;
+  // a result for another country is ignored.
+  const wiseUnavailable = WISE_UNSUPPORTED.includes(dest.currency) ||
+    (wise.status === 'unavailable' && wise.currency === dest.currency)
+  const wiseLoading = wise.status === 'loading' && wise.currency === dest.currency
+
   const results = useMemo(() => {
     if (!midRates) return []
     const mid = midRates[dest.currency]
     if (!mid) return []
-    return PROVIDER_CONFIG.map((p) => {
+    const rows = []
+    for (const p of PROVIDER_CONFIG) {
+      if (p.id === 'wise' && wiseUnavailable) continue
+      const q = wise.quote
+      if (p.id === 'wise' && wise.status === 'ok' && q.targetCurrency === dest.currency && q.sourceAmount === roundCents(amount)) {
+        const speed = speedLabelFor(q.estimatedDelivery) ?? [p.speed[country]]
+        rows.push({ ...p, kind: 'quote', rate: q.rate, fee: q.fee, received: q.received, speed, retrievedAt: q.retrievedAt, payIn: q.payIn })
+        continue
+      }
       const rate    = mid * (1 - p.spread)
-      const fee     = p.fees[country]
+      const fee     = roundCents(p.fees[country] + (p.feePct?.[country] ?? 0) * amount)
       const netSend = Math.max(amount - fee, 0)
-      const received = netSend * rate
-      return { ...p, rate, fee, received }
-    })
-  }, [amount, country, midRates, dest.currency])
+      rows.push({ ...p, kind: 'estimate', rate, fee, received: netSend * rate, speed: [p.speed[country]] })
+    }
+    // Most money for the family first, whoever the provider is.
+    return rows.sort((a, b) => b.received - a.received)
+  }, [amount, country, midRates, dest.currency, wise, wiseUnavailable])
+  const showsLiveQuote = results.some((r) => r.kind === 'quote')
 
 
   return (
@@ -139,7 +186,7 @@ export default function Remittance() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('remittance.pageTitle')}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{t('workshop.estimates')}</p>
+          <p className="text-sm text-gray-500 mt-0.5">{showsLiveQuote ? t('remittance.estimatesWithQuote') : t('workshop.estimates')}</p>
         </div>
 
         {/* Live rates status */}
@@ -261,6 +308,9 @@ export default function Remittance() {
                 })}
               </p>
             )}
+            {amount > 0 && (
+              <p className="text-xs text-gray-500 font-medium -mt-1.5 mb-3">{t('remittance.sortedByReceived')}</p>
+            )}
 
             <div className="space-y-3">
               {amount <= 0 ? (
@@ -303,10 +353,20 @@ export default function Remittance() {
                             </span>
                           </div>
                           <div>
-                            <p className="font-extrabold text-gray-900 text-sm">{p.name}</p>
-                            <div className="flex items-center gap-1 text-gray-400 mt-0.5">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <p className="font-extrabold text-gray-900 text-sm">{p.name}</p>
+                              <span
+                                className="text-[11px] font-bold px-1.5 py-0.5 rounded-md"
+                                style={p.kind === 'quote'
+                                  ? { background: isDark ? '#0D2B1E' : '#ECFDF5', color: isDark ? '#6EE7B7' : '#047857' }
+                                  : { background: isDark ? '#2C2926' : '#F5F2EC', color: isDark ? '#C9C2BA' : '#57534E' }}
+                              >
+                                {p.kind === 'quote' ? t('remittance.liveQuote') : t('remittance.estimateBadge')}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1 text-gray-500 mt-0.5">
                               <Zap className="w-3 h-3" />
-                              <span className="text-xs font-medium">{t(p.speed[country])}</span>
+                              <span className="text-xs font-medium">{t(...p.speed)}</span>
                             </div>
                           </div>
                         </div>
@@ -340,14 +400,51 @@ export default function Remittance() {
                           </p>
                         </div>
                       </div>
+
+                      {/* Where the numbers come from, and the provider's own site */}
+                      <div className="px-5 pb-4 -mt-1 space-y-1.5">
+                        {p.kind === 'quote' ? (
+                          <>
+                            <p className="text-xs font-semibold" style={{ color: isDark ? '#6EE7B7' : '#047857' }}>
+                              {t('remittance.wiseQuoteSource', { time: singaporeTime(p.retrievedAt, i18n.language) })}
+                            </p>
+                            <p className="text-xs text-gray-500 leading-relaxed">
+                              {p.payIn === 'PAYNOW' && <>{t('remittance.wisePayNow')} </>}
+                              {t('remittance.wiseQuoteNote')}
+                            </p>
+                          </>
+                        ) : p.id === 'wise' && wiseLoading ? (
+                          <p className="text-xs text-gray-500 flex items-center gap-1.5">
+                            <RefreshCw className="w-3 h-3 animate-spin" /> {t('remittance.wiseChecking')}
+                          </p>
+                        ) : null}
+                        {p.url && (
+                          <a
+                            href={p.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-bold py-1"
+                            style={{ color: isDark ? '#FB923C' : '#C2410C' }}
+                          >
+                            {t('remittance.visitProvider', { name: p.name })}
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   )
                 })
               )}
             </div>
 
+            {amount > 0 && wiseUnavailable && (
+              <p className="text-xs text-gray-500 text-center mt-4 leading-relaxed">
+                {t('remittance.wiseNotAvailable', { country: t(`remittance.${dest.nameKey}`) })}
+              </p>
+            )}
+
             {amount > 0 && (
-              <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
+              <p className="text-xs text-gray-500 text-center mt-6 leading-relaxed">
                 {t('remittance.disclaimer')}
               </p>
             )}

@@ -233,7 +233,18 @@
     "speed3to7days": "۳ – ۷ دن",
     "ratesFetching": "لائیو ریٹس حاصل ہو رہے ہیں…",
     "ratesStale": "ریٹس پرانے ہو سکتے ہیں · سروس تک رسائی نہیں ہو سکی",
-    "ratesLive": "لائیو ریٹس · {{time}} کو اپ ڈیٹ"
+    "ratesLive": "لائیو ریٹس · {{time}} کو اپ ڈیٹ",
+    "liveQuote": "لائیو کوٹ",
+    "estimateBadge": "اندازہ",
+    "wiseQuoteSource": "Wise کی جانب سے اندازاً کوٹ، {{time}} SGT پر حاصل کیا گیا",
+    "wiseQuoteNote": "رقم بھیجنے سے پہلے Wise حتمی کوٹ کی تصدیق کرتا ہے۔",
+    "wiseChecking": "Wise کا لائیو کوٹ حاصل کیا جا رہا ہے…",
+    "wiseNotAvailable": "Wise سنگاپور سے {{country}} رقم نہیں بھیجتا۔",
+    "visitProvider": "{{name}} پر جائیں",
+    "speedWithinHours": "{{count}} گھنٹوں کے اندر",
+    "estimatesWithQuote": "Wise والی قطار Wise کا لائیو کوٹ ہے۔ باقی صرف مثال کے طور پر اندازے ہیں، کمپنیوں کے کوٹ نہیں: فیس، شرح، وقت اور دستیابی کمپنی سے معلوم کریں۔ Remlo رقم منتقل نہیں کرتا۔",
+    "sortedByReceived": "آپ کے خاندان کو ملنے والی رقم کے حساب سے ترتیب دی گئی",
+    "wisePayNow": "PayNow سے ادائیگی۔"
   },
   "salary": {
     "pageTitle": "تنخواہ ٹریکر",
