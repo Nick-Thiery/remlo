@@ -336,7 +336,7 @@ export default function Remittance() {
                         <div>
                           <p className="text-xs text-gray-400 mb-0.5 font-semibold">{t('remittance.rateLabel')}</p>
                           <p className="text-sm font-extrabold text-gray-900 tabular-nums">
-                            {t('remittance.rateValue', { rate: p.rate.toFixed(2), currency: dest.currency })}
+                            {ltr(t('remittance.rateValue', { rate: p.rate.toFixed(2), currency: dest.currency }))}
                           </p>
                         </div>
                         <div>
