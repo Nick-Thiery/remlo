@@ -61,8 +61,9 @@ export default function Scams() {
       })
       if (!Array.isArray(data?.alerts)) throw new Error('Invalid alerts')
       if (!signal?.aborted) setAlerts(data.alerts.filter(alert =>
-        // This legacy item wrongly claims all employment agency fees are illegal.
-        // Suppress it until both source and cached translations are corrected.
+        // alert_jobscam_001 wrongly claimed all employment agency fees are illegal.
+        // It is replaced by alert_jobscam_002 (the MOM fee cap) and retired by the
+        // function; this keeps it hidden from any stale response.
         alert.id !== 'alert_jobscam_001' && typeof alert.title === 'string' &&
         typeof alert.description === 'string' && Array.isArray(alert.what_to_do)
       ))
