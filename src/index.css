@@ -96,7 +96,9 @@
 /* Tailwind's orange-500 (#FF6900) is not Remlo's orange. Buttons use the brand
    orange from the logo and gradients instead (also more readable: 3.4:1 vs 2.8:1). */
 .bg-orange-500 { background-color: #E8640C; }
-.hover\:bg-orange-600:hover { background-color: #CC5708; }
+@media (hover: hover) {
+  .hover\:bg-orange-600:hover { background-color: #CC5708; }
+}
 
 /* ── Dark mode Tailwind overrides ──────────────────────────────────── */
 .dark .text-gray-900 { color: #F5F2EE; }
