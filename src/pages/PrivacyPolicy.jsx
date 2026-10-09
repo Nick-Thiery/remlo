@@ -29,6 +29,7 @@ const SECTIONS = [
     body: [
       'Your account and financial data is stored using Supabase, a secure cloud database. All data is encrypted when sent over the internet and when stored.',
       'Scam alerts are fetched from our Supabase Edge Functions — these are small server programs that run in the cloud. No personal data is sent during this process.',
+      'When you compare transfers, the amount and the destination currency are sent from our server to Wise to get a live quote. Nothing that identifies you is sent to Wise, and we do not store the amount.',
       'Guest budgets and savings are stored on this device. If you later sign in, they can be uploaded to your account. AI chat messages are sent for processing even in guest mode.',
     ],
   },
