@@ -29,8 +29,12 @@ const PROVIDER_CONFIG = [
   {
     id: 'wise', name: 'Wise', url: 'https://wise.com/',
     grad: 'linear-gradient(135deg, #10B981, #059669)',
-    spread: 0.005,
-    fees:  { IN: 1.40,  BD: 1.65,  PH: 1.50,  MM: 2.10,  ID: 1.80,  LK: 1.55,  CN: 1.20, TH: 1.40, PK: 1.80,  NP: 1.60  },
+    // Used only when the live quote can't be fetched. Fitted to Wise's own
+    // PayNow quotes at S$100 and S$1,000 (10 Oct 2026): Wise uses the market
+    // rate and charges a fixed fee plus a percentage. No Myanmar (not offered).
+    spread: 0,
+    fees:   { IN: 0.72,   BD: 2.75,   PH: 0.65,   MM: 0, ID: 0.94,   LK: 3.04,  CN: 3.86,   TH: 2.33,   PK: 1.01,   NP: 1.98  },
+    feePct: { IN: 0.0033, BD: 0.0059, PH: 0.0040, MM: 0, ID: 0.0027, LK: 0.0037, CN: 0.0075, TH: 0.0050, PK: 0.0046, NP: 0.0097 },
     speed: { IN: 'remittance.speedInstant2hrs', BD: 'remittance.speed1to2days', PH: 'remittance.speedInstant', MM: 'remittance.speed2to5days', ID: 'remittance.speedInstant', LK: 'remittance.speed1to2days', CN: 'remittance.speed1to2days', TH: 'remittance.speedInstant', PK: 'remittance.speed1to2days', NP: 'remittance.speed1to2days' },
   },
   {
@@ -159,7 +163,7 @@ export default function Remittance() {
         continue
       }
       const rate    = mid * (1 - p.spread)
-      const fee     = p.fees[country]
+      const fee     = roundCents(p.fees[country] + (p.feePct?.[country] ?? 0) * amount)
       const netSend = Math.max(amount - fee, 0)
       rows.push({ ...p, kind: 'estimate', rate, fee, received: netSend * rate, speed: [p.speed[country]] })
     }
