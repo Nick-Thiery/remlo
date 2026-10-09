@@ -98,6 +98,7 @@ export default function Savings() {
       } else if (entriesRes.error) {
         setError(entriesRes.error.message)
       } else {
+        setError(null)
         setGoals(goalsRes.data.map(row => ({
           id:     row.id,
           name:   row.name,

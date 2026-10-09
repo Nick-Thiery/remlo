@@ -13,14 +13,19 @@ export function servesEnglishAlerts(language: string, translatedLanguages: Recor
   return language === 'en' || !translatedLanguages[language] || ENGLISH_FALLBACK_LANGUAGES.includes(language)
 }
 
-// A "translation" that comes back unchanged from English. The model sometimes
-// returns the English text (Thai and Filipino had five such alerts cached on
-// 10 Oct 2026, served as if translated). Such rows are treated as missing, so
-// they are translated again, and are never cached.
+// A "translation" whose description came back unchanged from English. The
+// model sometimes returns the English text (Thai had three such alerts cached
+// on 10 Oct 2026, served as if translated). Such rows are treated as missing,
+// so they are translated again, and are never cached. An English title alone
+// is accepted: titles are short and often mostly names (WhatsApp, DBS, MOM).
 export function isUntranslated(
   english: { title: string, description: string },
   tx: { title?: string, description?: string } | undefined | null,
 ): boolean {
   if (!tx || !tx.title || !tx.description) return true
-  return tx.title.trim() === english.title.trim() || tx.description.trim() === english.description.trim()
+  return tx.description.trim() === english.description.trim()
 }
+
+// After the model fails to translate an alert, wait this long before asking
+// again, so a stubborn alert doesn't cost a paid call on every page view.
+export const RETRY_AFTER_MS = 6 * 60 * 60 * 1000
