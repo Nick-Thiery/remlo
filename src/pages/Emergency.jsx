@@ -41,11 +41,12 @@ const CATEGORIES = [
   },
 ]
 
-function CallButton({ number, label }) {
+// Deep orange (#C2410C): white text on it is 5.2:1; the old bg-orange-500 was 2.8:1.
+function CallButton({ number, label, className = '' }) {
   return (
     <a
       href={telHref(number)}
-      className="inline-flex items-center justify-center gap-1.5 bg-orange-500 text-white text-xs font-semibold rounded-xl px-3.5 py-2 hover:bg-orange-600 active:scale-95 transition-all"
+      className={`inline-flex items-center justify-center gap-1.5 bg-[#C2410C] text-white text-xs font-bold rounded-xl px-3.5 py-2.5 hover:bg-[#9A3412] active:scale-95 transition-all ${className}`}
     >
       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.338c0-.966.784-1.75 1.75-1.75h1.386c.46 0 .878.25 1.087.65l1.292 2.582a1.75 1.75 0 01-.38 2.064l-.44.44a12.14 12.14 0 005.586 5.586l.44-.44a1.75 1.75 0 012.064-.38l2.582 1.292c.4.2.65.627.65 1.087v1.386A1.75 1.75 0 0119.662 21.75C9.9 21.75 2.25 14.1 2.25 4.338V2.952A1.75 1.75 0 014 1.202z" />
@@ -141,7 +142,9 @@ export default function Emergency() {
                     </div>
 
                     {/* Phone + actions row */}
-                    <div className="flex items-center justify-between gap-3 mt-3">
+                    {/* With two numbers the buttons get their own row; side by side they
+                        squeezed the number into a narrow column and ran off the card. */}
+                    <div className={`flex gap-3 mt-3 ${c.alt ? 'flex-col' : 'items-center justify-between'}`}>
                       <div>
                         <p className="text-base font-bold" style={{ color: textPrimary }}>{c.number}</p>
                         {c.alt && (
@@ -156,11 +159,11 @@ export default function Emergency() {
                           <p className="text-xs text-gray-400 mt-0.5">{c.hours}</p>
                         )}
                       </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className={`flex items-center gap-2 ${c.alt ? '' : 'flex-shrink-0'}`}>
                         {c.alt && (
-                          <CallButton number={c.alt} label={t('common.nonEmergency')} />
+                          <CallButton number={c.alt} label={t('common.nonEmergency')} className="flex-1" />
                         )}
-                        <CallButton number={c.number} label={c.alt ? t('common.emergency') : t('common.call')} />
+                        <CallButton number={c.number} label={c.alt ? t('common.emergency') : t('common.call')} className={c.alt ? 'flex-1' : ''} />
                       </div>
                     </div>
 

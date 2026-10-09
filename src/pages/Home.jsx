@@ -79,7 +79,7 @@ export default function Home() {
   const border = isDark ? '#2C2926' : '#F0EDE8'
   const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const textPrimary   = isDark ? '#F5F2EE' : '#1A1A1A'
-  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
+  const textSecondary = isDark ? '#9CA3AF' : '#57534E'
   const [langOpen, setLangOpen] = useState(false)
   const [statsLoading, setStatsLoading] = useState(true)
   const [totalSaved, setTotalSaved] = useState(0)

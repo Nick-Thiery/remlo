@@ -85,14 +85,27 @@
   border: 1px solid var(--border-subtle);
 }
 
+/* ── Readable greys ─────────────────────────────────────────────────── */
+/* Tailwind's gray-400 is 2.5:1 on Remlo's off-white, too faint for the small
+   secondary text that uses it (and outdoors on a cheap phone). These warm greys
+   from Remlo's palette are at least 4.5:1 (WCAG AA): gray-400 5.1:1,
+   gray-500 7.3:1 on #FAFAF8. */
+.text-gray-400 { color: #706A64; }
+.text-gray-500 { color: #57534E; }
+
+/* Tailwind's orange-500 (#FF6900) is not Remlo's orange. Buttons use the brand
+   orange from the logo and gradients instead (also more readable: 3.4:1 vs 2.8:1). */
+.bg-orange-500 { background-color: #E8640C; }
+.hover\:bg-orange-600:hover { background-color: #CC5708; }
+
 /* ── Dark mode Tailwind overrides ──────────────────────────────────── */
 .dark .text-gray-900 { color: #F5F2EE; }
 .dark .text-gray-800 { color: #E5E1DC; }
 .dark .text-gray-700 { color: #D1CDC8; }
 .dark .text-gray-600 { color: #B8B4AF; }
-.dark .text-gray-500 { color: #9CA3AF; }
-.dark .text-gray-400 { color: #6B7280; }
-.dark .text-gray-300 { color: #4B5563; }
+.dark .text-gray-500 { color: #B8B2AB; }  /* 8.1:1 on cards */
+.dark .text-gray-400 { color: #9C9590; }  /* 5.8:1 on cards (was 3.5:1) */
+.dark .text-gray-300 { color: #7C766F; }
 .dark .text-gray-200 { color: #374151; }
 .dark .bg-white      { background-color: #1E1C1A; }
 .dark .bg-gray-50    { background-color: #1A1816; }
