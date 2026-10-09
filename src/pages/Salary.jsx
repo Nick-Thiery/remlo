@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Banknote, ChevronLeft, Plus } from 'lucide-react'
@@ -64,14 +64,15 @@ export default function Salary() {
   const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
-  const [payments, setPayments] = useState([])
+  // Guest payments are read on the first render; signed-in payments load below.
+  const [payments, setPayments] = useState(() => (isGuest ? JSON.parse(safeStorage.getItem('remlo_guest_salary') || '[]') : []))
   const [payday, setPayday] = useState(() => {
     const saved = safeStorage.getItem('remlo_payday')
     return saved ? parseInt(saved, 10) : 1
   })
   const [showForm, setShowForm] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!isGuest)
   const [error, setError] = useState(null)
 
   const [fDate, setFDate] = useState(today)
@@ -81,14 +82,7 @@ export default function Salary() {
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
-    if (isGuest) {
-      const stored = JSON.parse(safeStorage.getItem('remlo_guest_salary') || '[]')
-      setPayments(stored)
-      setLoading(false)
-      return
-    }
-    if (!user) return
-    setLoading(true)
+    if (isGuest || !user) return
     supabase
       .from('salary_logs')
       .select('id, date, amount, employer, notes')
@@ -109,32 +103,23 @@ export default function Salary() {
       })
   }, [user, isGuest])
 
-  const sorted = useMemo(
-    () => [...payments].sort((a, b) => new Date(b.date) - new Date(a.date)),
-    [payments]
-  )
+  // A worker has a few payments a year, so these are cheap to work out on each render.
+  const sorted = [...payments].sort((a, b) => new Date(b.date) - new Date(a.date))
 
   const now = new Date()
   const thisMonth = now.getMonth()
   const thisYear = now.getFullYear()
 
-  const earnedThisMonth = useMemo(
-    () => payments.filter((p) => {
-      const d = new Date(p.date)
-      return d.getMonth() === thisMonth && d.getFullYear() === thisYear
-    }).reduce((s, p) => s + p.amount, 0),
-    [payments, thisMonth, thisYear]
-  )
+  const earnedThisMonth = payments.filter((p) => {
+    const d = new Date(p.date)
+    return d.getMonth() === thisMonth && d.getFullYear() === thisYear
+  }).reduce((s, p) => s + p.amount, 0)
 
-  const earnedThisYear = useMemo(
-    () => payments.filter((p) => new Date(p.date).getFullYear() === thisYear).reduce((s, p) => s + p.amount, 0),
-    [payments, thisYear]
-  )
+  const earnedThisYear = payments
+    .filter((p) => new Date(p.date).getFullYear() === thisYear)
+    .reduce((s, p) => s + p.amount, 0)
 
-  const lateCount = useMemo(
-    () => payments.filter((p) => isLate(p.date, payday)).length,
-    [payments, payday]
-  )
+  const lateCount = payments.filter((p) => isLate(p.date, payday)).length
 
   function handlePaydayChange(val) {
     setPayday(val)

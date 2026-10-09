@@ -50,9 +50,10 @@ export default function Savings() {
   const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
-  const [goals,   setGoals]   = useState([])
-  const [entries, setEntries] = useState([])
-  const [loading, setLoading] = useState(true)
+  // Guest goals and deposits are read on the first render; signed-in data loads below.
+  const [goals,   setGoals]   = useState(() => (isGuest ? JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]') : []))
+  const [entries, setEntries] = useState(() => (isGuest ? JSON.parse(safeStorage.getItem('remlo_guest_savings_entries') || '[]') : []))
+  const [loading, setLoading] = useState(!isGuest)
   const [error,   setError]   = useState(null)
 
   const [mounted, setMounted] = useState(false)
@@ -73,17 +74,7 @@ export default function Savings() {
   const [depositError,   setDepositError]   = useState('')
 
   useEffect(() => {
-    if (isGuest) {
-      const storedGoals   = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
-      const storedEntries = JSON.parse(safeStorage.getItem('remlo_guest_savings_entries') || '[]')
-      setGoals(storedGoals)
-      setEntries(storedEntries)
-      setLoading(false)
-      return
-    }
-    if (!user) return
-    setLoading(true)
-    setError(null)
+    if (isGuest || !user) return
 
     Promise.all([
       supabase

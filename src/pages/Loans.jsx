@@ -74,10 +74,11 @@ export default function Loans() {
   const textMuted   = isDark ? '#9C9590' : '#6B7280'
   const { user, authLoading, isGuest } = useRequireAuth()
 
-  const [loans, setLoans] = useState([])
+  // Guest loans are read on the first render; signed-in loans load below.
+  const [loans, setLoans] = useState(() => (isGuest ? JSON.parse(safeStorage.getItem('remlo_guest_loans') || '[]') : []))
   const [showForm, setShowForm] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!isGuest)
   const [error, setError] = useState(null)
 
   // Form fields
@@ -89,14 +90,7 @@ export default function Loans() {
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
-    if (isGuest) {
-      const stored = JSON.parse(safeStorage.getItem('remlo_guest_loans') || '[]')
-      setLoans(stored)
-      setLoading(false)
-      return
-    }
-    if (!user) return
-    setLoading(true)
+    if (isGuest || !user) return
     supabase
       .from('loans')
       .select('id, lender, total_amount, interest_rate, monthly_payment, start_date')
