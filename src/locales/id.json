@@ -233,7 +233,17 @@
     "speed3to7days": "3 – 7 hari",
     "ratesFetching": "Mengambil kurs terkini…",
     "ratesStale": "Kurs mungkin tidak terbaru · Tidak dapat menjangkau layanan",
-    "ratesLive": "Kurs terkini · Diperbarui {{time}}"
+    "ratesLive": "Kurs terkini · Diperbarui {{time}}",
+    "liveQuote": "Kuotasi langsung",
+    "estimateBadge": "Perkiraan",
+    "wiseQuoteSource": "Kuotasi indikatif dari Wise, diambil pukul {{time}} SGT",
+    "wiseQuoteNote": "Bayar dengan PayNow. Wise mengonfirmasi kuotasi akhir sebelum kamu mengirim.",
+    "wiseChecking": "Mengambil kuotasi langsung Wise…",
+    "wiseNotAvailable": "Wise tidak mengirim uang dari Singapura ke {{country}}.",
+    "visitProvider": "Buka {{name}}",
+    "speedWithinHours": "Dalam {{count}} jam",
+    "estimatesWithQuote": "Baris Wise adalah kuotasi langsung dari Wise. Yang lain hanya perkiraan ilustratif, bukan kuotasi penyedia: cek biaya, kurs, kecepatan, dan ketersediaan ke penyedia. Remlo tidak mengirim uang.",
+    "sortedByReceived": "Diurutkan menurut jumlah yang diterima keluargamu"
   },
   "salary": {
     "pageTitle": "Pelacak Gaji",

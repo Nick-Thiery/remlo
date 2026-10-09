@@ -233,7 +233,17 @@
     "speed3to7days": "3 – 7 araw",
     "ratesFetching": "Kinukuha ang mga live na rate…",
     "ratesStale": "Maaaring luma na ang mga rate · Hindi ma-access ang serbisyo",
-    "ratesLive": "Mga live na rate · Na-update noong {{time}}"
+    "ratesLive": "Mga live na rate · Na-update noong {{time}}",
+    "liveQuote": "Live na quote",
+    "estimateBadge": "Tantya",
+    "wiseQuoteSource": "Indicative na quote mula sa Wise, kinuha nang {{time}} SGT",
+    "wiseQuoteNote": "Bayad gamit ang PayNow. Kinukumpirma ng Wise ang huling quote bago ka magpadala.",
+    "wiseChecking": "Kinukuha ang live na quote ng Wise…",
+    "wiseNotAvailable": "Hindi nagpapadala ang Wise ng pera mula Singapore papuntang {{country}}.",
+    "visitProvider": "Pumunta sa {{name}}",
+    "speedWithinHours": "Sa loob ng {{count}} oras",
+    "estimatesWithQuote": "Ang Wise ay live na quote mula sa Wise. Ang iba ay halimbawang tantya lang, hindi quote ng provider: alamin sa provider ang bayad, rate, bilis at availability. Hindi nagpapadala ng pera ang Remlo.",
+    "sortedByReceived": "Nakaayos ayon sa matatanggap ng pamilya mo"
   },
   "salary": {
     "pageTitle": "Tracker ng Sahod",

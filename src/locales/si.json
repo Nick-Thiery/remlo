@@ -233,7 +233,17 @@
     "speed3to7days": "දින 3 – 7",
     "ratesFetching": "සජීවී අනුපාත ලබාගනිමින්…",
     "ratesStale": "අනුපාත යල්පැනිය හැක · සේවාවට ළඟා විය නොහැකිය",
-    "ratesLive": "සජීවී අනුපාත · {{time}} ට යාවත්කාලීන"
+    "ratesLive": "සජීවී අනුපාත · {{time}} ට යාවත්කාලීන",
+    "liveQuote": "සජීවී මිල ගණන",
+    "estimateBadge": "ඇස්තමේන්තුව",
+    "wiseQuoteSource": "Wise වෙතින් ලැබුණු ආසන්න මිල ගණනක්, {{time}} SGT ට ලබා ගත්",
+    "wiseQuoteNote": "PayNow මගින් ගෙවීම. මුදල් යැවීමට පෙර Wise අවසාන මිල ගණන තහවුරු කරයි.",
+    "wiseChecking": "Wise හි සජීවී මිල ගණන ලබා ගනිමින්…",
+    "wiseNotAvailable": "Wise සිංගප්පූරුවේ සිට {{country}} වෙත මුදල් යවන්නේ නැත.",
+    "visitProvider": "{{name}} වෙත යන්න",
+    "speedWithinHours": "පැය {{count}} ක් ඇතුළත",
+    "estimatesWithQuote": "Wise පේළිය Wise හි සජීවී මිල ගණනකි. අනෙක් ඒවා නිදසුන් සඳහා ඇස්තමේන්තු පමණි, ආයතනවල මිල ගණන් නොවේ: ගාස්තු, අනුපාත, වේගය සහ ලබා ගත හැකි බව ආයතනයෙන් තහවුරු කරගන්න. Remlo මුදල් යවන්නේ නැත.",
+    "sortedByReceived": "ඔබේ පවුලට ලැබෙන මුදල අනුව පෙළගස්වා ඇත"
   },
   "salary": {
     "pageTitle": "වැටුප් ලේඛනය",
