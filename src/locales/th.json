@@ -237,13 +237,14 @@
     "liveQuote": "ราคาแบบเรียลไทม์",
     "estimateBadge": "ประมาณการ",
     "wiseQuoteSource": "ราคาโดยประมาณจาก Wise ดึงข้อมูลเมื่อ {{time}} SGT",
-    "wiseQuoteNote": "ชำระผ่าน PayNow โดย Wise จะยืนยันราคาสุดท้ายก่อนคุณโอน",
+    "wiseQuoteNote": "Wise จะยืนยันราคาสุดท้ายก่อนคุณโอน",
     "wiseChecking": "กำลังดึงราคาแบบเรียลไทม์จาก Wise…",
     "wiseNotAvailable": "Wise ไม่มีบริการโอนเงินจากสิงคโปร์ไป{{country}}",
     "visitProvider": "ไปที่ {{name}}",
     "speedWithinHours": "ภายใน {{count}} ชั่วโมง",
     "estimatesWithQuote": "แถว Wise เป็นราคาแบบเรียลไทม์จาก Wise ส่วนแถวอื่นเป็นเพียงตัวอย่างประมาณการ ไม่ใช่ราคาจากผู้ให้บริการ: โปรดตรวจสอบค่าธรรมเนียม อัตรา ความเร็ว และความพร้อมให้บริการกับผู้ให้บริการ Remlo ไม่ได้โอนเงิน",
-    "sortedByReceived": "เรียงตามจำนวนเงินที่ครอบครัวของคุณได้รับ"
+    "sortedByReceived": "เรียงตามจำนวนเงินที่ครอบครัวของคุณได้รับ",
+    "wisePayNow": "ชำระผ่าน PayNow"
   },
   "salary": {
     "pageTitle": "ติดตามเงินเดือน",

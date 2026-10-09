@@ -241,13 +241,14 @@
     "liveQuote": "Live quote",
     "estimateBadge": "Estimate",
     "wiseQuoteSource": "Indicative quote from Wise, retrieved at {{time}} SGT",
-    "wiseQuoteNote": "Paying by PayNow. Wise confirms the final quote before you send.",
+    "wiseQuoteNote": "Wise confirms the final quote before you send.",
     "wiseChecking": "Getting Wise's live quote…",
     "wiseNotAvailable": "Wise doesn't send money from Singapore to {{country}}.",
     "visitProvider": "Go to {{name}}",
     "speedWithinHours": "Within {{count}} hours",
     "estimatesWithQuote": "Wise shows a live quote from Wise. The others are illustrative estimates, not provider quotes: check fees, rates, speed and availability with the provider. Remlo does not transfer money.",
-    "sortedByReceived": "Sorted by what your family receives"
+    "sortedByReceived": "Sorted by what your family receives",
+    "wisePayNow": "Paying by PayNow."
   },
   "salary": {
     "pageTitle": "Salary Tracker",

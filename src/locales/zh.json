@@ -237,13 +237,14 @@
     "liveQuote": "实时报价",
     "estimateBadge": "估算",
     "wiseQuoteSource": "来自 Wise 的参考报价，获取时间 {{time}} SGT",
-    "wiseQuoteNote": "使用 PayNow 付款。汇款前，Wise 会确认最终报价。",
+    "wiseQuoteNote": "汇款前，Wise 会确认最终报价。",
     "wiseChecking": "正在获取 Wise 实时报价…",
     "wiseNotAvailable": "Wise 不提供从新加坡汇款到{{country}}的服务。",
     "visitProvider": "前往 {{name}}",
     "speedWithinHours": "{{count}} 小时内",
     "estimatesWithQuote": "Wise 一栏是 Wise 的实时报价。其他为示例估算，并非服务商报价：费用、汇率、到账时间和是否可用，请向服务商确认。Remlo 不提供汇款服务。",
-    "sortedByReceived": "按家人实际收到的金额排序"
+    "sortedByReceived": "按家人实际收到的金额排序",
+    "wisePayNow": "使用 PayNow 付款。"
   },
   "salary": {
     "pageTitle": "工资记录",

@@ -237,13 +237,14 @@
     "liveQuote": "लाइभ कोट",
     "estimateBadge": "अनुमान",
     "wiseQuoteSource": "Wise बाट अनुमानित कोट, {{time}} SGT मा लिइएको",
-    "wiseQuoteNote": "PayNow बाट भुक्तानी। पैसा पठाउनुअघि Wise ले अन्तिम कोट पुष्टि गर्छ।",
+    "wiseQuoteNote": "पैसा पठाउनुअघि Wise ले अन्तिम कोट पुष्टि गर्छ।",
     "wiseChecking": "Wise को लाइभ कोट लिइँदैछ…",
     "wiseNotAvailable": "Wise ले सिंगापुरबाट {{country}} पैसा पठाउँदैन।",
     "visitProvider": "{{name}} मा जानुहोस्",
     "speedWithinHours": "{{count}} घण्टाभित्र",
     "estimatesWithQuote": "Wise को पङ्क्ति Wise को लाइभ कोट हो। अरू उदाहरणका लागि अनुमान मात्र हुन्, कम्पनीका कोट होइनन्: शुल्क, दर, समय र उपलब्धता कम्पनीसँग जाँच्नुहोस्। Remlo ले पैसा पठाउँदैन।",
-    "sortedByReceived": "तपाईंको परिवारले पाउने रकमअनुसार मिलाइएको"
+    "sortedByReceived": "तपाईंको परिवारले पाउने रकमअनुसार मिलाइएको",
+    "wisePayNow": "PayNow बाट भुक्तानी।"
   },
   "salary": {
     "pageTitle": "तलब ट्र्याकर",

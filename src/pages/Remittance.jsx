@@ -133,21 +133,27 @@ export default function Remittance() {
     let cancelled = false
     // Wait until the worker stops typing before asking for a quote.
     const timer = setTimeout(async () => {
-      if (WISE_UNSUPPORTED.includes(currency)) { setWise({ status: 'unavailable' }); return }
-      if (amt < QUOTE_MIN_SGD || amt > QUOTE_MAX_SGD) { setWise({ status: 'idle' }); return }
-      setWise({ status: 'loading' })
+      if (WISE_UNSUPPORTED.includes(currency)) { setWise({ status: 'unavailable', currency }); return }
+      if (amt < QUOTE_MIN_SGD || amt > QUOTE_MAX_SGD) { setWise({ status: 'idle', currency }); return }
+      setWise({ status: 'loading', currency })
       try {
         const q = await fetchWiseQuote(currency, amt, { signal: controller.signal })
         if (cancelled) return
-        if (q?.supported === false) setWise({ status: 'unavailable' })
-        else if (q?.supported && q.targetCurrency === currency) setWise({ status: 'ok', quote: q })
-        else setWise({ status: 'error' })
+        if (q?.supported === false) setWise({ status: 'unavailable', currency })
+        else if (q?.supported && q.targetCurrency === currency) setWise({ status: 'ok', currency, quote: q })
+        else setWise({ status: 'error', currency })
       } catch {
-        if (!cancelled) setWise({ status: 'error' })
+        if (!cancelled) setWise({ status: 'error', currency })
       }
     }, 500)
     return () => { cancelled = true; clearTimeout(timer); controller.abort() }
   }, [sendAmount, country])
+
+  // Known straight away for Myanmar, so the row never shows during the debounce;
+  // a result for another country is ignored.
+  const wiseUnavailable = WISE_UNSUPPORTED.includes(dest.currency) ||
+    (wise.status === 'unavailable' && wise.currency === dest.currency)
+  const wiseLoading = wise.status === 'loading' && wise.currency === dest.currency
 
   const results = useMemo(() => {
     if (!midRates) return []
@@ -155,11 +161,11 @@ export default function Remittance() {
     if (!mid) return []
     const rows = []
     for (const p of PROVIDER_CONFIG) {
-      if (p.id === 'wise' && wise.status === 'unavailable') continue
+      if (p.id === 'wise' && wiseUnavailable) continue
       const q = wise.quote
       if (p.id === 'wise' && wise.status === 'ok' && q.targetCurrency === dest.currency && q.sourceAmount === roundCents(amount)) {
         const speed = speedLabelFor(q.estimatedDelivery) ?? [p.speed[country]]
-        rows.push({ ...p, kind: 'quote', rate: q.rate, fee: q.fee, received: q.received, speed, retrievedAt: q.retrievedAt })
+        rows.push({ ...p, kind: 'quote', rate: q.rate, fee: q.fee, received: q.received, speed, retrievedAt: q.retrievedAt, payIn: q.payIn })
         continue
       }
       const rate    = mid * (1 - p.spread)
@@ -169,7 +175,7 @@ export default function Remittance() {
     }
     // Most money for the family first, whoever the provider is.
     return rows.sort((a, b) => b.received - a.received)
-  }, [amount, country, midRates, dest.currency, wise])
+  }, [amount, country, midRates, dest.currency, wise, wiseUnavailable])
   const showsLiveQuote = results.some((r) => r.kind === 'quote')
 
 
@@ -402,9 +408,12 @@ export default function Remittance() {
                             <p className="text-xs font-semibold" style={{ color: isDark ? '#6EE7B7' : '#047857' }}>
                               {t('remittance.wiseQuoteSource', { time: singaporeTime(p.retrievedAt, i18n.language) })}
                             </p>
-                            <p className="text-xs text-gray-500 leading-relaxed">{t('remittance.wiseQuoteNote')}</p>
+                            <p className="text-xs text-gray-500 leading-relaxed">
+                              {p.payIn === 'PAYNOW' && <>{t('remittance.wisePayNow')} </>}
+                              {t('remittance.wiseQuoteNote')}
+                            </p>
                           </>
-                        ) : p.id === 'wise' && wise.status === 'loading' ? (
+                        ) : p.id === 'wise' && wiseLoading ? (
                           <p className="text-xs text-gray-500 flex items-center gap-1.5">
                             <RefreshCw className="w-3 h-3 animate-spin" /> {t('remittance.wiseChecking')}
                           </p>
@@ -428,7 +437,7 @@ export default function Remittance() {
               )}
             </div>
 
-            {amount > 0 && wise.status === 'unavailable' && (
+            {amount > 0 && wiseUnavailable && (
               <p className="text-xs text-gray-500 text-center mt-4 leading-relaxed">
                 {t('remittance.wiseNotAvailable', { country: t(`remittance.${dest.nameKey}`) })}
               </p>
