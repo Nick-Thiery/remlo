@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { parseRequest, pickOption, shapeQuote, QuoteCache, Throttle, DESTINATIONS } from '../supabase/functions/wise-quote/quote.ts'
+import { parseRequest, pickOption, shapeQuote, QuoteCache, Throttle, DESTINATIONS, clientAddress } from '../supabase/functions/wise-quote/quote.ts'
 
 // Real Wise responses for S$500 (9–10 Oct 2026), trimmed to the fields used.
 const fixture = (name) => JSON.parse(readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'))
@@ -113,4 +113,34 @@ test('Remittance sorts by what the family receives and labels live quotes and es
 test('the live quote sends no amount to analytics', () => {
   const page = readFileSync(new URL('../src/pages/Remittance.jsx', import.meta.url), 'utf8')
   for (const [call] of page.matchAll(/track\([^)]*\)/g)) assert.doesNotMatch(call, /amount|received|fee|rate/i, call)
+})
+
+test('callers are identified by edge-set headers only, never x-forwarded-for', () => {
+  const headers = (h) => (name) => h[name.toLowerCase()] ?? null
+  assert.equal(clientAddress(headers({ 'x-forwarded-for': '1.2.3.4' })), null)
+  assert.equal(clientAddress(headers({ 'x-forwarded-for': '1.2.3.4', 'x-real-ip': '5.6.7.8' })), '5.6.7.8')
+  assert.equal(clientAddress(headers({ 'cf-connecting-ip': '9.9.9.9', 'x-real-ip': '5.6.7.8' })), '9.9.9.9')
+  assert.equal(clientAddress(headers({ 'x-real-ip': 'x'.repeat(65) })), null)
+})
+
+test('tracking many callers forgets idle ones but never resets an active caller', () => {
+  const t = new Throttle(2, 60_000)
+  t.allow('busy', 100_000); t.allow('busy', 100_001)
+  for (let i = 0; i < 5001; i++) t.allow(`idle-${i}`, 0)
+  for (let i = 0; i < 10; i++) t.allow(`new-${i}`, 100_002)
+  assert.equal(t.allow('busy', 100_003), false, 'still limited after the map was pruned')
+})
+
+test('the function serves cached quotes before any limit, and limits only calls to Wise', () => {
+  const fn = readFileSync(new URL('../supabase/functions/wise-quote/index.ts', import.meta.url), 'utf8')
+  assert.ok(fn.indexOf('cache.get(') < fn.indexOf('perCaller.allow('), 'cache is checked first')
+  assert.match(fn, /overall\.allow\('all', now\)/)
+  assert.doesNotMatch(fn, /x-forwarded-for/)
+})
+
+test('Myanmar is decided at once (no Wise row during the debounce), and PayNow is only claimed for PayNow quotes', () => {
+  const page = readFileSync(new URL('../src/pages/Remittance.jsx', import.meta.url), 'utf8')
+  assert.match(page, /const wiseUnavailable = WISE_UNSUPPORTED\.includes\(dest\.currency\)/)
+  assert.match(page, /wise\.currency === dest\.currency/)
+  assert.match(page, /p\.payIn === 'PAYNOW' && <>\{t\('remittance\.wisePayNow'\)\}/)
 })

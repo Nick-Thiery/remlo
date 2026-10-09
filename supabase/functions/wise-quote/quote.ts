@@ -111,10 +111,29 @@ export class QuoteCache {
   }
 }
 
-// Requests per caller per minute, per function instance. Keeps one caller
-// from using up Wise's shared limit; normal use is a few requests a minute.
+// The caller's address, from headers the edge sets itself (as chat/rateLimit.ts
+// does). x-forwarded-for is a list the caller can prepend to, so trusting it
+// would let one client claim a fresh address on every request.
+export function clientAddress(getHeader: (name: string) => string | null | undefined): string | null {
+  for (const name of ['cf-connecting-ip', 'x-real-ip']) {
+    const value = String(getHeader(name) ?? '').trim()
+    if (value.length > 0 && value.length <= 64) return value
+  }
+  return null
+}
+
+// Calls to Wise per key per window, per function instance. Used twice: per
+// caller (30 a minute) and for the whole instance (10 a second, well inside
+// Wise's 100 a second and 900 a minute). Only requests that actually reach
+// Wise are counted; cached answers are free.
 export class Throttle {
   private hits = new Map<string, number[]>()
+  // Forget callers with no recent requests; never reset everyone's count.
+  private prune(nowMs: number) {
+    for (const [key, times] of this.hits) {
+      if (!times.some((t) => t > nowMs - this.windowMs)) this.hits.delete(key)
+    }
+  }
   private limit: number
   private windowMs: number
   constructor(limit = 30, windowMs = 60_000) { this.limit = limit; this.windowMs = windowMs }
@@ -123,7 +142,7 @@ export class Throttle {
     if (recent.length >= this.limit) { this.hits.set(caller, recent); return false }
     recent.push(nowMs)
     this.hits.set(caller, recent)
-    if (this.hits.size > 5000) this.hits.clear()
+    if (this.hits.size > 5000) this.prune(nowMs)
     return true
   }
 }
