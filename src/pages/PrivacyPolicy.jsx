@@ -66,7 +66,7 @@ const SECTIONS = [
 
 export default function PrivacyPolicy() {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const isDark = useDarkMode()
   const bg   = isDark ? '#121110' : '#FAFAF8'
   const card = isDark ? '#1E1C1A' : 'white'
@@ -79,14 +79,18 @@ export default function PrivacyPolicy() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate(-1)}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: isDark ? '#F5F2EC' : undefined }} />
+            <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: isDark ? '#F5F2EC' : undefined }} />
           </button>
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>Privacy Policy</h1>
+            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{t('login.privacyPolicy')}</h1>
             <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated September 2026</p>
+            {!i18n.language?.startsWith('en') && (
+              <p className="text-sm font-semibold mt-1" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{t('common.englishOnly')}</p>
+            )}
           </div>
         </div>
 

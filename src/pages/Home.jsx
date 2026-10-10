@@ -14,8 +14,13 @@ import {
 import { supabase } from '../lib/supabase.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { ltr } from '../lib/bidi.js'
 
 function formatSGD(amount) {
+  return ltr(rawFormatSGD(amount))
+}
+
+function rawFormatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency',
     currency: 'SGD',
@@ -39,6 +44,32 @@ const LANGUAGES = [
   { code: 'ne',  label: 'नेपाली'    },
 ]
 
+// The day as the phone sees it (YYYY-MM-DD in local time). toISOString() gives
+// the UTC date, which in Singapore changes at 8am, so a visit at 7am and another
+// at 9am the same morning counted as two days.
+function localDay(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+// Counts days in a row with a visit and stores today's count. Safe to run more
+// than once a day: a second run the same day keeps the count.
+function updateStreak() {
+  const now = new Date()
+  const today = localDay(now)
+  const lastDate = safeStorage.getItem('remlo_streak_date')
+  const lastCount = parseInt(safeStorage.getItem('remlo_streak_count') || '0', 10)
+  const yesterday = new Date(now)
+  yesterday.setDate(now.getDate() - 1)
+
+  let count = 1
+  if (lastDate === today) count = lastCount || 1
+  else if (lastDate === localDay(yesterday)) count = lastCount + 1
+
+  safeStorage.setItem('remlo_streak_date', today)
+  safeStorage.setItem('remlo_streak_count', String(count))
+  return count
+}
+
 export default function Home() {
   const { t, i18n } = useTranslation()
   const isDark = useDarkMode()
@@ -56,7 +87,7 @@ export default function Home() {
   const [userInitial, setUserInitial] = useState('')
   const [userName, setUserName] = useState('')
   const [isGuest, setIsGuest] = useState(false)
-  const [streak, setStreak] = useState(1)
+  const [streak] = useState(updateStreak)
 
   function getGreeting() {
     const hour = new Date().getHours()
@@ -65,27 +96,6 @@ export default function Home() {
     return t('home.greetingEvening')
   }
 
-  useEffect(() => {
-    const today = new Date().toISOString().slice(0, 10)
-    const lastDate = safeStorage.getItem('remlo_streak_date')
-    const lastCount = parseInt(safeStorage.getItem('remlo_streak_count') || '0', 10)
-
-    let newCount
-    if (!lastDate) {
-      newCount = 1
-    } else if (lastDate === today) {
-      newCount = lastCount || 1
-    } else {
-      const yesterday = new Date()
-      yesterday.setDate(yesterday.getDate() - 1)
-      const yesterdayStr = yesterday.toISOString().slice(0, 10)
-      newCount = lastDate === yesterdayStr ? lastCount + 1 : 1
-    }
-
-    safeStorage.setItem('remlo_streak_date', today)
-    safeStorage.setItem('remlo_streak_count', String(newCount))
-    setStreak(newCount)
-  }, [])
 
   useEffect(() => {
     async function loadData() {

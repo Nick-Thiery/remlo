@@ -10,7 +10,10 @@
  */
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { servesEnglishAlerts } from './alertLanguage.ts'
+import { servesEnglishAlerts, isUntranslated, RETRY_AFTER_MS } from './alertLanguage.ts'
+
+// "alert_id:language" → when translation last failed (per function instance).
+const failedAt = new Map<string, number>()
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -214,14 +217,20 @@ Deno.serve(async (req) => {
       .eq('language', language)
       .in('alert_id', alertIds)
 
+    // Cached rows that are still English are treated as missing (see isUntranslated).
+    const englishById = new Map(englishAlerts.map(a => [a.id, a]))
     const cacheMap = new Map<string, CachedTranslation>(
-      (cached ?? []).map((row: CachedTranslation) => [row.alert_id, row])
+      (cached ?? [])
+        .filter((row: CachedTranslation) => !isUntranslated(englishById.get(row.alert_id)!,
+          { title: row.translated_title, description: row.translated_description }))
+        .map((row: CachedTranslation) => [row.alert_id, row])
     )
 
     console.log(`[fetch-scam-alerts] Cache hits: ${cacheMap.size}/${englishAlerts.length} for "${language}"`)
 
     // ── Step 5: identify alerts that need fresh translation ────────────────────
-    const uncached = englishAlerts.filter(a => !cacheMap.has(a.id))
+    const uncached = englishAlerts.filter(a => !cacheMap.has(a.id) &&
+      !(Date.now() - (failedAt.get(`${a.id}:${language}`) ?? 0) < RETRY_AFTER_MS))
 
     if (uncached.length > 0 && anthropicKey) {
       console.log(`[fetch-scam-alerts] Calling Anthropic for ${uncached.length} uncached alerts`)
@@ -234,7 +243,7 @@ Deno.serve(async (req) => {
         const rows = uncached
           .map(a => {
             const tx = txMap.get(a.id)
-            if (!tx) return null
+            if (!tx || isUntranslated(a, tx)) return null
             return {
               alert_id: a.id,
               language,
@@ -260,7 +269,8 @@ Deno.serve(async (req) => {
         // Merge fresh translations into the cache map for this response
         for (const a of uncached) {
           const tx = txMap.get(a.id)
-          if (tx) {
+          if (!tx || isUntranslated(a, tx)) failedAt.set(`${a.id}:${language}`, Date.now())
+          if (tx && !isUntranslated(a, tx)) {
             cacheMap.set(a.id, {
               alert_id: a.id,
               translated_title: tx.title,

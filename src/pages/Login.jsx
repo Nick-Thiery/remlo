@@ -289,11 +289,11 @@ function Login() {
           </p>
 
           <div className="flex items-center justify-center gap-4 mt-4">
-            <Link to="/privacy" className="text-xs underline underline-offset-2 transition-colors" style={{ color: textSecondary }}>
+            <Link to="/privacy" className="text-xs underline underline-offset-2 transition-colors py-2" style={{ color: textSecondary }}>
               {t('login.privacyPolicy')}
             </Link>
             <span className="text-xs" style={{ color: isDark ? '#4B5563' : '#E5E7EB' }}>·</span>
-            <Link to="/terms" className="text-xs underline underline-offset-2 transition-colors" style={{ color: textSecondary }}>
+            <Link to="/terms" className="text-xs underline underline-offset-2 transition-colors py-2" style={{ color: textSecondary }}>
               {t('login.termsOfService')}
             </Link>
           </div>

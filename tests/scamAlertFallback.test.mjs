@@ -57,3 +57,17 @@ test('fallback languages never reach the translation cache or a new machine tran
 test('removing a language from the fallback list restores its translations', () => {
   for (const lang of ENGLISH_FALLBACK_LANGUAGES) assert.ok(LANG_NAMES[lang], `${lang} is still a translatable language`)
 })
+
+test('an alert "translated" back into English is treated as missing, so it is translated again', async () => {
+  const { isUntranslated } = await import('../supabase/functions/fetch-scam-alerts/alertLanguage.ts')
+  const en = { title: 'WhatsApp Phishing: Fake DBS Login Links', description: 'WhatsApp messages claiming to be DBS Bank…' }
+  assert.equal(isUntranslated(en, { title: en.title, description: en.description }), true, 'whole alert in English (Thai, 10 Oct)')
+  assert.equal(isUntranslated(en, { title: en.title, description: 'Mga mensahe sa WhatsApp…' }), false, 'an English title alone is accepted')
+  assert.equal(isUntranslated(en, { title: 'การหลอกลวงทาง WhatsApp', description: 'ข้อความ WhatsApp…' }), false)
+  assert.equal(isUntranslated(en, null), true)
+  assert.equal(isUntranslated(en, { title: '', description: 'x' }), true)
+  const source = readFileSync(new URL('../supabase/functions/fetch-scam-alerts/index.ts', import.meta.url), 'utf8')
+  assert.equal((source.match(/isUntranslated\(/g) || []).length, 4, 'checked when reading the cache, before caching, and before serving')
+  assert.match(source, /failedAt\.set\(/, 'a failed translation is remembered')
+  assert.match(source, /RETRY_AFTER_MS/, 'and not retried on every page view')
+})

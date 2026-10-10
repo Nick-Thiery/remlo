@@ -3,8 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ShieldCheck, Lightbulb, Clock, TrendingUp, Landmark, Smartphone, Wallet, ChevronLeft } from 'lucide-react'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { ltr } from '../lib/bidi.js'
 
 function formatSGD(n) {
+  return ltr(rawFormatSGD(n))
+}
+
+function rawFormatSGD(n) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency', currency: 'SGD', minimumFractionDigits: 0, maximumFractionDigits: 0,
   }).format(n)
@@ -59,10 +64,11 @@ export default function EmergencyFund() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: textPrimary }} />
+            <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: textPrimary }} />
           </button>
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('emergencyFund.pageTitle')}</h1>
@@ -81,7 +87,7 @@ export default function EmergencyFund() {
                 {t('emergencyFund.expensesLabel')}
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={expenses} onChange={(e) => setExpenses(e.target.value)}
@@ -95,7 +101,7 @@ export default function EmergencyFund() {
                 {t('emergencyFund.savingsLabel')}
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={monthlySave} onChange={(e) => setMonthlySave(e.target.value)}

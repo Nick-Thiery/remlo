@@ -7,8 +7,13 @@ import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 import { calcRemaining, totalPayoffMonths, totalInterest } from '../lib/loanMath.js'
+import { ltr } from '../lib/bidi.js'
 
 function formatSGD(amount) {
+  return ltr(rawFormatSGD(amount))
+}
+
+function rawFormatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency',
     currency: 'SGD',
@@ -18,6 +23,10 @@ function formatSGD(amount) {
 }
 
 function formatSGDExact(amount) {
+  return ltr(rawFormatSGDExact(amount))
+}
+
+function rawFormatSGDExact(amount) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency',
     currency: 'SGD',
@@ -74,10 +83,11 @@ export default function Loans() {
   const textMuted   = isDark ? '#9C9590' : '#6B7280'
   const { user, authLoading, isGuest } = useRequireAuth()
 
-  const [loans, setLoans] = useState([])
+  // Guest loans are read on the first render; signed-in loans load below.
+  const [loans, setLoans] = useState(() => (isGuest ? JSON.parse(safeStorage.getItem('remlo_guest_loans') || '[]') : []))
   const [showForm, setShowForm] = useState(false)
   const [expandedId, setExpandedId] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!isGuest)
   const [error, setError] = useState(null)
 
   // Form fields
@@ -89,14 +99,7 @@ export default function Loans() {
   const [errors, setErrors] = useState({})
 
   useEffect(() => {
-    if (isGuest) {
-      const stored = JSON.parse(safeStorage.getItem('remlo_guest_loans') || '[]')
-      setLoans(stored)
-      setLoading(false)
-      return
-    }
-    if (!user) return
-    setLoading(true)
+    if (isGuest || !user) return
     supabase
       .from('loans')
       .select('id, lender, total_amount, interest_rate, monthly_payment, start_date')
@@ -216,10 +219,11 @@ export default function Loans() {
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button
+            aria-label={t('workshop.back')}
             onClick={() => navigate('/more')}
             className="w-10 h-10 flex items-center justify-center rounded-2xl transition-all active:scale-95 flex-shrink-0" style={{ background: card, border: `1px solid ${border2}`, boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}
           >
-            <ChevronLeft className="w-4 h-4" style={{ color: textPrimary }} />
+            <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: textPrimary }} />
           </button>
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('loans.pageTitle')}</h1>
@@ -470,7 +474,7 @@ export default function Loans() {
               <div>
                 <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.principalLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
                   <input
                     type="number"
                     placeholder="0.00"
@@ -512,7 +516,7 @@ export default function Loans() {
               <div>
                 <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.paymentLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
                   <input
                     type="number"
                     placeholder="0.00"

@@ -208,7 +208,7 @@ function MorePage() {
               </div>
               <div className="flex-1 text-left min-w-0">
                 <p className="text-sm font-bold" style={{ color: textPrimary }}>{t(`moreItems.${key}.label`)}</p>
-                <p className="text-xs mt-0.5 truncate" style={{ color: textSecondary }}>{t(`moreItems.${key}.desc`)}</p>
+                <p className="text-xs mt-0.5 line-clamp-2" style={{ color: textSecondary }}>{t(`moreItems.${key}.desc`)}</p>
               </div>
               <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: isDark ? '#4B5563' : '#D1D5DB' }} />
             </button>
@@ -322,18 +322,18 @@ function MorePage() {
         <div className="flex items-center justify-center gap-4 mt-3">
           <button
             onClick={() => navigate('/privacy')}
-            className="text-xs underline underline-offset-2 transition-colors"
+            className="text-xs underline underline-offset-2 transition-colors py-2"
             style={{ color: textSecondary }}
           >
-            Privacy Policy
+            {t('login.privacyPolicy')}
           </button>
           <span className="text-xs" style={{ color: isDark ? '#4B5563' : '#D1D5DB' }}>·</span>
           <button
             onClick={() => navigate('/terms')}
-            className="text-xs underline underline-offset-2 transition-colors"
+            className="text-xs underline underline-offset-2 transition-colors py-2"
             style={{ color: textSecondary }}
           >
-            Terms of Service
+            {t('login.termsOfService')}
           </button>
         </div>
         <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
@@ -380,8 +380,8 @@ function GuestBanner() {
       </button>
       <button
         onClick={dismiss}
-        aria-label="Dismiss"
-        className="text-amber-400 hover:text-amber-600 transition-colors flex-shrink-0 text-lg leading-none"
+        aria-label={t('common.close')}
+        className="w-8 h-8 -me-2 flex items-center justify-center rounded-full text-amber-700 hover:text-amber-900 transition-colors flex-shrink-0 text-xl leading-none"
       >
         ×
       </button>

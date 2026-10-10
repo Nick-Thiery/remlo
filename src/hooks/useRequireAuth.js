@@ -5,15 +5,13 @@ import safeStorage from '../lib/safeStorage.js'
 
 export function useRequireAuth() {
   const navigate = useNavigate()
-  const [user, setUser]           = useState(null)
-  const [authLoading, setAuthLoading] = useState(true)
   const isGuest = safeStorage.getItem('remlo_guest') === 'true'
+  const [user, setUser]           = useState(null)
+  // A guest has nothing to wait for; a signed-in session is checked below.
+  const [authLoading, setAuthLoading] = useState(!isGuest)
 
   useEffect(() => {
-    if (isGuest) {
-      setAuthLoading(false)
-      return
-    }
+    if (isGuest) return
 
     // Resolve the current session once on mount
     supabase.auth.getSession()

@@ -9,8 +9,13 @@ import { presetExpenses } from '../lib/budgetPresets.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 import { onPageExit } from '../lib/pageExit.js'
+import { ltr } from '../lib/bidi.js'
 
 function formatSGD(amount) {
+  return ltr(rawFormatSGD(amount))
+}
+
+function rawFormatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency',
     currency: 'SGD',
@@ -90,34 +95,35 @@ function StackedBar({ segments, trackBg = '#F0EDE8' }) {
   )
 }
 
+const SVG_COLORS = ['#3b82f6', '#f43f5e', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#f97316']
+
 function DonutChart({ slices, size = 160, centerFill = 'white' }) {
   const r = 54
   const cx = size / 2
   const cy = size / 2
   const gap = 1.5
 
+  const toRad = (deg) => (deg * Math.PI) / 180
+  const paths = []
   let cumulativeAngle = -90
+  for (const s of slices) {
+    if (!(s.pct > 0)) continue
+    const sliceDeg = (s.pct / 100) * 360 - gap
+    const startAngle = cumulativeAngle + gap / 2
+    const endAngle = startAngle + sliceDeg
+    cumulativeAngle += (s.pct / 100) * 360
 
-  const paths = slices
-    .filter((s) => s.pct > 0)
-    .map((s) => {
-      const sliceDeg = (s.pct / 100) * 360 - gap
-      const startAngle = cumulativeAngle + gap / 2
-      const endAngle = startAngle + sliceDeg
-      cumulativeAngle += (s.pct / 100) * 360
+    const x1 = cx + r * Math.cos(toRad(startAngle))
+    const y1 = cy + r * Math.sin(toRad(startAngle))
+    const x2 = cx + r * Math.cos(toRad(endAngle))
+    const y2 = cy + r * Math.sin(toRad(endAngle))
+    const largeArc = sliceDeg > 180 ? 1 : 0
 
-      const toRad = (deg) => (deg * Math.PI) / 180
-      const x1 = cx + r * Math.cos(toRad(startAngle))
-      const y1 = cy + r * Math.sin(toRad(startAngle))
-      const x2 = cx + r * Math.cos(toRad(endAngle))
-      const y2 = cy + r * Math.sin(toRad(endAngle))
-      const largeArc = sliceDeg > 180 ? 1 : 0
-
-      return {
-        d: `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`,
-        color: s.svgColor,
-      }
+    paths.push({
+      d: `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`,
+      color: s.svgColor,
     })
+  }
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
@@ -179,6 +185,10 @@ export default function Budget() {
 
   useEffect(() => {
     if (isGuest) {
+      // This reruns when the language changes (PRESET_EXPENSES), so untouched
+      // preset categories are renamed into the new language; reading guest data
+      // once on the first render would lose that. Hence setState here.
+      /* eslint-disable react-hooks/set-state-in-effect */
       const stored = JSON.parse(safeStorage.getItem('remlo_guest_budget') || 'null')
       const storedEntries = JSON.parse(safeStorage.getItem('remlo_guest_budget_entries') || '[]')
       const rawExpenses = stored && Array.isArray(stored.expenses) && stored.expenses.length > 0 ? stored.expenses : PRESET_EXPENSES
@@ -189,6 +199,7 @@ export default function Budget() {
       setEntries(storedEntries)
       setPayments(JSON.parse(safeStorage.getItem('remlo_guest_salary') || '[]'))
       setLoading(false)
+      /* eslint-enable react-hooks/set-state-in-effect */
 
       if (stored && idsChanged) {
         safeStorage.setItem('remlo_guest_budget', JSON.stringify({ income: stored.income, expenses: idExpenses.map(cleanExpense) }))
@@ -287,7 +298,6 @@ export default function Budget() {
     ]
   }, [expenses, monthlyIncome, totalExpenses, t])
 
-  const SVG_COLORS = ['#3b82f6', '#f43f5e', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#f97316']
   const donutSlices = useMemo(() => {
     if (monthlyIncome <= 0) return []
     const expSlices = expenses.map((e, i) => ({
@@ -527,7 +537,7 @@ export default function Budget() {
         >
           <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.incomeLabel')}</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
             <input
               type="number"
               min="0"
@@ -706,7 +716,7 @@ export default function Budget() {
                       <div className="flex items-center gap-3 flex-shrink-0">
                         {editingKey === e.id ? (
                           <div className="relative">
-                            <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">S$</span>
+                            <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none" dir="ltr">S$</span>
                             <input
                               autoFocus
                               type="number"
@@ -847,7 +857,7 @@ export default function Budget() {
                 />
               </div>
               <div className="relative w-28">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none font-semibold">S$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                 <input
                   type="number"
                   placeholder="0"
@@ -1016,7 +1026,7 @@ export default function Budget() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                   <input
                     autoFocus
                     type="number"
@@ -1129,7 +1139,7 @@ export default function Budget() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.spendAmountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                   <input
                     autoFocus
                     type="number"

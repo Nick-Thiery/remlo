@@ -6,8 +6,13 @@ import { useRequireAuth } from '../hooks/useRequireAuth.js'
 import { track } from '../lib/analytics.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
+import { ltr } from '../lib/bidi.js'
 
 function formatSGD(amount) {
+  return ltr(rawFormatSGD(amount))
+}
+
+function rawFormatSGD(amount) {
   return new Intl.NumberFormat('en-SG', {
     style: 'currency',
     currency: 'SGD',
@@ -50,9 +55,10 @@ export default function Savings() {
   const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const { user, authLoading, isGuest } = useRequireAuth()
 
-  const [goals,   setGoals]   = useState([])
-  const [entries, setEntries] = useState([])
-  const [loading, setLoading] = useState(true)
+  // Guest goals and deposits are read on the first render; signed-in data loads below.
+  const [goals,   setGoals]   = useState(() => (isGuest ? JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]') : []))
+  const [entries, setEntries] = useState(() => (isGuest ? JSON.parse(safeStorage.getItem('remlo_guest_savings_entries') || '[]') : []))
+  const [loading, setLoading] = useState(!isGuest)
   const [error,   setError]   = useState(null)
 
   const [mounted, setMounted] = useState(false)
@@ -73,17 +79,7 @@ export default function Savings() {
   const [depositError,   setDepositError]   = useState('')
 
   useEffect(() => {
-    if (isGuest) {
-      const storedGoals   = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
-      const storedEntries = JSON.parse(safeStorage.getItem('remlo_guest_savings_entries') || '[]')
-      setGoals(storedGoals)
-      setEntries(storedEntries)
-      setLoading(false)
-      return
-    }
-    if (!user) return
-    setLoading(true)
-    setError(null)
+    if (isGuest || !user) return
 
     Promise.all([
       supabase
@@ -102,6 +98,7 @@ export default function Savings() {
       } else if (entriesRes.error) {
         setError(entriesRes.error.message)
       } else {
+        setError(null)
         setGoals(goalsRes.data.map(row => ({
           id:     row.id,
           name:   row.name,
@@ -602,7 +599,7 @@ export default function Savings() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('savings.targetAmountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                   <input
                     type="number"
                     placeholder="0.00"
@@ -688,7 +685,7 @@ export default function Savings() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('savings.depositLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold">S$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
                   <input
                     autoFocus
                     type="number"

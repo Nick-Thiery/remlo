@@ -345,7 +345,7 @@ export default function Chat() {
             <button
               onClick={isRecording ? stopRecording : startRecording}
               disabled={isLoading}
-              aria-label={isRecording ? 'Stop recording' : 'Start voice input'}
+              aria-label={isRecording ? t('chat.voiceStop') : t('chat.voiceStart')}
               className="rounded-2xl px-3 py-3 flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 flex-shrink-0"
               style={{
                 background: isRecording ? '#EF4444' : (isDark ? '#2A2724' : '#F5F2EC'),
