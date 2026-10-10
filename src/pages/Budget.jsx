@@ -227,6 +227,12 @@ export default function Budget() {
       ({ error: err } = await supabase.from('budgets').update(payload).eq('user_id', user.id))
     } else {
       ({ error: err } = await supabase.from('budgets').insert({ user_id: user.id, ...payload }))
+      // Two quick saves can both reach this insert before the first returns.
+      // A user has one budget (budgets_user_id_key), so the second insert is
+      // refused as a duplicate; save it as an update instead.
+      if (err?.code === '23505') {
+        ({ error: err } = await supabase.from('budgets').update(payload).eq('user_id', user.id))
+      }
       if (!err) budgetExists.current = true
     }
     if (err) setError(err.message)
