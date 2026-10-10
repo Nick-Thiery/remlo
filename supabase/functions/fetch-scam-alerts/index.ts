@@ -51,12 +51,16 @@ const ALERTS = [
     published_at: '2025-11-01T00:00:00Z',
   },
   {
-    id: 'alert_jobscam_001',
+    // _002 (10 Oct 2026): _001 said agencies may not charge job seekers at all.
+    // MOM caps a licensed agency's fee at 1 month's salary per year of the
+    // contract, up to 2 months, listed in the worker's IPA letter. A new id
+    // means the 8 cached translations of the old text are not served.
+    id: 'alert_jobscam_002',
     title: 'Fake Job Offers Asking for Upfront Placement Fees',
     type: 'jobScam',
     severity: 'high',
-    description: 'Facebook and Telegram ads offer high-paying jobs in Singapore then ask workers to pay S$200–S$800 placement fees. After payment the agent disappears. It is illegal for employment agencies to charge job seekers fees.',
-    what_to_do: ['Never pay any fee to get a job — it is illegal in Singapore.', 'Verify the agency at mom.gov.sg/eadirectory.', 'Report to MOM at 6438-5122.'],
+    description: "Facebook and Telegram ads offer high-paying jobs in Singapore, then ask workers to pay S$200–S$800 in placement fees. After payment the agent disappears. A licensed agency can charge at most 1 month's salary for each year of your contract, up to 2 months' salary, and the fee is listed in your In-Principle Approval (IPA) letter.",
+    what_to_do: ['Never pay an agent you only know from Facebook, Telegram or WhatsApp.', 'Verify the agency at mom.gov.sg/eadirectory.', 'Report fake agents or overcharging to MOM at 6438-5122.'],
     source: 'MOM',
     source_url: 'https://www.mom.gov.sg/newsroom',
     published_at: '2025-08-05T00:00:00Z',
@@ -184,6 +188,15 @@ Deno.serve(async (req) => {
         { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
       )
     }
+
+    // ── Step 1b: retire alerts that are no longer in ALERTS ────────────────────
+    // (e.g. alert_jobscam_001, replaced by _002), so old text isn't served.
+    const { error: retireError } = await supabase
+      .from('scam_alerts')
+      .update({ is_active: false })
+      .eq('is_active', true)
+      .not('id', 'in', `(${ALERTS.map(a => a.id).join(',')})`)
+    if (retireError) console.error('[fetch-scam-alerts] Failed to retire old alerts:', retireError.message)
 
     // ── Step 2: read back active alerts ────────────────────────────────────────
     const { data: alerts, error: selectError } = await supabase
