@@ -31,7 +31,7 @@ function Login() {
   const border = isDark ? '#2C2926' : '#EDE8E0'
   const bg     = isDark ? '#121110' : '#FAFAF8'
   const textPrimary   = isDark ? '#F5F2EE' : '#111827'
-  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
+  const textSecondary = isDark ? '#9CA3AF' : '#57534E'
   const [mode, setMode] = useState('login') // 'login' | 'signup'
   const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')

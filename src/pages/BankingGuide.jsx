@@ -51,11 +51,11 @@ function BankCard({ style, text, feeLabel, minBalanceLabel, docsNeededLabel }) {
         <div className="px-4 pb-4" style={{ borderTop: `1px solid ${border}` }}>
           <p className="text-xs text-gray-600 leading-relaxed mt-3 mb-3">{text.notes}</p>
           <div className="grid grid-cols-2 gap-3 mb-3">
-            <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
+            <div className="rounded-xl p-3" style={{ background: isDark ? '#252220' : '#F5F2EC' }}>
               <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">{minBalanceLabel}</p>
               <p className="text-sm font-semibold text-gray-800">{text.minBalance}</p>
             </div>
-            <div className="rounded-xl p-3" style={{ background: '#F5F2EC' }}>
+            <div className="rounded-xl p-3" style={{ background: isDark ? '#252220' : '#F5F2EC' }}>
               <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-1">{feeLabel}</p>
               <p className={`text-sm font-semibold ${style.feeGood ? 'text-emerald-600' : 'text-gray-800'}`}>
                 {style.feeGood ? text.fee : text.fee.split(' ')[0]}

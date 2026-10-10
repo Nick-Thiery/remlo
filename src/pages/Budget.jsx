@@ -565,7 +565,7 @@ export default function Budget() {
                   </span>
                 </p>
                 {receivedThisMonth > 0 && monthlyIncome > 0 && receivedDiff !== 0 && (
-                  <p className="text-xs font-bold mt-0.5" style={{ color: receivedDiff > 0 ? '#059669' : '#D97706' }}>
+                  <p className="text-xs font-bold mt-0.5" style={{ color: receivedDiff > 0 ? '#047857' : '#D97706' }}>
                     {receivedDiff > 0
                       ? t('budget.receivedMore', { amount: formatSGD(receivedDiff) })
                       : t('budget.receivedLess', { amount: formatSGD(-receivedDiff) })}
@@ -622,7 +622,7 @@ export default function Budget() {
               <p className="text-xs text-gray-400 mb-1 font-semibold">{isOverBudget ? t('budget.summaryOverBy') : t('budget.summaryLeftOver')}</p>
               <p
                 className="text-base font-extrabold tabular-nums"
-                style={{ color: isOverBudget ? '#DC2626' : '#059669' }}
+                style={{ color: isOverBudget ? '#DC2626' : '#047857' }}
               >
                 {formatSGD(isOverBudget ? overspend : remaining)}
               </p>
@@ -737,7 +737,7 @@ export default function Budget() {
                           <button
                             onClick={() => startEdit(e.id)}
                             title="Click to edit"
-                            className="text-sm font-bold text-gray-900 hover:text-orange-600 transition-colors group/amt flex items-center gap-1"
+                            className="text-sm font-bold text-gray-900 hover:text-orange-600 transition-colors group/amt flex items-center gap-1 py-1.5 -my-1.5"
                           >
                             <span className="underline decoration-dashed decoration-gray-300 underline-offset-2 group-hover/amt:decoration-orange-400 transition-colors tabular-nums">
                               {formatSGD(e.amount)}
@@ -782,7 +782,8 @@ export default function Budget() {
 
                     <button
                       onClick={() => setHistoryCategoryId(isHistoryOpen ? null : e.id)}
-                      className="flex items-center gap-1.5 mt-1.5 pl-5"
+                      aria-expanded={isHistoryOpen}
+                      className="flex items-center gap-1.5 mt-0.5 py-1 ps-5"
                     >
                       <span className="text-xs font-bold text-gray-400">
                         {t('budget.historyBtn', { count: categoryEntries.length })}

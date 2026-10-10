@@ -39,7 +39,7 @@ export default function Chat() {
   const border = isDark ? '#2C2926' : '#F0EDE8'
   const border2 = isDark ? '#2C2926' : '#EDE8E0'
   const textPrimary   = isDark ? '#F5F2EE' : '#1A1A1A'
-  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
+  const textSecondary = isDark ? '#9CA3AF' : '#57534E'
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)

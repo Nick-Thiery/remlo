@@ -116,6 +116,7 @@ function BottomTabBar() {
               <button
                 key={path}
                 onClick={() => navigate(path)}
+                aria-current={active ? 'page' : undefined}
                 className="min-w-0 flex-1 flex flex-col items-center justify-center gap-1 transition-colors"
                 style={{ minHeight: 60, paddingTop: 10, paddingBottom: 8 }}
               >
@@ -123,7 +124,7 @@ function BottomTabBar() {
                   style={{
                     width: 26,
                     height: 26,
-                    color: active ? '#E8640C' : isDark ? '#6B7280' : '#9CA3AF',
+                    color: active ? '#E8640C' : isDark ? '#9C9590' : '#706A64',
                     transition: 'color 0.15s',
                   }}
                   fill="none"
@@ -131,7 +132,7 @@ function BottomTabBar() {
                 />
                 <span
                   className="text-[10px] leading-snug font-semibold transition-colors break-words w-full px-0.5"
-                  style={{ color: active ? '#E8640C' : isDark ? '#6B7280' : '#9CA3AF' }}
+                  style={{ color: active ? (isDark ? '#FB923C' : '#C2410C') : isDark ? '#9C9590' : '#706A64' }}
                 >
                   {t(`nav.${key}`)}
                 </span>
@@ -159,7 +160,7 @@ function MorePage() {
   const card   = isDark ? '#1E1C1A' : 'white'
   const border = isDark ? '#2C2926' : '#F0EDE8'
   const textPrimary   = isDark ? '#F5F2EE' : '#111827'
-  const textSecondary = isDark ? '#9CA3AF' : '#6B7280'
+  const textSecondary = isDark ? '#9CA3AF' : '#57534E'
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
 
@@ -430,7 +431,7 @@ function AuthGuard({ children }) {
             className="w-10 h-10 rounded-full border-[3px] border-t-transparent animate-spin"
             style={{ borderColor: '#E8640C', borderTopColor: 'transparent' }}
           />
-          <p className="text-xs font-semibold" style={{ color: isDarkGuard ? '#9CA3AF' : '#9CA3AF' }}>Loading…</p>
+          <p className="text-xs font-semibold" style={{ color: isDarkGuard ? '#9C9590' : '#706A64' }}>Loading…</p>
         </div>
       </div>
     )
