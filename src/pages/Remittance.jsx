@@ -37,7 +37,10 @@ const PROVIDER_CONFIG = [
     id: 'remitly', name: 'Remitly',
     grad: 'linear-gradient(135deg, #3B82F6, #2563EB)',
     spread: 0.010,
-    fees:  { IN: 0.00, BD: 0.00, PH: 0.00, MM: 0.00, ID: 0.00, LK: 0.00, CN: 0.00, TH: 0.00, PK: 0.00, NP: 0.00 },
+    // Standard flat fee per transfer from remitly.com/sg pages, checked 2026-10-10.
+    // The zero fee is only for a new customer's first transfer, so it is not used here.
+    // PK: the page shows no standard fee (free from 58,000 PKR), so this is an estimate.
+    fees:  { IN: 3.99, BD: 4.99, PH: 3.99, MM: 6.99, ID: 4.99, LK: 4.99, CN: 3.99, TH: 3.99, PK: 3.99, NP: 3.99 },
     speed: { IN: 'remittance.speedInstant', BD: 'remittance.speed3to5days', PH: 'remittance.speedInstant', MM: 'remittance.speed3to7days', ID: 'remittance.speedInstant', LK: 'remittance.speed3to5days', CN: 'remittance.speed2to4days', TH: 'remittance.speedInstant', PK: 'remittance.speed3to5days', NP: 'remittance.speed3to5days' },
   },
   {
