@@ -96,7 +96,7 @@ const LIMIT_MESSAGES: Record<string, string> = {
   zh: '您已达到今天的聊天次数上限，请稍后再试。',
   th: 'คุณใช้การแชทครบจำนวนของวันนี้แล้ว กรุณาลองใหม่ภายหลัง',
   ur: 'آپ آج کی چیٹ کی حد تک پہنچ چکے ہیں۔ براہ کرم بعد میں دوبارہ کوشش کریں۔',
-  ne: 'तपाईंले आजको च्याट सीमा पुर्‍याउनुभयो। कृपया पछि फेरि प्रयास गर्नुहोस्।',
+  vi: 'Bạn đã dùng hết lượt chat hôm nay. Vui lòng thử lại sau.',
 }
 
 export function normalizeLanguage(value: unknown): string {

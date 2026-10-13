@@ -32,7 +32,9 @@ function toYYYYMMDD(date) {
   return date.toISOString().slice(0, 10)
 }
 
-function ordinalStr(n) {
+// English suffixes (15th); other languages get the plain number.
+function ordinalStr(n, lang = 'en') {
+  if (!String(lang).startsWith('en')) return String(n)
   const s = ['th', 'st', 'nd', 'rd']
   const v = n % 100
   return n + (s[(v - 20) % 10] || s[v] || s[0])
@@ -61,7 +63,7 @@ const today = toYYYYMMDD(new Date())
 
 export default function Salary() {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const isDark = useDarkMode()
   const bg     = isDark ? '#121110' : '#FAFAF8'
   const card   = isDark ? '#1E1C1A' : 'white'
@@ -275,7 +277,7 @@ export default function Salary() {
                 {t('salary.lateAlert', { count: lateCount })}
               </p>
               <p className="text-xs text-red-500 mt-0.5 font-medium">
-                {t('salary.lateAlertDesc', { ordinal: ordinalStr(payday) })}
+                {t('salary.lateAlertDesc', { ordinal: ordinalStr(payday, i18n.language) })}
               </p>
             </div>
           </div>
@@ -398,8 +400,8 @@ export default function Salary() {
                             <p className="text-xs font-extrabold text-red-600 mb-0.5">{t('salary.lateDetailsTitle')}</p>
                             <p className="text-xs text-red-500 font-medium">
                               {days > 0
-                                ? t('salary.lateDetailsLate', { ordinal: ordinalStr(payday), days })
-                                : t('salary.lateDetailsOnTime', { ordinal: ordinalStr(payday) })}
+                                ? t('salary.lateDetailsLate', { ordinal: ordinalStr(payday, i18n.language), days })
+                                : t('salary.lateDetailsOnTime', { ordinal: ordinalStr(payday, i18n.language) })}
                             </p>
                           </div>
                         )}

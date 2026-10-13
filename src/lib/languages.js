@@ -4,5 +4,5 @@ export const LANGUAGES = [
   { code: 'my', label: 'မြန်မာ' }, { code: 'si', label: 'සිංහල' },
   { code: 'fil', label: 'Filipino' }, { code: 'id', label: 'Indonesia' },
   { code: 'zh', label: '中文' }, { code: 'th', label: 'ภาษาไทย' },
-  { code: 'ur', label: 'اردو' }, { code: 'ne', label: 'नेपाली' },
+  { code: 'ur', label: 'اردو' }, { code: 'vi', label: 'Tiếng Việt' },
 ]

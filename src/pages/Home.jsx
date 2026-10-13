@@ -15,6 +15,7 @@ import { supabase } from '../lib/supabase.js'
 import safeStorage from '../lib/safeStorage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 import { ltr } from '../lib/bidi.js'
+import { LANGUAGES } from '../lib/languages.js'
 
 function formatSGD(amount) {
   return ltr(rawFormatSGD(amount))
@@ -28,21 +29,6 @@ function rawFormatSGD(amount) {
     maximumFractionDigits: 0,
   }).format(amount)
 }
-
-const LANGUAGES = [
-  { code: 'en',  label: 'English'   },
-  { code: 'ta',  label: 'தமிழ்'     },
-  { code: 'hi',  label: 'हिंदी'     },
-  { code: 'bn',  label: 'বাংলা'     },
-  { code: 'my',  label: 'မြန်မာ'    },
-  { code: 'si',  label: 'සිංහල'     },
-  { code: 'fil', label: 'Filipino'  },
-  { code: 'id',  label: 'Indonesia' },
-  { code: 'zh',  label: '中文'       },
-  { code: 'th',  label: 'ภาษาไทย'  },
-  { code: 'ur',  label: 'اردو'      },
-  { code: 'ne',  label: 'नेपाली'    },
-]
 
 // The day as the phone sees it (YYYY-MM-DD in local time). toISOString() gives
 // the UTC date, which in Singapore changes at 8am, so a visit at 7am and another

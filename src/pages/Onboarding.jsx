@@ -18,7 +18,7 @@ const COUNTRIES = [
   { code: 'CN', flag: '🇨🇳', name: 'China',        lang: 'zh'  },
   { code: 'TH', flag: '🇹🇭', name: 'Thailand',     lang: 'th'  },
   { code: 'PK', flag: '🇵🇰', name: 'Pakistan',     lang: 'ur'  },
-  { code: 'NP', flag: '🇳🇵', name: 'Nepal',        lang: 'ne'  },
+  { code: 'NP', flag: '🇳🇵', name: 'Nepal',        lang: 'en'  },
   { code: 'OTHER', flag: '🌍', name: 'Other',      lang: 'en'  },
 ]
 

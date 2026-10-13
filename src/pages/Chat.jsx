@@ -12,7 +12,7 @@ import { getDeviceId } from '../lib/deviceId.js'
 const SPEECH_LANG = {
   en:  'en-SG', ta:  'ta-SG', hi:  'hi-IN', bn:  'bn-BD',
   my:  'my-MM', si:  'si-LK', fil: 'fil-PH', id:  'id-ID',
-  zh:  'zh-CN', th:  'th-TH', ur:  'ur-PK',  ne:  'ne-NP',
+  zh:  'zh-CN', th:  'th-TH', ur:  'ur-PK',  vi:  'vi-VN',
 }
 
 const SpeechRecognition =

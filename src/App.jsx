@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { supabase } from './lib/supabase.js'
 import safeStorage, { safeSession } from './lib/safeStorage.js'
 import { telHref } from './lib/phone.js'
+import { LANGUAGES } from './lib/languages.js'
 import {
   Home as HomeIcon,
   Coins,
@@ -46,21 +47,6 @@ import TermsOfService from './pages/TermsOfService.jsx'
 import DeleteAccount from './pages/DeleteAccount.jsx'
 
 // ─── Config ──────────────────────────────────────────────────────────────────
-
-const LANGUAGES = [
-  { code: 'en',  label: 'English'   },
-  { code: 'ta',  label: 'தமிழ்'     },
-  { code: 'hi',  label: 'हिंदी'     },
-  { code: 'bn',  label: 'বাংলা'     },
-  { code: 'my',  label: 'မြန်မာ'    },
-  { code: 'si',  label: 'සිංහල'     },
-  { code: 'fil', label: 'Filipino'  },
-  { code: 'id',  label: 'Indonesia' },
-  { code: 'zh',  label: '中文'       },
-  { code: 'th',  label: 'ภาษาไทย'  },
-  { code: 'ur',  label: 'اردو'      },
-  { code: 'ne',  label: 'नेपाली'    },
-]
 
 const TABS = [
   { path: '/',           key: 'home',    Icon: HomeIcon       },
