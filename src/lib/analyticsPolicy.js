@@ -38,10 +38,29 @@ const ALLOWED_VALUES = {
   quiz_version: [QUIZ_VERSION],
 }
 
+// Where a person first came from: a fixed code in the QR or link they opened
+// (remloapp.com/?source=healthserve&channel=qr-card). Only these values are
+// accepted; anything else in the URL is ignored. Add a code here before printing it.
+export const CAMPAIGN_SOURCES = ['the-leo', 'mwc', 'healthserve', 'ace', 'aidha', 'raincoats', 'hc-india']
+export const CAMPAIGN_CHANNELS = ['workshop', 'qr-card', 'poster', 'video', 'whatsapp', 'sip']
+
+const validCampaign = (source, channel) =>
+  CAMPAIGN_SOURCES.includes(source) && CAMPAIGN_CHANNELS.includes(channel)
+
 export function campaignFromSearch(search) {
   const params = new URLSearchParams(search)
-  return params.get('source') === 'the-leo' && params.get('channel') === 'workshop'
-    ? { source: 'the-leo', channel: 'workshop' } : {}
+  const source = params.get('source')
+  const channel = params.get('channel')
+  return validCampaign(source, channel) ? { source, channel } : {}
+}
+
+// Stored on the device as "source:channel" so later visits keep the same tag.
+export const CAMPAIGN_STORAGE_KEY = 'remlo_campaign'
+export const formatCampaign = ({ source, channel }) => `${source}:${channel}`
+export function parseCampaign(value) {
+  if (value === 'the-leo') return { source: 'the-leo', channel: 'workshop' } // old session value
+  const [source, channel] = String(value ?? '').split(':')
+  return validCampaign(source, channel) ? { source, channel } : {}
 }
 export function safeEventProperties(event, properties = {}) {
   return Object.fromEntries((EVENT_FIELDS[event] || []).filter(key =>

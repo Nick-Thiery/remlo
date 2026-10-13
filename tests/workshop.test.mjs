@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { createSafeStorage } from '../src/lib/safeStorage.js'
-import { campaignFromSearch, safeEventProperties, sanitizeCapture } from '../src/lib/analyticsPolicy.js'
+import { campaignFromSearch, parseCampaign, formatCampaign, safeEventProperties, sanitizeCapture } from '../src/lib/analyticsPolicy.js'
 import { fetchJson } from '../src/lib/fetchJson.js'
 import { LANGUAGES } from '../src/lib/languages.js'
 
@@ -38,6 +38,25 @@ test('campaign accepts only the known workshop pair, ignoring tokens and free te
   assert.deepEqual(campaignFromSearch('?source=the-leo&channel=workshop&access_token=secret'),{source:'the-leo',channel:'workshop'})
   assert.deepEqual(campaignFromSearch('?source=someone@email.test&channel=workshop'),{})
   assert.deepEqual(campaignFromSearch('?source=the-leo&channel=email'),{})
+})
+test('campaign accepts the listed partner sources and channels, and nothing else', () => {
+  assert.deepEqual(campaignFromSearch('?source=healthserve&channel=qr-card'),{source:'healthserve',channel:'qr-card'})
+  assert.deepEqual(campaignFromSearch('?source=mwc&channel=sip&utm=x'),{source:'mwc',channel:'sip'})
+  assert.deepEqual(campaignFromSearch('?source=healthserve'),{})
+  assert.deepEqual(campaignFromSearch('?source=unknown-org&channel=qr-card'),{})
+  assert.deepEqual(campaignFromSearch('?source=0123456789&channel=whatsapp'),{})
+})
+test('a stored campaign round-trips, and bad stored values are dropped', () => {
+  const c={source:'mwc',channel:'sip'}
+  assert.deepEqual(parseCampaign(formatCampaign(c)),c)
+  assert.deepEqual(parseCampaign('the-leo'),{source:'the-leo',channel:'workshop'})
+  assert.deepEqual(parseCampaign('+65 9123 4567'),{})
+  assert.deepEqual(parseCampaign(null),{})
+})
+test('the campaign is attached to events and nothing else from the URL is', () => {
+  const out=sanitizeCapture({event:'app_opened',properties:{return_session:true,$current_url:'https://remloapp.com/?x=1'}},{source:'ace',channel:'poster'})
+  assert.equal(out.properties.source,'ace');assert.equal(out.properties.channel,'poster')
+  assert.equal(out.properties.$current_url,undefined)
 })
 test('financial and chat data are excluded from event properties', () => {
   assert.deepEqual(safeEventProperties('budget_updated',{income:1500,expense_count:4,notes:'private'}),{expense_count:4})

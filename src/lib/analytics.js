@@ -1,5 +1,8 @@
-import safeStorage, { safeSession } from './safeStorage.js'
-import { campaignFromSearch, eventsToCapture, sanitizeCapture } from './analyticsPolicy.js'
+import safeStorage from './safeStorage.js'
+import {
+  campaignFromSearch, parseCampaign, formatCampaign, CAMPAIGN_STORAGE_KEY,
+  eventsToCapture, sanitizeCapture,
+} from './analyticsPolicy.js'
 
 let posthog
 let enabled = false
@@ -7,10 +10,12 @@ const queue = []
 let campaign = {}
 
 export async function initAnalytics() {
+  // First touch wins: the first valid source code on this device is kept, so
+  // people who come back on later days still count towards where they came from.
   const incoming = campaignFromSearch(window.location.search)
-  if (incoming.source) safeSession.setItem('remlo_campaign', 'the-leo')
-  campaign = safeSession.getItem('remlo_campaign') === 'the-leo'
-    ? { source: 'the-leo', channel: 'workshop' } : {}
+  const stored = parseCampaign(safeStorage.getItem(CAMPAIGN_STORAGE_KEY))
+  if (incoming.source && !stored.source) safeStorage.setItem(CAMPAIGN_STORAGE_KEY, formatCampaign(incoming))
+  campaign = stored.source ? stored : incoming
   const key = import.meta.env.VITE_POSTHOG_KEY
   if (!key) return
   enabled = true
