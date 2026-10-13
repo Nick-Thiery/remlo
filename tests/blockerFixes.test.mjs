@@ -195,7 +195,7 @@ test('a loan whose payment never covers the interest has no total interest', () 
 test('Budget explains that income is the usual monthly pay, in every language', () => {
   const english = JSON.parse(read('src/locales/en.json')).budget.incomeHint
   assert.ok(english)
-  for (const code of ['en', 'ta', 'hi', 'bn', 'my', 'si', 'fil', 'id', 'zh', 'th', 'ur', 'ne']) {
+  for (const code of ['en', 'ta', 'hi', 'bn', 'my', 'si', 'fil', 'id', 'zh', 'th', 'ur', 'vi']) {
     const hint = JSON.parse(read(`src/locales/${code}.json`)).budget.incomeHint
     assert.ok(typeof hint === 'string' && hint.trim().length > 0, code)
     if (code !== 'en') assert.notEqual(hint, english, `${code} is untranslated`)

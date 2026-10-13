@@ -13,7 +13,7 @@ import id  from './locales/id.json'
 import zh  from './locales/zh.json'
 import th  from './locales/th.json'
 import ur  from './locales/ur.json'
-import ne  from './locales/ne.json'
+import vi  from './locales/vi.json'
 
 i18n
   .use(initReactI18next)
@@ -30,7 +30,7 @@ i18n
       zh:  { translation: zh  },
       th:  { translation: th  },
       ur:  { translation: ur  },
-      ne:  { translation: ne  },
+      vi:  { translation: vi  },
     },
     lng: safeStorage.getItem('remlo_lang') || 'en',
     fallbackLng: 'en',

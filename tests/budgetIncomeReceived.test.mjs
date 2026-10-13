@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs'
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
 const budgetPage = read('src/pages/Budget.jsx')
 const salaryPage = read('src/pages/Salary.jsx')
-const LOCALES = ['en', 'ta', 'hi', 'bn', 'my', 'si', 'fil', 'id', 'zh', 'th', 'ur', 'ne']
+const LOCALES = ['en', 'ta', 'hi', 'bn', 'my', 'si', 'fil', 'id', 'zh', 'th', 'ur', 'vi']
 const NEW_KEYS = ['receivedThisMonthLabel', 'receivedMore', 'receivedLess', 'addIncomeBtn', 'addIncomeTitle',
   'addIncomeDesc', 'seeSalaryHistory', 'errorFutureIncomeDate', 'errorIncomeFrom']
 

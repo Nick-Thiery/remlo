@@ -3,7 +3,7 @@
 const DIGIT_ZEROS = [
   0x0660, // Arabic-Indic
   0x06f0, // Extended Arabic-Indic (Urdu)
-  0x0966, // Devanagari (Hindi, Nepali)
+  0x0966, // Devanagari (Hindi)
   0x09e6, // Bengali
   0x0be6, // Tamil
   0x0de6, // Sinhala Lith

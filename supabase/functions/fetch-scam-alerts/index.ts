@@ -24,7 +24,7 @@ const CORS = {
 const LANG_NAMES: Record<string, string> = {
   ta: 'Tamil', hi: 'Hindi', bn: 'Bengali', my: 'Burmese (Myanmar)',
   si: 'Sinhala', fil: 'Filipino (Tagalog)', id: 'Indonesian',
-  zh: 'Chinese (Simplified)', th: 'Thai', ur: 'Urdu', ne: 'Nepali',
+  zh: 'Chinese (Simplified)', th: 'Thai', ur: 'Urdu', vi: 'Vietnamese',
 }
 
 const ALERTS = [

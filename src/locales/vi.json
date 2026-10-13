@@ -1,0 +1,994 @@
+{
+  "greetingMorning": "Chào buổi sáng 👋",
+  "greetingAfternoon": "Chào buổi chiều 👋",
+  "greetingEvening": "Chào buổi tối 👋",
+  "greeting": "Chào buổi sáng 👋",
+  "appName": "Remlo",
+  "footer": "Remlo v1.0 · Bảo mật bởi Supabase · Dành cho người lao động ở Singapore",
+  "guestBanner": {
+    "message": "Tạo tài khoản để đồng bộ dữ liệu giữa các thiết bị",
+    "signUp": "Đăng ký"
+  },
+  "hero": {
+    "eyebrow": "Dành cho bạn",
+    "headline": "Tiền của bạn,\ntương lai của bạn.",
+    "tagline": "Lên kế hoạch, tiết kiệm và gửi tiền về nhà — thông minh hơn, tốn ít hơn.",
+    "cta": "Bắt đầu"
+  },
+  "stats": {
+    "heading": "Số liệu nhanh",
+    "totalSaved": "Tổng đã tiết kiệm",
+    "totalSavedSub": "trong các mục tiêu của bạn",
+    "budgetLeft": "Ngân sách còn lại",
+    "budgetLeftSub": "tháng này",
+    "dayStreak": "Chuỗi ngày liên tiếp"
+  },
+  "features": {
+    "heading": "Tính năng",
+    "savings": {
+      "title": "Mục tiêu tiết kiệm",
+      "description": "Theo dõi mục tiêu của bạn — quỹ khẩn cấp, du lịch, gia đình."
+    },
+    "budget": {
+      "title": "Lập ngân sách",
+      "description": "Lên kế hoạch chi tiêu hằng tháng và xem bạn có thể tiết kiệm được bao nhiêu."
+    },
+    "remittance": {
+      "title": "Tỷ giá",
+      "description": "Tỷ giá chỉ mang tính tham khảo và được cập nhật theo định kỳ. Tỷ giá thực tế có thể khác vào lúc chuyển tiền."
+    },
+    "ai": {
+      "title": "Trợ lý AI",
+      "description": "Nhận mẹo về tiền bạc phù hợp với hồ sơ của bạn.",
+      "badge": "Sắp ra mắt"
+    }
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "savings": "Tiết kiệm",
+    "budget": "Ngân sách",
+    "send": "Gửi tiền",
+    "chat": "Trò chuyện",
+    "more": "Thêm",
+    "moreHeading": "Thêm",
+    "moreDesc": "Công cụ và thông tin cho người lao động ở Singapore",
+    "language": "Ngôn ngữ",
+    "emergencySection": "Liên hệ khẩn cấp",
+    "drawerFooter": "Remlo · Tài chính thông minh cho mọi người",
+    "signOut": "Đăng xuất",
+    "endGuestSession": "Kết thúc phiên khách",
+    "aiChat": "Trò chuyện với AI",
+    "salary": "Lương"
+  },
+  "moreItems": {
+    "salary": {
+      "label": "Theo dõi lương",
+      "desc": "Ghi các lần nhận lương và đánh dấu lương trả trễ"
+    },
+    "loans": {
+      "label": "Theo dõi khoản vay",
+      "desc": "Theo dõi việc trả nợ và ngày trả xong"
+    },
+    "scams": {
+      "label": "Cảnh báo lừa đảo",
+      "desc": "Cảnh báo lừa đảo mới nhất · ScamShield"
+    },
+    "loanshark": {
+      "label": "Hướng dẫn về cho vay nặng lãi",
+      "desc": "Nhận biết người cho vay bất hợp pháp và tìm cách được giúp"
+    },
+    "scamQuiz": {
+      "label": "Câu đố về lừa đảo",
+      "desc": "Thử xem bạn biết gì về lừa đảo qua 8 câu hỏi"
+    },
+    "emergencyFund": {
+      "label": "Quỹ khẩn cấp",
+      "desc": "Tính xem bạn cần bao nhiêu tiền dự phòng"
+    },
+    "bankingGuide": {
+      "label": "Hướng dẫn ngân hàng",
+      "desc": "Cách mở tài khoản ngân hàng ở Singapore"
+    },
+    "emergency": {
+      "label": "Liên hệ khẩn cấp",
+      "desc": "Đường dây hỗ trợ cho người lao động ở Singapore"
+    }
+  },
+  "common": {
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "add": "Thêm",
+    "close": "Đóng",
+    "confirm": "Xác nhận",
+    "delete": "Xóa",
+    "required": "Bắt buộc",
+    "optional": "không bắt buộc",
+    "call": "Gọi",
+    "tapToCall": "Bấm để gọi",
+    "noFee": "Không phí",
+    "loading": "Đang tải...",
+    "emergency": "Khẩn cấp",
+    "nonEmergency": "Không khẩn cấp",
+    "englishOnly": "Trang này chỉ có bằng tiếng Anh."
+  },
+  "savings": {
+    "pageTitle": "Mục tiêu tiết kiệm",
+    "pageSubtitle_one": "{{count}} mục tiêu đang thực hiện",
+    "pageSubtitle_other": "{{count}} mục tiêu đang thực hiện",
+    "newGoalBtn": "Mục tiêu mới",
+    "overallProgress": "Tiến độ chung",
+    "savedOf": "đã tiết kiệm trên {{amount}}",
+    "emptyTitle": "Chưa có mục tiêu nào",
+    "emptyDesc": "Tạo mục tiêu tiết kiệm đầu tiên để bắt đầu.",
+    "emptyBtn": "Tạo mục tiêu",
+    "targetLabel": "Mục tiêu {{amount}}",
+    "completeBadge": "Hoàn thành ✓",
+    "savedLabel": "Đã tiết kiệm",
+    "remainingLabel": "Còn lại",
+    "goalReached": "Đã đạt mục tiêu!",
+    "addFundsBtn": "Thêm tiền",
+    "modalNewTitle": "Mục tiêu tiết kiệm mới",
+    "modalNewDesc": "Đặt tên cho mục tiêu và số tiền cần đạt.",
+    "goalNameLabel": "Tên mục tiêu",
+    "goalNamePlaceholder": "ví dụ: Quỹ khẩn cấp, Xây nhà",
+    "targetAmountLabel": "Số tiền mục tiêu (SGD)",
+    "createGoalBtn": "Tạo mục tiêu",
+    "addFundsTitle": "Thêm tiền",
+    "addFundsDesc": "{{name}} · còn lại {{amount}}",
+    "depositLabel": "Số tiền gửi vào (SGD)",
+    "errorGoalName": "Cần nhập tên mục tiêu.",
+    "errorTarget": "Nhập số tiền mục tiêu hợp lệ.",
+    "errorDeposit": "Nhập số tiền gửi hợp lệ.",
+    "dateLabel": "Ngày gửi tiền",
+    "errorDate": "Bắt buộc",
+    "errorFutureDate": "Ngày gửi tiền không thể là ngày trong tương lai.",
+    "noteLabelModal": "Ghi chú",
+    "notePlaceholder": "ví dụ: Tiền thưởng từ công ty",
+    "historyBtn_one": "{{count}} lần gửi",
+    "historyBtn_other": "{{count}} lần gửi",
+    "noEntriesYet": "Chưa ghi lần gửi tiền nào.",
+    "runningTotalLabel": "Tổng cộng dồn",
+    "deleteEntry": "Xóa mục này"
+  },
+  "budget": {
+    "pageTitle": "Lập ngân sách",
+    "pageSubtitle": "Lên kế hoạch thu nhập và chi tiêu hằng tháng",
+    "incomeLabel": "Thu nhập hằng tháng (SGD)",
+    "incomeHint": "Tiền lương thường lệ mỗi tháng của bạn. Đã nhận lương? Bấm Thêm thu nhập để ghi lại số tiền bạn nhận được.",
+    "receivedThisMonthLabel": "Đã nhận trong tháng này",
+    "receivedMore": "Nhiều hơn dự kiến {{amount}}",
+    "receivedLess": "Ít hơn dự kiến {{amount}}",
+    "addIncomeBtn": "Thêm thu nhập",
+    "addIncomeTitle": "Thêm thu nhập đã nhận",
+    "addIncomeDesc": "Ghi lại tiền lương bạn đã nhận. Khoản này cũng hiện trong Theo dõi lương.",
+    "seeSalaryHistory": "Xem tất cả khoản trả trong Theo dõi lương",
+    "errorFutureIncomeDate": "Ngày nhận tiền không được ở tương lai.",
+    "errorIncomeFrom": "Nhập tên người đã trả tiền cho bạn.",
+    "summaryIncome": "Thu nhập",
+    "summaryExpenses": "Chi tiêu",
+    "summaryOverBy": "Vượt quá",
+    "summaryLeftOver": "Còn lại",
+    "breakdownTitle": "Chi tiết",
+    "remainingLabel": "Còn lại",
+    "expensesTitle": "Chi tiêu hằng tháng",
+    "expensesEmpty": "Chưa thêm khoản chi nào.",
+    "addExpenseTitle": "Thêm khoản chi",
+    "namePlaceholder": "Tên",
+    "addBtn": "Thêm",
+    "errorName": "Nhập tên khoản chi.",
+    "errorAmount": "Nhập số tiền hợp lệ.",
+    "logSpendBtn": "Ghi khoản chi",
+    "logSpendTitle": "Ghi khoản chi",
+    "logSpendDesc": "{{name}} · còn {{amount}} trong tháng này",
+    "dateLabel": "Ngày chi",
+    "errorDate": "Bắt buộc",
+    "errorFutureDate": "Ngày chi không được ở tương lai.",
+    "spendAmountLabel": "Số tiền đã chi (SGD)",
+    "noteLabel": "Ghi chú",
+    "notePlaceholder": "ví dụ: Đi Grab đến chỗ làm",
+    "historyBtn_one": "{{count}} khoản",
+    "historyBtn_other": "{{count}} khoản",
+    "noEntriesYet": "Chưa ghi khoản chi nào.",
+    "runningTotalLabel": "Tổng cộng dồn",
+    "deleteEntry": "Xóa khoản này",
+    "spentThisMonthLabel": "Đã chi trong tháng này",
+    "guideTitle": "Quy tắc 50 / 30 / 20",
+    "guideBadge": "Dành cho người lao động ở Singapore",
+    "guideDesc": "Cách chia ngân sách thực tế, phù hợp với việc gửi tiền về nhà.",
+    "needsLabel": "Nhu cầu thiết yếu",
+    "needsPct": "50%",
+    "needsDesc": "Tiền thuê chỗ ở, ăn uống, đi lại, điện thoại · Bạn đang chi {{amount}}",
+    "needsOver": " (vượt {{over}})",
+    "needsOk": " ✓",
+    "sendHomeLabel": "Gửi về nhà",
+    "sendHomePct": "30%",
+    "sendHomeDesc": "Tiền gửi cho gia đình — dùng trang Gửi tiền để so sánh tỷ giá.",
+    "savingsLabel": "Tiết kiệm",
+    "savingsPct": "20%",
+    "savingsDesc": "Quỹ khẩn cấp, mục tiêu · Bạn còn dư {{amount}}",
+    "savingsShort": " (mục tiêu {{target}})",
+    "savingsOk": " ✓",
+    "presetRent": "Tiền thuê nhà / Ký túc xá",
+    "presetGroceries": "Đồ ăn, nhu yếu phẩm",
+    "presetTransport": "Đi lại",
+    "presetPhone": "Gói cước điện thoại"
+  },
+  "remittance": {
+    "pageTitle": "Tỷ giá",
+    "pageSubtitle": "So sánh tỷ giá trực tiếp giữa các nơi gửi tiền",
+    "sendLabel": "Bạn gửi (SGD)",
+    "countryLabel": "Nước nhận tiền",
+    "providersLabel": "{{count}} nơi gửi · gửi {{amount}} đến {{country}}",
+    "emptyTitle": "Nhập số tiền để so sánh",
+    "emptyDesc": "Chúng tôi sẽ cho bạn thấy tỷ giá tốt nhất giữa các nơi gửi tiền.",
+    "bestValue": "Lợi nhất",
+    "rateLabel": "Tỷ giá",
+    "rateValue": "1 SGD = {{rate}} {{currency}}",
+    "feeLabel": "Phí chuyển tiền",
+    "receivedLabel": "Nhận được {{currency}}",
+    "disclaimer": "Tỷ giá chỉ mang tính tham khảo và được cập nhật theo định kỳ. Tỷ giá thực tế có thể khác vào lúc chuyển tiền.",
+    "countryIndia": "Ấn Độ",
+    "countryBangladesh": "Bangladesh",
+    "countryPhilippines": "Philippines",
+    "countryMyanmar": "Myanmar",
+    "countryIndonesia": "Indonesia",
+    "countrySriLanka": "Sri Lanka",
+    "countryChina": "Trung Quốc",
+    "countryThailand": "Thái Lan",
+    "countryPakistan": "Pakistan",
+    "countryNepal": "Nepal",
+    "speedInstant": "Tức thì",
+    "speedInstant2hrs": "Tức thì – 2 giờ",
+    "speedMinutes": "Vài phút",
+    "speed1to2days": "1 – 2 ngày",
+    "speed1to3days": "1 – 3 ngày",
+    "speed2to4days": "2 – 4 ngày",
+    "speed2to5days": "2 – 5 ngày",
+    "speed3to5days": "3 – 5 ngày",
+    "speed3to7days": "3 – 7 ngày",
+    "ratesFetching": "Đang lấy tỷ giá trực tiếp…",
+    "ratesStale": "Tỷ giá có thể đã cũ · Không kết nối được dịch vụ tỷ giá",
+    "ratesLive": "Tỷ giá trực tiếp · Cập nhật {{time}}"
+  },
+  "salary": {
+    "pageTitle": "Theo dõi lương",
+    "pageSubtitle": "Đã ghi {{count}} khoản trả",
+    "logBtn": "Ghi khoản trả",
+    "monthEarnings": "Thu nhập {{month}}",
+    "thisMonth": "tháng này",
+    "yearEarnings": "Thu nhập {{year}}",
+    "thisYear": "năm nay",
+    "lateAlert_one": "Phát hiện {{count}} khoản trả lương trễ",
+    "lateAlert_other": "Phát hiện {{count}} khoản trả lương trễ",
+    "lateAlertDesc": "Dựa trên ngày lương bạn đặt (ngày {{ordinal}} hằng tháng, cho phép trễ 3 ngày).",
+    "paydaySetting": "Cài đặt ngày lương",
+    "paydayPrefix": "Ngày lương của tôi là ngày",
+    "paydaySuffix": "hằng tháng",
+    "paydayNote": "Khoản trả đến muộn hơn 3 ngày sau ngày này sẽ bị đánh dấu là trễ.",
+    "historyTitle": "Lịch sử nhận lương",
+    "emptyTitle": "Chưa ghi khoản trả nào",
+    "emptyDesc": "Ghi lại khoản lương đầu tiên của bạn để bắt đầu.",
+    "emptyBtn": "Ghi khoản trả",
+    "lateBadge": "⚠ Trễ",
+    "lateBadgeDays": "⚠ Trễ +{{days}} ngày",
+    "noteLabel": "Ghi chú",
+    "noNote": "Không có ghi chú.",
+    "lateDetailsTitle": "Chi tiết trả lương trễ",
+    "lateDetailsLate": "Dự kiến ngày {{ordinal}} — trả trễ {{days}} ngày.",
+    "lateDetailsOnTime": "Dự kiến ngày {{ordinal}} — trả đúng hạn hoặc sớm hơn.",
+    "deleteEntry": "Xóa khoản này",
+    "modalTitle": "Ghi khoản trả lương",
+    "modalDesc": "Ghi lại bạn được trả khi nào và bao nhiêu.",
+    "dateLabel": "Ngày nhận tiền",
+    "amountLabel": "Số tiền (SGD)",
+    "employerLabel": "Tên chủ lao động",
+    "employerPlaceholder": "ví dụ: Sunrise Construction Pte Ltd",
+    "noteLabelModal": "Ghi chú",
+    "notePlaceholder": "ví dụ: Gồm tiền làm thêm giờ tuần 2",
+    "saveBtn": "Lưu khoản trả",
+    "errorDate": "Bắt buộc",
+    "errorAmount": "Nhập số tiền hợp lệ",
+    "errorEmployer": "Bắt buộc"
+  },
+  "loans": {
+    "pageTitle": "Theo dõi khoản vay",
+    "pageSubtitle_one": "{{count}} khoản vay đang trả",
+    "pageSubtitle_other": "{{count}} khoản vay đang trả",
+    "addBtn": "+ Thêm khoản vay",
+    "illegalBanner_one": "Phát hiện {{count}} khoản vay lãi cao",
+    "illegalBanner_other": "Phát hiện {{count}} khoản vay lãi cao",
+    "illegalBannerDesc": "Lãi suất trên {{threshold}}% mỗi tháng có thể là của người cho vay không có giấy phép (cho vay nặng lãi). Ở Singapore điều này là bất hợp pháp. Bạn được bảo vệ theo Moneylenders Act — bạn không phải trả các khoản vay bất hợp pháp.",
+    "illegalBannerLink": "→ Xem hướng dẫn về cho vay nặng lãi",
+    "totalDebtLabel": "Tổng nợ còn lại",
+    "totalDebtSub_one": "trong {{count}} khoản vay",
+    "totalDebtSub_other": "trong {{count}} khoản vay",
+    "emptyTitle": "Chưa theo dõi khoản vay nào",
+    "emptyDesc": "Thêm một khoản vay để theo dõi việc trả nợ và ngày dự kiến trả xong.",
+    "emptyBtn": "Thêm khoản vay",
+    "rateMonthly": "{{rate}}% / tháng · {{payment}} / tháng",
+    "paidOffBadge": "Đã trả xong ✓",
+    "remainingLabel": "Còn lại",
+    "originalAmount": "Số tiền vay ban đầu",
+    "paymentsMade": "Đã trả",
+    "paymentsMade_one": "{{count}} tháng",
+    "paymentsMade_other": "{{count}} tháng",
+    "projectedPayoff": "Dự kiến trả xong",
+    "projectedComplete": "Hoàn tất",
+    "projectedNever": "⚠ Không bao giờ",
+    "totalInterest": "Tổng tiền lãi",
+    "neverTitle": "Tiền trả mỗi tháng quá thấp",
+    "neverDesc": "Số tiền bạn trả là {{payment}}, không đủ trả tiền lãi mỗi tháng là {{interest}}. Số nợ sẽ tăng lên theo thời gian.",
+    "illegalCardTitle": "⚠ Có thể là khoản vay bất hợp pháp (cho vay nặng lãi)",
+    "illegalCardDesc": "Người cho vay có giấy phép ở Singapore bị giới hạn lãi tối đa 4% mỗi tháng. Lãi suất {{rate}}% mỗi tháng là vượt mức này. Hãy liên hệ Registry of Moneylenders hoặc gọi đường dây nóng X-Ah Long theo số 1800-924-5664.",
+    "deleteLoan": "Xóa khoản vay này",
+    "modalTitle": "Thêm khoản vay",
+    "modalDesc": "Nhập thông tin khoản vay để bắt đầu theo dõi việc trả nợ.",
+    "lenderLabel": "Tên người cho vay",
+    "lenderPlaceholder": "ví dụ: OCBC, DBS, hoặc tên người cho vay",
+    "principalLabel": "Tổng số tiền đã vay (SGD)",
+    "rateLabel": "Lãi suất mỗi tháng (%)",
+    "rateNote": "— người cho vay có giấy phép tối đa 4%",
+    "ratePlaceholder": "ví dụ: 0.55",
+    "rateWarning": "⚠ Lãi suất trên 4%/tháng — đây có thể là khoản vay bất hợp pháp.",
+    "paymentLabel": "Tiền trả mỗi tháng (SGD)",
+    "startDateLabel": "Ngày bắt đầu vay",
+    "addLoanBtn": "Thêm khoản vay",
+    "errorRequired": "Bắt buộc",
+    "errorAmount": "Nhập số tiền hợp lệ",
+    "errorRate": "Nhập lãi suất hợp lệ (từ 0 trở lên)",
+    "errorPayment": "Nhập số tiền trả hợp lệ"
+  },
+  "scams": {
+    "emergencyBanner": "🚨 Nếu bạn đang gặp nguy hiểm, hãy gọi 999  ·  Đường dây MOM: 6438-5122",
+    "pageTitle": "Cảnh báo lừa đảo",
+    "pageSubtitle": "Các vụ lừa đảo mới nhất nhắm vào người lao động ở Singapore",
+    "reportBtn": "Báo cáo lừa đảo",
+    "filterAll": "Tất cả",
+    "whatToDoHeading": "Bạn nên làm gì",
+    "noAlerts": "Không có cảnh báo nào cho mục này.",
+    "sourceNote": "Các cảnh báo dựa trên báo cáo của MOM, SPF và kênh Scam Alert Singapore. Luôn kiểm tra lại qua kênh chính thức.",
+    "loadError": "Không tải được cảnh báo",
+    "tryAgain": "Thử lại",
+    "sourceLabel": "Nguồn",
+    "severity": {
+      "critical": "RẤT NGHIÊM TRỌNG",
+      "high": "CAO",
+      "medium": "TRUNG BÌNH",
+      "low": "LƯU Ý"
+    },
+    "types": {
+      "jobScam": "Lừa đảo việc làm",
+      "loanScam": "Lừa đảo vay tiền",
+      "phishing": "Lừa lấy thông tin (phishing)",
+      "impersonation": "Giả danh",
+      "paymentScam": "Lừa đảo thanh toán",
+      "investmentScam": "Lừa đảo đầu tư"
+    },
+    "report": {
+      "title": "Báo cáo lừa đảo",
+      "subtitle": "Báo cáo của bạn giúp bảo vệ những người lao động khác. Bạn không bị rắc rối gì.",
+      "whatLabel": "Chuyện gì đã xảy ra?",
+      "whatPlaceholder": "Hãy kể lại vụ lừa đảo — họ nói gì, họ bảo bạn làm gì?",
+      "whenLabel": "Chuyện xảy ra khi nào?",
+      "lostLabel": "Bạn mất bao nhiêu tiền?",
+      "lostNote": "(không bắt buộc — nhập 0 nếu bạn không mất tiền)",
+      "contactLabel": "Số điện thoại của bạn",
+      "contactPlaceholder": "ví dụ: 9123 4567",
+      "contactNote": "Chỉ dùng khi chúng tôi cần liên lạc lại với bạn. Không công khai.",
+      "policeTitle": "Hãy báo cả cho Cảnh sát",
+      "policeDesc": "Báo cáo cho chúng tôi không thay thế cho báo cáo với cảnh sát. Nếu vụ lừa đảo làm bạn mất tiền, hãy nộp báo cáo chính thức tại police.gov.sg/e-services/make-e-report hoặc gọi 1800-255-0000.",
+      "submitBtn": "Gửi báo cáo",
+      "successTitle": "Đã nhận báo cáo",
+      "successDesc": "Cảm ơn bạn đã báo cáo. Thông tin của bạn giúp chúng tôi cảnh báo những người lao động khác. Nếu bạn đang gặp nguy hiểm ngay lúc này, hãy gọi 999.",
+      "errorWhat": "Vui lòng kể lại chuyện đã xảy ra.",
+      "errorWhen": "Bắt buộc",
+      "errorContact": "Vui lòng nhập số điện thoại."
+    },
+    "alerts": [
+      {
+        "id": "fake_mom",
+        "title": "Giả danh nhân viên MOM đòi nộp tiền thuế (levy)",
+        "type": "impersonation",
+        "description": "Kẻ lừa đảo gọi điện cho người lao động và chủ lao động, nói là nhân viên Bộ Nhân lực (Ministry of Manpower). Chúng nói bạn còn nợ thuế lao động nước ngoài (levy) và bắt chuyển khoản ngân hàng hoặc PayNow ngay để tránh bị bắt. Nhân viên MOM thật không bao giờ đòi tiền qua điện thoại.",
+        "whatToDo": [
+          "Cúp máy ngay — MOM sẽ không bao giờ gọi điện đòi bạn trả tiền.",
+          "Không chuyển tiền, dù họ dọa bắt bạn.",
+          "Gọi thẳng cho MOM theo số 6438 5122 để kiểm tra bất cứ việc chính thức nào.",
+          "Báo cuộc gọi đó cho Cảnh sát theo số 1800-255-0000."
+        ]
+      },
+      {
+        "id": "whatsapp_phishing",
+        "title": "Lừa đảo qua WhatsApp: Link đăng nhập DBS / POSB giả",
+        "type": "phishing",
+        "description": "Một tin nhắn WhatsApp giả danh ngân hàng DBS báo tài khoản của bạn bị khóa. Tin nhắn có đường link đến trang đăng nhập DBS giả, để lấy tên đăng nhập, mật khẩu và mã OTP. Tin nhắn trông rất thật, có cả logo DBS. Nhiều người lao động đã mất tiền tiết kiệm sau khi bấm vào link.",
+        "whatToDo": [
+          "Đừng bao giờ bấm vào link ngân hàng gửi qua WhatsApp, SMS hoặc email.",
+          "Luôn tự gõ địa chỉ web của ngân hàng vào trình duyệt.",
+          "Nếu bạn đã nhập thông tin, hãy gọi DBS ngay theo số 1800-111-1111 để khóa tài khoản.",
+          "Báo cho ScamShield: gọi 1799 hoặc dùng ứng dụng ScamShield."
+        ]
+      },
+      {
+        "id": "fake_job",
+        "title": "Việc làm giả đòi phí môi giới trả trước",
+        "type": "jobScam",
+        "description": "Các nhóm Facebook và Telegram quảng cáo việc xây dựng và dọn dẹp lương cao ở Singapore, nhưng bắt người lao động trả S$200–S$800 tiền phí môi giới hoặc phí làm giấy phép lao động trước khi bắt đầu làm việc. Sau khi nhận tiền, người môi giới biến mất. Một công ty môi giới có giấy phép chỉ được thu tối đa 1 tháng lương cho mỗi năm hợp đồng của bạn, tối đa 2 tháng lương, và khoản phí này được ghi trong thư In-Principle Approval (IPA) của bạn.",
+        "whatToDo": [
+          "Đừng bao giờ trả tiền cho người môi giới mà bạn chỉ biết qua Facebook, Telegram hoặc WhatsApp. Phí của công ty môi giới có giấy phép bị MOM giới hạn và được ghi trong thư IPA của bạn.",
+          "Kiểm tra xem công ty môi giới có giấy phép không tại mom.gov.sg/eadirectory.",
+          "Nếu bạn đã trả tiền, hãy báo cho MOM theo số 6438-5122.",
+          "Giữ lại tất cả biên lai và tin nhắn làm bằng chứng."
+        ]
+      },
+      {
+        "id": "illegal_lender",
+        "title": "Cho vay nặng lãi bất hợp pháp mời vay nhanh qua SMS",
+        "type": "loanScam",
+        "description": "Những người cho vay không có giấy phép gửi SMS và tin nhắn WhatsApp không ai yêu cầu, quảng cáo vay tiền mặt nhanh, không cần kiểm tra gì. Họ tính lãi cao hơn nhiều so với mức tối đa hợp pháp 4% mỗi tháng, và dùng đe dọa, quấy rối, phá hoại tài sản với người vay và gia đình họ. Vay tiền từ người cho vay không có giấy phép là phạm tội ở Singapore.",
+        "whatToDo": [
+          "Đừng vay của bất kỳ ai liên lạc với bạn qua SMS hoặc WhatsApp — mọi người cho vay có giấy phép đều có tên trong danh sách tại rom.mlaw.gov.sg.",
+          "Nếu bị đe dọa hoặc quấy rối, hãy gọi Cảnh sát ngay theo số 999.",
+          "Báo cho đường dây nóng X-Ah Long: 1800-924-5664 (hoạt động 24/7).",
+          "Bạn là nạn nhân — luật Singapore bảo vệ bạn, kể cả khi bạn đã vay rồi."
+        ]
+      },
+      {
+        "id": "fake_dorm",
+        "title": "Môi giới ký túc xá giả thu tiền thuê trả trước",
+        "type": "paymentScam",
+        "description": "Kẻ lừa đảo giả làm môi giới ký túc xá, thu tiền thuê trả trước 1–3 tháng của người lao động đang tìm chỗ ở gần nơi làm việc. Ký túc xá đó không có thật, hoặc người môi giới không có quyền với nó. Người lao động đến nơi thì không có phòng và mất vài trăm đô la. Luôn kiểm tra thông tin ký túc xá trực tiếp với chủ lao động của bạn hoặc đơn vị vận hành ký túc xá đã đăng ký với BCA.",
+        "whatToDo": [
+          "Đừng bao giờ trả tiền thuê trước khi xem phòng và xác nhận người môi giới được ký túc xá ủy quyền.",
+          "Kiểm tra các ký túc xá đã đăng ký với BCA tại bca.gov.sg/workersdormitory.",
+          "Chỉ trả bằng PayNow hoặc séc cho công ty ký túc xá chính thức — không trả vào tài khoản cá nhân.",
+          "Nếu bị lừa, hãy nộp báo cáo cho Cảnh sát tại bất kỳ Neighbourhood Police Centre nào hoặc tại police.gov.sg/e-services/make-e-report."
+        ]
+      }
+    ]
+  },
+  "loanshark": {
+    "pageTitle": "Nhận biết cho vay nặng lãi",
+    "pageSubtitle": "Chọn những điều đúng với trường hợp của bạn để nhận ra người cho vay bất hợp pháp",
+    "infoNote": "Ở Singapore, người cho vay có giấy phép được Registry of Moneylenders quản lý theo Moneylenders Act. Lãi suất tối đa là 4% mỗi tháng. Cho vay không có giấy phép là phạm tội — quấy rối người vay cũng vậy.",
+    "checklistTitle": "Danh sách dấu hiệu nguy hiểm",
+    "showMore": "▼ Xem thêm {{count}} dấu hiệu",
+    "showLess": "▲ Ẩn bớt dấu hiệu",
+    "riskTitle": "Đánh giá mức rủi ro",
+    "riskCounter": "Đã chọn {{checked}} trên {{total}} dấu hiệu",
+    "legalTitle": "Người cho vay hợp pháp trông như thế nào",
+    "legalDesc": "Người cho vay có giấy phép ở Singapore phải đăng ký, chịu sự quản lý và tuân theo Moneylenders Act. Họ bắt buộc phải làm những điều sau:",
+    "verifyNote": "Hãy kiểm tra người cho vay tại rom.mlaw.gov.sg trước khi vay. Danh sách đầy đủ người cho vay có giấy phép được công khai và kiểm tra miễn phí.",
+    "helpTitle": "Nhận trợ giúp",
+    "callXAhLong": "Gọi X-Ah Long: 1800-924-5664",
+    "callPolice": "Gọi Cảnh sát: 999",
+    "disclaimer": "Thông tin dựa trên Moneylenders Act (Cap. 188) và hướng dẫn của MOM. Không phải tư vấn pháp lý.",
+    "flags": [
+      {
+        "id": "unsolicited_contact",
+        "label": "Họ liên lạc với bạn trước — qua WhatsApp, SMS hoặc mạng xã hội",
+        "detail": "Luật Singapore cấm người cho vay có giấy phép quảng cáo qua SMS, WhatsApp, điện thoại hoặc mạng xã hội. Nếu họ tự tìm đến bạn, họ không có giấy phép."
+      },
+      {
+        "id": "no_license",
+        "label": "Họ không đưa số giấy phép hoặc từ chối cho bạn xem",
+        "detail": "Mọi người cho vay có giấy phép đều phải đăng ký với Registry of Moneylenders. Bạn có thể kiểm tra bất kỳ số giấy phép nào tại rom.mlaw.gov.sg. Từ chối cung cấp là dấu hiệu rất nguy hiểm."
+      },
+      {
+        "id": "high_interest",
+        "label": "Lãi suất cao hơn 4% mỗi tháng",
+        "detail": "Luật Singapore quy định lãi suất tối đa 4% mỗi tháng cho mọi người cho vay có giấy phép, dù thu nhập hay khoản vay của bạn là bao nhiêu. Bất kỳ mức nào cao hơn đều là bất hợp pháp."
+      },
+      {
+        "id": "singpass_demand",
+        "label": "Họ hỏi tên đăng nhập hoặc mật khẩu SingPass của bạn",
+        "detail": "Không có người cho vay, ngân hàng hay cơ quan chính phủ đàng hoàng nào hỏi thông tin đăng nhập SingPass của bạn. Đây là hành vi đánh cắp danh tính. Tuyệt đối không đưa cho họ."
+      },
+      {
+        "id": "bank_login_demand",
+        "label": "Họ hỏi thông tin đăng nhập internet banking, mã PIN ATM hoặc thẻ ngân hàng của bạn",
+        "detail": "Người cho vay có giấy phép chuyển tiền thẳng vào tài khoản ngân hàng của bạn — họ không cần vào tài khoản của bạn. Đưa quyền truy cập ngân hàng là để lộ toàn bộ tiền tiết kiệm của bạn."
+      },
+      {
+        "id": "no_contract",
+        "label": "Không có hợp đồng vay bằng văn bản, hoặc hợp đồng để trống / chưa điền đủ",
+        "detail": "Moneylenders Act yêu cầu phải có hợp đồng vay đã ký trước khi giao tiền. Người cho vay đàng hoàng sẽ cho bạn thời gian đọc. Đừng bao giờ ký vào giấy trống hoặc giấy mới điền một phần."
+      },
+      {
+        "id": "upfront_fee",
+        "label": "Họ đòi bạn trả phí hoặc tiền đặt cọc trước khi cho vay",
+        "detail": "Người cho vay có giấy phép chỉ được trừ phí hành chính (tối đa 10% số tiền gốc) ngay từ khoản vay — không bao giờ được đòi bạn trả tiền mặt trước khi bạn nhận được gì."
+      },
+      {
+        "id": "no_office",
+        "label": "Họ không có văn phòng thật, hoặc văn phòng trông không chính thức / như nhà ở",
+        "detail": "Mọi người cho vay có giấy phép phải hoạt động tại một văn phòng thương mại đã đăng ký. Nếu không có văn phòng, hoặc họ chỉ gặp bạn ở quán cà phê hay qua điện thoại, họ không có giấy phép."
+      },
+      {
+        "id": "threats",
+        "label": "Họ đe dọa bạn, gia đình bạn hoặc chủ của bạn",
+        "detail": "Đe dọa, quấy rối, phá hoại tài sản (tạt sơn, khóa cửa) và liên lạc với chủ của bạn đều là tội phạm ở Singapore. Bạn là nạn nhân — hãy gọi 999 ngay."
+      },
+      {
+        "id": "retain_id",
+        "label": "Họ giữ hộ chiếu, Work Permit hoặc giấy tờ tùy thân của bạn để bảo đảm",
+        "detail": "Giữ giấy tờ đi lại hoặc giấy tờ tùy thân của người khác là bất hợp pháp. Người cho vay có giấy phép bị cấm rõ ràng làm điều này. Hãy báo cho MOM hoặc Cảnh sát ngay."
+      }
+    ],
+    "risks": {
+      "green": {
+        "label": "Có thể hợp pháp",
+        "summary": "Bạn chưa chọn dấu hiệu nguy hiểm nào. Đây có thể là người cho vay có giấy phép. Luôn kiểm tra số giấy phép của họ tại rom.mlaw.gov.sg trước khi ký bất cứ thứ gì."
+      },
+      "yellow": {
+        "label": "Hãy cẩn thận",
+        "summary": "Có một số dấu hiệu đáng ngờ. Đừng tiếp tục cho đến khi bạn đã kiểm tra số giấy phép của người cho vay và nhận được hợp đồng đầy đủ bằng văn bản. Hãy cân nhắc gọi Credit Counselling Singapore để được tư vấn."
+      },
+      "red": {
+        "label": "Rất có thể bất hợp pháp — Đừng tiếp tục",
+        "summary": "Nhiều dấu hiệu nguy hiểm cho thấy đây rất có thể là người cho vay không có giấy phép (cho vay nặng lãi). Đừng vay, đừng trả bất kỳ khoản phí nào, và đừng đưa giấy tờ hay mật khẩu. Luật pháp bảo vệ bạn."
+      }
+    },
+    "legalFacts": [
+      "Có văn phòng thương mại đã đăng ký mà bạn có thể đến tận nơi",
+      "Đưa hợp đồng vay đầy đủ bằng văn bản trước khi giao tiền",
+      "Cho bạn xem số giấy phép Registry of Moneylenders của họ (có thể kiểm tra trên mạng)",
+      "Tính lãi không quá 4% mỗi tháng trên số dư nợ còn lại",
+      "Không liên lạc với bạn qua WhatsApp, SMS hoặc mạng xã hội — bạn là người tìm đến họ",
+      "Không bao giờ hỏi SingPass, thông tin đăng nhập ngân hàng, thẻ ATM hay giấy tờ của bạn để bảo đảm",
+      "Trừ phí hành chính ngay từ khoản vay — không bao giờ đòi tiền mặt trước khi giải ngân"
+    ],
+    "helpContacts": [
+      {
+        "org": "Đường dây nóng X-Ah Long (Báo cáo cho vay nặng lãi)",
+        "number": "1800-924-5664",
+        "hours": "24 / 7",
+        "note": "Báo cáo ẩn danh. Bạn sẽ không gặp rắc rối khi gọi."
+      },
+      {
+        "org": "Singapore Police Force",
+        "number": "999",
+        "hours": "Emergency — 24 / 7",
+        "note": "Gọi ngay nếu bạn bị đe dọa, quấy rối hoặc gặp nguy hiểm."
+      },
+      {
+        "org": "Registry of Moneylenders",
+        "number": "1800-2255-529",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
+        "note": "Kiểm tra giấy phép người cho vay hoặc báo cáo người cho vay bất hợp pháp."
+      },
+      {
+        "org": "Ministry of Manpower (MOM)",
+        "number": "6438-5122",
+        "hours": "Mon–Fri 8:30 am – 5:30 pm",
+        "note": "Về vấn đề work permit, tranh chấp lao động và hỗ trợ chung."
+      },
+      {
+        "org": "Credit Counselling Singapore",
+        "number": "6225-5227",
+        "hours": "Mon–Fri 9:00 am – 6:00 pm",
+        "note": "Tư vấn nợ miễn phí. Họ giúp bạn tìm cách hợp pháp để xử lý nợ."
+      }
+    ]
+  },
+  "chat": {
+    "pageTitle": "Trợ lý AI",
+    "pageSubtitle": "Hướng dẫn tài chính cho người lao động",
+    "inputPlaceholder": "Hỏi bất cứ điều gì...",
+    "typing": "Đang suy nghĩ...",
+    "emptyTitle": "Tôi có thể giúp gì cho bạn?",
+    "emptySubtitle": "Hãy hỏi tôi về lập ngân sách, gửi tiền về nhà, cho vay nặng lãi hoặc quyền lợi của bạn khi làm việc ở Singapore.",
+    "suggested": [
+      "Làm sao gửi tiền về nhà với phí rẻ?",
+      "Đây có phải cho vay nặng lãi không?",
+      "Giúp tôi lập ngân sách"
+    ],
+    "errorMsg": "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại.",
+    "limitReached": "Bạn đã dùng hết lượt chat hôm nay. Vui lòng thử lại sau.",
+    "disclaimer": "Chỉ để tham khảo. Gọi 999 khi khẩn cấp.",
+    "noApiKey": "Chưa cài khóa API. Hãy thêm VITE_ANTHROPIC_API_KEY vào tệp .env của bạn.",
+    "listeningPlaceholder": "Đang nghe…",
+    "voiceStart": "Bắt đầu nhập bằng giọng nói",
+    "voiceStop": "Dừng ghi âm"
+  },
+  "scamQuiz": {
+    "pageTitle": "Câu đố nhận biết lừa đảo",
+    "scenarioLabel": "Tình huống",
+    "scoreLabel": "Đúng {{score}} câu",
+    "yourAnswers": "Câu trả lời của bạn",
+    "perfectBadge": "Điểm tuyệt đối! Bạn rất biết cảnh giác với lừa đảo. Hãy rủ bạn bè làm thử nhé.",
+    "correct": "✓ Đúng rồi!",
+    "incorrect": "✗ Chưa đúng",
+    "nextBtn": "Câu tiếp theo",
+    "resultsBtn": "Xem kết quả của tôi",
+    "retryBtn": "Làm lại",
+    "scamAlertsBtn": "Xem cảnh báo lừa đảo",
+    "ratings": [
+      {
+        "label": "Bạn cần cẩn thận hơn",
+        "desc": "Kẻ lừa đảo thường nhắm vào người lao động. Hãy đọc các dấu hiệu cảnh báo bên dưới để giữ an toàn."
+      },
+      {
+        "label": "Biết khá nhiều",
+        "desc": "Bạn biết một số chiêu lừa đảo — nhưng chỉ một sai lầm cũng có thể làm bạn mất hàng nghìn đô. Hãy xem lại các mẹo bên dưới."
+      },
+      {
+        "label": "Chuyên gia chống lừa đảo!",
+        "desc": "Tuyệt vời! Hãy chia sẻ những gì bạn biết với bạn bè để cả cộng đồng được an toàn."
+      }
+    ],
+    "questions": [
+      {
+        "scenario": "Một người lạ nhắn tin WhatsApp cho bạn: \"Chào bạn, tôi là người của MOM. Thẻ lao động của bạn có vấn đề. Gửi ngay tên đăng nhập và mật khẩu SingPass cho tôi, nếu không thẻ của bạn sẽ bị hủy hôm nay.\"",
+        "options": [
+          "Gửi nhanh thông tin SingPass để không mất việc",
+          "Đây là lừa đảo — MOM không bao giờ hỏi mật khẩu SingPass",
+          "Hỏi người đó mã nhân viên trước rồi mới quyết định"
+        ],
+        "explanation": "MOM, cảnh sát, ngân hàng và các cơ quan chính phủ sẽ KHÔNG BAO GIỜ hỏi mật khẩu SingPass hay mã OTP của bạn. Hãy cúp máy hoặc bỏ qua tin nhắn, rồi gọi thẳng MOM theo số 6438-5122 để kiểm tra."
+      },
+      {
+        "scenario": "Một quảng cáo trên Facebook mời làm việc ở Singapore, lương S$4,000/tháng cho công việc nhẹ nhàng. Không cần kinh nghiệm. Bạn chỉ cần trả S$300 \"phí đăng ký\" để giữ chỗ.",
+        "options": [
+          "Trả phí — việc tốt thì hết nhanh lắm",
+          "Đây là lừa đảo việc làm — nhà tuyển dụng thật không bao giờ thu phí trước của người lao động",
+          "Trả giá xuống S$100 rồi mới trả"
+        ],
+        "explanation": "Hãy kiểm tra xem công ty môi giới có giấy phép không tại mom.gov.sg/eadirectory. Nếu bạn đã trả tiền, hãy báo cho MOM theo số 6438-5122. Giữ lại mọi biên lai và tin nhắn làm bằng chứng."
+      },
+      {
+        "scenario": "Ai đó nhét một tấm thẻ dưới cửa phòng ký túc xá của bạn: \"Cần tiền gấp? Không kiểm tra tín dụng! Vay đến S$5,000 ngay hôm nay. Nhắn WhatsApp cho chúng tôi.\" Tấm thẻ không ghi tên công ty hay số giấy phép.",
+        "options": [
+          "Nhắn WhatsApp cho họ — tiện lợi và tôi đang cần tiền gấp",
+          "Bỏ qua — đây là cho vay nặng lãi không phép (Ah Long)",
+          "Vay một ít trước để thử xem họ có đáng tin không"
+        ],
+        "explanation": "Người cho vay có giấy phép ở Singapore chỉ quảng cáo qua trang web riêng, danh bạ doanh nghiệp hoặc văn phòng của họ — không bao giờ qua tờ rơi hay SMS. Vay của kẻ cho vay nặng lãi sẽ dẫn đến bị quấy rối và bạo lực. Hãy gọi đường dây nóng X-Ah Long: 1800-924-5664."
+      },
+      {
+        "scenario": "Chủ của bạn đã 2 tháng chưa trả lương. Ông ta nói: \"Đừng báo MOM, nếu không tôi sẽ hủy thẻ lao động và đuổi bạn về nước.\" Bạn nên làm gì?",
+        "options": [
+          "Im lặng chờ — tôi không dám mất thẻ lao động",
+          "Gọi MOM: 6438-5122",
+          "Mượn tiền bạn bè và không nói gì"
+        ],
+        "explanation": "Hãy liên hệ MOM để được giúp về lương chưa trả và các câu hỏi về thẻ lao động. Giữ lại giấy tờ trả lương và tin nhắn. Hỏi rõ các lựa chọn của bạn trước khi rời Singapore."
+      },
+      {
+        "scenario": "Một người bạn mới hỏi bạn có thể nhận S$8,000 vào tài khoản ngân hàng rồi chuyển sang tài khoản khác để lấy \"một chút hoa hồng\" không. Anh ta nói đó là tiền làm ăn của anh ta.",
+        "options": [
+          "Đồng ý — kiếm tiền dễ, tôi chỉ chuyển tiền giúp thôi",
+          "Từ chối — dùng tài khoản của mình như vậy là làm \"tài khoản trung gian\" cho lừa đảo, là phạm tội",
+          "Đòi hoa hồng cao hơn rồi mới đồng ý"
+        ],
+        "explanation": "Đừng để người khác dùng tài khoản ngân hàng của bạn để nhận hoặc chuyển tiền. Đó có thể là tiền ăn cắp. Nếu không chắc, hãy gọi ScamShield theo số 1799."
+      },
+      {
+        "scenario": "Bạn nhận được một tin nhắn SMS: \"DBS Bank: Phát hiện đăng nhập bất thường vào tài khoản của bạn. Bấm vào liên kết này để xác minh: dbs-secure-login.com.\" Liên kết này trông khác với trang web chính thức của DBS.",
+        "options": [
+          "Bấm vào liên kết và đăng nhập nhanh để bảo vệ tài khoản",
+          "Xóa tin nhắn — đây là lừa đảo giả mạo. Gọi thẳng DBS theo số 1800-111-1111",
+          "Chuyển liên kết cho bạn bè xem thật hay giả"
+        ],
+        "explanation": "Đừng bao giờ bấm vào liên kết ngân hàng gửi qua WhatsApp, SMS hay email. Hãy luôn tự gõ địa chỉ trang web ngân hàng vào trình duyệt. Báo cho ScamShield: gọi 1799 hoặc dùng ứng dụng ScamShield."
+      },
+      {
+        "scenario": "Một \"chuyên gia đầu tư\" trên mạng trong nhóm Telegram nói bạn có thể nhân đôi tiền trong 30 ngày nếu đầu tư vào một quỹ tiền điện tử đặc biệt. Nhiều người trong nhóm đăng ảnh chụp màn hình lãi lớn.",
+        "options": [
+          "Đầu tư S$500 — những lời chứng thực trông rất thuyết phục",
+          "Báo cáo nhóm này — đây là kiểu lừa đảo đầu tư quen thuộc với lời chứng thực giả",
+          "Chờ xem người khác có được trả tiền không rồi mới đầu tư"
+        ],
+        "explanation": "Cam kết lãi cao trong thời gian ngắn là dấu hiệu lừa đảo số 1. Ảnh chụp màn hình lãi là giả, và những \"thành viên nhóm\" khen chương trình là kẻ lừa đảo được trả tiền. Hãy báo lừa đảo đầu tư cho cảnh sát tại police.gov.sg/iwitness hoặc gọi ScamShield: 1799."
+      },
+      {
+        "scenario": "Một chủ nhà trên Carousell yêu cầu đặt cọc 3 tháng tiền thuê (S$2,400) qua PayNow trước khi bạn được xem phòng. Ông ta nói nhiều người đang muốn thuê và tối nay phòng sẽ hết.",
+        "options": [
+          "Chuyển tiền nhanh trước khi người khác lấy mất phòng",
+          "Từ chối — không bao giờ trả tiền trước khi xem phòng. Rất có thể đây là lừa đảo thuê nhà",
+          "Trả trước một nửa, một nửa còn lại sau khi xem"
+        ],
+        "explanation": "Giục gấp và ép trả tiền trước khi xem là chiêu quen thuộc của lừa đảo thuê nhà. Hãy luôn đến xem nhà trực tiếp, kiểm tra danh tính và quyền sở hữu của chủ nhà, và không bao giờ chuyển tiền trước khi ký hợp đồng. Xem www.scamshield.gov.sg để biết các tin đăng đã bị báo là lừa đảo."
+      }
+    ]
+  },
+  "emergencyFund": {
+    "pageTitle": "Tính quỹ khẩn cấp",
+    "pageSubtitle": "Biết chính xác bạn cần bao nhiêu tiền — và mất bao lâu để có đủ.",
+    "sectionNumbers": "Số liệu của bạn",
+    "expensesLabel": "Chi phí mỗi tháng (tiền nhà + ăn uống + đi lại + hóa đơn)",
+    "savingsLabel": "Mỗi tháng bạn có thể tiết kiệm được bao nhiêu?",
+    "sectionTargets": "Mục tiêu của bạn",
+    "minTarget": "Mức an toàn tối thiểu",
+    "recTarget": "Mức an toàn nên có",
+    "threeMonths": "Chi phí 3 tháng",
+    "sixMonths": "Chi phí 6 tháng",
+    "enterSavingsHint": "Nhập số tiền bạn tiết kiệm mỗi tháng để xem cần bao lâu.",
+    "reachInOneMonth": "Bạn có thể đạt mức này trong 1 tháng!",
+    "savingToReach": "Tiết kiệm {{amount}}/tháng → đạt mục tiêu sau {{time}}",
+    "whyTitle": "Vì sao người lao động cần nhiều hơn",
+    "whyDesc": "Nếu bạn mất việc ở Singapore, giấy phép lao động của bạn bị hủy và bạn có thể phải rời đi trong vòng 30 ngày. Quỹ khẩn cấp 6 tháng cho bạn thời gian tìm chủ mới, trả tiền vé máy bay, hoặc lo cho gia đình trong lúc bạn giải quyết mọi việc — mà không phải vay của cho vay nặng lãi.",
+    "emptyTitle": "Nhập chi phí của bạn ở trên",
+    "emptyDesc": "Chúng tôi sẽ tính bạn cần bao nhiêu tiền và mất bao lâu để có đủ.",
+    "tipsHeading": "Nên để quỹ khẩn cấp ở đâu",
+    "disclaimer": "Bảo hiểm tiền gửi ở Singapore bảo vệ đến S$100,000 cho mỗi người gửi tại mỗi ngân hàng, do SDIC cung cấp.",
+    "tips": [
+      {
+        "title": "POSB / DBS eMySavings",
+        "body": "Không cần số dư tối thiểu, không bị phí khi số dư thấp. Mở online bằng SingPass. Tiền của bạn được SDIC bảo vệ đến S$100,000."
+      },
+      {
+        "title": "GXS Bank hoặc MariBank",
+        "body": "Ngân hàng số dành cho người có giấy phép lao động. Lãi tiết kiệm cao hơn (đến khoảng 3%), không có phí, không cần số dư tối thiểu."
+      },
+      {
+        "title": "Để riêng ra",
+        "body": "Hãy để quỹ khẩn cấp ở tài khoản khác với tài khoản chi tiêu, để bạn không bị cám dỗ lấy ra dùng."
+      },
+      {
+        "title": "Tránh các nhóm tiết kiệm không chính thức (ROSCA)",
+        "body": "\"Hụi\" hoặc các nhóm góp tiền luân phiên không được pháp luật bảo vệ. Nếu người đứng đầu biến mất, bạn mất hết tiền."
+      }
+    ],
+    "time": {
+      "oneMonth": "1 tháng",
+      "months": "{{count}} tháng",
+      "oneYear": "1 năm",
+      "years": "{{count}} năm",
+      "yearsMonths": "{{years}} năm {{months}} tháng"
+    }
+  },
+  "bankingGuide": {
+    "pageTitle": "Ngân hàng ở Singapore",
+    "pageSubtitle": "Cách mở tài khoản, cần giấy tờ gì, và phải làm gì khi có chuyện không ổn.",
+    "docsHeading": "Giấy tờ bạn cần",
+    "docsTip": "Mẹo: Nhờ chủ của bạn in thư xác nhận trên giấy tiêu đề của công ty và đóng dấu công ty — ngân hàng thường từ chối thư không có dấu.",
+    "banksHeading": "Ngân hàng truyền thống",
+    "recHeading": "Gợi ý của chúng tôi cho đa số người lao động",
+    "recDesc": "Hãy bắt đầu với tài khoản POSB Everyday Savings — không mất phí, không cần số dư tối thiểu, và có mạng lưới ATM lớn nhất. Khi bạn đã tiết kiệm được S$1,000 trở lên, hãy cân nhắc ngân hàng số như GXS để có lãi suất cao hơn cho quỹ khẩn cấp.",
+    "digitalHeading": "Lựa chọn thay thế qua mạng",
+    "cardHolderHeading": "Nếu chủ giữ thẻ ngân hàng của bạn",
+    "cardHolderAlertTitle": "Việc này là phạm pháp ở Singapore",
+    "cardHolderAlertDesc": "Không chủ nào có quyền giữ thẻ ngân hàng, thẻ ATM hay sổ tài khoản của bạn. Lương là của bạn. Nếu bạn đang gặp chuyện này, hãy làm theo các bước bên dưới.",
+    "helplineHeading": "Đường dây hỗ trợ",
+    "minBalanceLabel": "Số dư tối thiểu",
+    "feeLabel": "Phí hằng tháng",
+    "docsNeededLabel": "Giấy tờ cần có",
+    "noFeeLabel": "Không phí khi số dư thấp",
+    "disclaimer": "Thông tin đúng tính đến đầu năm 2025. Hãy luôn hỏi lại trực tiếp ngân hàng trước khi đến.",
+    "docs": [
+      {
+        "label": "Thẻ Work Permit",
+        "sub": "Thẻ màu xanh của MOM — luôn mang theo bên người"
+      },
+      {
+        "label": "Hộ chiếu",
+        "sub": "Bản gốc + bản photo trang có ảnh"
+      },
+      {
+        "label": "Thư của chủ",
+        "sub": "Trên giấy tiêu đề công ty, có dấu công ty, xác nhận bạn đang làm việc và mức lương"
+      },
+      {
+        "label": "Giấy tờ chứng minh địa chỉ",
+        "sub": "Hợp đồng thuê nhà hoặc thư của chủ ghi địa chỉ của bạn ở Singapore"
+      }
+    ],
+    "banks": [
+      {
+        "name": "POSB Everyday Savings",
+        "fee": "Không phí khi số dư thấp",
+        "minBalance": "Không có",
+        "notes": "Tốt nhất cho đa số người lao động. Mạng lưới ATM rộng nhất Singapore (hơn 1,400 máy). Nhận người có Work Permit.",
+        "docs": [
+          "Work Permit (thẻ xanh)",
+          "Hộ chiếu",
+          "Giấy tờ chứng minh địa chỉ ở Singapore (thư của chủ hoặc hợp đồng thuê nhà)"
+        ]
+      },
+      {
+        "name": "DBS Multiplier Account",
+        "fee": "S$2/tháng nếu số dư < S$3,000",
+        "minBalance": "S$3,000 để không bị tính phí",
+        "notes": "Lãi suất cao hơn nếu bạn nhận lương và giao dịch đều đặn. Phù hợp khi bạn đã có một ít tiền tiết kiệm.",
+        "docs": [
+          "Work Permit hoặc S Pass hoặc Employment Pass",
+          "Hộ chiếu",
+          "SingPass (nếu có)"
+        ]
+      },
+      {
+        "name": "OCBC 360 Account",
+        "fee": "S$2/tháng nếu số dư < S$1,000",
+        "minBalance": "S$1,000 để không bị tính phí",
+        "notes": "Được thêm lãi khi lương chuyển vào tài khoản. Nhận người có Work Permit. Phải đến chi nhánh để mở tài khoản.",
+        "docs": [
+          "Work Permit",
+          "Hộ chiếu",
+          "Thư của chủ"
+        ]
+      },
+      {
+        "name": "UOB One Account",
+        "fee": "S$2/tháng nếu số dư < S$1,000",
+        "minBalance": "S$1,000 để không bị tính phí",
+        "notes": "Lãi suất tốt khi lương chuyển vào tài khoản. Một số chi nhánh phục vụ lao động nước ngoài — hãy gọi trước để hỏi.",
+        "docs": [
+          "Work Permit hoặc S Pass",
+          "Hộ chiếu",
+          "Thư của chủ có dấu công ty"
+        ]
+      }
+    ],
+    "digital": [
+      {
+        "name": "GXS Bank",
+        "badge": "Lãi suất cao nhất",
+        "requirement": "Work Permit + số điện thoại Singapore",
+        "desc": "Ngân hàng hoàn toàn trên mạng, nhận người có Work Permit. Không cần số dư tối thiểu, không mất phí. Lãi suất tiết kiệm lên đến 3.48%. Mở hoàn toàn qua ứng dụng — không cần đến chi nhánh."
+      },
+      {
+        "name": "MariBank",
+        "badge": "Không mất phí",
+        "requirement": "Work Permit + số điện thoại Singapore",
+        "desc": "Ngân hàng số của Sea Group. Không cần số dư tối thiểu, không phí khi số dư thấp, lãi suất tiết kiệm cạnh tranh. Mở qua ứng dụng bằng thông tin Work Permit của bạn."
+      },
+      {
+        "name": "YouTrip",
+        "badge": "Tốt nhất để gửi tiền về nhà",
+        "requirement": "Work Permit hoặc số FIN",
+        "desc": "Ví điện tử nhiều loại tiền. Rất hợp để gửi tiền về nhà với tỷ giá thấp và trả bằng tiền nước bạn khi mua sắm trên mạng. Không phải ngân hàng đầy đủ — số dư không có lãi."
+      },
+      {
+        "name": "GrabPay",
+        "badge": "Được nhận rộng rãi",
+        "requirement": "Số điện thoại Singapore",
+        "desc": "Ví điện tử liên kết với ứng dụng Grab. Được nhận tại hàng nghìn cửa hàng, trung tâm hawker, và để trả GrabFood. Nạp tiền qua PayNow hoặc ATM. Không cần tài khoản ngân hàng để bắt đầu."
+      },
+      {
+        "name": "Singtel Dash",
+        "badge": "Nạp tiền dễ",
+        "requirement": "Số điện thoại bất kỳ (không cần tài khoản ngân hàng)",
+        "desc": "Ví điện tử của Singtel. Nạp tiền mặt tại cửa hàng 7-Eleven hoặc Cheers — hữu ích nếu bạn chưa có tài khoản ngân hàng ở đây. Có thể gửi tiền đến hơn 30 quốc gia."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Biết quyền của bạn",
+        "body": "Ở Singapore, chủ giữ thẻ ngân hàng, thẻ ATM hay sổ tài khoản của bạn là phạm pháp. Điều này nằm trong Employment Act và quy định của MOM."
+      },
+      {
+        "title": "Trước hết hãy hỏi lịch sự",
+        "body": "Nói với chủ của bạn: \"Tôi cần thẻ ngân hàng để rút lương của chính tôi.\" Đa số chủ sẽ trả lại khi được hỏi thẳng."
+      },
+      {
+        "title": "Liên hệ MOM",
+        "body": "Nếu chủ từ chối, hãy gọi MOM theo số 6438-5122 (Thứ Hai–Thứ Sáu 8:30am–5:30pm). Họ có thể can thiệp giúp bạn."
+      },
+      {
+        "title": "Gọi cảnh sát nếu bị đe dọa",
+        "body": "Nếu chủ đe dọa bạn vì bạn đòi lại thẻ, hãy gọi 999. Giữ thẻ của bạn bằng vũ lực là vấn đề hình sự."
+      },
+      {
+        "title": "Làm lại thẻ nếu cần",
+        "body": "Đến chi nhánh ngân hàng với Work Permit và hộ chiếu. Nói với họ thẻ của bạn bị lấy mất. Ngân hàng sẽ hủy thẻ cũ và cấp thẻ mới — thường là miễn phí."
+      }
+    ],
+    "helplines": [
+      {
+        "label": "Đường dây MOM (tranh chấp lương & thẻ ngân hàng)"
+      },
+      {
+        "label": "Cảnh sát (khẩn cấp / bị đe dọa)"
+      },
+      {
+        "label": "TWC2 (Transient Workers Count Too)"
+      }
+    ]
+  },
+  "emergency": {
+    "dangerText": "Đang gặp nguy hiểm ngay lúc này?",
+    "callPolice": "Gọi 999 — Cảnh sát khẩn cấp",
+    "pageTitle": "Liên hệ khẩn cấp",
+    "pageSubtitle": "Đường dây hỗ trợ cho người lao động ở Singapore",
+    "footer": "Tất cả số điện thoại đúng tính đến năm 2026. Nếu không gọi được số nào, hãy gọi MOM theo số 6438-5122 để được chuyển tiếp.",
+    "badge247": "24 / 7",
+    "byAppt": "Theo hẹn trước",
+    "categories": {
+      "government": "Chính phủ",
+      "workerSupport": "Hỗ trợ người lao động",
+      "financialHelp": "Hỗ trợ tài chính",
+      "scamReporting": "Báo cáo lừa đảo"
+    },
+    "roles": {
+      "police": "Ứng cứu khẩn cấp, báo tội phạm, bị đe dọa hoặc bạo lực",
+      "mom": "Vấn đề work permit, tranh chấp với chủ, chủ không trả lương, hồi hương",
+      "moneylenders": "Kiểm tra người cho vay có giấy phép, báo cáo cho vay bất hợp pháp",
+      "comcare": "Trợ cấp xã hội, hỗ trợ khi khủng hoảng, khó khăn gia đình",
+      "twc2": "Bị nợ lương, tai nạn lao động, bị chủ ngược đãi, hỗ trợ bữa ăn cho người lao động bị kẹt lại",
+      "irr": "Hỗ trợ người giúp việc gia đình — chỗ ở khẩn cấp, trợ giúp pháp lý, tư vấn",
+      "home": "Chỗ ở, hỗ trợ pháp lý và bảo vệ quyền lợi cho người lao động và người giúp việc gia đình",
+      "fast": "Đường dây hỗ trợ người giúp việc gia đình — tranh chấp, ngược đãi, chỗ ở",
+      "ccs": "Tư vấn nợ miễn phí, kế hoạch trả nợ, bảo vệ khỏi cho vay nặng lãi",
+      "xahlong": "Báo cáo bị cho vay nặng lãi quấy rối — ẩn danh, người gọi không bị rắc rối",
+      "moneysense": "Giáo dục tài chính miễn phí và hướng dẫn các cách vay hợp pháp",
+      "scamshield": "Báo cáo lừa đảo việc làm, lừa lấy thông tin, giả mạo — nhận lời khuyên nên làm gì",
+      "antiscam": "Báo cáo vụ lừa đảo, đóng băng giao dịch, lấy lại tiền bị mất",
+      "momtaskforce": "Báo cáo tin tuyển dụng giả, phí môi giới bất hợp pháp, gian lận work permit"
+    }
+  },
+  "home": {
+    "greetingMorning": "Chào buổi sáng",
+    "greetingAfternoon": "Chào buổi chiều",
+    "greetingEvening": "Chào buổi tối",
+    "financeGlance": "Tài chính của bạn trong nháy mắt",
+    "streakLabel": "Chuỗi {{count}} ngày",
+    "welcomeBack": "Chào mừng bạn quay lại 👋",
+    "guest": "Khách",
+    "nameFallback": "bạn"
+  },
+  "login": {
+    "tagline": "Tài chính thông minh cho mọi người",
+    "welcomeBack": "Chào mừng bạn quay lại",
+    "signInDesc": "Đăng nhập vào tài khoản của bạn",
+    "createAccountTitle": "Tạo tài khoản của bạn",
+    "createAccountDesc": "Tham gia Remlo — hoàn toàn miễn phí",
+    "namePlaceholder": "Chúng tôi nên gọi bạn là gì?",
+    "emailPlaceholder": "Địa chỉ email",
+    "passwordPlaceholder": "Mật khẩu",
+    "signingIn": "Đang đăng nhập…",
+    "creating": "Đang tạo tài khoản…",
+    "signIn": "Đăng nhập",
+    "createAccount": "Tạo tài khoản",
+    "switchToSignup": "Bạn mới dùng? Tạo tài khoản",
+    "switchToLogin": "Đã có tài khoản? Đăng nhập",
+    "or": "hoặc",
+    "continueGuest": "Tiếp tục với tư cách khách",
+    "guestNote": "Dữ liệu của khách chỉ được lưu trên thiết bị này.",
+    "guestSyncNote": "Tạo tài khoản để đồng bộ giữa các thiết bị.",
+    "privacyPolicy": "Chính sách quyền riêng tư",
+    "termsOfService": "Điều khoản dịch vụ",
+    "confirmEmail": "Hãy kiểm tra email để xác nhận tài khoản. Dữ liệu khách của bạn sẽ được chuyển sang khi bạn đăng nhập."
+  },
+  "disclaimer": {
+    "educational": "Nội dung trên Remlo chỉ nhằm mục đích giáo dục và cung cấp thông tin. Đây không phải lời khuyên tài chính chuyên nghiệp. Hãy cân nhắc kỹ hoàn cảnh của riêng bạn trước khi đưa ra quyết định về tiền bạc.",
+    "bannerDismiss": "Đã hiểu"
+  },
+  "workshop": {
+    "welcome": "Chào mừng bạn đến với Remlo",
+    "purpose": "Hướng dẫn về tiền bạc miễn phí cho người lao động ở Singapore. Tìm hiểu về lừa đảo, ngân sách và cách gửi tiền về nhà.",
+    "trust": "Không chuyển tiền. Không cần kết nối ngân hàng hay mật khẩu ngân hàng.",
+    "begin": "Bắt đầu",
+    "back": "Quay lại",
+    "setup": "Cài đặt Remlo cho bạn",
+    "choose": "Chọn quê hương và ngôn ngữ của bạn để tiếp tục.",
+    "country": "Quê hương",
+    "nextScam": "Tiếp theo: thử một câu hỏi về lừa đảo. Không cần tài khoản.",
+    "returnHint": "Để quay lại, hãy mở Remlo hoặc lưu trang này lại. Bạn cũng có thể quét lại cùng mã QR.",
+    "reportNote": "Remlo không nhận báo cáo lừa đảo. Hãy nhờ ScamShield giúp đỡ và hướng dẫn cách báo cáo.",
+    "estimates": "Đây chỉ là số ước tính minh họa, không phải báo giá của nhà cung cấp. Phí, tỷ giá, tốc độ và dịch vụ phải được kiểm tra với nhà cung cấp. Remlo không chuyển tiền.",
+    "referenceRate": "Tỷ giá tham khảo · Cập nhật {{time}}"
+  },
+  "deleteAccount": {
+    "title": "Xóa tài khoản",
+    "subtitle": "Việc này là vĩnh viễn và không thể hoàn tác",
+    "warningTitle": "Cảnh báo — không thể lấy lại",
+    "warningBody": "Xóa tài khoản sẽ xóa vĩnh viễn toàn bộ dữ liệu Remlo của bạn khỏi máy chủ của chúng tôi. Sau đó không có cách nào lấy lại được.",
+    "listTitle": "Những gì sẽ bị xóa vĩnh viễn",
+    "items": [
+      "Tài khoản Remlo và thông tin đăng nhập của bạn",
+      "Tất cả mục tiêu tiết kiệm và tiến độ",
+      "Các khoản ngân sách và dữ liệu thu nhập",
+      "Hồ sơ theo dõi khoản vay",
+      "Nhật ký lương và các khoản trả",
+      "Hồ sơ và cài đặt của bạn"
+    ],
+    "confirm": "Tôi hiểu rằng xóa tài khoản là vĩnh viễn và toàn bộ dữ liệu của tôi sẽ mất mãi mãi.",
+    "button": "Xóa tài khoản của tôi",
+    "deleting": "Đang xóa tài khoản…",
+    "changedMind": "Đổi ý rồi? Bấm mũi tên quay lại — dữ liệu của bạn vẫn an toàn.",
+    "doneTitle": "Đã xóa tài khoản",
+    "doneBody": "Dữ liệu của bạn đã bị xóa vĩnh viễn.",
+    "redirecting": "Đang chuyển bạn đi…"
+  }
+}

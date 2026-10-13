@@ -35,7 +35,7 @@ test('Tamil, Sinhala and Burmese scam alerts get the verified English text, not 
 
 test('every other Remlo language keeps its localized scam alerts', () => {
   const others = LANGUAGES.map(({ code }) => code).filter((code) => !['en', 'ta', 'si', 'my'].includes(code))
-  assert.deepEqual(others, ['hi', 'bn', 'fil', 'id', 'zh', 'th', 'ur', 'ne'])
+  assert.deepEqual(others, ['hi', 'bn', 'fil', 'id', 'zh', 'th', 'ur', 'vi'])
   for (const lang of others) {
     assert.equal(servesEnglishAlerts(lang, LANG_NAMES), false, lang)
     const [alert] = alertsFor(lang, ENGLISH, CACHE)
