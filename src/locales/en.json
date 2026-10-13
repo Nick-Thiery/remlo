@@ -603,6 +603,8 @@
     "resultsBtn": "See my results",
     "retryBtn": "Try again",
     "scamAlertsBtn": "See scam alerts",
+    "shareBtn": "Share",
+    "shareText": "I scored {{score}}/{{total}} on Remlo's scam quiz. Can you spot the scams?",
     "ratings": [
       {
         "label": "You need to be careful",

@@ -630,6 +630,8 @@
     "resultsBtn": "Lihat hasil saya",
     "retryBtn": "Coba lagi",
     "scamAlertsBtn": "Lihat peringatan penipuan",
+    "shareBtn": "Bagikan",
+    "shareText": "Skor saya {{score}}/{{total}} di kuis penipuan Remlo. Bisakah kamu mengenali penipuan?",
     "ratings": [
       {
         "label": "Anda perlu berhati-hati",

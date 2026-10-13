@@ -603,6 +603,8 @@
     "resultsBtn": "Xem kết quả của tôi",
     "retryBtn": "Làm lại",
     "scamAlertsBtn": "Xem cảnh báo lừa đảo",
+    "shareBtn": "Chia sẻ",
+    "shareText": "Tôi đạt {{score}}/{{total}} điểm trong bài đố lừa đảo của Remlo. Bạn có nhận ra được các vụ lừa đảo không?",
     "ratings": [
       {
         "label": "Bạn cần cẩn thận hơn",

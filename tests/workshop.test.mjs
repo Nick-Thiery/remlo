@@ -46,6 +46,11 @@ test('campaign accepts the listed partner sources and channels, and nothing else
   assert.deepEqual(campaignFromSearch('?source=unknown-org&channel=qr-card'),{})
   assert.deepEqual(campaignFromSearch('?source=0123456789&channel=whatsapp'),{})
 })
+test('a shared quiz link is a valid source, and share_clicked sends only the feature', () => {
+  assert.deepEqual(campaignFromSearch('?source=share&channel=quiz-share'),{source:'share',channel:'quiz-share'})
+  assert.deepEqual(safeEventProperties('share_clicked',{feature:'/scam-quiz',score:8,text:'I scored 8/8'}),{feature:'/scam-quiz'})
+  assert.deepEqual(safeEventProperties('share_clicked',{feature:'/somewhere-else'}),{})
+})
 test('a stored campaign round-trips, and bad stored values are dropped', () => {
   const c={source:'mwc',channel:'sip'}
   assert.deepEqual(parseCampaign(formatCampaign(c)),c)
