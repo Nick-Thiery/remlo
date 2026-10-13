@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ShieldCheck, ShieldAlert, ChevronRight, ChevronLeft, RotateCcw, Trophy } from 'lucide-react'
+import { ShieldCheck, ShieldAlert, ChevronRight, ChevronLeft, RotateCcw, Trophy, Share2 } from 'lucide-react'
 import LanguageSelect from '../components/LanguageSelect.jsx'
 import { track } from '../lib/analytics.js'
 import { QUIZ_VERSION, buildQuizQuestions, scoreAnswers } from '../lib/scamQuiz.js'
@@ -54,6 +54,18 @@ export default function ScamQuiz() {
       track('scam_quiz_completed', { score, total: questions.length, quiz_version: QUIZ_VERSION })
       setDone(true)
     } else { setCurrent((c) => c + 1); setSelected(null) }
+  }
+
+  // Quiz result shared by the person themselves. Only the score goes in the text,
+  // never a name; the link carries a fixed source code so return use can be compared.
+  async function shareResult() {
+    track('share_clicked', { feature: '/scam-quiz' })
+    const text = t('scamQuiz.shareText', { score, total: questions.length })
+    const url = 'https://remloapp.com/?source=share&channel=quiz-share'
+    try {
+      if (navigator.share) { await navigator.share({ text, url }); return }
+    } catch (e) { if (e?.name === 'AbortError') return }
+    window.open(`https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`, '_blank', 'noopener')
   }
 
   function restart() {
@@ -125,6 +137,13 @@ export default function ScamQuiz() {
               {t('scamQuiz.scamAlertsBtn')}
             </button>
           </div>
+          <button
+            onClick={shareResult}
+            className="w-full mt-3 flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition-colors"
+            style={{ border: `1px solid ${isDark ? border : '#E5E7EB'}`, color: isDark ? '#F5F2EC' : '#374151', background: 'transparent' }}
+          >
+            <Share2 className="w-4 h-4" /> {t('scamQuiz.shareBtn')}
+          </button>
           <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
             {t('disclaimer.educational')}
           </p>

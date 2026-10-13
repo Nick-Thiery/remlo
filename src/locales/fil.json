@@ -630,6 +630,8 @@
     "resultsBtn": "Tingnan ang aking mga resulta",
     "retryBtn": "Subukan ulit",
     "scamAlertsBtn": "Tingnan ang mga babala sa scam",
+    "shareBtn": "I-share",
+    "shareText": "Nakakuha ako ng {{score}}/{{total}} sa scam quiz ng Remlo. Kaya mo bang makilala ang mga scam?",
     "ratings": [
       {
         "label": "Kailangan kang mag-ingat",

@@ -11,7 +11,7 @@ export const EVENT_FIELDS = {
   guest_mode_selected: [], login: ['method'], signup: ['method', 'awaiting_confirmation'],
   chat_message_sent: [], chat_response_received: [], chat_failed: [], chat_rate_limited: [],
   budget_updated: ['expense_count'], savings_goal_created: [],
-  remittance_compared: ['destination_country'],
+  remittance_compared: ['destination_country'], share_clicked: ['feature'],
 }
 
 // Activation v2 (from 18 Sep 2026): the first time a device completes a core
@@ -41,8 +41,8 @@ const ALLOWED_VALUES = {
 // Where a person first came from: a fixed code in the QR or link they opened
 // (remloapp.com/?source=healthserve&channel=qr-card). Only these values are
 // accepted; anything else in the URL is ignored. Add a code here before printing it.
-export const CAMPAIGN_SOURCES = ['the-leo', 'mwc', 'healthserve', 'ace', 'aidha', 'raincoats', 'hc-india']
-export const CAMPAIGN_CHANNELS = ['workshop', 'qr-card', 'poster', 'video', 'whatsapp', 'sip']
+export const CAMPAIGN_SOURCES = ['the-leo', 'mwc', 'healthserve', 'ace', 'aidha', 'raincoats', 'hc-india', 'share']
+export const CAMPAIGN_CHANNELS = ['workshop', 'qr-card', 'poster', 'video', 'whatsapp', 'sip', 'quiz-share']
 
 const validCampaign = (source, channel) =>
   CAMPAIGN_SOURCES.includes(source) && CAMPAIGN_CHANNELS.includes(channel)

@@ -630,6 +630,8 @@
     "resultsBtn": "查看成绩",
     "retryBtn": "重新作答",
     "scamAlertsBtn": "查看诈骗警报",
+    "shareBtn": "分享",
+    "shareText": "我在 Remlo 的防诈骗测验中得了 {{score}}/{{total}} 分。你能识别骗局吗？",
     "ratings": [
       {
         "label": "您需要提高警惕",
