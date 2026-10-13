@@ -44,7 +44,7 @@ const SECTIONS = [
     title: 'Analytics (PostHog)',
     body: [
       'We use PostHog to understand how people use the app — for example, which pages are visited most often. This helps us fix problems and improve features.',
-      'When analytics is configured, PostHog receives product events with a pseudonymous device identifier, language, country and workshop attribution. We disable session recording and exclude financial amounts, chat content, full URLs and account identifiers. This is not advertising tracking.',
+      'When analytics is configured, PostHog receives product events with a pseudonymous device identifier, language, country and a fixed code for how you found the app (for example a workshop or partner QR code). That code is kept on your device so we can tell whether people come back. We disable session recording and exclude financial amounts, chat content, full URLs and account identifiers. This is not advertising tracking.',
       'You can learn more about PostHog\'s data practices at posthog.com.',
     ],
   },
@@ -87,7 +87,7 @@ export default function PrivacyPolicy() {
           </button>
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{t('login.privacyPolicy')}</h1>
-            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated September 2026</p>
+            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated October 2026</p>
             {!i18n.language?.startsWith('en') && (
               <p className="text-sm font-semibold mt-1" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{t('common.englishOnly')}</p>
             )}
