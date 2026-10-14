@@ -51,6 +51,13 @@ test('a shared quiz link is a valid source, and share_clicked sends only the fea
   assert.deepEqual(safeEventProperties('share_clicked',{feature:'/scam-quiz',score:8,text:'I scored 8/8'}),{feature:'/scam-quiz'})
   assert.deepEqual(safeEventProperties('share_clicked',{feature:'/somewhere-else'}),{})
 })
+test('every outreach partner code is accepted with a QR card, and nothing near-miss is', () => {
+  for (const source of ['scal','acmi','home','cde','twc2','icai','mwo-ph','vn-embassy']) {
+    assert.deepEqual(campaignFromSearch(`?source=${source}&channel=qr-card`),{source,channel:'qr-card'})
+  }
+  assert.deepEqual(campaignFromSearch('?source=scal.com.sg&channel=qr-card'),{})
+  assert.deepEqual(campaignFromSearch('?source=HOME&channel=qr-card'),{})
+})
 test('a stored campaign round-trips, and bad stored values are dropped', () => {
   const c={source:'mwc',channel:'sip'}
   assert.deepEqual(parseCampaign(formatCampaign(c)),c)
