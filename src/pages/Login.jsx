@@ -154,14 +154,14 @@ function Login() {
               </button>
               {langOpen && (
                 <div
-                  className="absolute right-0 mt-1.5 w-40 rounded-2xl py-1.5 z-20 max-h-52 overflow-y-auto"
+                  className="absolute end-0 mt-1.5 w-40 rounded-2xl py-1.5 z-20 max-h-52 overflow-y-auto"
                   style={{ background: card, boxShadow: '0 8px 32px rgba(0,0,0,0.2)', border: `1px solid ${border}` }}
                 >
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
                       onClick={() => switchLang(l.code)}
-                      className="w-full text-left px-4 py-2 text-sm transition-colors"
+                      className="w-full text-start px-4 py-2 text-sm transition-colors"
                       style={{ color: l.code === i18n.language ? '#E8640C' : textSecondary, fontWeight: l.code === i18n.language ? 700 : 400 }}
                     >
                       {l.label}

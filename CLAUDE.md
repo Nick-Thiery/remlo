@@ -17,6 +17,7 @@ A free money app for migrant workers in Singapore, in 12 languages: savings, bud
 - `npm run lint`: ESLint
 - `npm test`: `node --test tests/*.test.mjs`
 - `npm run check:locales`: every language file against `en.json` (missing or extra keys, different `{{placeholders}}`)
+- `npm run check:layout`: opens every screen in all 12 languages at 360x740 and 320x640 in headless Chromium and reports overflow, clipped or overlapping text, small tap targets and wrong Urdu direction; not part of `npm test` (needs a browser, about 15 minutes), see `docs/layout-check.md`
 - `node scripts/test-rls.mjs`: signs up two throwaway users and checks neither can read the other's rows. Needs `.env`, plus `SUPABASE_SERVICE_ROLE_KEY` set for that one command only.
 
 ## Rules

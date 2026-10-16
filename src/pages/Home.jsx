@@ -217,14 +217,14 @@ export default function Home() {
                 </button>
                 {langOpen && (
                   <div
-                    className="absolute right-0 mt-2 w-44 rounded-2xl py-1.5 z-50 max-h-72 overflow-y-auto"
+                    className="absolute end-0 mt-2 w-44 rounded-2xl py-1.5 z-50 max-h-72 overflow-y-auto"
                     style={{ background: card, boxShadow: '0 8px 32px rgba(0,0,0,0.2)', border: `1px solid ${border}` }}
                   >
                     {LANGUAGES.map((l) => (
                       <button
                         key={l.code}
                         onClick={() => switchLang(l.code)}
-                        className="w-full text-left px-4 py-2.5 text-sm transition-colors"
+                        className="w-full text-start px-4 py-2.5 text-sm transition-colors"
                         style={{ color: l.code === i18n.language ? '#E8640C' : textSecondary, fontWeight: l.code === i18n.language ? 700 : 400 }}
                       >
                         {l.label}
@@ -262,7 +262,7 @@ export default function Home() {
           }}
         >
           <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full" style={{ background: 'rgba(255,255,255,0.07)' }} />
-          <div className="absolute top-4 right-24 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
+          <div className="absolute top-4 end-24 w-12 h-12 rounded-full" style={{ background: 'rgba(255,255,255,0.05)' }} />
           <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full" style={{ background: 'rgba(0,0,0,0.07)' }} />
           <div
             className="absolute inset-0"
@@ -353,7 +353,7 @@ export default function Home() {
             return (
               <Link key={f.to} to={f.to} className="block">
                 <div
-                  className="h-full rounded-3xl p-4 transition-transform active:scale-[0.98]"
+                  className="h-full rounded-3xl p-4 max-[340px]:p-3 transition-transform active:scale-[0.98]"
                   style={{
                     background: card,
                     border: `1px solid ${border2}`,
@@ -370,7 +370,7 @@ export default function Home() {
                   <p className="font-extrabold text-sm mb-1" style={{ color: textPrimary, letterSpacing: '-0.01em' }}>
                     {f.title}
                   </p>
-                  <p className="text-xs leading-relaxed" style={{ color: textSecondary }}>{f.description}</p>
+                  <p className="text-xs max-[340px]:text-[11px] leading-relaxed" style={{ color: textSecondary }}>{f.description}</p>
                 </div>
               </Link>
             )

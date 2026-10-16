@@ -131,7 +131,7 @@ export default function DeleteAccount() {
         {/* Confirmation checkbox */}
         <button
           onClick={() => setConfirmed((c) => !c)}
-          className="w-full flex items-start gap-3 px-4 py-4 rounded-2xl mb-4 text-left transition-all active:scale-[0.99]"
+          className="w-full flex items-start gap-3 px-4 py-4 rounded-2xl mb-4 text-start transition-all active:scale-[0.99]"
           style={{
             background: card,
             border: `2px solid ${confirmed ? '#EF4444' : border}`,

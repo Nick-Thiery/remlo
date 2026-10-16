@@ -87,11 +87,11 @@ export default function EmergencyFund() {
                 {t('emergencyFund.expensesLabel')}
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
+                <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none"><bdi dir="ltr">S$</bdi></span>
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={expenses} onChange={(e) => setExpenses(e.target.value)}
-                  className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="w-full rounded-xl ps-9 pe-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                 style={{ border: `1px solid ${isDark ? border : '#E5E7EB'}`, background: isDark ? bg : 'white', color: textPrimary }}
                 />
               </div>
@@ -101,11 +101,11 @@ export default function EmergencyFund() {
                 {t('emergencyFund.savingsLabel')}
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
+                <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none"><bdi dir="ltr">S$</bdi></span>
                 <input
                   type="number" inputMode="decimal" min="0" placeholder="0"
                   value={monthlySave} onChange={(e) => setMonthlySave(e.target.value)}
-                  className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="w-full rounded-xl ps-9 pe-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                 style={{ border: `1px solid ${isDark ? border : '#E5E7EB'}`, background: isDark ? bg : 'white', color: textPrimary }}
                 />
               </div>

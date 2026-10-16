@@ -31,3 +31,6 @@ dist-ssr
 # Per-machine Claude Code settings and Supabase CLI cache
 .claude/settings.local.json
 supabase/.temp/
+
+# Layout check output
+layout-report/
