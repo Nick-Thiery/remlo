@@ -244,7 +244,18 @@
     "speed3to7days": "৩ – ৭ দিন",
     "ratesFetching": "লাইভ রেট আনা হচ্ছে…",
     "ratesStale": "রেট পুরানো হতে পারে · রেট সেবায় পৌঁছানো যাচ্ছে না",
-    "ratesLive": "লাইভ রেট · {{time}}-এ আপডেট"
+    "ratesLive": "লাইভ রেট · {{time}}-এ আপডেট",
+    "indicativeQuote": "নির্দেশক কোট",
+    "estimateBadge": "আনুমানিক",
+    "wiseQuoteSource": "Wise-এর দেওয়া আনুমানিক কোট, {{time}} SGT-তে নেওয়া",
+    "wiseQuoteNote": "টাকা পাঠানোর আগে Wise চূড়ান্ত কোট নিশ্চিত করে।",
+    "wiseChecking": "Wise-এর নির্দেশক কোট আনা হচ্ছে…",
+    "wiseNotAvailable": "Wise সিঙ্গাপুর থেকে {{country}}-এ টাকা পাঠায় না।",
+    "visitProvider": "{{name}}-এ যান",
+    "speedWithinHours": "{{count}} ঘণ্টার মধ্যে",
+    "estimatesWithQuote": "Wise-এর সারিটি Wise-এর নির্দেশক কোট। বাকিগুলো শুধু উদাহরণের জন্য অনুমান, প্রতিষ্ঠানের কোট নয়, এবং Wise-এর সঙ্গে তুলনা করে সাজানো নয়: ফি, রেট, সময় ও সুবিধা প্রতিষ্ঠানের কাছে যাচাই করুন। Remlo টাকা পাঠায় না।",
+    "wisePayNow": "PayNow দিয়ে পেমেন্ট।",
+    "illustrativeHeading": "উদাহরণমূলক অনুমান, কোট নয়"
   },
   "salary": {
     "pageTitle": "বেতন ট্র্যাকার",

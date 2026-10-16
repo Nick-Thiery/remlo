@@ -248,7 +248,18 @@
     "speed3to7days": "3 – 7 days",
     "ratesFetching": "Fetching live rates…",
     "ratesStale": "Rates may be outdated · Could not reach rate service",
-    "ratesLive": "Live rates · Updated {{time}}"
+    "ratesLive": "Live rates · Updated {{time}}",
+    "indicativeQuote": "Indicative quote",
+    "estimateBadge": "Estimate",
+    "wiseQuoteSource": "Indicative quote from Wise, retrieved at {{time}} SGT",
+    "wiseQuoteNote": "Wise confirms the final quote before you send.",
+    "wiseChecking": "Getting an indicative quote from Wise…",
+    "wiseNotAvailable": "Wise doesn't send money from Singapore to {{country}}.",
+    "visitProvider": "Go to {{name}}",
+    "speedWithinHours": "Within {{count}} hours",
+    "estimatesWithQuote": "The Wise row is an indicative quote from Wise. The others are illustrative estimates, not provider quotes, and are not ranked against Wise: check fees, rates, speed and availability with the provider. Remlo does not transfer money.",
+    "wisePayNow": "Paying by PayNow.",
+    "illustrativeHeading": "Illustrative estimates, not quotes"
   },
   "salary": {
     "pageTitle": "Salary Tracker",

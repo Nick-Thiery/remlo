@@ -1,0 +1,163 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { parseRequest, pickOption, shapeQuote, QuoteCache, Throttle, DESTINATIONS, clientAddress } from '../supabase/functions/wise-quote/quote.ts'
+
+// Real Wise responses for S$500 (9–10 Oct 2026), trimmed to the fields used.
+const fixture = (name) => JSON.parse(readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8'))
+const inr = fixture('wise-quote-sgd-inr.json')
+const mmk = fixture('wise-quote-sgd-mmk.json')
+const now = new Date('2026-10-10T03:00:00Z')
+
+test('accepts Remlo destination currencies and sensible amounts only', () => {
+  assert.deepEqual(parseRequest({ targetCurrency: 'INR', sourceAmount: 500 }), { ok: true, value: { targetCurrency: 'INR', sourceAmount: 500 } })
+  assert.deepEqual(parseRequest({ targetCurrency: 'PHP', sourceAmount: '250.555' }).value, { targetCurrency: 'PHP', sourceAmount: 250.56 })
+  for (const bad of [null, {}, { targetCurrency: 'USD', sourceAmount: 500 }, { targetCurrency: 'INR', sourceAmount: 0 },
+    { targetCurrency: 'INR', sourceAmount: 20001 }, { targetCurrency: 'INR', sourceAmount: 'abc' }, { targetCurrency: 'INR', sourceAmount: Infinity }]) {
+    assert.equal(parseRequest(bad).ok, false, JSON.stringify(bad))
+  }
+  assert.equal(DESTINATIONS.length, 10)
+})
+
+test('uses the PayNow quote into a bank account, not a card pay-in', () => {
+  const o = pickOption(inr.paymentOptions)
+  assert.equal(o.payIn, 'PAYNOW')
+  assert.equal(o.payOut, 'BANK_TRANSFER')
+  assert.equal(pickOption(inr.paymentOptions.filter((x) => x.payIn !== 'PAYNOW')).payIn, 'BANK_TRANSFER')
+  assert.equal(pickOption(inr.paymentOptions.filter((x) => !['PAYNOW', 'BANK_TRANSFER'].includes(x.payIn))), null)
+  assert.equal(pickOption(inr.paymentOptions.map((x) => ({ ...x, disabled: true }))), null)
+})
+
+test('shapes a live quote: what the family gets, the fee, the rate and when it was retrieved', () => {
+  const q = shapeQuote(200, inr, { targetCurrency: 'INR', sourceAmount: 500 }, now)
+  const paynow = inr.paymentOptions.find((x) => x.payIn === 'PAYNOW')
+  assert.equal(q.supported, true)
+  assert.equal(q.received, paynow.targetAmount)
+  assert.equal(q.fee, paynow.fee.total)
+  assert.equal(q.rate, inr.rate)
+  assert.equal(q.payIn, 'PAYNOW')
+  assert.equal(q.retrievedAt, new Date(inr.createdTime).toISOString())
+  assert.equal(q.estimatedDelivery, paynow.estimatedDelivery)
+})
+
+test('Myanmar is "not available from Wise", not an error', () => {
+  assert.deepEqual(shapeQuote(422, mmk, { targetCurrency: 'MMK', sourceAmount: 500 }, now), { supported: false, provider: 'wise', targetCurrency: 'MMK' })
+})
+
+test('anything unexpected gives no quote, so the app keeps its estimate', () => {
+  const req = { targetCurrency: 'INR', sourceAmount: 500 }
+  assert.equal(shapeQuote(500, inr, req, now), null)
+  assert.equal(shapeQuote(200, null, req, now), null)
+  assert.equal(shapeQuote(200, { ...inr, rate: undefined }, req, now), null)
+  assert.equal(shapeQuote(200, inr, { targetCurrency: 'PHP', sourceAmount: 500 }, now), null)
+  assert.equal(shapeQuote(200, { ...inr, paymentOptions: [] }, req, now), null)
+})
+
+test('a quote is reused for 60 seconds, then fetched again', () => {
+  const cache = new QuoteCache(60_000, 2)
+  const req = { targetCurrency: 'INR', sourceAmount: 500 }
+  const q = shapeQuote(200, inr, req, now)
+  cache.set(req, q, 0)
+  assert.equal(cache.get(req, 59_999), q)
+  assert.equal(cache.get(req, 60_000), null)
+  cache.set({ targetCurrency: 'INR', sourceAmount: 1 }, q, 0)
+  cache.set({ targetCurrency: 'INR', sourceAmount: 2 }, q, 0)
+  cache.set({ targetCurrency: 'INR', sourceAmount: 3 }, q, 0)
+  assert.equal(cache.get({ targetCurrency: 'INR', sourceAmount: 1 }, 1), null, 'oldest entry dropped when full')
+})
+
+test('one caller is limited to 30 quotes a minute', () => {
+  const t = new Throttle(30, 60_000)
+  for (let i = 0; i < 30; i++) assert.equal(t.allow('a', i), true)
+  assert.equal(t.allow('a', 30), false)
+  assert.equal(t.allow('b', 30), true, 'other callers unaffected')
+  assert.equal(t.allow('a', 60_001), true, 'allowed again after a minute')
+})
+
+// ── The Remittance page ───────────────────────────────────────────────────────
+import { speedLabelFor, singaporeTime, WISE_UNSUPPORTED } from '../src/lib/wiseQuote.js'
+
+test('Wise delivery estimates map to the app\'s translated speed labels', () => {
+  const now = new Date('2026-10-10T03:00:00Z')
+  const at = (h) => new Date(now.getTime() + h * 3_600_000).toISOString()
+  assert.deepEqual(speedLabelFor(at(0.01), now), ['remittance.speedInstant'])
+  assert.deepEqual(speedLabelFor(at(1.5), now), ['remittance.speedInstant2hrs'])
+  assert.deepEqual(speedLabelFor(at(3.2), now), ['remittance.speedWithinHours', { count: 4 }])
+  assert.deepEqual(speedLabelFor(at(30), now), ['remittance.speed1to2days'])
+  assert.deepEqual(speedLabelFor(at(60), now), ['remittance.speed1to3days'])
+  assert.deepEqual(speedLabelFor(at(100), now), ['remittance.speed2to5days'])
+  assert.equal(speedLabelFor(null, now), null)
+  assert.equal(speedLabelFor('not a date', now), null)
+})
+
+test('the retrieval time is shown in Singapore time', () => {
+  assert.match(singaporeTime('2026-10-09T18:55:43Z', 'en-GB'), /^\u206602:55\u2069$/)
+})
+
+test('Myanmar never gets a Wise row, matching the function', () => {
+  assert.deepEqual(WISE_UNSUPPORTED, ['MMK'])
+  assert.equal(shapeQuote(422, mmk, { targetCurrency: 'MMK', sourceAmount: 500 }, now).supported, false)
+})
+
+test('Remittance shows an indicative Wise quote first, unranked estimates after, and no generic bank row', () => {
+  const page = readFileSync(new URL('../src/pages/Remittance.jsx', import.meta.url), 'utf8')
+  // No ranking by amount received, and no "Live quote" wording anywhere.
+  assert.doesNotMatch(page, /b\.received - a\.received/)
+  assert.doesNotMatch(page, /liveQuote|sortedByReceived/)
+  assert.match(page, /t\('remittance\.indicativeQuote'\)/)
+  assert.match(page, /t\('remittance\.estimateBadge'\)/)
+  assert.match(page, /t\('remittance\.illustrativeHeading'\)/)
+  assert.match(page, /t\('remittance\.wiseQuoteSource'/)
+  assert.match(page, /t\('remittance\.wiseQuoteNote'\)/)
+  // Wise's delivery time comes only from the quote; no fixed label as a fallback.
+  assert.match(page, /const speed = speedLabelFor\(q\.estimatedDelivery\)\n/)
+  assert.doesNotMatch(page, /id: 'bank'|Bank Transfer/)
+  // No referral or tracking links: plain provider homepages only.
+  for (const [, url] of page.matchAll(/url: '([^']+)'/g)) assert.doesNotMatch(url, /[?&](ref|aff|utm|clickref|partner)/i, url)
+})
+
+test('no language says "live quote" for the Wise row', () => {
+  for (const lang of ['bn', 'en', 'fil', 'hi', 'id', 'my', 'si', 'ta', 'th', 'ur', 'vi', 'zh']) {
+    const r = JSON.parse(readFileSync(new URL(`../src/locales/${lang}.json`, import.meta.url), 'utf8')).remittance
+    assert.ok(r.indicativeQuote, lang)
+    assert.equal('liveQuote' in r, false, lang)
+    assert.equal('sortedByReceived' in r, false, lang)
+  }
+  const en = JSON.parse(readFileSync(new URL('../src/locales/en.json', import.meta.url), 'utf8')).remittance
+  assert.equal(en.indicativeQuote, 'Indicative quote')
+})
+
+test('the live quote sends no amount to analytics', () => {
+  const page = readFileSync(new URL('../src/pages/Remittance.jsx', import.meta.url), 'utf8')
+  for (const [call] of page.matchAll(/track\([^)]*\)/g)) assert.doesNotMatch(call, /amount|received|fee|rate/i, call)
+})
+
+test('callers are identified by edge-set headers only, never x-forwarded-for', () => {
+  const headers = (h) => (name) => h[name.toLowerCase()] ?? null
+  assert.equal(clientAddress(headers({ 'x-forwarded-for': '1.2.3.4' })), null)
+  assert.equal(clientAddress(headers({ 'x-forwarded-for': '1.2.3.4', 'x-real-ip': '5.6.7.8' })), '5.6.7.8')
+  assert.equal(clientAddress(headers({ 'cf-connecting-ip': '9.9.9.9', 'x-real-ip': '5.6.7.8' })), '9.9.9.9')
+  assert.equal(clientAddress(headers({ 'x-real-ip': 'x'.repeat(65) })), null)
+})
+
+test('tracking many callers forgets idle ones but never resets an active caller', () => {
+  const t = new Throttle(2, 60_000)
+  t.allow('busy', 100_000); t.allow('busy', 100_001)
+  for (let i = 0; i < 5001; i++) t.allow(`idle-${i}`, 0)
+  for (let i = 0; i < 10; i++) t.allow(`new-${i}`, 100_002)
+  assert.equal(t.allow('busy', 100_003), false, 'still limited after the map was pruned')
+})
+
+test('the function serves cached quotes before any limit, and limits only calls to Wise', () => {
+  const fn = readFileSync(new URL('../supabase/functions/wise-quote/index.ts', import.meta.url), 'utf8')
+  assert.ok(fn.indexOf('cache.get(') < fn.indexOf('perCaller.allow('), 'cache is checked first')
+  assert.match(fn, /overall\.allow\('all', now\)/)
+  assert.doesNotMatch(fn, /x-forwarded-for/)
+})
+
+test('Myanmar is decided at once (no Wise row during the debounce), and PayNow is only claimed for PayNow quotes', () => {
+  const page = readFileSync(new URL('../src/pages/Remittance.jsx', import.meta.url), 'utf8')
+  assert.match(page, /const wiseUnavailable = WISE_UNSUPPORTED\.includes\(dest\.currency\)/)
+  assert.match(page, /wise\.currency === dest\.currency/)
+  assert.match(page, /p\.payIn === 'PAYNOW' && <>\{t\('remittance\.wisePayNow'\)\}/)
+})

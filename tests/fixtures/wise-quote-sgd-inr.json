@@ -1,0 +1,156 @@
+{
+ "sourceAmount": 500.0,
+ "sourceCurrency": "SGD",
+ "targetCurrency": "INR",
+ "rate": 75.5519,
+ "rateType": "FIXED",
+ "rateTimestamp": "2026-10-09T18:55:01Z",
+ "createdTime": "2026-10-09T18:55:43Z",
+ "payOut": "BANK_TRANSFER",
+ "paymentOptions": [
+  {
+   "payIn": "PAYNOW",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 2.37
+   },
+   "targetAmount": 37596.89,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "FAST_DIRECT_DEBIT",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 2.32
+   },
+   "targetAmount": 37600.67,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "BANK_TRANSFER",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 2.37
+   },
+   "targetAmount": 37596.89,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "DEBIT",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 25.13
+   },
+   "targetAmount": 35877.33,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "MC_DEBIT_OR_PREPAID",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 25.13
+   },
+   "targetAmount": 35877.33,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "VISA_BUSINESS_DEBIT",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 23.13
+   },
+   "targetAmount": 36028.43,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "INTERNATIONAL_DEBIT",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 38.26
+   },
+   "targetAmount": 34885.33,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "CARD",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 25.13
+   },
+   "targetAmount": 35877.33,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "MAESTRO",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 25.13
+   },
+   "targetAmount": 35877.33,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "MC_BUSINESS_DEBIT",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 24.09
+   },
+   "targetAmount": 35955.9,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "VISA_DEBIT_OR_PREPAID",
+   "payOut": "BANK_TRANSFER",
+   "disabled": false,
+   "fee": {
+    "total": 22.85
+   },
+   "targetAmount": 36049.59,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  },
+  {
+   "payIn": "BALANCE",
+   "payOut": "BANK_TRANSFER",
+   "disabled": true,
+   "fee": {
+    "total": 2.37
+   },
+   "targetAmount": 37596.89,
+   "sourceAmount": 500.0,
+   "estimatedDelivery": "2026-10-10T01:00:00Z",
+   "formattedEstimatedDelivery": "by Saturday 2:00 AM"
+  }
+ ]
+}
