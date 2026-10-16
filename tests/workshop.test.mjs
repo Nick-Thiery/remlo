@@ -58,6 +58,10 @@ test('every outreach partner code is accepted with a QR card, and nothing near-m
   assert.deepEqual(campaignFromSearch('?source=scal.com.sg&channel=qr-card'),{})
   assert.deepEqual(campaignFromSearch('?source=HOME&channel=qr-card'),{})
 })
+test('links from the FinanceForward site are tagged ff-site / web', () => {
+  assert.deepEqual(campaignFromSearch('?source=ff-site&channel=web'),{source:'ff-site',channel:'web'})
+  assert.deepEqual(campaignFromSearch('?source=ff-site&channel=Web'),{})
+})
 test('a stored campaign round-trips, and bad stored values are dropped', () => {
   const c={source:'mwc',channel:'sip'}
   assert.deepEqual(parseCampaign(formatCampaign(c)),c)
