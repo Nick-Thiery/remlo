@@ -1,7 +1,7 @@
 /**
  * wise-quote
  *
- * Returns a live Wise quote for sending SGD home, for the Wise row on the
+ * Returns an indicative Wise quote for sending SGD home, for the Wise row on the
  * Remittance page. Calls Wise's public quotes endpoint (no API key), reuses
  * each quote for 60 seconds, and limits how often one caller can ask.
  *

@@ -99,15 +99,32 @@ test('Myanmar never gets a Wise row, matching the function', () => {
   assert.equal(shapeQuote(422, mmk, { targetCurrency: 'MMK', sourceAmount: 500 }, now).supported, false)
 })
 
-test('Remittance sorts by what the family receives and labels live quotes and estimates', () => {
+test('Remittance shows an indicative Wise quote first, unranked estimates after, and no generic bank row', () => {
   const page = readFileSync(new URL('../src/pages/Remittance.jsx', import.meta.url), 'utf8')
-  assert.match(page, /rows\.sort\(\(a, b\) => b\.received - a\.received\)/)
-  assert.match(page, /t\('remittance\.liveQuote'\)/)
+  // No ranking by amount received, and no "Live quote" wording anywhere.
+  assert.doesNotMatch(page, /b\.received - a\.received/)
+  assert.doesNotMatch(page, /liveQuote|sortedByReceived/)
+  assert.match(page, /t\('remittance\.indicativeQuote'\)/)
   assert.match(page, /t\('remittance\.estimateBadge'\)/)
+  assert.match(page, /t\('remittance\.illustrativeHeading'\)/)
   assert.match(page, /t\('remittance\.wiseQuoteSource'/)
   assert.match(page, /t\('remittance\.wiseQuoteNote'\)/)
+  // Wise's delivery time comes only from the quote; no fixed label as a fallback.
+  assert.match(page, /const speed = speedLabelFor\(q\.estimatedDelivery\)\n/)
+  assert.doesNotMatch(page, /id: 'bank'|Bank Transfer/)
   // No referral or tracking links: plain provider homepages only.
   for (const [, url] of page.matchAll(/url: '([^']+)'/g)) assert.doesNotMatch(url, /[?&](ref|aff|utm|clickref|partner)/i, url)
+})
+
+test('no language says "live quote" for the Wise row', () => {
+  for (const lang of ['bn', 'en', 'fil', 'hi', 'id', 'my', 'si', 'ta', 'th', 'ur', 'vi', 'zh']) {
+    const r = JSON.parse(readFileSync(new URL(`../src/locales/${lang}.json`, import.meta.url), 'utf8')).remittance
+    assert.ok(r.indicativeQuote, lang)
+    assert.equal('liveQuote' in r, false, lang)
+    assert.equal('sortedByReceived' in r, false, lang)
+  }
+  const en = JSON.parse(readFileSync(new URL('../src/locales/en.json', import.meta.url), 'utf8')).remittance
+  assert.equal(en.indicativeQuote, 'Indicative quote')
 })
 
 test('the live quote sends no amount to analytics', () => {

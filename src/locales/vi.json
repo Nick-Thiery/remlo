@@ -248,7 +248,18 @@
     "speed3to7days": "3 – 7 ngày",
     "ratesFetching": "Đang lấy tỷ giá trực tiếp…",
     "ratesStale": "Tỷ giá có thể đã cũ · Không kết nối được dịch vụ tỷ giá",
-    "ratesLive": "Tỷ giá trực tiếp · Cập nhật {{time}}"
+    "ratesLive": "Tỷ giá trực tiếp · Cập nhật {{time}}",
+    "indicativeQuote": "Báo giá tham khảo",
+    "wiseChecking": "Đang lấy báo giá tham khảo từ Wise…",
+    "estimatesWithQuote": "Dòng Wise là báo giá tham khảo từ Wise. Các dòng còn lại chỉ là ước tính minh họa, không phải báo giá của nhà cung cấp và không được xếp hạng so với Wise: hãy kiểm tra phí, tỷ giá, tốc độ và khả năng sử dụng với nhà cung cấp. Remlo không chuyển tiền.",
+    "illustrativeHeading": "Ước tính minh họa, không phải báo giá",
+    "estimateBadge": "Ước tính",
+    "wiseQuoteSource": "Báo giá tham khảo từ Wise, lấy lúc {{time}} SGT",
+    "wiseQuoteNote": "Wise xác nhận báo giá cuối cùng trước khi bạn gửi.",
+    "wiseNotAvailable": "Wise không chuyển tiền từ Singapore sang {{country}}.",
+    "visitProvider": "Đến {{name}}",
+    "speedWithinHours": "Trong vòng {{count}} giờ",
+    "wisePayNow": "Thanh toán bằng PayNow."
   },
   "salary": {
     "pageTitle": "Theo dõi lương",

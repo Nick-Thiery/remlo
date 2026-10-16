@@ -249,17 +249,17 @@
     "ratesFetching": "Fetching live rates…",
     "ratesStale": "Rates may be outdated · Could not reach rate service",
     "ratesLive": "Live rates · Updated {{time}}",
-    "liveQuote": "Live quote",
+    "indicativeQuote": "Indicative quote",
     "estimateBadge": "Estimate",
     "wiseQuoteSource": "Indicative quote from Wise, retrieved at {{time}} SGT",
     "wiseQuoteNote": "Wise confirms the final quote before you send.",
-    "wiseChecking": "Getting Wise's live quote…",
+    "wiseChecking": "Getting an indicative quote from Wise…",
     "wiseNotAvailable": "Wise doesn't send money from Singapore to {{country}}.",
     "visitProvider": "Go to {{name}}",
     "speedWithinHours": "Within {{count}} hours",
-    "estimatesWithQuote": "Wise shows a live quote from Wise. The others are illustrative estimates, not provider quotes: check fees, rates, speed and availability with the provider. Remlo does not transfer money.",
-    "sortedByReceived": "Sorted by what your family receives",
-    "wisePayNow": "Paying by PayNow."
+    "estimatesWithQuote": "The Wise row is an indicative quote from Wise. The others are illustrative estimates, not provider quotes, and are not ranked against Wise: check fees, rates, speed and availability with the provider. Remlo does not transfer money.",
+    "wisePayNow": "Paying by PayNow.",
+    "illustrativeHeading": "Illustrative estimates, not quotes"
   },
   "salary": {
     "pageTitle": "Salary Tracker",

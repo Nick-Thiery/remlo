@@ -23,8 +23,8 @@ const SECTIONS = [
   {
     title: 'Remittance Rates',
     body: [
-      'Exchange rates and fees shown in the Remittance Comparator are estimates based on publicly available data, except where a row is marked as a live quote. They may not be exactly what a provider offers you.',
-      'A live quote from Wise comes from Wise\'s public quote service at the time shown. It is indicative: Wise confirms the final quote before you send. Remlo does not receive payment for showing it.',
+      'Exchange rates and fees shown in the Remittance Comparator are illustrative estimates based on publicly available data, except the Wise row when it is marked as an indicative quote. Estimates are not provider quotes and are not ranked against Wise. They may not be exactly what a provider offers you.',
+      'An indicative quote from Wise comes from Wise\'s public quote service at the time shown. It is indicative: Wise confirms the final quote before you send. Remlo does not receive payment for showing it.',
       'Always confirm the final rate and fee directly with the provider before sending money.',
     ],
   },
@@ -85,7 +85,7 @@ export default function TermsOfService() {
           </button>
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{t('login.termsOfService')}</h1>
-            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated April 2026</p>
+            <p className="text-sm mt-0.5" style={{ color: isDark ? '#9C9590' : '#6B7280' }}>Last updated October 2026</p>
             {!i18n.language?.startsWith('en') && (
               <p className="text-sm font-semibold mt-1" style={{ color: isDark ? '#F5F2EC' : '#1A1A1A' }}>{t('common.englishOnly')}</p>
             )}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, Fragment } from 'react'
 import { ArrowLeftRight, RefreshCw, WifiOff, Zap, ExternalLink } from 'lucide-react'
 import { fetchJson } from '../lib/fetchJson.js'
 import { fetchWiseQuote, speedLabelFor, singaporeTime, roundCents, WISE_UNSUPPORTED, QUOTE_MIN_SGD, QUOTE_MAX_SGD } from '../lib/wiseQuote.js'
@@ -30,13 +30,13 @@ const PROVIDER_CONFIG = [
   {
     id: 'wise', name: 'Wise', url: 'https://wise.com/',
     grad: 'linear-gradient(135deg, #10B981, #059669)',
-    // Used only when the live quote can't be fetched. Fitted to Wise's own
+    // Used only when the Wise quote can't be fetched. Fitted to Wise's own
     // PayNow quotes at S$100 and S$1,000 (10 Oct 2026): Wise uses the market
     // rate and charges a fixed fee plus a percentage. No Myanmar (not offered).
     spread: 0,
     fees:   { IN: 0.72,   BD: 2.75,   PH: 0.65,   MM: 0, ID: 0.94,   LK: 3.04,  CN: 3.86,   TH: 2.33,   PK: 1.01,   NP: 1.98  },
     feePct: { IN: 0.0033, BD: 0.0059, PH: 0.0040, MM: 0, ID: 0.0027, LK: 0.0037, CN: 0.0075, TH: 0.0050, PK: 0.0046, NP: 0.0097 },
-    speed: { IN: 'remittance.speedInstant2hrs', BD: 'remittance.speed1to2days', PH: 'remittance.speedInstant', MM: 'remittance.speed2to5days', ID: 'remittance.speedInstant', LK: 'remittance.speed1to2days', CN: 'remittance.speed1to2days', TH: 'remittance.speedInstant', PK: 'remittance.speed1to2days', NP: 'remittance.speed1to2days' },
+    // No fixed delivery time: Wise's own estimate is shown only with a real quote.
   },
   {
     id: 'remitly', name: 'Remitly', url: 'https://www.remitly.com/',
@@ -54,13 +54,6 @@ const PROVIDER_CONFIG = [
     spread: 0.020,
     fees:  { IN: 3.90, BD: 4.50, PH: 3.50, MM: 5.00, ID: 4.00, LK: 4.20, CN: 3.80, TH: 3.50, PK: 4.50, NP: 4.00 },
     speed: { IN: 'remittance.speedMinutes', BD: 'remittance.speedMinutes', PH: 'remittance.speedMinutes', MM: 'remittance.speedMinutes', ID: 'remittance.speedMinutes', LK: 'remittance.speedMinutes', CN: 'remittance.speedMinutes', TH: 'remittance.speedMinutes', PK: 'remittance.speedMinutes', NP: 'remittance.speedMinutes' },
-  },
-  {
-    id: 'bank', name: 'Bank Transfer',
-    grad: 'linear-gradient(135deg, #6B7280, #4B5563)',
-    spread: 0.030,
-    fees:  { IN: 15.00, BD: 15.00, PH: 15.00, MM: 15.00, ID: 15.00, LK: 15.00, CN: 15.00, TH: 15.00, PK: 15.00, NP: 15.00 },
-    speed: { IN: 'remittance.speed1to3days', BD: 'remittance.speed2to5days', PH: 'remittance.speed1to3days', MM: 'remittance.speed3to7days', ID: 'remittance.speed2to4days', LK: 'remittance.speed2to5days', CN: 'remittance.speed2to4days', TH: 'remittance.speed1to3days', PK: 'remittance.speed2to5days', NP: 'remittance.speed2to5days' },
   },
 ]
 
@@ -135,7 +128,7 @@ export default function Remittance() {
   const amount = parseFloat(sendAmount) || 0
   const dest = COUNTRIES[country]
 
-  // Live Wise quote for this amount and country. Other providers stay estimates.
+  // Indicative Wise quote for this amount and country. Other providers stay illustrative estimates.
   // status: idle | loading | ok | unavailable (Wise doesn't send there) | error
   const [wise, setWise] = useState({ status: 'idle' })
   useEffect(() => {
@@ -176,19 +169,22 @@ export default function Remittance() {
       if (p.id === 'wise' && wiseUnavailable) continue
       const q = wise.quote
       if (p.id === 'wise' && wise.status === 'ok' && q.targetCurrency === dest.currency && q.sourceAmount === roundCents(amount)) {
-        const speed = speedLabelFor(q.estimatedDelivery) ?? [p.speed[country]]
+        // Wise's own estimated arrival; nothing is shown if the quote has none.
+        const speed = speedLabelFor(q.estimatedDelivery)
         rows.push({ ...p, kind: 'quote', rate: q.rate, fee: q.fee, received: q.received, speed, retrievedAt: q.retrievedAt, payIn: q.payIn })
         continue
       }
       const rate    = mid * (1 - p.spread)
       const fee     = roundCents(p.fees[country] + (p.feePct?.[country] ?? 0) * amount)
       const netSend = Math.max(amount - fee, 0)
-      rows.push({ ...p, kind: 'estimate', rate, fee, received: netSend * rate, speed: [p.speed[country]] })
+      rows.push({ ...p, kind: 'estimate', rate, fee, received: netSend * rate, speed: p.speed ? [p.speed[country]] : null })
     }
-    // Most money for the family first, whoever the provider is.
-    return rows.sort((a, b) => b.received - a.received)
+    // A Wise quote comes first, on its own. The illustrative estimates follow in a
+    // fixed order, not ranked: their figures are not provider quotes, so they are
+    // not compared with Wise or with each other.
+    return rows.sort((a, b) => (a.kind === 'quote' ? 0 : 1) - (b.kind === 'quote' ? 0 : 1))
   }, [amount, country, midRates, dest.currency, wise, wiseUnavailable])
-  const showsLiveQuote = results.some((r) => r.kind === 'quote')
+  const showsQuote = results.some((r) => r.kind === 'quote')
 
 
   return (
@@ -198,7 +194,7 @@ export default function Remittance() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">{t('remittance.pageTitle')}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{showsLiveQuote ? t('remittance.estimatesWithQuote') : t('workshop.estimates')}</p>
+          <p className="text-sm text-gray-500 mt-0.5">{showsQuote ? t('remittance.estimatesWithQuote') : t('workshop.estimates')}</p>
         </div>
 
         {/* Live rates status */}
@@ -320,9 +316,6 @@ export default function Remittance() {
                 })}
               </p>
             )}
-            {amount > 0 && (
-              <p className="text-xs text-gray-500 font-medium -mt-1.5 mb-3">{t('remittance.sortedByReceived')}</p>
-            )}
 
             <div className="space-y-3">
               {amount <= 0 ? (
@@ -340,11 +333,14 @@ export default function Remittance() {
                   <p className="text-sm text-gray-500 max-w-[200px] mx-auto leading-relaxed">{t('remittance.emptyDesc')}</p>
                 </div>
               ) : (
-                results.map((p) => {
+                results.map((p, idx) => {
 
                   return (
+                    <Fragment key={p.id}>
+                    {p.kind === 'estimate' && results[idx - 1]?.kind !== 'estimate' && (
+                      <p className="text-xs font-bold text-gray-500 uppercase tracking-widest pt-3">{t('remittance.illustrativeHeading')}</p>
+                    )}
                     <div
-                      key={p.id}
                       className="rounded-3xl overflow-hidden transition-all"
                       style={{
                         background: card,
@@ -373,13 +369,15 @@ export default function Remittance() {
                                   ? { background: isDark ? '#0D2B1E' : '#ECFDF5', color: isDark ? '#6EE7B7' : '#047857' }
                                   : { background: isDark ? '#2C2926' : '#F5F2EC', color: isDark ? '#C9C2BA' : '#57534E' }}
                               >
-                                {p.kind === 'quote' ? t('remittance.liveQuote') : t('remittance.estimateBadge')}
+                                {p.kind === 'quote' ? t('remittance.indicativeQuote') : t('remittance.estimateBadge')}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1 text-gray-500 mt-0.5">
-                              <Zap className="w-3 h-3" />
-                              <span className="text-xs font-medium">{t(...p.speed)}</span>
-                            </div>
+                            {p.speed && (
+                              <div className="flex items-center gap-1 text-gray-500 mt-0.5">
+                                <Zap className="w-3 h-3" />
+                                <span className="text-xs font-medium">{t(...p.speed)}</span>
+                              </div>
+                            )}
                           </div>
                         </div>
 
@@ -444,6 +442,7 @@ export default function Remittance() {
                         )}
                       </div>
                     </div>
+                    </Fragment>
                   )
                 })
               )}

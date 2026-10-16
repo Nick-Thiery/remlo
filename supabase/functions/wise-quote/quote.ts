@@ -1,6 +1,6 @@
 // Logic for the wise-quote function, kept free of Deno APIs so tests can run it.
 //
-// Wise's public quotes endpoint (no API key) gives a live quote for SGD to the
+// Wise's public quotes endpoint (no API key) gives an indicative quote for SGD to the
 // worker's home currency. Wise confirmed in writing (8–9 Oct 2026) that Remlo
 // may show these quotes in its comparison, including to people without a Wise
 // account, at up to 100 requests a second and 900 a minute.
