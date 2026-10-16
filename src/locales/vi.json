@@ -976,6 +976,8 @@
     "setup": "Cài đặt Remlo cho bạn",
     "choose": "Chọn quê hương và ngôn ngữ của bạn để tiếp tục.",
     "country": "Quê hương",
+    "pickCountry": "Chạm vào quê hương của bạn bên dưới để tiếp tục.",
+    "otherCountry": "Quốc gia khác",
     "nextScam": "Tiếp theo: thử một câu hỏi về lừa đảo. Không cần tài khoản.",
     "returnHint": "Để quay lại, hãy mở Remlo hoặc lưu trang này lại. Bạn cũng có thể quét lại cùng mã QR.",
     "reportNote": "Remlo không nhận báo cáo lừa đảo. Hãy nhờ ScamShield giúp đỡ và hướng dẫn cách báo cáo.",

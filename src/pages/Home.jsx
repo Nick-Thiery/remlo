@@ -56,6 +56,21 @@ function updateStreak() {
   return count
 }
 
+// Guest numbers live on the device, so Home can know them on the first paint.
+function readGuestStats() {
+  try {
+    const savings = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
+    const budget = JSON.parse(safeStorage.getItem('remlo_guest_budget') || 'null')
+    const totalExp = (budget?.expenses || []).reduce((sum, e) => sum + e.amount, 0)
+    return {
+      saved: savings.reduce((sum, g) => sum + g.saved, 0),
+      left: budget ? Math.max((budget.income || 0) - totalExp, 0) : 0,
+    }
+  } catch {
+    return { saved: 0, left: 0 }
+  }
+}
+
 export default function Home() {
   const { t, i18n } = useTranslation()
   const isDark = useDarkMode()
@@ -67,9 +82,11 @@ export default function Home() {
   const textPrimary   = isDark ? '#F5F2EE' : '#1A1A1A'
   const textSecondary = isDark ? '#9CA3AF' : '#57534E'
   const [langOpen, setLangOpen] = useState(false)
-  const [statsLoading, setStatsLoading] = useState(true)
-  const [totalSaved, setTotalSaved] = useState(0)
-  const [budgetLeft, setBudgetLeft] = useState(0)
+  const guestAtStart = safeStorage.getItem('remlo_guest') === 'true'
+  const [guestStart] = useState(() => (guestAtStart ? readGuestStats() : { saved: 0, left: 0 }))
+  const [statsLoading, setStatsLoading] = useState(!guestAtStart)
+  const [totalSaved, setTotalSaved] = useState(guestStart.saved)
+  const [budgetLeft, setBudgetLeft] = useState(guestStart.left)
   const [userInitial, setUserInitial] = useState('')
   const [userName, setUserName] = useState('')
   const [isGuest, setIsGuest] = useState(false)
@@ -90,13 +107,9 @@ export default function Home() {
       if (isGuest) {
         setIsGuest(true)
         setUserInitial('G')
-        const savings = JSON.parse(safeStorage.getItem('remlo_guest_savings') || '[]')
-        setTotalSaved(savings.reduce((sum, g) => sum + g.saved, 0))
-        const budget = JSON.parse(safeStorage.getItem('remlo_guest_budget') || 'null')
-        if (budget) {
-          const totalExp = (budget.expenses || []).reduce((sum, e) => sum + e.amount, 0)
-          setBudgetLeft(Math.max((budget.income || 0) - totalExp, 0))
-        }
+        const { saved, left } = readGuestStats()
+        setTotalSaved(saved)
+        setBudgetLeft(left)
         setStatsLoading(false)
         return
       }
@@ -145,6 +158,9 @@ export default function Home() {
   }
 
   const currentLang = LANGUAGES.find((l) => l.code === i18n.language) ?? LANGUAGES[0]
+  // Nothing saved and no budget yet: skip the two empty "0" figures so the feature
+  // cards come up into the first screen instead of sitting under the tab bar.
+  const nothingYet = !statsLoading && totalSaved === 0 && budgetLeft === 0
 
   const FEATURES = [
     {
@@ -271,7 +287,7 @@ export default function Home() {
             }}
           />
 
-          <div className="relative px-6 pt-6 pb-7">
+          <div className={`relative px-6 pt-6 ${nothingYet ? 'pb-5' : 'pb-7'}`}>
             <div
               className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-5"
               style={{ background: 'rgba(255,255,255,0.18)' }}
@@ -286,9 +302,9 @@ export default function Home() {
             <h2 className="text-white font-extrabold text-2xl tracking-tight mb-1" style={{ letterSpacing: '-0.02em' }}>
               {isGuest ? `${t('home.guest')} 👋` : userName ? `${userName} 👋` : `${t('home.nameFallback')} 👋`}
             </h2>
-            <p className="text-white/55 text-xs mb-7">{t('home.financeGlance')}</p>
+            {!nothingYet && <p className="text-white/55 text-xs mb-7">{t('home.financeGlance')}</p>}
 
-            <div className="flex items-end gap-8">
+            {!nothingYet && <div className="flex items-end gap-8">
               <div>
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <Coins className="w-3.5 h-3.5 text-white/50" strokeWidth={2} />
@@ -313,7 +329,7 @@ export default function Home() {
                   {statsLoading ? '—' : formatSGD(budgetLeft)}
                 </p>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
 
