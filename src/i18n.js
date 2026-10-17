@@ -1,6 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import safeStorage from './lib/safeStorage.js'
+import { detectDeviceLanguage } from './lib/deviceLanguage.js'
 
 import en  from './locales/en.json'
 import ta  from './locales/ta.json'
@@ -32,7 +33,7 @@ i18n
       ur:  { translation: ur  },
       vi:  { translation: vi  },
     },
-    lng: safeStorage.getItem('remlo_lang') || 'en',
+    lng: safeStorage.getItem('remlo_lang') || detectDeviceLanguage() || 'en',
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,

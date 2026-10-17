@@ -976,6 +976,8 @@
     "setup": "I-set up ang Remlo",
     "choose": "Piliin ang iyong bansang pinagmulan at wika para magpatuloy.",
     "country": "Bansang pinagmulan",
+    "pickCountry": "I-tap sa ibaba ang iyong bansang pinagmulan para magpatuloy.",
+    "otherCountry": "Ibang bansa",
     "nextScam": "Susunod: subukan ang isang tanong tungkol sa scam. Hindi kailangan ng account.",
     "returnHint": "Para bumalik, buksan ang Remlo o i-bookmark ang pahinang ito. Maaari ring i-scan muli ang parehong QR code.",
     "reportNote": "Hindi tumatanggap ng ulat ng scam ang Remlo. Tingnan ang ScamShield para sa tulong at paraan ng pag-uulat.",

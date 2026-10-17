@@ -976,6 +976,8 @@
     "setup": "Atur Remlo untuk Anda",
     "choose": "Pilih negara asal dan bahasa untuk melanjutkan.",
     "country": "Negara asal",
+    "pickCountry": "Ketuk negara asal Anda di bawah untuk melanjutkan.",
+    "otherCountry": "Negara lain",
     "nextScam": "Selanjutnya: coba satu pertanyaan tentang penipuan. Tidak perlu akun.",
     "returnHint": "Untuk kembali, buka Remlo atau tandai halaman ini. Anda juga bisa memindai kode QR yang sama lagi.",
     "reportNote": "Remlo tidak menerima laporan penipuan. Lihat ScamShield untuk bantuan dan petunjuk pelaporan.",

@@ -976,6 +976,8 @@
     "setup": "设置您的 Remlo",
     "choose": "请选择您的家乡国家和语言以继续。",
     "country": "家乡国家",
+    "pickCountry": "请在下方点选您的家乡国家以继续。",
+    "otherCountry": "其他国家",
     "nextScam": "下一步：回答一道防诈骗问题。无需注册账户。",
     "returnHint": "下次可打开 Remlo，或将此页加入书签。也可以再次扫描同一个二维码。",
     "reportNote": "Remlo 不接收诈骗举报。请前往 ScamShield 获取帮助和举报指引。",

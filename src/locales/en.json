@@ -976,6 +976,8 @@
     "setup": "Make Remlo yours",
     "choose": "Choose your home country and language to continue.",
     "country": "Home country",
+    "pickCountry": "Tap your home country below to continue.",
+    "otherCountry": "Other country",
     "nextScam": "Next: try a scam question. No account needed.",
     "returnHint": "To return, open Remlo or bookmark this page. You can also scan the same QR code again.",
     "reportNote": "Remlo does not receive scam reports. Get help and reporting instructions from ScamShield.",

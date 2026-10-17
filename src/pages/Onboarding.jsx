@@ -6,6 +6,7 @@ import LanguageSelect from '../components/LanguageSelect.jsx'
 import { track } from '../lib/analytics.js'
 import { guestLandingPath } from '../lib/entryRoute.js'
 import safeStorage from '../lib/safeStorage.js'
+import { detectDeviceLanguage } from '../lib/deviceLanguage.js'
 import { useDarkMode } from '../hooks/useDarkMode.js'
 
 const COUNTRIES = [
@@ -152,7 +153,7 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish, o
                   className="text-sm font-semibold break-words"
                   style={{ color: selected ? '#C2410C' : textPrimary }}
                 >
-                  {c.code === 'OTHER' ? c.name : t(`remittance.country${c.name.replaceAll(' ', '')}`)}
+                  {c.code === 'OTHER' ? t('workshop.otherCountry') : t(`remittance.country${c.name.replaceAll(' ', '')}`)}
                 </span>
                 {selected && (
                   <div
@@ -176,14 +177,15 @@ function SetupScreen({ country, lang, onSelectCountry, onSelectLang, onFinish, o
         className="flex-shrink-0 px-5 py-3 pb-[max(env(safe-area-inset-bottom),12px)]"
         style={{ background: card, borderTop: `1px solid ${border}` }}
       >
-        <p role="status" className="text-sm mb-2 text-gray-600">{!country ? t("workshop.choose") : t("login.guestNote")}</p>
+        <p role="status" className="text-sm mb-2 text-gray-600">{!country ? t("workshop.pickCountry") : t("login.guestNote")}</p>
         <button
           onClick={() => onFinish(true)}
           disabled={!country}
-          className="w-full rounded-2xl py-4 text-base font-extrabold transition-all disabled:opacity-40 active:scale-95"
+          className="w-full rounded-2xl py-4 text-base font-extrabold transition-all active:scale-95"
           style={{
-            background: country ? 'linear-gradient(135deg, #E8640C, #CC5708)' : '#D1CFC9',
-            color: 'white',
+            // Disabled look keeps readable text (the old white on grey was hard to read).
+            background: country ? 'linear-gradient(135deg, #E8640C, #CC5708)' : (isDark ? '#2C2926' : '#E7E5E4'),
+            color: country ? 'white' : (isDark ? '#A8A29E' : '#57534E'),
             boxShadow: country ? '0 8px 24px rgba(232,100,12,0.3)' : 'none',
           }}
         >
@@ -201,7 +203,9 @@ export default function Onboarding({ onComplete }) {
   const [step, setStep] = useState(0)
   const [country, setCountry] = useState(null)
   const [lang, setLang] = useState(i18n.language)
-  const explicitLanguage = useRef(!!safeStorage.getItem('remlo_lang'))
+  // A saved choice, or a phone already set to one of our languages, is not overridden by the country tap.
+  const languageIsSet = () => !!safeStorage.getItem('remlo_lang') || !!detectDeviceLanguage()
+  const explicitLanguage = useRef(languageIsSet())
 
   function selectCountry(c) {
     setCountry(c.code)
@@ -229,7 +233,7 @@ export default function Onboarding({ onComplete }) {
 
   if (step === 0) return <WelcomeScreen onNext={() => {
     setLang(i18n.language)
-    explicitLanguage.current = !!safeStorage.getItem('remlo_lang')
+    explicitLanguage.current = languageIsSet()
     track('onboarding_started')
     setStep(1)
     window.scrollTo(0, 0)
