@@ -189,7 +189,7 @@ export default function Scams() {
 
                   {/* Tappable header */}
                   <button
-                    className="w-full text-left px-4 pt-4 pb-4"
+                    className="w-full text-start px-4 pt-4 pb-4"
                     aria-expanded={isExpanded}
                     onClick={() => setExpandedId(isExpanded ? null : alert.id)}
                   >
@@ -202,7 +202,7 @@ export default function Scams() {
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0 ${severity.bg} ${severity.text}`}>
                         {t(`scams.severity.${alert.severity}`)}
                       </span>
-                      <span className="ml-auto text-xs flex-shrink-0 text-gray-300">
+                      <span className="ms-auto text-xs flex-shrink-0 text-gray-300">
                         {isExpanded ? '▲' : '▼'}
                       </span>
                     </div>

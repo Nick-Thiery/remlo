@@ -234,7 +234,7 @@ export default function Remittance() {
             <div>
               <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('remittance.sendLabel')}</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold" dir="ltr">S$</span>
+                <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-bold"><bdi dir="ltr">S$</bdi></span>
                 <input
                   type="number"
                   inputMode="decimal"
@@ -244,7 +244,7 @@ export default function Remittance() {
                   value={sendAmount}
                   onChange={(e) => setSendAmount(e.target.value)}
                   onBlur={() => { if (parseFloat(sendAmount) > 0) track('remittance_compared', { destination_country: country }) }}
-                  className="w-full rounded-2xl pl-10 pr-4 py-3.5 text-sm font-bold"
+                  className="w-full rounded-2xl ps-10 pe-4 py-3.5 text-sm font-bold"
                   style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   placeholder="0"
                 />
@@ -255,12 +255,12 @@ export default function Remittance() {
             <div>
               <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('remittance.countryLabel')}</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-base pointer-events-none">{dest.flag}</span>
+                <span className="absolute start-4 top-1/2 -translate-y-1/2 text-base pointer-events-none">{dest.flag}</span>
                 <select
                   aria-label={t("remittance.countryLabel")}
                   value={country}
                   onChange={(e) => setCountry(e.target.value)}
-                  className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-bold appearance-none"
+                  className="w-full rounded-2xl ps-11 pe-4 py-3.5 text-sm font-bold appearance-none"
                   style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                 >
                   {Object.entries(COUNTRIES).map(([code, c]) => (
@@ -269,7 +269,7 @@ export default function Remittance() {
                     </option>
                   ))}
                 </select>
-                <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="absolute end-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
@@ -294,9 +294,9 @@ export default function Remittance() {
                       <div className="h-3 w-28 rounded-lg skeleton" />
                     </div>
                   </div>
-                  <div className="space-y-2 text-right">
-                    <div className="h-5 w-24 rounded-lg skeleton ml-auto" />
-                    <div className="h-3 w-16 rounded-lg skeleton ml-auto" />
+                  <div className="space-y-2 text-end">
+                    <div className="h-5 w-24 rounded-lg skeleton ms-auto" />
+                    <div className="h-3 w-16 rounded-lg skeleton ms-auto" />
                   </div>
                 </div>
               </div>
@@ -381,7 +381,7 @@ export default function Remittance() {
                           </div>
                         </div>
 
-                        <div className="text-right">
+                        <div className="text-end">
                           <p className="text-2xl font-extrabold text-gray-900 tabular-nums leading-tight">
                             {formatForeignAmount(p.received, dest.symbol)}
                           </p>

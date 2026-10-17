@@ -280,7 +280,7 @@ export default function Savings() {
             style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626' }}
           >
             <span>{error}</span>
-            <button onClick={() => setError(null)} className="ml-3 font-bold text-lg leading-none">×</button>
+            <button onClick={() => setError(null)} className="ms-3 font-bold text-lg leading-none">×</button>
           </div>
         )}
 
@@ -390,7 +390,7 @@ export default function Savings() {
                 >
                   {/* Gradient top strip */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-[3px] rounded-t-3xl"
+                    className="absolute top-0 start-0 end-0 h-[3px] rounded-t-3xl"
                     style={{ position: 'relative', height: 3, background: isComplete ? '#10B981' : color.grad, borderRadius: '12px 12px 0 0', margin: '-24px -24px 20px', width: 'calc(100% + 48px)' }}
                   />
 
@@ -456,7 +456,7 @@ export default function Savings() {
                       <p className="text-xs text-gray-400 mb-0.5 font-medium">{t('savings.savedLabel')}</p>
                       <p className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(goal.saved)}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-end">
                       <p className="text-xs text-gray-400 mb-0.5 font-medium">{t('savings.remainingLabel')}</p>
                       <p
                         className="text-sm font-extrabold tabular-nums"
@@ -508,7 +508,7 @@ export default function Savings() {
                                   {entry.note && <p className="text-xs text-gray-400 mt-0.5 truncate">{entry.note}</p>}
                                 </div>
                                 <div className="flex items-center gap-2 flex-shrink-0">
-                                  <div className="text-right">
+                                  <div className="text-end">
                                     <p className="text-sm font-extrabold text-gray-900 tabular-nums">+{formatSGD(entry.amount)}</p>
                                     <p className="text-xs text-gray-400 tabular-nums">
                                       {t('savings.runningTotalLabel')}: {formatSGD(entry.runningTotal)}
@@ -545,7 +545,7 @@ export default function Savings() {
         <button
           onClick={openNewGoal}
           aria-label="Add new goal"
-          className="fixed bottom-[88px] right-4 w-14 h-14 text-white rounded-full flex items-center justify-center text-2xl font-light active:scale-90 transition-all z-30"
+          className="fixed bottom-[88px] end-4 w-14 h-14 text-white rounded-full flex items-center justify-center text-2xl font-light active:scale-90 transition-all z-30"
           style={{
             background: 'linear-gradient(135deg, #E8640C, #CC5708)',
             boxShadow: '0 8px 24px rgba(232,100,12,0.45)',
@@ -599,7 +599,7 @@ export default function Savings() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('savings.targetAmountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
+                  <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold"><bdi dir="ltr">S$</bdi></span>
                   <input
                     type="number"
                     placeholder="0.00"
@@ -608,7 +608,7 @@ export default function Savings() {
                     value={newGoalTarget}
                     onChange={(e) => setNewGoalTarget(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddGoal()}
-                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    className="w-full rounded-2xl ps-10 pe-4 py-3 text-sm font-medium"
                     style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   />
                 </div>
@@ -685,7 +685,7 @@ export default function Savings() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('savings.depositLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
+                  <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold"><bdi dir="ltr">S$</bdi></span>
                   <input
                     autoFocus
                     type="number"
@@ -695,7 +695,7 @@ export default function Savings() {
                     value={depositAmount}
                     onChange={(e) => setDepositAmount(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddDeposit()}
-                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    className="w-full rounded-2xl ps-10 pe-4 py-3 text-sm font-medium"
                     style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   />
                 </div>

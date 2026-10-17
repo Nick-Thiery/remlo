@@ -95,7 +95,7 @@ function BottomTabBar() {
           boxShadow: isDark ? '0 -4px 24px rgba(0,0,0,0.3)' : '0 -4px 24px rgba(0,0,0,0.07)',
         }}
       >
-        <div className="flex items-stretch px-1">
+        <div className="flex items-stretch">
           {TABS.map(({ path, key, Icon }) => {
             const active = key === 'more' ? onMoreSection : location.pathname === path
             return (
@@ -117,7 +117,7 @@ function BottomTabBar() {
                   strokeWidth={active ? 2.2 : 1.8}
                 />
                 <span
-                  className="text-[10px] leading-snug font-semibold transition-colors break-words w-full px-0.5"
+                  className="text-[10px] max-[340px]:text-[9px] leading-snug font-semibold tracking-tight transition-colors break-words w-full px-px"
                   style={{ color: active ? (isDark ? '#FB923C' : '#C2410C') : isDark ? '#9C9590' : '#706A64' }}
                 >
                   {t(`nav.${key}`)}
@@ -193,9 +193,9 @@ function MorePage() {
               >
                 <Icon className="w-5 h-5 text-white" strokeWidth={2} />
               </div>
-              <div className="flex-1 text-left min-w-0">
+              <div className="flex-1 text-start min-w-0">
                 <p className="text-sm font-bold" style={{ color: textPrimary }}>{t(`moreItems.${key}.label`)}</p>
-                <p className="text-xs mt-0.5 line-clamp-2" style={{ color: textSecondary }}>{t(`moreItems.${key}.desc`)}</p>
+                <p className="text-xs mt-0.5 line-clamp-3" style={{ color: textSecondary }}>{t(`moreItems.${key}.desc`)}</p>
               </div>
               <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: isDark ? '#4B5563' : '#D1D5DB' }} />
             </button>
@@ -225,14 +225,14 @@ function MorePage() {
               </button>
               {langOpen && (
                 <div
-                  className="absolute right-0 mt-1.5 w-44 rounded-2xl py-1.5 z-10 max-h-60 overflow-y-auto"
+                  className="absolute end-0 mt-1.5 w-44 rounded-2xl py-1.5 z-10 max-h-60 overflow-y-auto"
                   style={{ background: card, boxShadow: '0 8px 32px rgba(0,0,0,0.2)', border: `1px solid ${border}` }}
                 >
                   {LANGUAGES.map((l) => (
                     <button
                       key={l.code}
                       onClick={() => switchLang(l.code)}
-                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                      className={`w-full text-start px-4 py-2.5 text-sm transition-colors ${
                         l.code === i18n.language ? 'font-bold text-orange-500' : ''
                       }`}
                       style={{ color: l.code === i18n.language ? '#E8640C' : textSecondary }}

@@ -34,7 +34,7 @@ function BankCard({ style, text, feeLabel, minBalanceLabel, docsNeededLabel }) {
   const border = isDark ? '#2C2926' : '#F0EDE8'
   return (
     <div className="rounded-3xl overflow-hidden" style={{ background: card, boxShadow: '0 2px 16px rgba(0,0,0,0.06)', border: `1px solid ${border}` }}>
-      <button className="w-full flex items-center gap-4 px-4 py-4 text-left" onClick={() => setOpen((o) => !o)}>
+      <button className="w-full flex items-center gap-4 px-4 py-4 text-start" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         <div className={`w-10 h-10 rounded-xl ${style.color} flex items-center justify-center flex-shrink-0`}>
           <span className="text-white text-xs font-bold">{style.logo}</span>
         </div>

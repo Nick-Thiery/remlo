@@ -217,7 +217,7 @@ export default function Loans() {
       <div className="max-w-lg mx-auto px-4 pt-5 pb-4">
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-3 mb-6">
           <button
             aria-label={t('workshop.back')}
             onClick={() => navigate('/more')}
@@ -225,8 +225,8 @@ export default function Loans() {
           >
             <ChevronLeft className="w-4 h-4 rtl:-scale-x-100" style={{ color: textPrimary }} />
           </button>
-          <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('loans.pageTitle')}</h1>
+          <div className="flex-1 min-w-[7rem]">
+            <h1 className="text-2xl max-[340px]:text-xl break-words font-extrabold tracking-tight" style={{ color: textPrimary }}>{t('loans.pageTitle')}</h1>
             <p className="text-sm mt-0.5" style={{ color: textMuted }}>
               {t('loans.pageSubtitle', { count: activeCount })}
             </p>
@@ -325,7 +325,7 @@ export default function Loans() {
                   )}
 
                   <button
-                    className="w-full text-left px-5 pt-4 pb-4"
+                    className="w-full text-start px-5 pt-4 pb-4"
                     onClick={() => setExpandedId(isExpanded ? null : loan.id)}
                   >
                     <div className="flex items-start justify-between gap-2 mb-3">
@@ -474,7 +474,7 @@ export default function Loans() {
               <div>
                 <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.principalLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
+                  <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none"><bdi dir="ltr">S$</bdi></span>
                   <input
                     type="number"
                     placeholder="0.00"
@@ -482,7 +482,7 @@ export default function Loans() {
                     step="0.01"
                     value={fPrincipal}
                     onChange={(e) => setFPrincipal(e.target.value)}
-                    className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    className="w-full rounded-xl ps-9 pe-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                     style={{ border: `1px solid ${errors.principal ? '#FCA5A5' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : 'white', color: textPrimary }}
                   />
                 </div>
@@ -492,7 +492,7 @@ export default function Loans() {
               <div>
                 <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>
                   {t('loans.rateLabel')}
-                  <span className="ml-1.5 font-normal text-gray-400">{t('loans.rateNote')}</span>
+                  <span className="ms-1.5 font-normal text-gray-400">{t('loans.rateNote')}</span>
                 </label>
                 <div className="relative">
                   <input
@@ -502,10 +502,10 @@ export default function Loans() {
                     step="0.01"
                     value={fRate}
                     onChange={(e) => setFRate(e.target.value)}
-                    className="w-full rounded-xl px-4 pr-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    className="w-full rounded-xl px-4 pe-10 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                     style={{ border: `1px solid ${errors.rate ? '#FCA5A5' : parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? '#F87171' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : (parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD ? '#FEF2F2' : 'white'), color: textPrimary }}
                   />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">%</span>
+                  <span className="absolute end-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none">%</span>
                 </div>
                 {parseFloat(fRate) > ILLEGAL_RATE_THRESHOLD && (
                   <p className="text-xs text-red-600 mt-1 font-medium">{t('loans.rateWarning')}</p>
@@ -516,7 +516,7 @@ export default function Loans() {
               <div>
                 <label className="text-xs font-medium mb-1.5 block" style={{ color: textMuted }}>{t('loans.paymentLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none" dir="ltr">S$</span>
+                  <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none"><bdi dir="ltr">S$</bdi></span>
                   <input
                     type="number"
                     placeholder="0.00"
@@ -524,7 +524,7 @@ export default function Loans() {
                     step="0.01"
                     value={fPayment}
                     onChange={(e) => setFPayment(e.target.value)}
-                    className="w-full rounded-xl pl-9 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    className="w-full rounded-xl ps-9 pe-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                     style={{ border: `1px solid ${errors.payment ? '#FCA5A5' : (isDark ? border : '#E5E7EB')}`, background: isDark ? bg : 'white', color: textPrimary }}
                   />
                 </div>

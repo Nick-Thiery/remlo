@@ -250,7 +250,7 @@ export default function LoanShark() {
                       <p className="text-xs mt-1 leading-relaxed" style={{ color: '#374151' }}>{c.note}</p>
                     </div>
                   </div>
-                  <div className="flex-shrink-0 text-right">
+                  <div className="flex-shrink-0 text-end">
                     <p className="text-sm font-bold" style={{ color: '#111827' }}>{c.number}</p>
                     <p className="text-xs text-blue-500 mt-0.5">{t('common.tapToCall')}</p>
                   </div>

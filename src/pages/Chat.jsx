@@ -196,7 +196,7 @@ export default function Chat() {
                   key={i}
                   onClick={() => send(q)}
                   disabled={isLoading}
-                  className="text-left text-sm rounded-2xl px-4 py-3.5 font-medium transition-all active:scale-[0.98] disabled:opacity-40"
+                  className="text-start text-sm rounded-2xl px-4 py-3.5 font-medium transition-all active:scale-[0.98] disabled:opacity-40"
                   style={{
                     background: card,
                     border: `1px solid ${border2}`,
@@ -204,7 +204,7 @@ export default function Chat() {
                     boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                   }}
                 >
-                  <span style={{ color: '#E8640C' }} className="mr-2 font-bold">→</span>{q}
+                  <span style={{ color: '#E8640C' }} className="me-2 font-bold">→</span>{q}
                 </button>
               ))}
             </div>
@@ -253,8 +253,8 @@ export default function Chat() {
                         p: ({ children }) => <p className="mb-1.5 last:mb-0">{children}</p>,
                         strong: ({ children }) => <strong className="font-extrabold">{children}</strong>,
                         em: ({ children }) => <em className="italic">{children}</em>,
-                        ul: ({ children }) => <ul className="list-disc pl-4 mb-1.5 space-y-0.5">{children}</ul>,
-                        ol: ({ children }) => <ol className="list-decimal pl-4 mb-1.5 space-y-0.5">{children}</ol>,
+                        ul: ({ children }) => <ul className="list-disc ps-4 mb-1.5 space-y-0.5">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal ps-4 mb-1.5 space-y-0.5">{children}</ol>,
                         li: ({ children }) => <li>{children}</li>,
                         code: ({ children }) => <code className="bg-gray-100 rounded px-1 py-0.5 text-xs font-mono">{children}</code>,
                       }}

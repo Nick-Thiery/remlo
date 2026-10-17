@@ -226,10 +226,10 @@ export default function ScamQuiz() {
                 className={`w-full text-start border rounded-xl px-4 py-3.5 text-sm leading-snug transition-all active:scale-[0.98] disabled:cursor-default ${optClass}`}
                 style={optStyle}
               >
-                <span className="font-medium mr-2">{String.fromCharCode(65 + idx)}.</span>
+                <span className="font-medium me-2">{String.fromCharCode(65 + idx)}.</span>
                 {opt.text}
-                {answered && opt.correct             && <span className="ml-2 text-emerald-600 font-semibold">✓</span>}
-                {answered && idx === selected && !opt.correct && <span className="ml-2 text-red-500 font-semibold">✗</span>}
+                {answered && opt.correct             && <span className="ms-2 text-emerald-600 font-semibold">✓</span>}
+                {answered && idx === selected && !opt.correct && <span className="ms-2 text-red-500 font-semibold">✗</span>}
               </button>
             )
           })}

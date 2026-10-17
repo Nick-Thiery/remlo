@@ -85,7 +85,7 @@ function StackedBar({ segments, trackBg = '#F0EDE8' }) {
         seg.pct > 0 ? (
           <div
             key={i}
-            className={`${seg.color} transition-all duration-500 first:rounded-l-full last:rounded-r-full`}
+            className={`${seg.color} transition-all duration-500 first:rounded-s-full last:rounded-e-full`}
             style={{ width: `${seg.pct}%` }}
             title={`${seg.label}: ${seg.pct.toFixed(1)}%`}
           />
@@ -537,7 +537,7 @@ export default function Budget() {
         >
           <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.incomeLabel')}</label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
+            <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold"><bdi dir="ltr">S$</bdi></span>
             <input
               type="number"
               min="0"
@@ -546,7 +546,7 @@ export default function Budget() {
               onChange={(e) => { setIncome(e.target.value); incomeDirty.current = true }}
               onBlur={() => saveBudget(income, expenses)}
               onKeyDown={(e) => { if (e.key === 'Enter') e.target.blur() }}
-              className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium text-gray-900"
+              className="w-full rounded-2xl ps-10 pe-4 py-3 text-sm font-medium text-gray-900"
               style={{ border: `2px solid ${border2}`, background: bg, outline: 'none' }}
               placeholder="0"
               aria-describedby="budget-income-hint"
@@ -593,17 +593,17 @@ export default function Budget() {
         {monthlyIncome > 0 && (
           <div className="grid grid-cols-3 gap-3 mb-4">
             <div
-              className="rounded-2xl p-4"
+              className="rounded-2xl px-3 py-4"
               style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
             >
-              <p className="text-xs text-gray-400 mb-1 font-semibold">{t('budget.summaryIncome')}</p>
+              <p className="text-xs max-[340px]:text-[10px] text-gray-400 mb-1 font-semibold">{t('budget.summaryIncome')}</p>
               <p className="text-base font-extrabold text-gray-900 tabular-nums">{formatSGD(monthlyIncome)}</p>
             </div>
             <div
-              className="rounded-2xl p-4"
+              className="rounded-2xl px-3 py-4"
               style={{ background: card, boxShadow: '0 2px 12px rgba(0,0,0,0.05)', border: `1px solid ${border}` }}
             >
-              <p className="text-xs text-gray-400 mb-1 font-semibold">{t('budget.summaryExpenses')}</p>
+              <p className="text-xs max-[340px]:text-[10px] text-gray-400 mb-1 font-semibold">{t('budget.summaryExpenses')}</p>
               <p
                 className="text-base font-extrabold tabular-nums"
                 style={{ color: isOverBudget ? '#DC2626' : isDark ? '#F5F2EE' : '#1A1A1A' }}
@@ -612,14 +612,14 @@ export default function Budget() {
               </p>
             </div>
             <div
-              className="rounded-2xl p-4"
+              className="rounded-2xl px-3 py-4"
               style={{
                 background: isOverBudget ? (isDark ? '#2D1515' : '#FEF2F2') : (isDark ? '#0F2A1A' : '#F0FDF4'),
                 border: isOverBudget ? (isDark ? '1px solid #4B2020' : '1px solid #FECACA') : (isDark ? '1px solid #1A4A2A' : '1px solid #BBF7D0'),
                 boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
               }}
             >
-              <p className="text-xs text-gray-400 mb-1 font-semibold">{isOverBudget ? t('budget.summaryOverBy') : t('budget.summaryLeftOver')}</p>
+              <p className="text-xs max-[340px]:text-[10px] text-gray-400 mb-1 font-semibold">{isOverBudget ? t('budget.summaryOverBy') : t('budget.summaryLeftOver')}</p>
               <p
                 className="text-base font-extrabold tabular-nums"
                 style={{ color: isOverBudget ? '#DC2626' : '#047857' }}
@@ -716,7 +716,7 @@ export default function Budget() {
                       <div className="flex items-center gap-3 flex-shrink-0">
                         {editingKey === e.id ? (
                           <div className="relative">
-                            <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none" dir="ltr">S$</span>
+                            <span className="absolute start-2 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none"><bdi dir="ltr">S$</bdi></span>
                             <input
                               autoFocus
                               type="number"
@@ -729,7 +729,7 @@ export default function Budget() {
                                 if (ev.key === 'Enter') ev.target.blur()
                                 if (ev.key === 'Escape') { setEditingKey(null); setEditingValue('') }
                               }}
-                              className="w-24 rounded-xl pl-6 pr-2 py-1 text-sm font-bold"
+                              className="w-24 rounded-xl ps-6 pe-2 py-1 text-sm font-bold"
                               style={{ border: '2px solid #E8640C', outline: 'none' }}
                             />
                           </div>
@@ -764,7 +764,7 @@ export default function Budget() {
                     </div>
 
                     {/* Actual spend tracking */}
-                    <div className="flex items-center justify-between mt-2.5 pl-5">
+                    <div className="flex items-center justify-between mt-2.5 ps-5">
                       <p className="text-xs text-gray-400 font-medium">
                         {t('budget.spentThisMonthLabel')}{': '}
                         <span className="font-bold tabular-nums" style={{ color: isDark ? '#F5F2EE' : '#1A1A1A' }}>
@@ -794,7 +794,7 @@ export default function Budget() {
                     </button>
 
                     {isHistoryOpen && (
-                      <div className="mt-2 pl-5">
+                      <div className="mt-2 ps-5">
                         {categoryEntries.length === 0 ? (
                           <p className="text-xs text-gray-400 italic py-2">{t('budget.noEntriesYet')}</p>
                         ) : (
@@ -810,7 +810,7 @@ export default function Budget() {
                                   {entry.note && <p className="text-xs text-gray-400 mt-0.5 truncate">{entry.note}</p>}
                                 </div>
                                 <div className="flex items-center gap-2 flex-shrink-0">
-                                  <div className="text-right">
+                                  <div className="text-end">
                                     <p className="text-sm font-extrabold text-gray-900 tabular-nums">{formatSGD(entry.amount)}</p>
                                     <p className="text-xs text-gray-400 tabular-nums">
                                       {t('budget.runningTotalLabel')}: {formatSGD(entry.runningTotal)}
@@ -858,7 +858,7 @@ export default function Budget() {
                 />
               </div>
               <div className="relative w-28">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
+                <span className="absolute start-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none font-semibold"><bdi dir="ltr">S$</bdi></span>
                 <input
                   type="number"
                   placeholder="0"
@@ -867,7 +867,7 @@ export default function Budget() {
                   value={newAmount}
                   onChange={(e) => setNewAmount(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddExpense()}
-                  className="w-full rounded-xl pl-7 pr-2 py-2.5 text-sm font-medium"
+                  className="w-full rounded-xl ps-7 pe-2 py-2.5 text-sm font-medium"
                   style={{
                     border: `2px solid ${amountError ? '#FCA5A5' : border2}`,
                     background: bg,
@@ -1027,7 +1027,7 @@ export default function Budget() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('salary.amountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
+                  <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold"><bdi dir="ltr">S$</bdi></span>
                   <input
                     autoFocus
                     type="number"
@@ -1037,7 +1037,7 @@ export default function Budget() {
                     value={incAmount}
                     onChange={(e) => setIncAmount(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddIncome()}
-                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    className="w-full rounded-2xl ps-10 pe-4 py-3 text-sm font-medium"
                     style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   />
                 </div>
@@ -1140,7 +1140,7 @@ export default function Budget() {
               <div>
                 <label className="text-xs font-bold text-gray-500 mb-1.5 block">{t('budget.spendAmountLabel')}</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold" dir="ltr">S$</span>
+                  <span className="absolute start-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 pointer-events-none font-semibold"><bdi dir="ltr">S$</bdi></span>
                   <input
                     autoFocus
                     type="number"
@@ -1150,7 +1150,7 @@ export default function Budget() {
                     value={logAmount}
                     onChange={(e) => setLogAmount(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddLog()}
-                    className="w-full rounded-2xl pl-10 pr-4 py-3 text-sm font-medium"
+                    className="w-full rounded-2xl ps-10 pe-4 py-3 text-sm font-medium"
                     style={{ border: `2px solid ${border2}`, background: bg, outline: 'none', color: isDark ? '#F5F2EE' : '#1A1A1A' }}
                   />
                 </div>
