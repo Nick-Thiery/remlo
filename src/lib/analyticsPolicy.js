@@ -41,7 +41,7 @@ const ALLOWED_VALUES = {
 // Where a person first came from: a fixed code in the QR or link they opened
 // (remloapp.com/?source=healthserve&channel=qr-card). Only these values are
 // accepted; anything else in the URL is ignored. Add a code here before printing it.
-export const CAMPAIGN_SOURCES = ['the-leo', 'mwc', 'healthserve', 'ace', 'aidha', 'raincoats', 'hc-india', 'share', 'scal', 'acmi', 'home', 'cde', 'twc2', 'icai', 'mwo-ph', 'vn-embassy', 'ff-site']
+export const CAMPAIGN_SOURCES = ['the-leo', 'mwc', 'healthserve', 'ace', 'aidha', 'raincoats', 'hc-india', 'share', 'scal', 'acmi', 'home', 'cde', 'twc2', 'icai', 'mwo-ph', 'vn-embassy', 'ff-site', 'hia']
 export const CAMPAIGN_CHANNELS = ['workshop', 'qr-card', 'poster', 'video', 'whatsapp', 'sip', 'quiz-share', 'web']
 
 const validCampaign = (source, channel) =>
