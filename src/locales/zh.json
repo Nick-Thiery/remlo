@@ -249,6 +249,7 @@
     "estimateBadge": "估算",
     "wiseQuoteSource": "来自 Wise 的参考报价，获取时间 {{time}} SGT",
     "wiseQuoteNote": "汇款前，Wise 会确认最终报价。",
+    "wiseAffiliateDisclosure": "如果你通过我们的 Wise 链接注册并完成符合条件的交易，Remlo 可能会获得佣金。",
     "wiseChecking": "正在获取 Wise 参考报价…",
     "wiseNotAvailable": "Wise 不提供从新加坡汇款到{{country}}的服务。",
     "visitProvider": "前往 {{name}}",

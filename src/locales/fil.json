@@ -249,6 +249,7 @@
     "estimateBadge": "Tantya",
     "wiseQuoteSource": "Indicative na quote mula sa Wise, kinuha nang {{time}} SGT",
     "wiseQuoteNote": "Kinukumpirma ng Wise ang huling quote bago ka magpadala.",
+    "wiseAffiliateDisclosure": "Maaaring kumita ng komisyon ang Remlo kung mag-sign up ka sa aming Wise link at makumpleto ang isang kwalipikadong transaksyon.",
     "wiseChecking": "Kinukuha ang indicative na quote ng Wise…",
     "wiseNotAvailable": "Hindi nagpapadala ang Wise ng pera mula Singapore papuntang {{country}}.",
     "visitProvider": "Pumunta sa {{name}}",
