@@ -24,7 +24,8 @@ const SECTIONS = [
     title: 'Remittance Rates',
     body: [
       'Exchange rates and fees shown in the Remittance Comparator are illustrative estimates based on publicly available data, except the Wise row when it is marked as an indicative quote. Estimates are not provider quotes and are not ranked against Wise. They may not be exactly what a provider offers you.',
-      'An indicative quote from Wise comes from Wise\'s public quote service at the time shown. It is indicative: Wise confirms the final quote before you send. Remlo does not receive payment for showing it.',
+      'An indicative quote from Wise comes from Wise\'s public quote service at the time shown. It is indicative: Wise confirms the final quote before you send.',
+      'When the "Go to Wise" button uses our referral link, Remlo may earn a commission if you sign up through our Wise link and complete a qualifying transaction. Any commission is paid by Wise. It does not change the figures Remlo shows or the order of providers, and it goes towards the cost of running Remlo.',
       'Always confirm the final rate and fee directly with the provider before sending money.',
     ],
   },

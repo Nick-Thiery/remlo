@@ -30,6 +30,7 @@ const SECTIONS = [
       'Your account and financial data is stored using Supabase, a secure cloud database. All data is encrypted when sent over the internet and when stored.',
       'Scam alerts are fetched from our Supabase Edge Functions — these are small server programs that run in the cloud. No personal data is sent during this process.',
       'When you compare transfers, the amount and the destination currency are sent from our server to Wise to get an indicative quote. Nothing that identifies you is sent to Wise, and we do not store the amount.',
+      'If you tap "Go to Wise" while it uses our referral link, the link passes through Partnerize, the service Wise uses to track referrals. Partnerize and Wise may record that you came from Remlo, for example with a cookie, so that a referral can be credited. Their own privacy policies apply on their sites.',
       'Guest budgets and savings are stored on this device. If you later sign in, they can be uploaded to your account. AI chat messages are sent for processing even in guest mode.',
     ],
   },

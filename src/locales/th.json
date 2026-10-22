@@ -249,6 +249,7 @@
     "estimateBadge": "ประมาณการ",
     "wiseQuoteSource": "ราคาโดยประมาณจาก Wise ดึงข้อมูลเมื่อ {{time}} SGT",
     "wiseQuoteNote": "Wise จะยืนยันราคาสุดท้ายก่อนคุณโอน",
+    "wiseAffiliateDisclosure": "Remlo อาจได้รับค่าคอมมิชชันหากคุณสมัครผ่านลิงก์ Wise ของเราและทำธุรกรรมที่เข้าเงื่อนไขสำเร็จ",
     "wiseChecking": "กำลังดึงราคาอ้างอิงจาก Wise…",
     "wiseNotAvailable": "Wise ไม่มีบริการโอนเงินจากสิงคโปร์ไป{{country}}",
     "visitProvider": "ไปที่ {{name}}",
