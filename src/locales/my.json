@@ -249,6 +249,7 @@
     "estimateBadge": "ခန့်မှန်းချက်",
     "wiseQuoteSource": "Wise ၏ ခန့်မှန်းဈေးနှုန်း၊ {{time}} SGT တွင် ရယူခဲ့သည်",
     "wiseQuoteNote": "ငွေမပို့မီ Wise က နောက်ဆုံးဈေးနှုန်းကို အတည်ပြုပါသည်။",
+    "wiseAffiliateDisclosure": "ကျွန်ုပ်တို့၏ Wise လင့်ခ်မှတစ်ဆင့် စာရင်းသွင်းပြီး သတ်မှတ်ချက်ပြည့်မီသော ငွေလွှဲမှုတစ်ခု ပြုလုပ်ပါက Remlo သည် ကော်မရှင်ရနိုင်ပါသည်။",
     "wiseChecking": "Wise ၏ ညွှန်ပြဈေးနှုန်းကို ရယူနေသည်…",
     "wiseNotAvailable": "Wise သည် စင်္ကာပူမှ {{country}} သို့ ငွေမပို့ပါ။",
     "visitProvider": "{{name}} သို့ သွားရန်",

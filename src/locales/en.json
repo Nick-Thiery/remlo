@@ -253,6 +253,7 @@
     "estimateBadge": "Estimate",
     "wiseQuoteSource": "Indicative quote from Wise, retrieved at {{time}} SGT",
     "wiseQuoteNote": "Wise confirms the final quote before you send.",
+    "wiseAffiliateDisclosure": "Remlo may earn a commission if you sign up through our Wise link and complete a qualifying transaction.",
     "wiseChecking": "Getting an indicative quote from Wise…",
     "wiseNotAvailable": "Wise doesn't send money from Singapore to {{country}}.",
     "visitProvider": "Go to {{name}}",

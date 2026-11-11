@@ -249,6 +249,7 @@
     "estimateBadge": "Perkiraan",
     "wiseQuoteSource": "Kuotasi indikatif dari Wise, diambil pukul {{time}} SGT",
     "wiseQuoteNote": "Wise mengonfirmasi kuotasi akhir sebelum kamu mengirim.",
+    "wiseAffiliateDisclosure": "Remlo bisa mendapat komisi jika kamu mendaftar lewat tautan Wise kami dan menyelesaikan transaksi yang memenuhi syarat.",
     "wiseChecking": "Mengambil kuotasi indikatif Wise…",
     "wiseNotAvailable": "Wise tidak mengirim uang dari Singapura ke {{country}}.",
     "visitProvider": "Buka {{name}}",

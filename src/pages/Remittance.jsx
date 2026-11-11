@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, Fragment } from 'react'
 import { ArrowLeftRight, RefreshCw, WifiOff, Zap, ExternalLink } from 'lucide-react'
 import { fetchJson } from '../lib/fetchJson.js'
+import { wiseLink } from '../lib/affiliate.js'
 import { fetchWiseQuote, speedLabelFor, singaporeTime, roundCents, WISE_UNSUPPORTED, QUOTE_MIN_SGD, QUOTE_MAX_SGD } from '../lib/wiseQuote.js'
 import { track } from '../lib/analytics.js'
 import { useTranslation } from 'react-i18next'
@@ -28,7 +29,7 @@ const FALLBACK_MID_RATES = {
 
 const PROVIDER_CONFIG = [
   {
-    id: 'wise', name: 'Wise', url: 'https://wise.com/',
+    id: 'wise', name: 'Wise', ...wiseLink(),
     grad: 'linear-gradient(135deg, #10B981, #059669)',
     // Used only when the Wise quote can't be fetched. Fitted to Wise's own
     // PayNow quotes at S$100 and S$1,000 (10 Oct 2026): Wise uses the market
@@ -428,11 +429,16 @@ export default function Remittance() {
                             <RefreshCw className="w-3 h-3 animate-spin" /> {t('remittance.wiseChecking')}
                           </p>
                         ) : null}
+                        {p.url && p.referral && (
+                          <p className="text-xs font-medium leading-relaxed" style={{ color: isDark ? '#D6D0CA' : '#44403C' }}>
+                            {t('remittance.wiseAffiliateDisclosure')}
+                          </p>
+                        )}
                         {p.url && (
                           <a
                             href={p.url}
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel={p.referral ? 'sponsored noopener noreferrer' : 'noopener noreferrer'}
                             className="inline-flex items-center gap-1 text-xs font-bold py-1"
                             style={{ color: isDark ? '#FB923C' : '#C2410C' }}
                           >

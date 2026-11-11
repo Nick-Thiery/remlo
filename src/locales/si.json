@@ -249,6 +249,7 @@
     "estimateBadge": "ඇස්තමේන්තුව",
     "wiseQuoteSource": "Wise වෙතින් ලැබුණු ආසන්න මිල ගණනක්, {{time}} SGT ට ලබා ගත්",
     "wiseQuoteNote": "මුදල් යැවීමට පෙර Wise අවසාන මිල ගණන තහවුරු කරයි.",
+    "wiseAffiliateDisclosure": "ඔබ අපගේ Wise සබැඳිය හරහා ලියාපදිංචි වී සුදුසුකම් ලත් ගනුදෙනුවක් සම්පූර්ණ කළහොත්, Remlo හට කොමිස් මුදලක් ලැබිය හැක.",
     "wiseChecking": "Wise හි ඇඟවුම් මිල ගණන ලබා ගනිමින්…",
     "wiseNotAvailable": "Wise සිංගප්පූරුවේ සිට {{country}} වෙත මුදල් යවන්නේ නැත.",
     "visitProvider": "{{name}} වෙත යන්න",

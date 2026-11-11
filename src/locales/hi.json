@@ -249,6 +249,7 @@
     "estimateBadge": "अनुमान",
     "wiseQuoteSource": "Wise से अनुमानित कोट, {{time}} SGT पर लिया गया",
     "wiseQuoteNote": "पैसे भेजने से पहले Wise अंतिम कोट की पुष्टि करता है।",
+    "wiseAffiliateDisclosure": "अगर आप हमारे Wise लिंक से साइन अप करते हैं और एक योग्य लेनदेन पूरा करते हैं, तो Remlo को कमीशन मिल सकता है।",
     "wiseChecking": "Wise का संकेतात्मक कोट लिया जा रहा है…",
     "wiseNotAvailable": "Wise सिंगापुर से {{country}} पैसे नहीं भेजता।",
     "visitProvider": "{{name}} पर जाएं",

@@ -256,6 +256,7 @@
     "estimateBadge": "Ước tính",
     "wiseQuoteSource": "Báo giá tham khảo từ Wise, lấy lúc {{time}} SGT",
     "wiseQuoteNote": "Wise xác nhận báo giá cuối cùng trước khi bạn gửi.",
+    "wiseAffiliateDisclosure": "Remlo có thể nhận hoa hồng nếu bạn đăng ký qua liên kết Wise của chúng tôi và hoàn tất một giao dịch đủ điều kiện.",
     "wiseNotAvailable": "Wise không chuyển tiền từ Singapore sang {{country}}.",
     "visitProvider": "Đến {{name}}",
     "speedWithinHours": "Trong vòng {{count}} giờ",
