@@ -62,6 +62,10 @@ test('links from the FinanceForward site are tagged ff-site / web', () => {
   assert.deepEqual(campaignFromSearch('?source=ff-site&channel=web'),{source:'ff-site',channel:'web'})
   assert.deepEqual(campaignFromSearch('?source=ff-site&channel=Web'),{})
 })
+test('links from the Hope Initiative Alliance class are tagged hia / workshop', () => {
+  assert.deepEqual(campaignFromSearch('?source=hia&channel=workshop'),{source:'hia',channel:'workshop'})
+  assert.deepEqual(campaignFromSearch('?source=hia.sg&channel=workshop'),{})
+})
 test('a stored campaign round-trips, and bad stored values are dropped', () => {
   const c={source:'mwc',channel:'sip'}
   assert.deepEqual(parseCampaign(formatCampaign(c)),c)
